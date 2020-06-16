@@ -1,13 +1,17 @@
 User Stories:
 
 As a user, I want to be able to save the current working directory onto
-the directory stack and change to the new working directory 
+the directory stack and change to the new working directory so that I can 
+resue the directory path at a later time during the current session
 (1 day)
 
 As a user, I want to be able to remove the top entry from the directory stack
-and then make it the new working directory 
+and then make it the new working directory so that I can go back to an older
+working directory 
 (3 hrs)
 
 As a user, I want to be able to look back at all past commands that has
-been inputted or the last X number of commands from the current session
+been inputted or the last X number of commands from the current session 
+from oldest to most recent order so that I can keep track of the changes
+done in this session
 (2 hrs)
