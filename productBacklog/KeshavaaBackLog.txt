@@ -1,0 +1,5 @@
+Users should be able to make folders with the mkdir command. 1 day
+
+Users should be able to enter directories with the cd command. 2 days
+
+Users should be able list all files in a directory with the ls command. 1 day
