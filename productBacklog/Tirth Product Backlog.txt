@@ -1,5 +1,0 @@
-Product Backlog
-cat FILE1   [FILE2...]: User can display the contents of a file(s) | 1-2 hours
-echoOverwrite STRING [>OUTFILE]: User can print out string, or if file is given, then overwrite its contents with string | 2-3 hours
-echoAppend STRING >> OUTFILE: User can print out string, or if file is given, then append its contents with string | 2-3 hours
-man CMD: Prints out documentation for given command | 1-2 hours

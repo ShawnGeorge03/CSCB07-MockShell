@@ -1,48 +1,48 @@
 Backlog item                                                     | Estimated Time (hrs or days) 
 ===============================================================================================
-01) As a user, I want to be able to quit/leave the shell/program |   2 hours
+01) As a user, I want to be able to quit/leave the shell/program |   1 day
 ===============================================================================================                                                                
-02) As a user, I want to be able to convert text to audio and    |   1 day
-   listen to the pronounciation of words                         |
+02) As a user, I want to be able to convert text to audio and    |   2 days
+    listen to the pronounciation of words                        |
 ===============================================================================================
-03) As a user, I want to be able to view my current working      |   3 hours 
+03) As a user, I want to be able to view my current working      |   1 day 
     directory, as well as the path                               |
 ===============================================================================================
-04) Users should be able to make folders with the mkdir command  |   1 day
+04) Users should be able to make folders with the mkdir command  |   2 days
 ===============================================================================================
-05) Users should be able to enter directories with the cd        |   2 day
+05) Users should be able to enter directories with the cd        |   3 days
     command                                                      |
 ===============================================================================================                                                              
-06) Users should be able list all files in a directory with the  |   1 day
+06) Users should be able list all files in a directory with the  |   2 days
     ls command                                                   |       
 ===============================================================================================                                                               
-07) As a user, I want to be able to save the current working     |   1 day 
+07) As a user, I want to be able to save the current working     |   2 days
     directory onto the directory stack and change to the new     | 
     working directory so that I can resue the directory path     |
     at a later time during the current session                   |
 ===============================================================================================                                                                
-08) As a user, I want to be able to remove the top entry from    |   3 hours
+08) As a user, I want to be able to remove the top entry from    |   3 days
     the directory stack and then make it the new working         |
     directory so that I can go back to an older working          |
     directory                                                    |
 ===============================================================================================
-09) As a user, I want to be able to look back at all past        |   2 hours
+09) As a user, I want to be able to look back at all past        |   2 days
     commands that has been inputted or the last X number of      | 
     commands from the current session from oldest to most        |
     recent order so that I can keep track of the changes done    |
     in this session                                              |
 ===============================================================================================
-10) User can display the contents of a file(s)                   | 1-2 hours
+10) User can display the contents of a file(s)                   |   2 days
 ===============================================================================================
-11) User can print out string, or if file is given, then         | 2-3 hours
+11) User can print out string, or if file is given, then         |   2 days
     overwrite its contents with string                           | 
 ===============================================================================================
-12) User can print out string, or if file is given, then append  | 2-3 hours 
+12) User can print out string, or if file is given, then append  |   2 days 
     its contents with string                                     |
 ===============================================================================================
-13) Prints out documentation for given command                   | 1-2 hours
+13) Prints out documentation for given command                   |   2 days
 ===============================================================================================
-14) As a user I should able to space part(s) of my command out   |   2 hours  
+14) As a user I should able to space part(s) of my command out   |   1 day  
     by more than 1 space of tab and still recive the appropiate  |
     output for my input                                          |
 ===============================================================================================
