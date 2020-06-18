@@ -1,0 +1,35 @@
+//Sprint 1 Backlog.  
+June 17th to June 23rd
+
+
+User Stories from Product Backlog that we will address in this sprint:
+a) Prompt the user for input
+b) Parse the user input through an interpreter
+c) As a user, I want to be able to quit/leave the shell/program
+d) As a user, I want to be able to convert text to audio and listen to the pronounciation of words
+
+Specific tasks to be accomplished:
+a-1. (JShell) Collect user input from the Java Consele
+a-2. (JShell) Pass the information to Checker 
+b-1. (Checker) Parse the infromation to form a proper command
+b-2. (Checker) Build process of looking for errors
+b-3. (Checker) Check for errors in the given command 
+c-1. (Exit) Build system to exit the shell program
+d-1. (Speak) Figure out how use FreeTTS
+d-2. (Speak) Collect information from the user 
+d-3. (Speak) Return audio
+e-1. (FileSystem) Create Data Structure and Class
+
+These tasks are assigned as follows:
+
+User: Abhay
+Tasks:b-1, b-2, b-3 
+
+User: Tirth Patel
+Tasks: a-1, a-2, c-1
+
+User: Kesheva
+Tasks: e-1
+
+User: Shawn Santhoshgeorge
+Tasks: d-1, d-2, d-3
