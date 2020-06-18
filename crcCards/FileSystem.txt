@@ -1,0 +1,9 @@
+Class name: FileSystem
+Parent class:
+Subclasses:
+
+Responsibilties:
+*Store the information about the directories for convenient access 
+
+Collaborators:
+*Shell

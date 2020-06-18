@@ -1,0 +1,9 @@
+Class name: Man
+Parent class:
+Subclasses:
+
+Responsibilties:
+*Displays the documentation corresponding to the user-inputted command
+
+Collaborators:
+*Command

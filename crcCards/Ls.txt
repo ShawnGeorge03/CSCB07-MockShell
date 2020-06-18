@@ -1,5 +1,5 @@
 Class name: Ls
-Parent class: Command
+Parent class:
 Subclasses:
 
 Responsibilties:
