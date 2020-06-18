@@ -1,9 +1,0 @@
-Class name: Get
-Parent class: Command
-Subclasses:
-
-Responsibilties:
-*Downloads files from given web address to the current directory
-
-Collaborators:
-*DirectoryManager
