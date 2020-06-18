@@ -1,5 +1,5 @@
 Class name: EchoAppend
-Parent class: Command
+Parent class:
 Subclasses:
 
 Responsibilties:
@@ -8,5 +8,4 @@ Responsibilties:
 *If file does exist and has existing contents, the given string is appended to the end of the prewritten contents
 
 Collaborators:
-*Cp (For the shell to copy the data given by user)
 *DirectoryManager

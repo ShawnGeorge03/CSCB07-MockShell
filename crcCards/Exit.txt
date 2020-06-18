@@ -1,5 +1,5 @@
 Class name: Exit
-Parent class: Command
+Parent class:
 Subclasses:
 
 Responsibilties:

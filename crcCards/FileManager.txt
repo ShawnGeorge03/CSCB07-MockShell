@@ -1,0 +1,9 @@
+Class name: FileManager
+Parent class:
+Subclasses:
+
+Responsibilties:
+*Initializes the correct file class based of user input
+
+Collaborators:
+*Parser

@@ -1,5 +1,5 @@
 Class name: EchoOverwrite
-Parent class: Command
+Parent class:
 Subclasses:
 
 Responsibilties:
@@ -8,5 +8,4 @@ Responsibilties:
 *If file does exist and has existing contents, it is replaced by user's string that they gave
 
 Collaborators:
-*Cp (For the shell to copy the data given by user)
 *DirectoryManager
