@@ -1,6 +1,6 @@
 Class name: Pwd
-Parent class: Command
-Subclasses:
+Parent class: N/A
+Subclasses: N/A
 
 Responsibilties:
 *Displays the directory the user which includes the entire path

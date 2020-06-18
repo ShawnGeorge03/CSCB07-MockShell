@@ -1,0 +1,11 @@
+Class Name: Speak
+Parent Class: N/A
+Subclass: N/A
+
+Responsibilities:
+* Waits for user input if no text initially provided
+* Returns an audible speech if text is provided
+* Closes the program when special keyword in provided
+
+Collaborators:
+*Command

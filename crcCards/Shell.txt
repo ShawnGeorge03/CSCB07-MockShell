@@ -1,11 +1,11 @@
 Class name: Shell
-Parent class:
-Subclasses:
+Parent class: N/A
+Subclasses: N/A
 
 Responsibilties:
 *Opens up the shell and presents the command line to user
-*Interacts with OS
+*Collects user input and passes it to another class
 
 Collaborators:
-*DirectoryManager
-
+*FileSystem
+*Checker

@@ -1,0 +1,13 @@
+Class name: PopAndPush
+Parent class: N/A
+Subclasses: N/A
+
+Responsibilties:
+* Creates a directory stack
+* Pushes an old working directory to the directory stack
+* Pops the top directory path from the directory stack
+
+Collaborators:
+*DirectoryManager
+*FileSystem
+*Cd
