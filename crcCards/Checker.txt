@@ -1,0 +1,10 @@
+Class name: Checker
+Parent class: 
+Subclasses:
+
+Responsibilties:
+*Checks if user input is valid or not
+
+Collaborators:
+*Shell
+*ErrorMessage

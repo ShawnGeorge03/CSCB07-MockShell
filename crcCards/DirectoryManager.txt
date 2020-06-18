@@ -6,3 +6,5 @@ Resposibilities:
 *Manages functions pertaining to directory changes within the system
 
 Collaborators:
+*FileSystem
+*Command
