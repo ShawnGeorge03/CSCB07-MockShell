@@ -34,7 +34,16 @@ public class JShell {
   public static void main(String[] args) {
     // TODO Auto-generated method stub
 	  
+	  FileSystem instance = null;
+	  instance = instance.getFileSys();
 	  
+	  instance.putInt(5);
+	  
+	  FileSystem newinstance = null;
+	  newinstance = newinstance.getFileSys();
+	  
+	  System.out.println(instance.getInt());
+	  System.out.println(newinstance.getInt());
   }
 
 }
