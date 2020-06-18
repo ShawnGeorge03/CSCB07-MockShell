@@ -1,5 +1,5 @@
 Class name: Cat
-Parent class: Command
+Parent class: N/A
 Subclasses:
 
 Responsibilties:
@@ -8,3 +8,4 @@ Responsibilties:
 Collaborators:
 *DirectoryManager
 *FileManager
+*FileSystem

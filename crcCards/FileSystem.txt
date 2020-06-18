@@ -6,5 +6,12 @@ Responsibilties:
 *Store the information about the directories for convenient access 
 
 Collaborators:
-*Shell
-*Parser
+*Cat
+*Cd
+*EchoAppend
+*EchoOverwrite
+*Mkdir
+*PopAndPush
+*Pwd
+*Ls
+

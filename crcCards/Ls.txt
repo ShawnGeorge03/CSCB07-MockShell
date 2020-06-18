@@ -7,3 +7,5 @@ Responsibilties:
 
 Collaborators:
 *DirectoryManager
+*FileSystem
+*FileManager

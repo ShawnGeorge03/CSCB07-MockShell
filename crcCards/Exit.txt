@@ -6,4 +6,4 @@ Responsibilties:
 *Exits the shell program
 
 Collaborators:
-*Shell
+*Checker

@@ -1,9 +1,11 @@
 Class name: Cd
-Parent class: Command
+Parent class: N/A
 Subclasses:
 
 Responsibilties:
 *Changes directory to user's requested location
+*Accepts both relative path and absolute path
 
 Collaborators:
 *DirectoryManager
+*FileSystem

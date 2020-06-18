@@ -7,4 +7,5 @@ Responsibilties:
 
 Collaborators:
 *Shell
+*Command
 *ErrorMessage
