@@ -1,0 +1,12 @@
+Class name: EchoAppend
+Parent class: Command
+Subclasses:
+
+Responsibilties:
+*Write given string into given file
+*If file does not exists in the directory, it is created and then the string is written in there
+*If file does exist and has existing contents, the given string is appended to the end of the prewritten contents
+
+Collaborators:
+*Cp (For the shell to copy the data given by user)
+*DirectoryManager

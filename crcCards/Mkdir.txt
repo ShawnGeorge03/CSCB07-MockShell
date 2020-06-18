@@ -1,0 +1,9 @@
+Class name: Mkdir
+Parent class: Command
+Subclasses:
+
+Responsibilties:
+*Creates new directory where the user requests
+
+Collaborators:
+*DirectoryManager

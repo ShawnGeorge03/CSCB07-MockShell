@@ -1,0 +1,9 @@
+Class Name: Command
+Parent Class:
+Subclass: Cat, Cd, Cp, EchoAppend, EchoOverwrite, Exit, Get, Ls, Mkdir, Mv, Pwd
+
+Responsibilities:
+*Manages commands that the user requests into the shell
+
+Collaborators:
+*DirectoryManager

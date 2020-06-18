@@ -1,0 +1,10 @@
+Class name: Cp
+Parent class: Command
+Subclasses:
+
+Responsibilties:
+*Copies file from one directory to another directory given by user's request
+*Does not remove copy from old directory
+
+Collaborators:
+*DirectoryManager

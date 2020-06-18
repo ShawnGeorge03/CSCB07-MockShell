@@ -1,0 +1,11 @@
+Class name: Mv
+Parent class: Command
+Subclasses:
+
+Responsibilties:
+*Moves files from a directory to another directory given by  the user's request
+*Removes file that was moved at original location
+
+Collaborators:
+*Cd (So that the shell can traverse to the destination directory)
+*DirectoryManager

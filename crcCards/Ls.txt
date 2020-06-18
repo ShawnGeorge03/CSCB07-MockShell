@@ -1,0 +1,9 @@
+Class name: Ls
+Parent class: Command
+Subclasses:
+
+Responsibilties:
+*Displays all files and directories that reside in the user's current directory
+
+Collaborators:
+*DirectoryManager

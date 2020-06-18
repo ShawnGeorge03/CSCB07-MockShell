@@ -1,0 +1,9 @@
+Class name: Cat
+Parent class: Command
+Subclasses:
+
+Responsibilties:
+*Displays contents of file given by user's request
+
+Collaborators:
+*DirectoryManager
