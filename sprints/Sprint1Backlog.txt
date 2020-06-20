@@ -7,6 +7,7 @@ a) Prompt the user for input
 b) Parse the user input through an interpreter
 c) As a user, I want to be able to quit/leave the shell/program
 d) As a user, I want to be able to convert text to audio and listen to the pronounciation of words
+e) As a user, I want to be able to navigate across directories, add directories, print my working directory and print all the files inside a directory
 
 Specific tasks to be accomplished:
 a-1. (JShell) Collect user input from the Java Consele
@@ -19,6 +20,10 @@ d-1. (Speak) Figure out how use FreeTTS
 d-2. (Speak) Collect information from the user 
 d-3. (Speak) Return audio
 e-1. (FileSystem) Create Data Structure and Class
+f-1. (Mkdir) Create new directories
+f-2. (Cd) Navigate across directories
+f-3. (Ls) Print files in directory
+f-4. (Pwd) Print current working directory
 
 These tasks are assigned as follows:
 
