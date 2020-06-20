@@ -1,3 +1,4 @@
+
 // **********************************************************
 // Assignment2:
 // Student1:
@@ -28,6 +29,7 @@
 // sheet of CSC B07 and understand the consequences.
 // *********************************************************
 package driver;
+import java.util.*;
 
 public class JShell {
 
@@ -41,6 +43,20 @@ public class JShell {
 	  newinstance = newinstance.getFileSys();
 	  
 	  Node newro = newinstance.getRoot();
+	  
+	  boolean running = true;
+	  
+	  while(running) {
+	    Scanner sc = new Scanner(System.in);
+	    System.out.println(">");
+	    String input = sc.nextLine(); 
+	    if (input == "exit") {
+	      running = false;
+	    }
+	    //Once created the checker class, will send this line to checker
+	    
+	  }
+	  
   }
 
 }
