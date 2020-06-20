@@ -1,0 +1,8 @@
+a. What did I work on in the last three days?
+-Collect user input
+-Exit shell
+b. What do I plan to work in the next three days?
+-further work on JShell
+-other commands
+c. Am I blocked on anything?
+-No
