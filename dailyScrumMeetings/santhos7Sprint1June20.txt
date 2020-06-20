@@ -1,0 +1,16 @@
+a) What did I work on in the last three days? 
+	- Worked on TexttoSpeech
+	- Worked with the team on how to setup the CRC Cards
+	- Demoed my work to the team
+	- Implemented a version of History
+
+b) What do I plan to work in the next three days?
+	- Brainstorm with the team on Sprint2Backlog 
+	  ie. creating and assigning tasks, choosing which user stories to work on
+	- Work on integrating TextToSpeech with the rest of the code
+	- Work on integrating History with the rest of the code
+	- Implement History
+
+c) Am I blocked on anything?  
+	- Need JShell, Command, Checker to be completed for the rest of my work to be completed
+
