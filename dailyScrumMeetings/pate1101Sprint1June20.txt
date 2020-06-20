@@ -1,0 +1,12 @@
+a) What did I work on in the last three days?
+	- worked on obtaining and parsing user input
+	- worked on implementing a temporary working version of Checker in JShell
+	- brainstormed design ideas for storing the valid commands
+
+b) What do I plan to work in the next three days?
+	- brainstorm/test ideas for how to implement some commands
+	- test various implementations for the Command Linked List or ArrayList in Checker
+
+c) Am I blocked on anything?
+	- need the skeleton code of the Command class done in order to implement a working validity checker for Checker class
+
