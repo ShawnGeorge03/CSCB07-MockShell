@@ -36,24 +36,33 @@ public class JShell {
   public static void main(String[] args) {
     // TODO Auto-generated method stub
 	  
-	  FileSystem instance = null;
+      Checker parser = new Checker();
 	  
-	  FileSystem newinstance = null;
+      //FileSystem instance = null;
 	  
-	  newinstance = newinstance.getFileSys();
+	  //FileSystem newinstance = null;
 	  
-	  Node newro = newinstance.getRoot();
+	  //newinstance = newinstance.getFileSys();
+	  
+	  //Node newro = newinstance.getRoot();
 	  
 	  boolean running = true;
 	  
 	  while(running) {
 	    Scanner sc = new Scanner(System.in);
-	    System.out.println(">");
+	    System.out.print(">>>");
 	    String input = sc.nextLine(); 
-	    if (input == "exit") {
+	    if (input.equals("exit")) {
 	      running = false;
 	    }
-	    //Once created the checker class, will send this line to checker
+	    else {
+	      input = parser.parseInput(input);
+	      if(parser.isValidCommand(input))
+	      {
+	        //do stuff
+	      }
+	      System.out.println(input);
+	    }
 	    
 	  }
 	  
