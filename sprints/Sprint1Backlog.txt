@@ -4,10 +4,20 @@ June 17th to June 23rd
 
 User Stories from Product Backlog that we will address in this sprint:
 a) Prompt the user for input
-b) Parse the user input through an interpreter
+b) As a user I should able to space part(s) of my command out   
+   by more than 1 space of tab and still recive the appropiate  
+   output for my input
 c) As a user, I want to be able to quit/leave the shell/program
-d) As a user, I want to be able to convert text to audio and listen to the pronounciation of words
-e) As a user, I want to be able to navigate across directories, add directories, print my working directory and print all the files inside a directory
+d) As a user, I want to be able to convert text to audio and  
+   listen to the pronounciation of words
+e) As a user, I want to be able to navigate across directories, 
+   add directories, print my working directory and print all the 
+   files inside a directory
+f) As a user, I want to be able to look back at all past        
+   commands that has been inputted or the last X number of       
+   commands from the current session from oldest to most        
+   recent order so that I can keep track of the changes done    
+   in this session
 
 Specific tasks to be accomplished:
 a-1. (JShell) Collect user input from the Java Consele
@@ -17,13 +27,17 @@ b-2. (Checker) Build process of looking for errors
 b-3. (Checker) Check for errors in the given command 
 c-1. (Exit) Build system to exit the shell program
 d-1. (Speak) Figure out how use FreeTTS
+d-2. (Speak) Add the correct .jar files for it
 d-2. (Speak) Collect information from the user 
 d-3. (Speak) Return audio
 e-1. (FileSystem) Create Data Structure and Class
-f-1. (Mkdir) Create new directories
-f-2. (Cd) Navigate across directories
-f-3. (Ls) Print files in directory
-f-4. (Pwd) Print current working directory
+e-2. (FileSystem) Create the Node
+e-3. (Mkdir) Create new directories
+e-4. (Cd) Navigate across directories
+e-5. (Ls) Print files in directory
+e-6. (Pwd) Print current working directory
+f-1. (History) Collect user input form JShell
+f-2. (History) Implement a way to acess all or an X number of past commands
 
 These tasks are assigned as follows:
 
@@ -34,7 +48,7 @@ User: Tirth Patel
 Tasks: a-1, a-2, c-1
 
 User: Kesheva
-Tasks: e-1
+Tasks: e-1, e-2, e-3, e-4, e-5 
 
 User: Shawn Santhoshgeorge
-Tasks: d-1, d-2, d-3
+Tasks: d-1, d-2, d-3, d-4, f-1, f-2
