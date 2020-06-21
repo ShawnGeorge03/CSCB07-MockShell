@@ -1,0 +1,10 @@
+What did I work on in the last three days?
+    - Created basic data structure for filesystem
+    - Created filesystem class, built in a way that same instance is returned, and new filesystem classes can't be created other than 1
+
+What do I plan to work in the next three days?
+    - Build a Command Class that routes and initializes other classes
+    - Takes input from JShell class so that basic testing can be commenced by all members
+
+Am I blocked on anything?
+    - If the command class can be finished, it would let everyone test more efficently and give us a better scope of how our shell will actually function.
