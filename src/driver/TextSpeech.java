@@ -1,5 +1,4 @@
 package driver;
-// Java code to convert text to speech
 
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;

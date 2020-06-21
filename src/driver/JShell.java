@@ -34,34 +34,33 @@ import java.util.*;
 public class JShell {
 
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
 	  
       Checker parser = new Checker();
+      History history = new History();
 	  
       //FileSystem instance = null;
-	  
 	  //FileSystem newinstance = null;
-	  
 	  //newinstance = newinstance.getFileSys();
-	  
 	  //Node newro = newinstance.getRoot();
 	  
+      Scanner sc = new Scanner(System.in);
+
 	  boolean running = true;
 	  
 	  while(running) {
-	    Scanner sc = new Scanner(System.in);
-	    System.out.print(">>>");
-	    String input = sc.nextLine(); 
+	    System.out.print("/");
+	    String input = sc.nextLine();
 	    if (input.equals("exit")) {
 	      running = false;
 	    }
 	    else {
 	      input = parser.parseInput(input);
+	      history.addCommands(input);
 	      if(parser.isValidCommand(input))
 	      {
 	        //do stuff
 	      }
-	      System.out.println(input);
+	      //System.out.println(input);
 	    }
 	    
 	  }
