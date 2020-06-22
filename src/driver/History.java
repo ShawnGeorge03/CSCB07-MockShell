@@ -14,11 +14,16 @@ public class History {
     CommandLog.add(Command);
   }
   
-  public void printLastXCommands(int x) {
-    for(int i = x; i < CommandLog.size(); i++) {
-      System.out.println((i+1)+"i " + CommandLog.get(i));
+  public void printAllCommands() {
+    for(int i = 0; i < CommandLog.size(); i++) {
+      System.out.println((i+1)+". " + CommandLog.get(i));
     }
   }
+  
+  public void printLastXCommands(int x) {
+    
+  }
+  
   
 
 }
