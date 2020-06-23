@@ -1,0 +1,52 @@
+//Sprint 2 Backlog.  
+June 24 to June 30
+
+
+User Stories from Product Backlog that we will address in this sprint:
+a) Users should be able to enter directories with the cd command
+b) As a user, I want to be able to save the current working
+   directory onto the directory stack and change to the new      
+   working directory so that I can resue the directory path     
+   at a later time during the current session
+c) As a user, I want to be able to remove the top entry from
+   the directory stack and then make it the new working
+   directory so that I can go back to an older working
+   directory 
+d) As a user, I want to be able to look back at all past      
+   commands that has been inputted or the last X number of      
+   commands from the current session from oldest to most        
+   recent order so that I can keep track of the changes done    
+   in this session
+e) User can display the contents of a file(s)
+f) User can print out string, or if file is given, then 
+   overwrite its contents with string 
+g)  User can print out string, or if file is given, then append
+   its contents with string  
+h) Users should be able list all files in a directory with the ls command
+
+Specific tasks to be accomplished:
+a-1. (CD) Create functions to handle absolute/ relative paths
+a-2. (CD) Create function to traverse up by one level or multiple directories
+b-1. (Pushd) Create a directory stack to keep track of old directories
+c-1. (Popd) Remove the top element from the directory stack
+d-1. (History) Create function to print out the last X commands
+e-1. (Cat) Create a function to print out the contents of 
+e-2. (Cat) Create a function to handle printing out contents of multiple files
+f-1. (EchoOverwite) Create a function to erase a file
+f-2. (EchoOverwite) Create a function to write infromation to a file or the consle
+g-1. (EchoAppend) Create a function to append new infromation to a file
+h-1. (LS) Create function to print out contents of the given path
+
+These tasks are assigned as follows:
+
+User: Abhay
+Tasks: f-1, f-2, g-1
+
+User: Tirth Patel
+Tasks: a-1, a-2
+
+User: Kesheva
+Tasks: b-1, c-1, h-1
+
+User: Shawn Santhoshgeorge
+Tasks: d-1, e-1, e-2
