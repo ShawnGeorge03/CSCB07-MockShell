@@ -11,9 +11,7 @@ public class FileSystem {
 		root.isDir = true;
 		root.content = null;
 		root.name = "C";
-		root.next = null;
 		root.parent = null;
-		root.root = null;
 		
 		current = root;
 	}
@@ -39,5 +37,8 @@ public class FileSystem {
 		current = currentDirectory;
 	}
 	
+	public void addToDirectory(Node newNode) {
+		current.list.add(newNode);
+	}
 
 }

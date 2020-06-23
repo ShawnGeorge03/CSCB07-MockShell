@@ -6,11 +6,10 @@ public class Ls extends DirectoryManager{
 		FileSystem filesys = null;
 		filesys = FileSystem.getFileSys();
 		
-		Node current = filesys.getCurrent();
+		Node currentDir = filesys.getCurrent();
 		
-		while (current.root != null) {
-			System.out.println(current.root.name);
-			current.root = current.root.next;
+		for (int i = 0; i < currentDir.list.size(); i++) {
+			System.out.println(currentDir.list.get(i).name);
 		}
 	}
 }
