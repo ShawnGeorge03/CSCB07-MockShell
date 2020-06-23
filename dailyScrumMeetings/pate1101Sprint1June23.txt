@@ -1,0 +1,12 @@
+a) What did I work on in the last three days?
+	- worked implementing a temporary arraylist in Checker for testing the valid_commands function
+	- finished implementing the valid_command function 
+	- brainstormed design ideas for implementing the EchoAppend and EchoOverwrite functions
+
+b) What do I plan to work in the next three days?
+	- a basic implementation of the EchoAppend and EchoOverwrite classes
+	- work with Tirth to merge some of the existing functions connect some classes together for basic functionality
+
+c) Am I blocked on anything?
+	- need the Command, FileManager class to be completed for the rest of my work to be completed
+
