@@ -9,7 +9,7 @@ public class Node {
 	ArrayList<Node> list;
 	Node parent;
 
-	private Node(boolean isDir, String content, String name, Node parent) {
+	public Node(boolean isDir, String content, String name, Node parent) {
 		this.isDir = isDir;
 		this.name = name;
 		this.content = content;
