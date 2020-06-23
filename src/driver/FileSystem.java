@@ -18,6 +18,15 @@ public class FileSystem {
 		current = root;
 	}
 	
+	public static FileSystem getFileSys() {
+		if (fileSys == null) {
+			fileSys = new FileSystem();
+			return fileSys;
+		} else {
+			return fileSys;
+		}
+	}
+	
 	public Node getRoot() {
 		return root;
 	}
@@ -30,13 +39,5 @@ public class FileSystem {
 		current = currentDirectory;
 	}
 	
-	public static FileSystem getFileSys() {
-		if (fileSys == null) {
-			fileSys = new FileSystem();
-			return fileSys;
-		} else {
-			return fileSys;
-		}
-	}
 
 }

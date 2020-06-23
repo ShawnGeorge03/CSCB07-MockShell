@@ -37,12 +37,6 @@ public class JShell {
 	  
       Checker parser = new Checker();
       History history = new History();
-	  
-      //FileSystem instance = null;
-	  //FileSystem newinstance = null;
-	  //newinstance = newinstance.getFileSys();
-	  //Node newro = newinstance.getRoot();
-	  
       Scanner sc = new Scanner(System.in);
 
 	  boolean running = true;
@@ -54,8 +48,8 @@ public class JShell {
 	      running = false;
 	    }
 	    else {
-	      input = parser.parseInput(input);
 	      history.addCommands(input);
+	      input = parser.parseInput(input);
 	      if(parser.isValidCommand(input))
 	      {
 	        //do stuff
