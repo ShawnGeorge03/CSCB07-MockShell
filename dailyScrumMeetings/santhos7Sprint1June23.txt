@@ -1,0 +1,16 @@
+a) What did I work on in the last three days? 
+	- Worked on fixing a bug in History
+	- Worked on implementing an extra function to Speak
+	- Cleaned up the Sprint1Backlog
+	- Meet with team to work on Sprint2Backlog
+
+b) What do I plan to work in the next three days?
+	- Work on implementing Cat
+	- Work on implementing man
+	- Work on making sure my class are working with JShell
+	- Clean up Sprint2Backlog
+
+c) Am I blocked on anything?  
+	- Need JShell, Command, Checker to be completed 
+	  for the rest of my work to be completed
+
