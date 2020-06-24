@@ -1,0 +1,11 @@
+What did I work on in the last three days?
+    - Modified Filesystem class to be simpler and easier to interact with
+    - Created Directory classes and basic starts to all of the classes.
+
+What do I plan to work in the next three days?
+    - Start cleaning up directory classes to actually perform the task, by getting user input
+`   - Create the Push and Pop classes
+    - Add an arraylist in filesystem class to keep track of push and pop stack of directories.
+
+Am I blocked on anything?
+    - If the command class can be finished, it would let everyone test more efficently and give us a better scope of how our shell will actually function.
