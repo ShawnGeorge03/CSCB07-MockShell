@@ -31,6 +31,16 @@ public class Checker {
   }
   
   public String parseInput(String input) {
+    if(input.contains("\"")) {
+      String command_name = input.substring(0, input.indexOf("\"")).trim().replaceAll("\\s+", " ");
+      String temp = input.substring(input.indexOf("\""), input.length());
+      return command_name + " " + temp;
+    }
+    else if(input.contains("'")) {
+      String command_name = input.substring(0, input.indexOf("'")).trim().replaceAll("\\s+", " ");
+      String temp = input.substring(input.indexOf("'"), input.length());
+      return command_name + " " + temp;
+    }
     return input.trim().replaceAll("\\s+", " ");
   }
   
@@ -48,22 +58,28 @@ public class Checker {
   
   //Main method for testing code
   public static void main(String[] args) {
-    Checker test = new Checker();
-    Scanner input = new Scanner(System.in);
-    String u_input;
-    while(true) {
+    Checker parser = new Checker();
+    History history = new History();
+    Scanner sc = new Scanner(System.in);
+
+    boolean running = true;
+    
+    while(running) {
       System.out.print(">>>");
-      u_input = input.nextLine().trim().replaceAll("\\s+", " ");
-      if(test.isValidCommand(u_input))
-      {
-        System.out.println("VALID");
-        if(u_input.equals("exit")) break;
-        
+      String input = sc.nextLine();
+      if (input.equals("exit")) {
+        running = false;
       }
-      else 
-      {
-        System.out.println("THIS IS NOT A VALID COMMAND");
+      else {
+        history.addCommands(input);
+        input = parser.parseInput(input);
+        if(parser.isValidCommand(input))
+        {
+          //do stuff
+        }
+        //System.out.println(input);
       }
+      
     }
   }
 
