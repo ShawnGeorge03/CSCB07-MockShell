@@ -3,7 +3,7 @@ package driver;
 import java.util.ArrayList;
 
 public class History {
-  
+
   private ArrayList<String> CommandLog;
   
   public History() {
@@ -14,14 +14,19 @@ public class History {
     CommandLog.add(Command);
   }
   
-  public void printAllCommands() {
-    for(int i = 0; i < CommandLog.size(); i++) {
-      System.out.println((i+1)+". " + CommandLog.get(i));
-    }
+  public int getCommandLogSize() {
+    return CommandLog.size();
   }
   
   public void printLastXCommands(int x) {
+    if(x <= 0) { 
+      System.out.println("IndexOutOfBoundError");
+      return;
+    }
     
+    for(int i = CommandLog.size() - x; i < CommandLog.size(); i++) {
+      System.out.println((i+1)+". " + CommandLog.get(i));
+    }
   }
   
   
