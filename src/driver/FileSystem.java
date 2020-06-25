@@ -3,8 +3,8 @@ package driver;
 public class FileSystem {
 	
 	static FileSystem fileSys = null;
-	Node root;	
-	Node current;
+	Node root = new Node();	
+	Node current = new Node();
 	
 	
 	private FileSystem() {
@@ -12,7 +12,6 @@ public class FileSystem {
 		root.content = null;
 		root.name = "C";
 		root.parent = null;
-		
 		current = root;
 	}
 	
