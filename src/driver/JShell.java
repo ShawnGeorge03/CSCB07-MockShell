@@ -38,11 +38,12 @@ public class JShell {
       Checker parser = new Checker();
       History history = new History();
       Scanner sc = new Scanner(System.in);
+      Cat cat = new Cat();
 
 	  boolean running = true;
 	  
 	  while(running) {
-	    System.out.print("/");
+	    System.out.print("$");
 	    String input = sc.nextLine();
 	    if (input.equals("exit")) {
 	      running = false;
@@ -52,9 +53,8 @@ public class JShell {
 	      input = parser.parseInput(input);
 	      if(parser.isValidCommand(input))
 	      {
-	        //do stuff
+	        cat.readFile(input);
 	      }
-	      //System.out.println(input);
 	    }
 	    
 	  }
