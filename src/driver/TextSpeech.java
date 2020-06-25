@@ -21,15 +21,20 @@ public class TextSpeech {
   }
   
   public void speak(String input) {
+    
+    String textToSay = input.substring(input.indexOf("speak") + 5, 
+        input.length()).strip();
+    
     try {
-      voice.speak(input);
+      if(input.contains("QUIT")) {
+        voice.speak(textToSay.substring(0, textToSay.indexOf("QUIT")).strip());
+        return;
+      }else {
+        voice.speak(textToSay);
+      }
+      
     }catch(Exception e) {
       e.printStackTrace();
     }
-  }
-  
-  public void endSpeak() {
-    voice.deallocate();
-  }
-  
+  }  
 }
