@@ -13,6 +13,37 @@ public class FileSystem {
 		root.name = "C";
 		root.parent = null;
 		current = root;
+		
+		//First dummy in Root
+		Node users = new Node();
+		users.isDir = true;
+		users.content = null;
+		users.name = "users";
+		users.parent = root;
+		
+		//second dummy in Root
+		Node pics = new Node();
+		pics.isDir = true;
+		pics.content = null;
+		pics.name = "pics";
+		pics.parent = root;
+		
+		//Picfile in pics
+		Node picfile = new Node();
+		picfile.isDir = false;
+		picfile.content = "this is a picture";
+		picfile.name = "picturefile.jpg";
+		picfile.parent = pics;
+		
+		pics.list.add(picfile);
+		
+		root.list.add(users);
+		root.list.add(pics);
+		
+		// /
+			// Users
+			// pics
+				//picturefile.jpg
 	}
 	
 	public static FileSystem getFileSys() {
