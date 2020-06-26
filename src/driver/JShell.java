@@ -54,7 +54,8 @@ public class JShell {
 	      if(parser.isValidCommand(input))
 	      {
 	        Command newCommand = new Command(input);
-	        cat.readFile(input);
+	        //Why is this here?!
+	        //cat.readFile(input);
 	      }
 	    }
 	    

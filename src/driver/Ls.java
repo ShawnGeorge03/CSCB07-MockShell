@@ -1,15 +1,25 @@
 package driver;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Ls extends DirectoryManager{
+	ArrayList<String> args;
+	
+	public Ls(String[] args) {
+		this.args = new ArrayList<String>(Arrays.asList(args)); 
+	}
 	
 	public void listDirectory() {
-		FileSystem filesys = null;
-		filesys = FileSystem.getFileSys();
-		
-		Node currentDir = filesys.getCurrent();
-		
-		for (int i = 0; i < currentDir.list.size(); i++) {
-			System.out.println(currentDir.list.get(i).name);
+		if (args.size() == 0) {
+			Node curr = filesys.getCurrent();
+			for (int i = 0; i < curr.list.size(); i++) {
+				if (curr.list.get(i).isDir) {
+					System.out.println(curr.list.get(i).name);
+				} else {
+					System.out.println(curr.list.get(i).name + ".txt");
+				}
+			}
 		}
 	}
 }

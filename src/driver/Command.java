@@ -32,7 +32,8 @@ public class Command {
         cd_exe.run();
         break;
       case "ls":
-        break;
+        Ls ls_exe = new Ls(arguments);
+        ls_exe.listDirectory();
       case "pwd":
         break;
       case "pushd":
