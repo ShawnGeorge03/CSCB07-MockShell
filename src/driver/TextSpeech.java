@@ -1,5 +1,6 @@
 package driver;
 
+import java.util.Arrays;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
@@ -20,21 +21,33 @@ public class TextSpeech {
     this.voice.allocate();
   }
   
-  public void speak(String input) {
+  public void speak(String[] input) {
     
-    String textToSay = input.substring(input.indexOf("speak") + 5, 
-        input.length()).strip();
+    //Creates the text to be said
+    String textToSay = Arrays.toString(input);
+    textToSay = textToSay.substring(1, textToSay.length() - 1).replace(",", "");
     
-    try {
-      if(input.contains("QUIT")) {
-        voice.speak(textToSay.substring(0, textToSay.indexOf("QUIT")).strip());
-        return;
-      }else {
-        voice.speak(textToSay);
-      }
-      
-    }catch(Exception e) {
-      e.printStackTrace();
+    //Checks if it starts with Quotes
+    if(textToSay.startsWith("\"") && textToSay.endsWith("\"")) {
+      textToSay = textToSay.substring(textToSay.indexOf("\"") + 1, textToSay.lastIndexOf("\""));
+    }else {
+      System.out.println("Error -> Invalid Argument(s)");
+      return;
     }
+    
+    //Check if the string is malformed
+    if(textToSay.contains("\"")) {
+      System.out.println("Error > Malformed Argument(s)");
+      return;
+    }
+    
+    //If the user chooses to exit the speak module
+    if(textToSay.contains("QUIT")){
+      textToSay = textToSay.substring(0, textToSay.indexOf("QUIT"));
+    }
+    
+    //Says it
+    voice.speak(textToSay);
+    
   }  
 }
