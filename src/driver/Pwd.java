@@ -5,14 +5,16 @@ import java.util.ArrayList;
 public class Pwd extends DirectoryManager{
 	
 	public void printDirectory() {
-		FileSystem filesys = null;
-		filesys = FileSystem.getFileSys();
-		
 		Node current = filesys.getCurrent();
 		
 		ArrayList<String> workingDirectory = null;
 		
-		while(current != null) {
+		if (current.name == "/") {
+			System.out.println(current.name);
+			return;
+		}
+		
+		while(current.name != "/") {
 			workingDirectory.add(current.name);
 			current = current.parent;
 		}

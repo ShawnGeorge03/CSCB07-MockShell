@@ -35,7 +35,8 @@ public class Command {
         Ls ls_exe = new Ls(arguments);
         ls_exe.listDirectory();
       case "pwd":
-        break;
+        Pwd pwd_exe = new Pwd();
+        pwd_exe.printDirectory();
       case "pushd":
         break;
       case "popd":
