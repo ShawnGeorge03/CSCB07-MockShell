@@ -19,28 +19,34 @@ public class Command {
   }
 
   public void run(String command, String[] arguments) {
-    switch(command) {
+    switch(command) {        
+      case "speak":
+        TextSpeech tts = new TextSpeech();
+        tts.speak(arguments);
+        break;
+      case "mkdir":
+        break;
       case "cd":
         Cd cd_exe = new Cd(arguments);
         cd_exe.run();
         break;
-      case "pwd":
-        break;
       case "ls":
         break;
-      case "mkdir":
-        break;
-      case "popd":
+      case "pwd":
         break;
       case "pushd":
         break;
+      case "popd":
+        break;
+      case "history":
+        break;
       case "cat":
+        break;
+      case "echo":
         break;
       case "man":
         break;
-      case "speak":
-        break;
-      
+        
     }
     
   }
