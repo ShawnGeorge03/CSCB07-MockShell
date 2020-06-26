@@ -6,7 +6,7 @@ public class Mkdir extends DirectoryManager{
 		FileSystem filesys = null;
 		filesys = FileSystem.getFileSys();
 		
-		// Node newNode = Node();
+		Node newNode = new Node();
 		
 		// filesys.addToDirectory(newNode);
 	}
