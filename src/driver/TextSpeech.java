@@ -27,6 +27,9 @@ public class TextSpeech {
     String textToSay = Arrays.toString(input);
     textToSay = textToSay.substring(1, textToSay.length() - 1).replace(",", "");
     
+    //Only when no arguments where provided
+    if(textToSay.length() == 0) return;
+    
     //Checks if it starts with Quotes
     if(textToSay.startsWith("\"") && textToSay.endsWith("\"")) {
       textToSay = textToSay.substring(textToSay.indexOf("\"") + 1, textToSay.lastIndexOf("\""));
@@ -48,6 +51,16 @@ public class TextSpeech {
     
     //Says it
     voice.speak(textToSay);
-    
   }  
+  
+  public boolean containsQUIT(String[] input) {
+    for(String word: input) {
+      word = word.replace("\"", "");
+      if(word.contentEquals("QUIT")) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
 }
