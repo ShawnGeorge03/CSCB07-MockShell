@@ -29,40 +29,33 @@
 // sheet of CSC B07 and understand the consequences.
 // *********************************************************
 package driver;
+
 import java.util.*;
 
 public class JShell {
 
   public static void main(String[] args) {
-	  
-      Checker parser = new Checker();
-      History history = new History();
-      Scanner sc = new Scanner(System.in);
-      Cat cat = new Cat();
 
-	  boolean running = true;
-	  
-	  while(running) {
-	    System.out.print("$");
-	    String input = sc.nextLine();
-	    if (input.equals("exit")) {
-	      running = false;
-	    }
-	    else {
-	      history.addCommands(input);
-	      input = parser.parseInput(input);
-	      if(parser.isValidCommand(input))
-	      {
-	        Command newCommand = new Command(input);
-	        //Why is this here?!
-	        //cat.readFile(input);
-	      }
-	    }
-	    
-	    sc.close();
-	    
-	  }
-	  
+    Checker parser = new Checker();
+    History history = new History();
+    Scanner sc = new Scanner(System.in);
+    Cat cat = new Cat();
+
+    boolean running = true;
+
+    while (running) {
+      System.out.print("$");
+      String input = sc.nextLine();
+      if (input.equals("exit")) {
+        sc.close();
+        running = false;
+      } else {
+        history.addCommands(input);
+        input = parser.parseInput(input);
+        if (parser.isValidCommand(input)) {
+          Command newCommand = new Command(input);
+        }
+      }
+    }
   }
-
 }
