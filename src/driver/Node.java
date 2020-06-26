@@ -6,7 +6,7 @@ public class Node {
 	boolean isDir;
 	String content;
 	String name;
-	ArrayList<Node> list;
+	ArrayList<Node> list = new ArrayList<Node>();
 	Node parent;
 
 	public Node() {
