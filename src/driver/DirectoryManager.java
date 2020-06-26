@@ -44,7 +44,7 @@ public class DirectoryManager {
     String[] pathArr = path.split("/");
     Node currNode = filesys.getRoot();
     for (int i = 0; i < pathArr.length; i++) {
-      int indexOfDir = checkDirExists(currNode.list, pathArr[i])
+      int indexOfDir = checkDirExists(currNode.list, pathArr[i]);
       if (indexOfDir != -1) {
         currNode = currNode.list.get(indexOfDir);
       }
@@ -60,7 +60,7 @@ public class DirectoryManager {
     String[] pathArr = path.split("/");
     Node currNode = filesys.getCurrent();
     for (int i = 0; i < pathArr.length; i++) {
-      int indexOfDir = checkDirExists(currNode.list, pathArr[i])
+      int indexOfDir = checkDirExists(currNode.list, pathArr[i]);
       if (indexOfDir != -1) {
         currNode = currNode.list.get(indexOfDir);
       }
