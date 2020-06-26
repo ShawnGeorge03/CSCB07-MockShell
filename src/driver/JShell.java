@@ -53,6 +53,7 @@ public class JShell {
 	      input = parser.parseInput(input);
 	      if(parser.isValidCommand(input))
 	      {
+	        Command newCommand = new Command(input);
 	        cat.readFile(input);
 	      }
 	    }
