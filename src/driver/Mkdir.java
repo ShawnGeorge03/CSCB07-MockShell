@@ -11,11 +11,20 @@ public class Mkdir extends DirectoryManager{
 	}
 	
 	public void MakeDirectory(){
-		FileSystem filesys = null;
-		filesys = FileSystem.getFileSys();
 		
-		System.out.println(args);
-		
-		// filesys.addToDirectory(newNode);
+		if (checkValidArgs()) {
+			Node newNode = new Node();
+			newNode.content = null;
+			newNode.isDir = true;
+			newNode.name = args.get(0);
+			
+			filesys.addToDirectory(newNode);
+		}else {
+				//RETURN ERROR CLASS	
+		}
+	}
+	
+	private boolean checkValidArgs() {
+		return args.size() == 1;
 	}
 }

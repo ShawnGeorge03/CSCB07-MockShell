@@ -16,6 +16,7 @@ public class Cat {
     
     if(fileNames.length == 0) {System.out.println("InvalidParameterErorr");}
     
+    //Need to remove this line or fix it somehow
     System.out.println(DirecMang.getCurrentPath());
        
   }

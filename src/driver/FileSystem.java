@@ -64,10 +64,12 @@ public class FileSystem {
 	}
 	
 	public void assignCurrent(Node currentDirectory) {
+		
 		current = currentDirectory;
 	}
 	
 	public void addToDirectory(Node newNode) {
+		newNode.parent = current;
 		current.list.add(newNode);
 	}
 
