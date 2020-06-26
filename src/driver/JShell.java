@@ -59,6 +59,8 @@ public class JShell {
 	      }
 	    }
 	    
+	    sc.close();
+	    
 	  }
 	  
   }
