@@ -14,20 +14,25 @@ public class DirectoryManager {
   public String getCurrentPath() {
     String output = "";
     Node curr = filesys.getCurrent();
+
     if (curr.name == "/") {
       return "/";
     }
+    
     path.add(curr.name);
     while (curr.name != "/") {
       curr = curr.parent;
       path.add(curr.name);
     }
+    
     int i = path.size();
     while (i > 0) {
       output = output.concat(path.get(i-1) + "/");
       i--;
     }
+    
     path.clear();
+    
     return output.substring(0,output.length()-1);
   }
   

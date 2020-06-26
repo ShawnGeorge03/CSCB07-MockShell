@@ -10,7 +10,7 @@ public class FileSystem {
 	private FileSystem() {
 		root.isDir = true;
 		root.content = null;
-		root.name = "C";
+		root.name = "/";
 		root.parent = null;
 		current = root;
 		

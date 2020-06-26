@@ -22,10 +22,11 @@ public class Command {
     switch(command) {        
       case "speak":
         TextSpeech tts = new TextSpeech();
-        tts.speak(arguments);
+        //tts.speak(arguments);
         break;
       case "mkdir":
-        break;
+        Mkdir mkdir_exe = new Mkdir(arguments);
+        mkdir_exe.MakeDirectory();
       case "cd":
         Cd cd_exe = new Cd(arguments);
         cd_exe.run();
