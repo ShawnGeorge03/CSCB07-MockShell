@@ -54,6 +54,14 @@ public class Command {
       case "popd":
         break;
       case "history":
+        History history = new History();
+        if(arguments.length == 0) {
+          history.printLastXCommands(history.getCommandLogSize());
+        }else if(arguments.length == 1) {
+          history.printLastXCommands(Integer.valueOf(arguments[0]));
+        }else {
+          System.out.println("Number of arguments required excceded");
+        }
         break;
       case "cat":
         break;
