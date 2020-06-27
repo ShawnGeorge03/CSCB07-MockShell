@@ -1,8 +1,12 @@
 package driver;
 
+import java.util.ArrayList;
+
 public class FileSystem {
 	
 	static FileSystem fileSys = null;
+	static ArrayList<String> CommandLog =  new ArrayList<String>();
+
 	Node root = new Node();	
 	Node current = new Node();
 	
