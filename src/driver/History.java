@@ -1,21 +1,13 @@
 package driver;
 
-import java.util.ArrayList;
-
 public class History {
-
-  private ArrayList<String> CommandLog;
-  
-  public History() {
-    this.CommandLog = new ArrayList<String>();
-  }
   
   public void addCommands(String Command) {
-    CommandLog.add(Command);
+    FileSystem.CommandLog.add(Command);
   }
   
   public int getCommandLogSize() {
-    return CommandLog.size();
+    return FileSystem.CommandLog.size();
   }
   
   public void printLastXCommands(int x) {
@@ -24,8 +16,9 @@ public class History {
       return;
     }
     
-    for(int i = CommandLog.size() - x; i < CommandLog.size(); i++) {
-      System.out.println((i+1)+". " + CommandLog.get(i));
+    for(int i = FileSystem.CommandLog.size() - x; i < FileSystem.CommandLog.size(); i++) {
+      if(i < 0) continue;
+      System.out.println((i+1)+". " + FileSystem.CommandLog.get(i));
     }
   }
   
