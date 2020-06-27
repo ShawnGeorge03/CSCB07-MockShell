@@ -25,29 +25,33 @@ public class TextSpeech {
     
     //Creates the text to be said
     String textToSay = Arrays.toString(input);
-    textToSay = textToSay.substring(1, textToSay.length() - 1).replace(",", "");
+    textToSay = textToSay.substring(1, textToSay.length() - 1).replace(",", "").trim();
     
     //Only when no arguments where provided
     if(textToSay.length() == 0) return;
+    
     
     //Checks if it starts with Quotes
     if(textToSay.startsWith("\"") && textToSay.endsWith("\"")) {
       textToSay = textToSay.substring(textToSay.indexOf("\"") + 1, textToSay.lastIndexOf("\""));
     }else {
       System.out.println("Error -> Invalid Argument(s)");
-      //return;
+      return;
     }
     
     //Check if the string is malformed
     if(textToSay.contains("\"")) {
       System.out.println("Error > Malformed Argument(s)");
-      //return;
+      return;
     }
     
     //If the user chooses to exit the speak module
     if(textToSay.contains("QUIT")){
       textToSay = textToSay.substring(0, textToSay.indexOf("QUIT"));
     }
+    
+    System.out.println(textToSay);
+
     
     //Says it
     voice.speak(textToSay);
