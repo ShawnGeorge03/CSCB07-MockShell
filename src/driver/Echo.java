@@ -1,51 +1,75 @@
 package driver;
 
-import java.util.Arrays;
+public class Echo extends FileManager{
+  
+  private String argument;  
 
-public class Echo {
-  
-  FileSystem filesys = null;
-  
-  public Echo () {
-    this.filesys = FileSystem.getFileSys();
-  }
-  
-  public void eraseFile(String filePath) {
+  public void compile_arguments(String[] input_arguments) {
+
+    //echo hello world > test -> helloworld>test
+    //echo hello world >test  -> helloworld>test
+    //echo hello world> test  -> helloworld>test
+    //echo hello world>test   -> helloworld>test
+    argument = fix_argument(input_arguments);
     
+    int num_arrow = count_arrows(argument);
     
+    run(input_arguments, num_arrow);
   }
   
-  public void appendToFile(String filePath) {
+  public int count_arrows(String parsedInput) {
+    return parsedInput.length() - parsedInput.replaceAll(">", "").length();
+  }
+  
+  public String fix_argument(String[] spliced_input) {
+    String args = "";
     
+    for(int i = 0; i < spliced_input.length; i++){
+      args += spliced_input[i];
+    }
+        
+    return args;
   }
   
-  public void echo(String input) {
-   String[] partsOfInput = input.split("\"");
-   String mode = null;
-   String[] filePath = null;
-   
-   if(partsOfInput.length == 2) {
-     System.out.println(partsOfInput[1]);
-     return;
-   }else {
-      mode = partsOfInput[2].split("\\s+")[1];
-     filePath = Arrays.copyOfRange(partsOfInput[2].split("\\s+"), 2, 
-         partsOfInput[2].split("\\s+").length);
-   }
-   
-   if(filePath.length == 0) {
-     System.out.println("Not Files provided");
-     return;
-   }
-   for(int i = 0; i < filePath.length; i++) {
-     if(mode.contentEquals(">")) { 
-       eraseFile(filePath[i]);
-       appendToFile(filePath[i]);
-     }else if(mode.contentEquals(">>")) {
-       appendToFile(filePath[i]);
-     }
-   }
+  public void printToConsole(String[] args) {
+    String output = "";
+    
+    for(int i = 0; i < args.length; i++) {
+      output += args[i] + " ";
+    }
+    output = output.substring(0,output.length()-1);
+    System.out.println(output.replaceAll("\"", ""));
   }
   
+  public void run(String[] args, int num_arrow) {
+    if(num_arrow == 0 && args.length > 0) {
+      printToConsole(args);
+    }
+    
+    else if(num_arrow == 1) {      
+      if(argument.split(">").length == 2 && !argument.split(">")[0].equals("")) {
+        EchoOverwrite overwrite_exe = new EchoOverwrite();
+        overwrite_exe.execute(args);
+      }
+      else {
+        System.out.println("Error");//throw an error (not enough inputs/either before > or after)
+      }
+    }
+    
+    else if(num_arrow == 2) {
+      if(argument.split(">>").length == 2 && !argument.split(">>")[0].equals("")) {
+        EchoAppend append_exe = new EchoAppend();
+        append_exe.execute(args);
+      }
+      else {
+        System.out.println("Error");//throw an error (not enough inputs/either before > or after)
+      }
+    }
+    
+    else {
+      System.out.println("Error");//throw an error (only echo was inputted)
+    }
+  
+  }
+ 
 }
-
