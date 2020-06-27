@@ -35,13 +35,13 @@ public class TextSpeech {
       textToSay = textToSay.substring(textToSay.indexOf("\"") + 1, textToSay.lastIndexOf("\""));
     }else {
       System.out.println("Error -> Invalid Argument(s)");
-      return;
+      //return;
     }
     
     //Check if the string is malformed
     if(textToSay.contains("\"")) {
       System.out.println("Error > Malformed Argument(s)");
-      return;
+      //return;
     }
     
     //If the user chooses to exit the speak module
