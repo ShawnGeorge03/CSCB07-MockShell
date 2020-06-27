@@ -1,0 +1,14 @@
+a) What did I work on in the last three days? 
+	- Worked on fully implementing the speak function to the main program
+	- Worked on fully implementing the history funtion to the main program
+	- Created a simple version of cat function and implemented to the main program
+
+b) What do I plan to work in the next three days?
+	- Work on fixing any errors in the speak, history and cat
+	- Allow cat to work with absolute paths and relative paths
+	- Brainstrom on the Sprint3Backlog with the team
+
+c) Am I blocked on anything?  
+	-Need Checker to be fixed to enable speak mode
+	-Need FileSystem to have getters and setters for content and file type
+
