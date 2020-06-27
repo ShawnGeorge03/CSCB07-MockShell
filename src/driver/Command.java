@@ -9,20 +9,31 @@ public class Command {
   ArrayList<String> arguments = new ArrayList<String>();
   String[] splitInput;
   String command;
-
+  boolean speakMode = false;
+  
   public Command(String parsedInput) {
     this.splitInput = parsedInput.split(" ");
     this.command = splitInput[0];
     String args[] = Arrays.copyOfRange(splitInput, 1, splitInput.length);
-    run(command, args);
-    
+    if(speakMode) {
+      this.command = "speak";
+      run(command, splitInput);
+    }else {
+      run(command, args);
+    } 
   }
 
   public void run(String command, String[] arguments) {
+
     switch(command) {        
       case "speak":
         TextSpeech tts = new TextSpeech();
-        //tts.speak(arguments);
+        if(tts.containsQUIT(arguments)) {
+          speakMode = false;
+        }else {
+          speakMode = true;
+        }
+        tts.speak(arguments);
         break;
       case "mkdir":
         Mkdir mkdir_exe = new Mkdir(arguments);
@@ -49,6 +60,7 @@ public class Command {
         break;
       case "man":
         break;
+       default:
         
     }
     
