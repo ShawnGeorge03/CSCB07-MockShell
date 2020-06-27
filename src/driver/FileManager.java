@@ -9,7 +9,7 @@ public class FileManager {
   }
   
   public Node find_file(String fileName) {
-    if(filesys.getCurrent().parent == null) {
+    if(filesys.getCurrent().parent != null) {
       Node parent = filesys.getCurrent().parent;
       for(int i = 0; i < parent.list.size(); i++) {
         if(parent.list.get(i).name.equals(fileName)) 
