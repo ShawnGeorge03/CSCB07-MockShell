@@ -20,7 +20,7 @@ public class EchoOverwrite extends Echo{
       Node new_file = new Node();
       new_file.isDir = false;
       new_file.content = argument.substring(0, argument.indexOf(">")).replaceAll("\"", "");
-      new_file.name = file_name + ".txt";
+      new_file.name = file_name;
       new_file.parent = filesys.getCurrent();
       this.filesys.addToDirectory(new_file);
     }
