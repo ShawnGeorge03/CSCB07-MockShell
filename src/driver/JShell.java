@@ -39,7 +39,7 @@ public class JShell {
     Checker parser = new Checker();
     History history = new History();
     Scanner sc = new Scanner(System.in);
-    Cat cat = new Cat();
+    Command commandHandler = new Command();
 
     boolean running = true;
 
@@ -52,9 +52,9 @@ public class JShell {
       } else {
         history.addCommands(input);
         input = parser.parseInput(input);
-        if (parser.isValidCommand(input)) {
-          Command newCommand = new Command(input);
-        }
+        //if (parser.isValidCommand(input)) {
+          commandHandler.setCommand(input);
+        //}
       }
     }
   }

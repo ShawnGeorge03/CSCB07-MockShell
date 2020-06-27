@@ -11,12 +11,12 @@ public class EchoOverwrite extends Echo{
     
     String file_name = argument.substring(argument.lastIndexOf('>')+1, argument.length()) + ".txt";
     if(find_file(file_name) != null) {
-      System.out.println("File Found");
+      //System.out.println("File Found");
       Node file = find_file(file_name);
       file.content = argument.substring(0, argument.indexOf(">")).replaceAll("\"", "");
     }
     else {
-      System.out.println("File not found");
+      //System.out.println("File not found");
       Node new_file = new Node();
       new_file.isDir = false;
       new_file.content = argument.substring(0, argument.indexOf(">")).replaceAll("\"", "");

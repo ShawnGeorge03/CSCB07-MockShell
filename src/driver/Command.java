@@ -18,7 +18,8 @@ public class Command {
     if(speakMode) {
       command = "speak";
       args = splitInput;
-    }  
+    }
+
     run(command, args);
   }
 
@@ -66,6 +67,8 @@ public class Command {
         cat.readFile(arguments);
         break;
       case "echo":
+        Echo echo = new Echo();
+        echo.compile_arguments(arguments);
         break;
       case "man":
         break;
