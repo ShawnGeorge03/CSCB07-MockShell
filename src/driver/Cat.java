@@ -1,23 +1,21 @@
-package driver;
+ package driver;
 
-public class Cat {
+public class Cat extends FileManager {
   
   FileSystem filesys;
-  DirectoryManager DirecMang;
   
   public Cat() {
     this.filesys = FileSystem.getFileSys();
-    this.DirecMang = new DirectoryManager();
   }
   
-  public void readFile(String filePaths) {
-    String[] fileNames = ((String) filePaths.subSequence(
-        filePaths.indexOf("cat") + 4, filePaths.length())).split("\\s+");
-    
-    if(fileNames.length == 0) {System.out.println("InvalidParameterErorr");}
-    
-    //Need to remove this line or fix it somehow
-    System.out.println(DirecMang.getCurrentPath());
-       
+  public void readFile(String[] filePaths) {
+    for(int i = 0; i < filePaths.length; i++) {
+      Node file = find_file(filePaths[i]);
+      if(file != null) {
+        System.out.println(file.content);
+      }else{
+        System.out.println("File Not Found");
+      }
+    }
   }
 }
