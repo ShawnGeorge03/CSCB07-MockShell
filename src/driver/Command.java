@@ -62,6 +62,8 @@ public class Command {
         }
         break;
       case "cat":
+        Cat cat = new Cat();
+        cat.readFile(arguments);
         break;
       case "echo":
         break;
