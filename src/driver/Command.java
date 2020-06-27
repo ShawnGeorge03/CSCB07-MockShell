@@ -15,22 +15,20 @@ public class Command {
     splitInput = parsedInput.split(" ");
     command = splitInput[0];
     String args[] = Arrays.copyOfRange(splitInput, 1, splitInput.length);
-    
     if(speakMode) {
       command = "speak";
       args = splitInput;
-    }
-    
+    }  
     run(command, args);
   }
 
-  public void run(String command, String[] arguments) {    
+  public void run(String command, String[] arguments) {  
+
     switch(command) {        
       case "speak":
         TextSpeech tts = new TextSpeech();
         if(tts.containsQUIT(arguments)) {
           speakMode = false;
-          break;
         }else {
           speakMode = true;
         }
