@@ -1,0 +1,14 @@
+a) What did I work on in the last three days?
+	- worked on implementing the echo commands (echo append and overwrite)
+	- finished function that creates different files using echo command
+	- finished echo append when working with relative path
+	- finished echo overwrite when working with relative path 
+
+b) What do I plan to work in the next three days?
+	- finish echo append so it works when given absolute path
+	- finish echo overwrite so it works when given absolute path
+
+c) Am I blocked on anything?
+	- need to brainstorm of ways to differentiate between absolute path and relative path
+	- need to perform some error checks
+
