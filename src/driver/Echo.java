@@ -17,7 +17,6 @@ public class Echo extends FileManager{
     if(fullInput.contains("\"")) {
       int num = fullInput.length() - fullInput.replaceAll("\"", "").length();
       if(num % 2 == 0) return true;
-      else return false;
     }
     return false;
   }
@@ -29,11 +28,11 @@ public class Echo extends FileManager{
   public String fix_argument(String[] spliced_input) {
     String args = "";
     
-    for(int i = 0; i < spliced_input.length; i++){
-      args += spliced_input[i];
+    for(int i = 1; i < spliced_input.length; i++){
+      args += spliced_input[i] + " ";
     }
         
-    return args;
+    return args.substring(0, args.length()-1);
   }
   
   public void printToConsole(String[] args) {
@@ -50,34 +49,37 @@ public class Echo extends FileManager{
   public void run(String[] args, int num_arrow, String fullInput) {
     
     String fileContents = "";
-    if(hasQuotations(fullInput))   
+    if(hasQuotations(fullInput)) {
       fileContents = fullInput.substring(fullInput.indexOf("\"")+1, fullInput.lastIndexOf("\""));
-    
-    if(num_arrow == 0 && args.length > 1) printToConsole(args);
-    
-    else if(num_arrow == 1) {      
       
-      String fileName = argument.substring(argument.lastIndexOf(">")+1, argument.length());
+      if(num_arrow == 0 && args.length > 1) printToConsole(args);
       
-      if(argument.split(">").length == 2 && !argument.split(">")[0].equals("")) {
-        EchoOverwrite overwrite_exe = new EchoOverwrite();
-        overwrite_exe.execute(fileContents, fileName);
+      else if(num_arrow == 1) {      
+        
+        String fileName = argument.substring(argument.lastIndexOf(">")+1, argument.length());
+        
+        if(argument.split(">").length == 2 && !argument.split(">")[0].equals("")) {
+          EchoOverwrite overwrite_exe = new EchoOverwrite();
+          overwrite_exe.execute(fileContents, fileName);
+        }
+        else System.out.println("Error");// (not enough inputs/either before > or after)
       }
-      else System.out.println("Error");// (not enough inputs/either before > or after)
+      
+      else if(num_arrow == 2) {
+        
+        String fileName = argument.substring(argument.lastIndexOf(">")+1, argument.length());
+        
+        if(argument.split(">>").length == 2 && !argument.split(">>")[0].equals("")) {
+          EchoAppend append_exe = new EchoAppend();
+          append_exe.execute(fileContents, fileName);
+        }
+        else System.out.println("Error");// (not enough inputs/either before > or after)
+      }
+      
+      else System.out.println("Error");// (only echo was inputted)
     }
     
-    else if(num_arrow == 2) {
-      
-      String fileName = argument.substring(argument.lastIndexOf(">")+1, argument.length());
-      
-      if(argument.split(">>").length == 2 && !argument.split(">>")[0].equals("")) {
-        EchoAppend append_exe = new EchoAppend();
-        append_exe.execute(fileContents, fileName);
-      }
-      else System.out.println("Error");// (not enough inputs/either before > or after)
-    }
+    else System.out.println("Error");// (no quotations)
     
-    else System.out.println("Error");// (only echo was inputted)
-
   }
 }
