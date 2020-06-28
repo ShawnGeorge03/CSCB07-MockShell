@@ -1,15 +1,26 @@
 package driver;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Command {
 
-  String usercommand;
-  ArrayList<String> arguments = new ArrayList<String>();
   String[] splitInput;
   String command;
   boolean speakMode = false;
+  
+  private TextSpeech tts; 
+  private Pwd pwd_exe;
+  private History history;
+  private Cat cat;
+  private Echo echo;
+
+  public Command() {
+   this.tts = new TextSpeech();
+   this.pwd_exe = new Pwd();
+   this.cat = new Cat();
+   this.history = new History();
+   this.echo = new Echo();
+  }
   
   public void setCommand(String parsedInput) {
     splitInput = parsedInput.split(" ");
@@ -19,15 +30,12 @@ public class Command {
       command = "speak";
       args = splitInput;
     }
-
     run(command, args, parsedInput);
   }
 
   public void run(String command, String[] arguments, String fullInput) {  
-
     switch(command) {        
       case "speak":
-        TextSpeech tts = new TextSpeech();
         if(tts.containsQUIT(arguments)) {
           speakMode = false;
         }else {
@@ -46,14 +54,12 @@ public class Command {
         Ls ls_exe = new Ls(arguments);
         ls_exe.listDirectory();
       case "pwd":
-        Pwd pwd_exe = new Pwd();
         pwd_exe.printDirectory();
       case "pushd":
         break;
       case "popd":
         break;
       case "history":
-        History history = new History();
         if(arguments.length == 0) {
           history.printLastXCommands(history.getCommandLogSize());
         }else if(arguments.length == 1) {
@@ -63,11 +69,9 @@ public class Command {
         }
         break;
       case "cat":
-        Cat cat = new Cat();
         cat.readFile(arguments);
         break;
       case "echo":
-        Echo echo = new Echo();
         echo.compile_arguments(fullInput);
         break;
       case "man":
