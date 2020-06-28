@@ -1,0 +1,13 @@
+What did I work on in the last three days?
+    - Added methods to file system that would help directory and other commands
+    - Finished mkdir
+    - Working on ls, finished a portion of it
+
+What do I plan to work in the next three days?
+    - Test the completed command thoroghly to ensure no bugs
+`   - Finish the Push and Pop classes
+    - Add an arraylist in filesystem class to keep track of push and pop stack of directories.
+    - Add any useful functions to file system and directorymanager classes.
+
+Am I blocked on anything?
+    - Cd must be finished in order for me to start working on push and pop classes.
