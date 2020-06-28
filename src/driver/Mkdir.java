@@ -31,7 +31,7 @@ public class Mkdir extends DirectoryManager{
 				
 			}
 			else {
-				//System.out.println("hi");
+				System.out.println("hi");
 				Node newNode = new Node();
 				newNode.content = null;
 				newNode.isDir = true;

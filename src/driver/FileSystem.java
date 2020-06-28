@@ -14,7 +14,7 @@ public class FileSystem {
 	private FileSystem() {
 		root.isDir = true;
 		root.content = null;
-		root.name = "/";
+		root.name = "C";
 		root.parent = null;
 		current = root;
 		
@@ -68,7 +68,6 @@ public class FileSystem {
 	}
 	
 	public void assignCurrent(Node currentDirectory) {
-		
 		current = currentDirectory;
 	}
 	

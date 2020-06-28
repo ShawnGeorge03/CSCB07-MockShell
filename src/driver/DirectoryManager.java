@@ -15,12 +15,12 @@ public class DirectoryManager {
 		String output = "";
 		Node curr = filesys.getCurrent();
 
-		if (curr.name == "/") {
-			return "/";
+		if (curr.name.equals("C")) {
+			return "C";
 		}
 
 		path.add(curr.name);
-		while (curr.name != "/") {
+		while (curr.name != "C") {
 			curr = curr.parent;
 			path.add(curr.name);
 		}
