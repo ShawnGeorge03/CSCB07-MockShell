@@ -19,7 +19,6 @@ public class Ls extends DirectoryManager{
 				} else {
 					//System.out.println(curr.list.get(i).name + ".txt");
 	                System.out.println(curr.list.get(i).name);
-
 				}
 			}
 		}

@@ -14,11 +14,24 @@ public class Mkdir extends DirectoryManager{
 		
 		if (checkValidArgs()) {
 			if (checkPath()) {
-				String[] newArgs = {args.get(0)}
+				String[] currentPath = {getCurrentPath()};
+				String[] newArgs = {args.get(0).substring(0, args.get(0).lastIndexOf('/'))};
 				Cd newpath = new Cd(newArgs);
 				newpath.run();
+				
+				Node newNode = new Node();
+				newNode.content = null;
+				newNode.isDir = true;
+				newNode.name = args.get(0).substring(args.get(0).lastIndexOf('/') + 1);
+				
+				filesys.addToDirectory(newNode);
+				
+				Cd goBack = new Cd(currentPath);
+				newpath.run();
+				
 			}
 			else {
+				//System.out.println("hi");
 				Node newNode = new Node();
 				newNode.content = null;
 				newNode.isDir = true;
@@ -36,6 +49,6 @@ public class Mkdir extends DirectoryManager{
 	}
 	
 	private boolean checkPath() {
-		return args.contains('/');
+		return args.get(0).contains("/");
 	}
 }
