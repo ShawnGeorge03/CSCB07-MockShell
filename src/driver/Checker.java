@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Checker {
   
   public String userInput;
-  //temp arraylist
   private ArrayList<String> implemented_commands = new ArrayList<String>();
   
   public Checker() {
@@ -43,12 +42,14 @@ public class Checker {
     return input.trim().replaceAll("\\s+", " ");
   }
   
-  public boolean isValidCommand(String input) {
+  public void executeIfValid(String input) {
     String command_name = input.split(" ")[0];
     
-    if(implemented_commands.contains(command_name)) return true;
+    if(implemented_commands.contains(command_name)) {
+      Command commandHandler = new Command();
+      commandHandler.setCommand(input);
+    }
     
-    return false;
   }
   
   public void add_command(String command_name) {
