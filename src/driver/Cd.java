@@ -64,7 +64,7 @@ public class Cd extends DirectoryManager {
 				this.makeRelativePath(argument);
 			}
 		}
-		//System.out.println("PWD: " + this.getCurrentPath());
+		System.out.println("PWD: " + this.getCurrentPath());
 		return;
 	}
 

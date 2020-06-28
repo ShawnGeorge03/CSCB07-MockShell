@@ -31,13 +31,16 @@ public class Mkdir extends DirectoryManager{
 				
 			}
 			else {
-				System.out.println("hi");
+				String[] currentPath = {getCurrentPath()};
 				Node newNode = new Node();
 				newNode.content = null;
 				newNode.isDir = true;
 				newNode.name = args.get(0);
 				
 				filesys.addToDirectory(newNode);
+				
+				Cd newpath = new Cd(currentPath);
+				newpath.run();
 			}
 		}else {
 				//RETURN ERROR CLASS	

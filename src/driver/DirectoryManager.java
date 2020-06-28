@@ -14,7 +14,7 @@ public class DirectoryManager {
 	public String getCurrentPath() {
 		String output = "";
 		Node curr = filesys.getCurrent();
-
+		
 		if (curr.name.equals("C")) {
 			return "C";
 		}
