@@ -1,0 +1,8 @@
+What did I work on in the last three days?
+-Finished command.java and am close to finished on cd
+
+What do I plan to work in the next three days?
+-Finish up Cd and work on any other commands we have left
+
+Am I blocked on anything?
+-I am having some trouble with the pattern matching for Cd
