@@ -13,12 +13,19 @@ public class Mkdir extends DirectoryManager{
 	public void MakeDirectory(){
 		
 		if (checkValidArgs()) {
-			Node newNode = new Node();
-			newNode.content = null;
-			newNode.isDir = true;
-			newNode.name = args.get(0);
-			
-			filesys.addToDirectory(newNode);
+			if (checkPath()) {
+				String[] newArgs = {args.get(0)}
+				Cd newpath = new Cd(newArgs);
+				newpath.run();
+			}
+			else {
+				Node newNode = new Node();
+				newNode.content = null;
+				newNode.isDir = true;
+				newNode.name = args.get(0);
+				
+				filesys.addToDirectory(newNode);
+			}
 		}else {
 				//RETURN ERROR CLASS	
 		}
@@ -26,5 +33,9 @@ public class Mkdir extends DirectoryManager{
 	
 	private boolean checkValidArgs() {
 		return args.size() == 1;
+	}
+	
+	private boolean checkPath() {
+		return args.contains('/');
 	}
 }
