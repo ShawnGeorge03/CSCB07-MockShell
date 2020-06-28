@@ -20,10 +20,10 @@ public class Command {
       args = splitInput;
     }
 
-    run(command, args);
+    run(command, args, parsedInput);
   }
 
-  public void run(String command, String[] arguments) {  
+  public void run(String command, String[] arguments, String fullInput) {  
 
     switch(command) {        
       case "speak":
@@ -68,7 +68,7 @@ public class Command {
         break;
       case "echo":
         Echo echo = new Echo();
-        echo.compile_arguments(arguments);
+        echo.compile_arguments(fullInput);
         break;
       case "man":
         break;
