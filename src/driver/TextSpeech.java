@@ -50,9 +50,6 @@ public class TextSpeech {
       textToSay = textToSay.substring(0, textToSay.indexOf("QUIT"));
     }
     
-    System.out.println(textToSay);
-
-    
     //Says it
     voice.speak(textToSay);
   }  
