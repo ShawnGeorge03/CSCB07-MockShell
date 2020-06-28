@@ -7,12 +7,12 @@ public class EchoOverwrite extends Echo{
     
     String newFileName = fileName;
     if(find_file(newFileName) != null) {
-      System.out.println("File Found");
+      //System.out.println("File Found");
       Node file = find_file(newFileName);
       file.content = fileContents;
     }
     else {
-      System.out.println("File not found");
+      //System.out.println("File not found");
       Node newFile = new Node();
       newFile.isDir = false;
       newFile.content = fileContents;
