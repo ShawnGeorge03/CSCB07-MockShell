@@ -37,7 +37,7 @@ public class Mkdir extends DirectoryManager{
 				newNode.name = args.get(0);
 				
 				filesys.addToDirectory(newNode);
-			
+				return;
 			}
 		}else {
 				//RETURN ERROR CLASS	

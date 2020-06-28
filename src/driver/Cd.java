@@ -32,7 +32,7 @@ public class Cd extends DirectoryManager {
 
 	public void run() {
 		String argument = this.cd_args.get(0);
-		if (argument.equals("/")) {
+		if (argument.equals("C")) {
 			this.filesys.assignCurrent(this.filesys.root);
 			return;
 		}
@@ -40,7 +40,7 @@ public class Cd extends DirectoryManager {
 		
 		if (split_args.length == 1) {
 			if (argument.equals("..")) {
-				if (filesys.getCurrent().name == "/") {
+				if (filesys.getCurrent().name == "C") {
 					return;
 				}
 				filesys.assignCurrent(this.filesys.current.parent);
@@ -70,7 +70,7 @@ public class Cd extends DirectoryManager {
 
 	public static void main(String[] args) {
 		String[] sponge = new String[1];
-		sponge[0] = "/";
+		sponge[0] = "C";
 		Cd test = new Cd(sponge);
 		if (test.isValid()) {
 			test.run();
