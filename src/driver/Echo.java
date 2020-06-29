@@ -51,13 +51,12 @@ public class Echo extends FileManager{
     String fileContents = "";
     if(hasQuotations(fullInput)) {
       fileContents = fullInput.substring(fullInput.indexOf("\"")+1, fullInput.lastIndexOf("\""));
+      String fileName = argument.substring(argument.lastIndexOf(">")+1, argument.length());
+      fileName = fileName.replaceAll("^\\s+", "");
       
       if(num_arrow == 0 && args.length > 1) printToConsole(args);
       
       else if(num_arrow == 1) {      
-        
-        String fileName = argument.substring(argument.lastIndexOf(">")+1, argument.length());
-        
         if(argument.split(">").length == 2 && !argument.split(">")[0].equals("")) {
           EchoOverwrite overwrite_exe = new EchoOverwrite();
           overwrite_exe.execute(fileContents, fileName);
@@ -65,10 +64,7 @@ public class Echo extends FileManager{
         else System.out.println("Error");// (not enough inputs/either before > or after)
       }
       
-      else if(num_arrow == 2) {
-        
-        String fileName = argument.substring(argument.lastIndexOf(">")+1, argument.length());
-        
+      else if(num_arrow == 2) {        
         if(argument.split(">>").length == 2 && !argument.split(">>")[0].equals("")) {
           EchoAppend append_exe = new EchoAppend();
           append_exe.execute(fileContents, fileName);
