@@ -56,17 +56,19 @@ public class Command {
       case "pwd":
         pwd_exe.printDirectory();
       case "pushd":
-        break;
+    	PushAndPop pushpop = PushAndPop.getStack();
+        pushpop.pushPath(arguments);
       case "popd":
-        break;
+    	PushAndPop popStack = PushAndPop.getStack();
+    	popStack.pop();
       case "history":
-        if(arguments.length == 0) {
-          history.printLastXCommands(history.getCommandLogSize());
-        }else if(arguments.length == 1) {
-          history.printLastXCommands(Integer.valueOf(arguments[0]));
-        }else {
-          System.out.println("Number of arguments required excceded");
-        }
+        //if(arguments.length == 0) {
+        //  history.printLastXCommands(history.getCommandLogSize());
+        //}else if(arguments.length == 1) {
+        //  history.printLastXCommands(Integer.valueOf(arguments[0]));
+        //}else {
+        //  System.out.println("Number of arguments required excceded");
+        //}
         break;
       case "cat":
         cat.readFile(arguments);

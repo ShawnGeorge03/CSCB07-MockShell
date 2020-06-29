@@ -75,7 +75,6 @@ public class FileSystem {
 	public void addToDirectory(Node newNode) {
 		newNode.parent = current;
 		current.list.add(newNode);
-		//System.out.println(current.name + "hi\n");
 	}
 
 }
