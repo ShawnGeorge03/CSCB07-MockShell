@@ -56,7 +56,7 @@ public class FileManager {
       if(directories[i].contains(".txt")) 
         if((i+1) >= directories.length)
           return findFileGivenRelative(directories[i]);
-        else System.out.println("Error"); //Invalid path, file cannot have more shit in it
+        else System.out.println("Error -> File Cannot Contain More Files");
       else {
         if(findInDirectory(directories[i])) {
           
