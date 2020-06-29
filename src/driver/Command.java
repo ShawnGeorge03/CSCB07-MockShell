@@ -46,6 +46,7 @@ public class Command {
       case "mkdir":
         Mkdir mkdir_exe = new Mkdir(arguments);
         mkdir_exe.MakeDirectory();
+        break;
       case "cd":
         Cd cd_exe = new Cd(arguments);
         cd_exe.run();
@@ -53,22 +54,26 @@ public class Command {
       case "ls":
         Ls ls_exe = new Ls(arguments);
         ls_exe.listDirectory();
+        break;
       case "pwd":
         pwd_exe.printDirectory();
+        break;
       case "pushd":
     	PushAndPop pushpop = new PushAndPop();
         pushpop.pushPath(arguments);
+        break;
       case "popd":
     	PushAndPop popStack = new PushAndPop();
     	popStack.pop();
+    	break;
       case "history":
-        //if(arguments.length == 0) {
-        //  history.printLastXCommands(history.getCommandLogSize());
-        //}else if(arguments.length == 1) {
-        //  history.printLastXCommands(Integer.valueOf(arguments[0]));
-        //}else {
-        //  System.out.println("Number of arguments required excceded");
-        //}
+        if(arguments.length == 0) {
+          history.printLastXCommands(history.getCommandLogSize());
+        }else if(arguments.length == 1) {
+          history.printLastXCommands(Integer.valueOf(arguments[0]));
+        }else {
+          System.out.println("Number of arguments required excceded");
+        }
         break;
       case "cat":
         cat.readFile(arguments);
