@@ -8,9 +8,9 @@ public class EchoOverwrite extends Echo{
     if(!fileName.contains(".txt")) fileName += ".txt";
     
     String newFileName = fileName;
-    if(find_file(newFileName) != null) {
+    if(findFileGivenRelative(newFileName) != null) {
       //System.out.println("File Found");
-      Node file = find_file(newFileName);
+      Node file = findFileGivenRelative(newFileName);
       file.content = fileContents;
     }
     else {

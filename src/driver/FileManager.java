@@ -8,7 +8,7 @@ public class FileManager {
     filesys = FileSystem.getFileSys();
   }
   
-  public Node find_file(String fileName) {
+  public Node findFileGivenRelative(String fileName) {
     if(!fileName.contains(".txt"))
       fileName += ".txt";
     
