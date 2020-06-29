@@ -32,21 +32,22 @@ public class Cd extends DirectoryManager {
 
 	public void run() {
 		String argument = this.cd_args.get(0);
-		if (argument.equals("C")) {
-			this.filesys.assignCurrent(this.filesys.root);
+		if (argument.equals(this.filesys.getRoot().name)) {
+			this.filesys.assignCurrent(this.filesys.getRoot());
 			return;
 		}
 		String[] split_args = argument.split("/");
 		
 		if (split_args.length == 1) {
 			if (argument.equals("..")) {
-				if (filesys.getCurrent().name == "C") {
+				if (filesys.getCurrent().name.equals(this.filesys.getRoot().name)) {
 					return;
 				}
 				filesys.assignCurrent(this.filesys.current.parent);
 			}
 			
 			else if (argument.equals(".")) {
+			  System.out.println("PWD: " + this.getCurrentPath());
 				return;
 			}
 			
@@ -70,12 +71,11 @@ public class Cd extends DirectoryManager {
 
 	public static void main(String[] args) {
 		String[] sponge = new String[1];
-		sponge[0] = "C";
+		sponge[0] = "..";
 		Cd test = new Cd(sponge);
 		if (test.isValid()) {
 			test.run();
 		}
-		System.out.println(test.getCurrentPath());
 	}
 
 }
