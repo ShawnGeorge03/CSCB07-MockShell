@@ -36,7 +36,7 @@ public class FileSystem {
 		Node picfile = new Node();
 		picfile.isDir = false;
 		picfile.content = "this is a picture";
-		picfile.name = "picturefile.jpg";
+		picfile.name = "picturefile.txt";
 		picfile.parent = pics;
 		
 		pics.list.add(picfile);
@@ -47,7 +47,7 @@ public class FileSystem {
 		// /
 			// Users
 			// pics
-				//picturefile.jpg
+				//picturefile.txt
 	}
 	
 	public static FileSystem getFileSys() {
