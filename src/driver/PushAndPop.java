@@ -1,11 +1,6 @@
 package driver;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Deque;
-
-public class PushAndPop {
+public class PushAndPop extends DirectoryManager{
 	
 	public PushAndPop() {
 	}
@@ -14,7 +9,10 @@ public class PushAndPop {
 		if (args.length == 0) {
 			return;
 		}
-		FileSystem.stack.add(0, args[0]);
+		if (FileSystem.stack.isEmpty()) {
+			FileSystem.stack.push(getCurrentPath());
+		}
+		FileSystem.stack.push(args[0]);
 		Cd newWorkingDirectory = new Cd(args);
 		newWorkingDirectory.run();
 	}
@@ -24,7 +22,8 @@ public class PushAndPop {
 			System.out.println("stack is empty");
 			return;
 		}
-		String []path = {FileSystem.stack.get(0)};
+		FileSystem.stack.pop();
+		String []path = {FileSystem.stack.peek()};
 		FileSystem.stack.remove(0);
 		Cd newWorkingDirectory = new Cd(path);
 		newWorkingDirectory.run();

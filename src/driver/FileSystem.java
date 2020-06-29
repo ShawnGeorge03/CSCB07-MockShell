@@ -8,7 +8,7 @@ public class FileSystem {
 	
 	static FileSystem fileSys = null;
 	static ArrayList<String> CommandLog =  new ArrayList<String>();
-	static ArrayList<String> stack = new ArrayList<String>();
+	static Deque<String> stack = new ArrayDeque<String>();
 
 	Node root = new Node();	
 	Node current = new Node();
