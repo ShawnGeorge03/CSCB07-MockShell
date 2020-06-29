@@ -45,8 +45,8 @@ public class FileSystem {
 		root.list.add(users);
 		root.list.add(pics);
 		
-		// /
-			// Users
+		// C
+		    // Users
 			// pics
 				//picturefile.txt
 	}
