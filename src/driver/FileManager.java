@@ -1,5 +1,6 @@
 package driver;
 
+
 public class FileManager {
   
   public FileSystem filesys;
@@ -28,5 +29,16 @@ public class FileManager {
     }
     
     return null;
+  }
+  
+  public boolean isValidFileName(String fileName) {
+    String[] invalidChars = {"/", ".", "\\s+", "!", "@", "#", "$", "%", "^", "&"
+        , "*", "(", ")", "{", "}", "~", "|", "<", ">", "?"};
+    for(int i = 0; i < invalidChars.length; i++) {
+      if(fileName.contains(invalidChars[i])) {
+        return false;
+      }
+    }
+    return true;
   }
 }
