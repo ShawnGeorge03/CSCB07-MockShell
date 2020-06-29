@@ -76,6 +76,8 @@ public class Command {
         break;
       case "man":
         break;
+      case "exit":
+        System.exit(0);
        default:
         
     }

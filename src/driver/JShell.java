@@ -45,13 +45,9 @@ public class JShell {
     while (running) {
       System.out.print("$");
       String input = sc.nextLine();
-      if (input.equals("exit")) {
-        sc.close();
-        running = false;
-      } else {
-        history.addCommands(input);
-        parser.parseInput(input);
-      }
+      history.addCommands(input);
+      parser.parseInput(input);
     }
+    sc.close();
   }
 }
