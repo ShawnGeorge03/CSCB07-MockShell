@@ -1,11 +1,14 @@
 package driver;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 
 public class FileSystem {
 	
 	static FileSystem fileSys = null;
 	static ArrayList<String> CommandLog =  new ArrayList<String>();
+	static ArrayList<String> stack = new ArrayList<String>();
 
 	Node root = new Node();	
 	Node current = new Node();

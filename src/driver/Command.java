@@ -56,10 +56,10 @@ public class Command {
       case "pwd":
         pwd_exe.printDirectory();
       case "pushd":
-    	PushAndPop pushpop = PushAndPop.getStack();
+    	PushAndPop pushpop = new PushAndPop();
         pushpop.pushPath(arguments);
       case "popd":
-    	PushAndPop popStack = PushAndPop.getStack();
+    	PushAndPop popStack = new PushAndPop();
     	popStack.pop();
       case "history":
         //if(arguments.length == 0) {

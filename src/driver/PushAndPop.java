@@ -7,36 +7,25 @@ import java.util.Deque;
 
 public class PushAndPop {
 	
-	static PushAndPop PushPop = null;
-	static Deque<String> stack = new ArrayDeque<String>();
-	
-	private PushAndPop() {
+	public PushAndPop() {
 	}
-	
-	public static PushAndPop getStack() {
-		if (PushPop == null) {
-			PushPop = new PushAndPop();
-			return PushPop;
-		} else {
-			return PushPop;
-		}
-	}
-	
+
 	public void pushPath(String[] args) {
 		if (args.length == 0) {
 			return;
 		}
-		stack.push(args[0]);
+		FileSystem.stack.add(0, args[0]);
 		Cd newWorkingDirectory = new Cd(args);
 		newWorkingDirectory.run();
 	}
 	
 	public void pop() {
-		if (stack.isEmpty()) {
+		if (FileSystem.stack.size() == 0) {
 			System.out.println("stack is empty");
 			return;
 		}
-		String []path = {stack.pop()};
+		String []path = {FileSystem.stack.get(0)};
+		FileSystem.stack.remove(0);
 		Cd newWorkingDirectory = new Cd(path);
 		newWorkingDirectory.run();
 	}
