@@ -7,6 +7,8 @@ public class EchoAppend extends Echo{
   
   public void execute(String fileContents, String fileName) {
     
+    if(!fileName.contains(".txt")) fileName += ".txt";
+    
     String newFileName = fileName;
     if(find_file(newFileName) != null) {
       //System.out.println("File Found");
@@ -18,7 +20,7 @@ public class EchoAppend extends Echo{
       Node newFile = new Node();
       newFile.isDir = false;
       newFile.content = fileContents;
-      newFile.name = newFileName + ".txt";
+      newFile.name = newFileName;
       newFile.parent = filesys.getCurrent();
       filesys.addToDirectory(newFile);
     }
