@@ -48,7 +48,6 @@ public class FileManager {
     return false;
   }
   
-  //inputted C/users/abhay/echoCommands
   public Node findFileGivenAbsolute(String absolutePath) {
     Node current = filesys.getRoot();
     String[] directories = absolutePath.split("/");
