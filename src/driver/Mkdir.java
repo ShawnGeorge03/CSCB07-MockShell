@@ -16,6 +16,7 @@ public class Mkdir extends DirectoryManager{
 			if (checkPath()) {
 				String[] currentPath = {getCurrentPath()};
 				String[] newArgs = {args.get(0).substring(0, args.get(0).lastIndexOf('/'))};
+				System.out.println("new Path: " + newArgs[0]);
 				Cd newpath = new Cd(newArgs);
 				newpath.run();
 				
@@ -25,10 +26,11 @@ public class Mkdir extends DirectoryManager{
 				newNode.name = args.get(0).substring(args.get(0).lastIndexOf('/') + 1);
 				
 				filesys.addToDirectory(newNode);
-				
+				System.out.println("current:" + filesys.getCurrent().name);
+				System.out.println("Cding into:" + currentPath[0]);
 				Cd goBack = new Cd(currentPath);
 				newpath.run();
-				
+				System.out.println("current after:" + filesys.getCurrent().name);
 			}
 			else {
 				Node newNode = new Node();

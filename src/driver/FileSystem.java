@@ -15,6 +15,7 @@ public class FileSystem {
 		root.isDir = true;
 		root.content = null;
 		root.name = "C";
+		root.isRoot = true;
 		root.parent = null;
 		current = root;
 		
@@ -74,6 +75,7 @@ public class FileSystem {
 	public void addToDirectory(Node newNode) {
 		newNode.parent = current;
 		current.list.add(newNode);
+		//System.out.println(current.name + "hi\n");
 	}
 
 }
