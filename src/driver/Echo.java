@@ -54,28 +54,31 @@ public class Echo extends FileManager{
       String fileName = argument.substring(argument.lastIndexOf(">")+1, argument.length());
       fileName = fileName.replaceAll("^\\s+", "");
       
-      if(num_arrow == 0 && args.length > 1) printToConsole(args);
-      
-      else if(num_arrow == 1) {      
-        if(argument.split(">").length == 2 && !argument.split(">")[0].equals("")) {
-          EchoOverwrite overwrite_exe = new EchoOverwrite();
-          overwrite_exe.execute(fileContents, fileName);
+      if(isValidFileName(fileName)) {
+        if(num_arrow == 0 && args.length > 1) printToConsole(args);
+        
+        else if(num_arrow == 1) {      
+          if(argument.split(">").length == 2 && !argument.split(">")[0].equals("")) {
+            EchoOverwrite overwrite_exe = new EchoOverwrite();
+            overwrite_exe.execute(fileContents, fileName);
+          }
+          else System.out.println("Error -> Invalid Arguments");
         }
-        else System.out.println("Error");// (not enough inputs/either before > or after)
-      }
-      
-      else if(num_arrow == 2) {        
-        if(argument.split(">>").length == 2 && !argument.split(">>")[0].equals("")) {
-          EchoAppend append_exe = new EchoAppend();
-          append_exe.execute(fileContents, fileName);
+        
+        else if(num_arrow == 2) {        
+          if(argument.split(">>").length == 2 && !argument.split(">>")[0].equals("")) {
+            EchoAppend append_exe = new EchoAppend();
+            append_exe.execute(fileContents, fileName);
+          }
+          else System.out.println("Error -> Invalid Arguments");
         }
-        else System.out.println("Error");// (not enough inputs/either before > or after)
+        
+        else System.out.println("Error -> No arguments");
       }
-      
-      else System.out.println("Error");// (only echo was inputted)
+      else System.out.println("Error -> Invalid File Name");
     }
     
-    else System.out.println("Error");// (no quotations)
+    else System.out.println("Error -> Must Have Quotations");
     
   }
 }
