@@ -12,21 +12,27 @@ public class Cat extends FileManager {
   }
   
   public void readFile(String[] filePaths) {   
+    Node file = null;
     for(int i = 0; i < filePaths.length; i++) {
-      Node file = findFileGivenRelative(formatFilePath(filePaths[i]));
+      if(filePaths[i].startsWith("C/")) {
+        //System.out.println(filePaths[i] + " Abs Path");
+        file = findFileGivenAbsolute(filePaths[i]);
+      }else {
+        //System.out.println(filePaths[i] + " Rel Path");
+        //System.out.println(manager.getCurrentPath() + "/" +  filePaths[i]);
+        file = findFileGivenAbsolute(manager.getCurrentPath() + "/" +  filePaths[i]);
+      }
+      
       if(file != null) {
         System.out.println(file.content);
-      }else{
-        System.out.println("File Not Found");
+      }else {
+        System.out.println("FileNotFoundError");
       }
+      
+      if(!(filePaths.length == 1 || i == filePaths.length - 1 )) {
+        System.out.println("---------------------------------");
+      }
+
     }
-  }
-  
-  public String formatFilePath(String filePaths) {
-    if(!filePaths.startsWith("C/")) {
-       return filePaths;
-    }else {
-      return filePaths.substring(filePaths.lastIndexOf("/") + 1);
-    }   
   }
 }
