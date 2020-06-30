@@ -8,7 +8,9 @@ public class Command {
   String command;
   boolean speakMode = false;
   
-  private TextSpeech tts; 
+  private TextSpeech tts;
+  private PushAndPop pushpop;
+  private PushAndPop popStack;
   private Pwd pwd_exe;
   private History history;
   private Cat cat;
@@ -16,6 +18,8 @@ public class Command {
 
   public Command() {
    this.tts = new TextSpeech();
+   this.pushpop = new PushAndPop();
+   this.popStack = new PushAndPop();
    this.pwd_exe = new Pwd();
    this.cat = new Cat();
    this.history = new History();
@@ -59,11 +63,9 @@ public class Command {
         pwd_exe.printDirectory();
         break;
       case "pushd":
-    	PushAndPop pushpop = new PushAndPop();
         pushpop.pushPath(arguments);
         break;
       case "popd":
-    	PushAndPop popStack = new PushAndPop();
     	popStack.pop();
     	break;
       case "history":
@@ -86,18 +88,7 @@ public class Command {
       case "exit":
         System.exit(0);
        default:
-        
-    }
-    
+         System.out.println("Invalid Command"); 
+    } 
   }
-
-//  public static void main(String[] args) {
-//    String input = "cd ..";
-//    Command new_command = new Command(input);
-//    new_command.usercommand = new_command.splitInput[0];
-//    for (int i = 1; i < new_command.splitInput.length; i++) {
-//      new_command.arguments.add(new_command.splitInput[i]);
-//    }
-//  }
-
 }
