@@ -15,12 +15,9 @@ public class Cat extends FileManager {
     Node file = null;
     for(int i = 0; i < filePaths.length; i++) {
       if(filePaths[i].startsWith("C/")) {
-        //System.out.println(filePaths[i] + " Abs Path");
         file = findFileGivenAbsolute(filePaths[i]);
       }else {
-        //System.out.println(filePaths[i] + " Rel Path");
-        //System.out.println(manager.getCurrentPath() + "/" +  filePaths[i]);
-        file = findFileGivenAbsolute(manager.getCurrentPath() + "/" +  filePaths[i]);
+        file = findFileGivenRelative(filePaths[i]);
       }
       
       if(file != null) {

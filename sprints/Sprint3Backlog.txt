@@ -1,0 +1,45 @@
+//Sprint 2 Backlog.  
+July 1 to July 8
+
+
+User Stories from Product Backlog that we will address in this sprint:
+a) Revise CRC Cards to recent changes in the project
+b) As a user, I want to be able to convert text to audio and listen to the pronounciation of words 
+c) Prints out documentation for given command  
+d) User can print out string, or if file is given, then append its contents with string 
+e) Build an Error Handling Class
+f) User can display the contents of a file(s)
+g) Change the way commands are run -> Make Command a super class
+h) Users should be able to enter directories with the cd command
+i) Error Handling
+
+Specific tasks to be accomplished:
+a-1) Correct the current CRC Cards to reflect the current code 
+b-1) Confirm with the Professor on the way speak works
+b-2) Implement fixes
+c-1) Build the general structure of the class
+c-2) Fill in the appropriate commands
+d-1) Implement fixes regarding file name
+d-2) Implement method ability to handle absoulte paths
+e-1) Build the general structure of the class
+e-2) Fill in the appropriate errors
+f-1) Implement fixes regarding file name
+f-2) Implement method ability to handle absoulte paths
+g-1) Restructure the current class using Parent-Child relationships
+g-2) Implement fixies to accomodate the following change
+h-1) Implement the ability the understand pattern of // and ..
+i-1) Fix and problems with the code
+
+These tasks are assigned as follows:
+
+User: Abhay
+Tasks: a-1, d-1, d-2, f-1, g-2, i-1
+
+User: Tirth Patel
+Tasks: a-1, e-1, e-2, g-2, h-1, i-1
+
+User: Keshavaa
+Tasks: a-1, c-1, c-2, g-1, g-2, i-1
+
+User: Shawn Santhoshgeorge
+Tasks: a-1, b-1, b-2, f-2, g-2, i-1

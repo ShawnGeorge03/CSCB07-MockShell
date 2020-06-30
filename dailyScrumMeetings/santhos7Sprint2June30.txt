@@ -1,0 +1,17 @@
+a) What did I work on in the last three days? 
+	- Fixed the errors in History and speak and cat
+	- Talked with team on Sprint3Backlog with the team
+	
+b) What do I plan to work in the next three days?
+	- Work on fixing any errors in the speak, and cat
+	- Allow cat to work with absolute paths and relative paths
+	- Revise and make changes to the CRC cards
+	- Accomodate changes to speak, history and cat to 
+	  parent-child relationship with command
+	- Check for errors at run time
+
+c) Am I blocked on anything?  
+	- Need to double check on how speak works
+	- Need the Error Class to be setup
+	- Need FileSystem to have getters and setters for content and file type
+
