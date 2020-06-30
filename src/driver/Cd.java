@@ -68,14 +68,4 @@ public class Cd extends DirectoryManager {
 		System.out.println("PWD: " + this.getCurrentPath());
 		return;
 	}
-
-	public static void main(String[] args) {
-		String[] sponge = new String[1];
-		sponge[0] = "..";
-		Cd test = new Cd(sponge);
-		if (test.isValid()) {
-			test.run();
-		}
-	}
-
 }
