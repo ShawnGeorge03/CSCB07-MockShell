@@ -1,0 +1,12 @@
+a) What did I work on in the last three days?
+	- worked on implementing echo commands
+	- got a working file creation using echo
+	- was able to debug and test a semi-working absolute path version of echo
+
+b) What do I plan to work in the next three days?
+	- brainstorm/test ideas for how to implement the error class
+	- fix bugs in the various commands
+
+c) Am I blocked on anything?
+	- no
+
