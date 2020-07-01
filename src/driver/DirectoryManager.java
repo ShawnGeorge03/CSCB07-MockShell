@@ -45,7 +45,7 @@ public class DirectoryManager {
     return -1;
   }
 
-  public void makePathFromRoot(String path) {
+  public boolean makePathFromRoot(String path) {
     String[] pathArr = path.split("/");
     Node currNode = filesys.getRoot();
     for (int i = 0; i < pathArr.length; i++) {
@@ -56,12 +56,14 @@ public class DirectoryManager {
         }
       } else {
         // Error msg (path not found)
+        return false;
       }
     }
     filesys.assignCurrent(currNode);
+    return true;
   }
 
-  public void makeRelativePath(String path) {
+  public boolean makeRelativePath(String path) {
     String[] pathArr = path.split("/");
     Node currNode = filesys.getCurrent();
     for (int i = 0; i < pathArr.length; i++) {
@@ -71,13 +73,15 @@ public class DirectoryManager {
           currNode = currNode.list.get(indexOfDir);
         } else {
           // Error msg. suggestedd path is not a directory!
-          return;
+          return false;
         }
       } else {
         System.out.println("Error. Directory not found");
+        return false;
       }
     }
     filesys.assignCurrent(currNode);
+    return true;
   }
 
 }
