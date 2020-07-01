@@ -3,12 +3,9 @@
 public class Cat extends FileManager {
   
   FileSystem filesys;
-  DirectoryManager manager;
   
   public Cat() {
     this.filesys = FileSystem.getFileSys();
-    this.manager = new DirectoryManager();
-
   }
   
   public void readFile(String[] filePaths) {   
@@ -21,7 +18,7 @@ public class Cat extends FileManager {
       }
       
       if(file != null) {
-        System.out.println(file.content);
+        System.out.println(filesys.getContent(file));
       }else {
         System.out.println("FileNotFoundError");
       }
