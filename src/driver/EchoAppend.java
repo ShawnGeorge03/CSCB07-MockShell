@@ -7,7 +7,7 @@ public class EchoAppend extends Echo{
   
   public void execute(String fileContents, String fileName) {
     
-    if(!fileName.contains(".txt")) fileName += ".txt";
+    //if(!fileName.contains(".txt")) fileName += ".txt";
     
     String newFileName = fileName;
     if(findFileGivenRelative(newFileName) != null) {

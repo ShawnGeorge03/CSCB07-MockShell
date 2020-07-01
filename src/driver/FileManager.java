@@ -10,9 +10,7 @@ public class FileManager {
   }
   
   public Node findFileGivenRelative(String fileName) {
-    if(!fileName.contains(".txt"))
-      fileName += ".txt";
-    
+ 
     Node current = filesys.getCurrent();
     return checkList(current, fileName);
     
