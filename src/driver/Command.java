@@ -50,7 +50,7 @@ public class Command {
         break;
       case "cd":
         Cd cd_exe = new Cd(arguments);
-        cd_exe.run();
+        boolean dummy = cd_exe.run();
         break;
       case "ls":
         Ls ls_exe = new Ls(arguments);
