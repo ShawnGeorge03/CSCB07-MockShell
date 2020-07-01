@@ -7,6 +7,7 @@ public class Cd extends DirectoryManager {
 
 	ArrayList<String> cd_args;
 	FileSystem filesys;
+	boolean successfulPath = false;
 
 	public Cd(String[] arguments) {
 		filesys = FileSystem.getFileSys();
@@ -30,25 +31,25 @@ public class Cd extends DirectoryManager {
 		}
 	}
 
-	public void run() {
+	public boolean run() {
 		String argument = this.cd_args.get(0);
 		if (argument.equals(this.filesys.getRoot().name)) {
 			this.filesys.assignCurrent(this.filesys.getRoot());
-			return;
+			return true;
 		}
 		String[] split_args = argument.split("/");
 		
 		if (split_args.length == 1) {
 			if (argument.equals("..")) {
 				if (filesys.getCurrent().name.equals(this.filesys.getRoot().name)) {
-					return;
+					return true;
 				}
 				filesys.assignCurrent(this.filesys.current.parent);
 			}
 			
 			else if (argument.equals(".")) {
 			  System.out.println("PWD: " + this.getCurrentPath());
-				return;
+				return true;
 			}
 			
 			else {
@@ -59,13 +60,13 @@ public class Cd extends DirectoryManager {
 
 		else {
 			if (split_args[0].equals(filesys.getRoot().name)) {
-				this.makePathFromRoot(argument);
+				successfulPath = this.makePathFromRoot(argument);
 			}
 			else {
-				this.makeRelativePath(argument);
+				successfulPath = this.makeRelativePath(argument);
 			}
 		}
 		System.out.println("PWD: " + this.getCurrentPath());
-		return;
+		return successfulPath;
 	}
 }
