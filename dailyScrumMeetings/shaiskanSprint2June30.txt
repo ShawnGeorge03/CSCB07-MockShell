@@ -1,0 +1,12 @@
+What did I work on in the last three days?
+    - Finished mkdir with absolute and relative paths
+    - Finished ls with absolute and relative paths
+    - Trouble shooted an issue with the Command class causing multiple commands at once
+
+What do I plan to work in the next three days?
+    - Create and work on Man Class
+    - Go through existing classes I've worked on to error check
+    - Modify CRC cards to reflect current code
+
+Am I blocked on anything?
+    - I need a team member to make a function in Cd to verify if a path is valid before I do error checks, not a big issue
