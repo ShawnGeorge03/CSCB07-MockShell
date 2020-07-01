@@ -71,6 +71,10 @@ public class FileSystem {
 		return current;
 	}
 	
+	public String getContent(Node file) {
+	  return file.content;
+	}
+	
 	public void assignCurrent(Node currentDirectory) {
 		current = currentDirectory;
 	}
