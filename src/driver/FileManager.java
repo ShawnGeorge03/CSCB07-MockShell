@@ -21,7 +21,7 @@ public class FileManager {
       } 
     }
     else {
-      Node current = filesys.getCurrent();
+      Node current = filesys.getCurrent().parent;
       for(int i = 0; i < current.list.size(); i++) {
         if(current.list.get(i).name.equals(fileName) && !current.list.get(i).isDir) 
           return current.list.get(i);
