@@ -16,26 +16,28 @@ public class Mkdir extends DirectoryManager{
 			if (checkPath()) {
 				String[] currentPath = {getCurrentPath()};
 				String[] newArgs = {args.get(0).substring(0, args.get(0).lastIndexOf('/'))};
-				
-				//Code needs to be added to verify path
-				
+			
 				
 				Cd newpath = new Cd(newArgs);
-				newpath.run();
-				
-				Node newNode = new Node();
-				newNode.content = null;
-				newNode.isDir = true;
-				newNode.name = args.get(0).substring(args.get(0).lastIndexOf('/') + 1);
-				
-				for (int i = 0; i < filesys.getCurrent().list.size(); i++) {
-					if (filesys.getCurrent().list.get(i).name.equals(newNode.name)) {
-						//ERROR - SAME FOLDER CAN'T BE MADE
-						return;
+				if (newpath.run()) {
+					Node newNode = new Node();
+					newNode.content = null;
+					newNode.isDir = true;
+					newNode.name = args.get(0).substring(args.get(0).lastIndexOf('/') + 1);
+					
+					for (int i = 0; i < filesys.getCurrent().list.size(); i++) {
+						if (filesys.getCurrent().list.get(i).name.equals(newNode.name)) {
+							Cd goBack = new Cd(currentPath);
+							goBack.run();
+							//ERROR - SAME FOLDER CAN'T BE MADE
+							return;
+						}
 					}
+				
+					filesys.addToDirectory(newNode);
+				}else {
+					//ERROR - Wrong Path!
 				}
-			
-				filesys.addToDirectory(newNode);
 				
 				Cd goBack = new Cd(currentPath);
 				goBack.run();
@@ -46,6 +48,13 @@ public class Mkdir extends DirectoryManager{
 				newNode.content = null;
 				newNode.isDir = true;
 				newNode.name = args.get(0);
+				
+				for (int i = 0; i < filesys.getCurrent().list.size(); i++) {
+					if (filesys.getCurrent().list.get(i).name.equals(newNode.name)) {
+						//ERROR - SAME FOLDER CAN'T BE MADE
+						return;
+					}
+				}
 				
 				filesys.addToDirectory(newNode);
 				return;
@@ -62,4 +71,5 @@ public class Mkdir extends DirectoryManager{
 	private boolean checkPath() {
 		return args.get(0).contains("/");
 	}
+	
 }
