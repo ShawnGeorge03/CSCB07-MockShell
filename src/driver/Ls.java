@@ -22,17 +22,18 @@ public class Ls extends DirectoryManager{
 				}
 			}
 		}else {
-			//Needs code to verify path!
 			String[] path = {args.get(0)};
 			String[] currentPath = {getCurrentPath()};
 			
 			Cd traverse = new Cd(path);
-			traverse.run();
-			
-			Node current = FileSystem.getFileSys().getCurrent();
-			
-			for (int i = 0; i < current.list.size(); i++) {
-				System.out.println(current.list.get(i).name);
+			if (traverse.run()) {
+				Node current = FileSystem.getFileSys().getCurrent();
+				
+				for (int i = 0; i < current.list.size(); i++) {
+					System.out.println(current.list.get(i).name);
+				}
+			}else {
+				//Error Invalid Directory
 			}
 			
 			Cd goBack = new Cd(currentPath);
