@@ -54,13 +54,11 @@ public class Cd extends DirectoryManager {
       }
 
       else if (argument.equals(".")) {
-        System.out.println("PWD: " + this.getCurrentPath());
         return true;
       }
 
       else {
         this.makeRelativePath(argument);
-        System.out.println(filesys.current.name);
       }
     }
 
@@ -71,7 +69,6 @@ public class Cd extends DirectoryManager {
         successfulPath = this.makeRelativePath(argument);
       }
     }
-    System.out.println("PWD: " + this.getCurrentPath());
     return successfulPath;
   }
 }
