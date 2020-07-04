@@ -57,7 +57,7 @@ public class Command {
         break;
       case "cd":
         Cd cd_exe = new Cd(arguments);
-        boolean dummy = cd_exe.run();
+        cd_exe.run();
         break;
       case "ls":
         Ls ls_exe = new Ls(arguments);
@@ -73,13 +73,7 @@ public class Command {
     	popStack.pop();
     	break;
       case "history":
-        if(arguments.length == 0) {
-          history.printLastXCommands(history.getCommandLogSize());
-        }else if(arguments.length == 1) {
-          history.printLastXCommands(Integer.valueOf(arguments[0]));
-        }else {
-          System.out.println("Number of arguments required excceded");
-        }
+        history.run(arguments);
         break;
       case "cat":
         cat.readFile(arguments);
