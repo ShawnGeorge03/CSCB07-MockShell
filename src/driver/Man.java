@@ -54,10 +54,10 @@ public class Man extends Command{
           + "\n\t 5. cat C/pics/picturefile.txt"
           + "\n\t 6. history"
           + "\n\n\tSample Output : $ history 4"
-          + "\n\t 1. echo \"Hello World\" > C/pics/picturefile"
-          + "\n\t 2. cat C/pics/picturefile.txt"
-          + "\n\t 3. history"
-          + "\n\t 4. history 4");
+          + "\n\t 4. echo \"Hello World\" > C/pics/picturefile"
+          + "\n\t 5. cat C/pics/picturefile.txt"
+          + "\n\t 6. history"
+          + "\n\t 7. history 4");
       my_dict.put("cat", "Command : cat"
           + "\n\tDisplays the content of File(s) in series"
           + "\n\n\tParameter : FILE(s) can be absolute or relative path(s)"
