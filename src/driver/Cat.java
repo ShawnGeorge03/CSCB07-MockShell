@@ -24,7 +24,7 @@ public class Cat extends FileManager {
       }
       
       if(!(filePaths.length == 1 || i == filePaths.length - 1 )) {
-        System.out.println("---------------------------------");
+        System.out.println("\r\n" + "\r\n" );
       }
 
     }
