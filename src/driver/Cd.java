@@ -17,8 +17,7 @@ public class Cd extends DirectoryManager {
 
   public boolean isBackwards() {
     String cur = this.cd_args.get(0);
-    if (Pattern.matches("[../]+", cur)) {
-      System.out.println("Ello");
+    if (Pattern.matches("(../)+", cur) || (Pattern.matches("(../..)+", cur))) {
       return true;
     }
     return false;
