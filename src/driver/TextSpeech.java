@@ -15,6 +15,7 @@ public class TextSpeech {
       "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory";
   
   private String text;
+  private String userText;
       
   public TextSpeech(){
     System.setProperty(PARENT_DIR, VOICE_DIR);
@@ -28,6 +29,7 @@ public class TextSpeech {
       
     text = Arrays.toString(textToSay);
     text = text.substring(1, text.length() - 1).replace(",", "").trim();
+    userText = text;
         
     if(text.endsWith("QUIT")) {
       text = text.substring(0, text.indexOf("QUIT")).trim();
@@ -38,12 +40,12 @@ public class TextSpeech {
         if(!(text.length() <= 1))
           text = text.substring(1, text.lastIndexOf("\""));
       }else {
-        System.out.println("Missing Quotation : " + textToSay);
+        System.out.println("Missing Quotation : " + userText);
         return;
       }
       
       if(text.indexOf("\"") != -1) {
-        System.out.println("Malformed Text : " + textToSay);
+        System.out.println("Malformed Text : " + userText);
         return;
       } 
     }
