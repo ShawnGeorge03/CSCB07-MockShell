@@ -1,0 +1,17 @@
+a) What did I work on in the last three days? 
+	- Cat works with relative path
+	- Fixed error handling in speak and history and cat
+	- Fixed the overall implementation of speak 
+	- Fixed up thr implementation of speak, history and cat
+	  for future change in Command
+
+b) What do I plan to work in the next three days?
+	- Allow cat to work with absolute paths
+	- Revise and make changes to the CRC cards
+	- Check for errors at run time
+
+c) Am I blocked on anything?  
+	- Need the Error Class to be setup
+	- Need the new version of Command to be implemented
+	- Need to restructure the overall strucuting of the .java files
+
