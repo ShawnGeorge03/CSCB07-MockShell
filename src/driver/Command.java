@@ -88,6 +88,8 @@ public class Command {
         echo.compile_arguments(fullInput);
         break;
       case "man":
+    	Man man_exe = new Man(arguments);
+    	man_exe.printDocumentation();
         break;
       case "exit":
         System.exit(0);
