@@ -6,6 +6,7 @@ public class Command {
 
   String[] splitInput;
   String command;
+  
   boolean speakMode = false;
   
   private TextSpeech tts;
@@ -30,19 +31,25 @@ public class Command {
     splitInput = parsedInput.split(" ");
     command = splitInput[0];
     String args[] = Arrays.copyOfRange(splitInput, 1, splitInput.length);
+    
     if(speakMode) {
-      command = "speak";
+      this.command = "speak";
       args = splitInput;
     }
+    
     run(command, args, parsedInput);
   }
 
   public void run(String command, String[] arguments, String fullInput) {  
     switch(command) {        
       case "speak":
-        tts.speak(arguments);
-        if(arguments.length == 0) speakMode = true;
-        if(tts.containsQUIT(arguments)) speakMode = false;
+        if(arguments.length == 0) {
+          speakMode = true;
+        } 
+        tts.convertTextToSpeech(arguments, speakMode);        
+        if(fullInput.endsWith("QUIT")) { 
+          speakMode = false;
+        }
         break;
       case "mkdir":
         Mkdir mkdir_exe = new Mkdir(arguments);
