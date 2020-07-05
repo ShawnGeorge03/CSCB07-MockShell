@@ -1,4 +1,7 @@
- package driver;
+ package commands;
+ 
+ import data.FileSystem;
+ import data.Node;
 
 public class Cat extends FileManager {
   
@@ -9,7 +12,7 @@ public class Cat extends FileManager {
   }
   
   public void readFile(String[] filePaths) {   
-    Node file = null;
+   Node file = null;
     for(int i = 0; i < filePaths.length; i++) {
       if(filePaths[i].startsWith("C/")) {
         file = findFileGivenAbsolute(filePaths[i]);

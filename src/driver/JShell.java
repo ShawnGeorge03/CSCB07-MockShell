@@ -30,7 +30,9 @@
 // *********************************************************
 package driver;
 
-import java.util.*;
+import java.util.Scanner;
+import commands.Checker;
+import commands.History;
 
 public class JShell {
 

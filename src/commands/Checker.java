@@ -1,4 +1,4 @@
-package driver;
+package commands;
 
 public class Checker {
   

@@ -1,6 +1,7 @@
-package driver;
+package commands;
 
 import java.util.Hashtable;
+import commands.Command;
 
 public class Man extends Command{
 	Hashtable<String, String> my_dict;
@@ -71,6 +72,8 @@ public class Man extends Command{
           + "\n\n\n\tHow are you QUIT");
       my_dict.put("echo", "10");
       my_dict.put("man", "11");
-      my_dict.put("exit", "12");     
+      my_dict.put("exit", "Command : exit"
+          + "\n\n\tCloses the current session and leaves the Shell"
+          + "\n\n\tParameter : None");     
   }
 }

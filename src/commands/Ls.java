@@ -1,7 +1,10 @@
-package driver;
+package commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import commands.DirectoryManager;
+import data.FileSystem;
+import data.Node;
 
 public class Ls extends DirectoryManager{
 	ArrayList<String> args;
@@ -13,12 +16,12 @@ public class Ls extends DirectoryManager{
 	public void listDirectory() {
 		if (args.size() == 0) {
 			Node curr = filesys.getCurrent();
-			for (int i = 0; i < curr.list.size(); i++) {
-				if (curr.list.get(i).isDir) {
-					System.out.println(curr.list.get(i).name);
+			for (int i = 0; i < curr.getList().size(); i++) {
+				if (curr.getList().get(i).isDir()) {
+					System.out.println(curr.getList().get(i).getName());
 				} else {
 					//System.out.println(curr.list.get(i).name + ".txt");
-	                System.out.println(curr.list.get(i).name);
+	                System.out.println(curr.getList().get(i).getName());
 				}
 			}
 		}else {
@@ -29,8 +32,8 @@ public class Ls extends DirectoryManager{
 			if (traverse.run()) {
 				Node current = FileSystem.getFileSys().getCurrent();
 				
-				for (int i = 0; i < current.list.size(); i++) {
-					System.out.println(current.list.get(i).name);
+				for (int i = 0; i < current.getList().size(); i++) {
+					System.out.println(current.getList().get(i).getName());
 				}
 			}else {
 				//Error Invalid Directory

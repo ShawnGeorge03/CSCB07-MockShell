@@ -1,7 +1,10 @@
-package driver;
+package commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import commands.DirectoryManager;
+import data.Node;
+
 
 public class Mkdir extends DirectoryManager{
 	ArrayList<String> args;
@@ -21,12 +24,12 @@ public class Mkdir extends DirectoryManager{
 				Cd newpath = new Cd(newArgs);
 				if (newpath.run()) {
 					Node newNode = new Node();
-					newNode.content = null;
-					newNode.isDir = true;
-					newNode.name = args.get(0).substring(args.get(0).lastIndexOf('/') + 1);
+					newNode.setContent(null);
+					newNode.setDir(true);
+					newNode.setName(args.get(0).substring(args.get(0).lastIndexOf('/') + 1));
 					
-					for (int i = 0; i < filesys.getCurrent().list.size(); i++) {
-						if (filesys.getCurrent().list.get(i).name.equals(newNode.name)) {
+					for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
+						if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
 							Cd goBack = new Cd(currentPath);
 							goBack.run();
 							//ERROR - SAME FOLDER CAN'T BE MADE
@@ -45,12 +48,12 @@ public class Mkdir extends DirectoryManager{
 			}
 			else {
 				Node newNode = new Node();
-				newNode.content = null;
-				newNode.isDir = true;
-				newNode.name = args.get(0);
+				newNode.setContent(null);
+				newNode.setDir(true);
+				newNode.setName(args.get(0));
 				
-				for (int i = 0; i < filesys.getCurrent().list.size(); i++) {
-					if (filesys.getCurrent().list.get(i).name.equals(newNode.name)) {
+				for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
+					if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
 						//ERROR - SAME FOLDER CAN'T BE MADE
 						return;
 					}

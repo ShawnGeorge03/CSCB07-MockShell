@@ -1,5 +1,7 @@
-package driver;
+package commands;
 
+import data.FileSystem;
+import data.Node;
 
 public class FileManager {
   
@@ -40,26 +42,26 @@ public class FileManager {
   }
   
   private Node checkList(Node current, String fileName) {
-    for(int i = 0; i < current.list.size(); i++) {
-      if(current.list.get(i).name.equals(fileName) && !current.list.get(i).isDir) 
-        return current.list.get(i);
+    for(int i = 0; i < current.getList().size(); i++) {
+      if(current.getList().get(i).getName().equals(fileName) && !current.getList().get(i).isDir()) 
+        return current.getList().get(i);
     }
     return null;
   }
   
   private Node findInDirectory(String file) {
-    if(filesys.getCurrent().parent != null) {
-      Node parent = filesys.getCurrent().parent;
-      for(int i = 0; i < parent.list.size(); i++) {
-        if(parent.list.get(i).name.equals(file)) 
-          return parent.list.get(i);
+    if(filesys.getCurrent().getParent() != null) {
+      Node parent = filesys.getCurrent().getParent();
+      for(int i = 0; i < parent.getList().size(); i++) {
+        if(parent.getList().get(i).getName().equals(file)) 
+          return parent.getList().get(i);
       } 
     }
     else {
       Node current = filesys.getCurrent();
-      for(int i = 0; i < current.list.size(); i++) {
-        if(current.list.get(i).name.equals(file)) 
-          return current.list.get(i);
+      for(int i = 0; i < current.getList().size(); i++) {
+        if(current.getList().get(i).getName().equals(file)) 
+          return current.getList().get(i);
       }
     }
     return null;

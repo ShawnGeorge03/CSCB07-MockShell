@@ -1,6 +1,8 @@
-package driver;
+package commands;
 
 import java.util.ArrayList;
+import data.FileSystem;
+import data.Node;
 
 public class DirectoryManager {
 
@@ -16,13 +18,13 @@ public class DirectoryManager {
     Node curr = filesys.getCurrent();
 
     if (curr.equals(this.filesys.getRoot())) {
-      return this.filesys.getRoot().name;
+      return this.filesys.getRoot().getName();
     }
 
-    path.add(curr.name);
+    path.add(curr.getName());
     while (curr != this.filesys.getRoot()) {
-      curr = curr.parent;
-      path.add(curr.name);
+      curr = curr.getParent();
+      path.add(curr.getName());
     }
 
     int i = path.size();
@@ -38,7 +40,7 @@ public class DirectoryManager {
 
   public int checkDirExists(ArrayList<Node> toCheck, String dir) {
     for (int i = 0; i < toCheck.size(); i++) {
-      if ((toCheck.get(i)).name.equals(dir)) {
+      if ((toCheck.get(i)).getName().equals(dir)) {
         return i;
       }
     }
@@ -49,10 +51,10 @@ public class DirectoryManager {
     String[] pathArr = path.split("/");
     Node currNode = filesys.getRoot();
     for (int i = 0; i < pathArr.length; i++) {
-      int indexOfDir = checkDirExists(currNode.list, pathArr[i]);
+      int indexOfDir = checkDirExists(currNode.getList(), pathArr[i]);
       if (indexOfDir != -1) {
-        if (currNode.list.get(indexOfDir).isDir) {
-          currNode = currNode.list.get(indexOfDir);
+        if (currNode.getList().get(indexOfDir).isDir()) {
+          currNode = currNode.getList().get(indexOfDir);
         }
       } else {
         // Error msg (path not found)
@@ -67,10 +69,10 @@ public class DirectoryManager {
     String[] pathArr = path.split("/");
     Node currNode = filesys.getCurrent();
     for (int i = 0; i < pathArr.length; i++) {
-      int indexOfDir = checkDirExists(currNode.list, pathArr[i]);
+      int indexOfDir = checkDirExists(currNode.getList(), pathArr[i]);
       if (indexOfDir != -1) {
-        if (currNode.list.get(indexOfDir).isDir) {
-          currNode = currNode.list.get(indexOfDir);
+        if (currNode.getList().get(indexOfDir).isDir()) {
+          currNode = currNode.getList().get(indexOfDir);
         } else {
           // Error msg. suggestedd path is not a directory!
           return false;

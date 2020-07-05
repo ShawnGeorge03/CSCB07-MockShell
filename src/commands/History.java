@@ -1,13 +1,15 @@
-package driver;
+package commands;
+
+import data.FileSystem;
 
 public class History {
   
   public void addCommands(String Command) {
-    FileSystem.CommandLog.add(Command);
+    FileSystem.getCommandLog().add(Command);
   }
   
   public int getCommandLogSize() {
-    return FileSystem.CommandLog.size();
+    return FileSystem.getCommandLog().size();
   }
   
   public void run(String args[]) {
@@ -36,9 +38,9 @@ public class History {
   }
   
   public void printLastXCommands(int x) {
-    for(int i = FileSystem.CommandLog.size() - x; i < FileSystem.CommandLog.size(); i++) {
+    for(int i = FileSystem.getCommandLog().size() - x; i < FileSystem.getCommandLog().size(); i++) {
       if(i < 0) continue;
-      System.out.println((i+1)+". " + FileSystem.CommandLog.get(i));
+      System.out.println((i+1)+". " + FileSystem.getCommandLog().get(i));
     }
   }
   

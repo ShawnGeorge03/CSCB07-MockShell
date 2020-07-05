@@ -1,4 +1,6 @@
-package driver;
+package commands;
+
+import commands.DirectoryManager;
 
 public class Pwd extends DirectoryManager {
 

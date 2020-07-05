@@ -1,4 +1,7 @@
-package driver;
+package commands;
+
+import commands.DirectoryManager;
+import data.FileSystem;
 
 public class PushAndPop extends DirectoryManager{
 	
@@ -9,22 +12,22 @@ public class PushAndPop extends DirectoryManager{
 		if (args.length == 0) {
 			return;
 		}
-		if (FileSystem.stack.isEmpty()) {
-			FileSystem.stack.push(getCurrentPath());
+		if (FileSystem.getStack().isEmpty()) {
+			FileSystem.getStack().push(getCurrentPath());
 		}
-		FileSystem.stack.push(args[0]);
+		FileSystem.getStack().push(args[0]);
 		Cd newWorkingDirectory = new Cd(args);
 		newWorkingDirectory.run();
 	}
 	
 	public void pop() {
-		if (FileSystem.stack.size() == 0) {
+		if (FileSystem.getStack().size() == 0) {
 			System.out.println("stack is empty");
 			return;
 		}
-		FileSystem.stack.pop();
-		String []path = {FileSystem.stack.peek()};
-		FileSystem.stack.remove(0);
+		FileSystem.getStack().pop();
+		String []path = {FileSystem.getStack().peek()};
+		FileSystem.getStack().remove();
 		Cd newWorkingDirectory = new Cd(path);
 		newWorkingDirectory.run();
 	}
