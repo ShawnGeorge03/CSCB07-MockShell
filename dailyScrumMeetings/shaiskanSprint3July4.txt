@@ -1,0 +1,12 @@
+What did I work on in the last three days?
+    - Added error checking to mkdir
+    - Added error checking to ls
+    - Created man class and hashtable
+
+What do I plan to work in the next three days?
+    - Test commands I've worked on throughly
+    - Change command class to use hashtable to run commands instead of switch case
+    - Error check pushd and popd, very minor addition
+
+Am I blocked on anything?
+    - A team member needs to create the Error class and hashtable, so I can add my errors to the hashtable and call it when there are errors
