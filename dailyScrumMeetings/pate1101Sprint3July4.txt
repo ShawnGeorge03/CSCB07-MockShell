@@ -1,0 +1,13 @@
+a) What did I work on in the last three days?
+	- completed the absolute path implementation for echo commands
+	- fixed the file naming error that was found in previous Sprint
+	- work on any bugs/errors with the code 
+
+b) What do I plan to work in the next three days?
+	- add documentation for the commands that were implemented by me in the man class
+	- modify how certain commands are being called in command class (once the change in structure has been completed)
+	- implement a way for commands to send error message reports (once the error class has been implemented)
+
+c) Am I blocked on anything?
+	- Need Command class to be completed to continue my work
+	- Need Error class to be completed to continue my work
