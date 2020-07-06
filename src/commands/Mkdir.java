@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import commands.DirectoryManager;
 import data.Node;
+import driver.ErrorHandler;
 
 
 public class Mkdir extends DirectoryManager{
@@ -32,14 +33,14 @@ public class Mkdir extends DirectoryManager{
 						if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
 							Cd goBack = new Cd(currentPath);
 							goBack.run();
-							//ERROR - SAME FOLDER CAN'T BE MADE
+							ErrorHandler error = new ErrorHandler("Same Directory");
 							return;
 						}
 					}
 				
 					filesys.addToDirectory(newNode);
 				}else {
-					//ERROR - Wrong Path!
+					ErrorHandler error = new ErrorHandler("Invalid Directory");
 				}
 				
 				Cd goBack = new Cd(currentPath);

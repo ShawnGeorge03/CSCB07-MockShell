@@ -5,6 +5,7 @@ import java.util.Arrays;
 import commands.DirectoryManager;
 import data.FileSystem;
 import data.Node;
+import driver.ErrorHandler;
 
 public class Ls extends DirectoryManager{
 	ArrayList<String> args;
@@ -36,7 +37,8 @@ public class Ls extends DirectoryManager{
 					System.out.println(current.getList().get(i).getName());
 				}
 			}else {
-				//Error Invalid Directory
+				ErrorHandler error = new ErrorHandler("Invalid Directory");
+				
 			}
 			
 			Cd goBack = new Cd(currentPath);

@@ -2,6 +2,7 @@ package commands;
 
 import commands.DirectoryManager;
 import data.FileSystem;
+import driver.ErrorHandler;
 
 public class PushAndPop extends DirectoryManager{
 	
@@ -10,6 +11,7 @@ public class PushAndPop extends DirectoryManager{
 
 	public void pushPath(String[] args) {
 		if (args.length == 0) {
+			ErrorHandler error = new ErrorHandler("Invalid Argument");
 			return;
 		}
 		if (FileSystem.getStack().isEmpty()) {

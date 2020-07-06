@@ -13,7 +13,11 @@ public class ErrorHandler {
     errorHash.put("Invalid Directory", "Error: Invalid Directory");
     errorHash.put("File Not Found", "Error: File Not Found");
     errorHash.put("Directory Not Found", "Error: Directory Not Found");
-    System.out.println(errorHash.get(error_code));
+    errorHash.put("Same Directory", "Error: Same Directory with that name already exists!");
+    
+    if (errorHash.containsKey(error_code)){
+    	System.out.println(errorHash.get(error_code));
+    }
   }
   
 
