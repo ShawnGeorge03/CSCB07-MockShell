@@ -32,6 +32,8 @@ public class ErrorHandler {
         "Error : Malformed Input");
     errorMap.put("Mulptile parameters provided", 
         "Error : Multiple Parameters have been provided");
+    errorMap.put("No parameters provided",
+        "Error : No parameters provided");
   }
   
   public String getError(String errorCode, String parameter) {
