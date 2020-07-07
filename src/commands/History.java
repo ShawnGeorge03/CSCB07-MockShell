@@ -14,21 +14,8 @@ public class History implements CommandI {
   }
   
   @Override
-  public String run(String[] args, String fullInput) {
-    runHistory(args);
-    return output;
-  }
-  
-  public void addCommands(String Command) {
-    FileSystem.getCommandLog().add(Command);
-  }
-  
-  public int getCommandLogSize() {
-    return FileSystem.getCommandLog().size();
-  }
-  
-  public void runHistory(String args[]) {
-    
+  public String run(String[] args, String fullInput) {   
+    System.out.print(Arrays.toString(args));
     if(args.length == 0) {
       printLastXCommands(getCommandLogSize());
     }else if(args.length == 1) {
@@ -44,16 +31,24 @@ public class History implements CommandI {
       if(numeric && number >= 0 && number % 1 == 0) {
         printLastXCommands(number); 
       } else {
-        err.getError("Invalid Argument", args[0]);
+        output = err.getError("Invalid Argument", args[0]);
       }
     }else if(args.length > 1) {
       String parameter = Arrays.toString(args);
       parameter = parameter.substring(1, parameter.length() - 1).replace(",", "").trim();
-      err.getError("Mulptile parameters provided", parameter);
+      output = err.getError("Mulptile parameters provided", parameter);
     }
-    
+    return output.trim();
   }
   
+  public void addCommands(String Command) {
+    FileSystem.getCommandLog().add(Command);
+  }
+  
+  public int getCommandLogSize() {
+    return FileSystem.getCommandLog().size();
+  }
+    
   public void printLastXCommands(int x) {
     for(int i = getCommandLogSize() - x; i < getCommandLogSize(); i++) {
       if(i < 0) continue;
