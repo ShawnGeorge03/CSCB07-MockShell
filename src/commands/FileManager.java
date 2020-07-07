@@ -67,14 +67,35 @@ public class FileManager {
     return null;
   }
   
+  private boolean ifFile(String fileName) {
+    Node dir = filesys.getRoot();
+    for(int i = 0; i < dir.getList().size(); i++) {
+      if(dir.getList().get(i).getName().equals(fileName) && !dir.getList().get(i).isDir()) 
+        return true;
+    }
+    return false;
+  }
+  
   public Node findFileGivenAbsolute(String absolutePath) {
     Node current = filesys.getRoot();
     String[] directories = absolutePath.split("/");    
     
-    for(int i = 1; i < directories.length; i++) {
-      if(directories[i].contains(".txt")){ 
+    for(int i = 1; i < directories.length; i++) { //loop through the directory
+         
+      if((i+1) == directories.length) {
+        return checkList(current, directories[i]);
+      }
+      else if(ifFile(directories[i])) System.out.println("Error -> File Cannot Contain More Files");
+      else {
+        Node temp = findInDirectory(directories[i]);
+        if(temp != null) current = temp;
+        else return null;
+      }
+      
+      
+      /*if(directories[i].contains(".txt")){ 
         if((i+1) >= directories.length) {
-          return checkList(current, directories[i]);
+          return checkList(current, directories[i]);*/
           /*Node found = null;
           for(int j = 0; j < current.list.size(); j++) {
             if(current.list.get(j).name.equals(directories[i]) && !current.list.get(j).isDir) {
@@ -83,14 +104,14 @@ public class FileManager {
             }
           }
           return found;*/
-        }
+       /* }
         else System.out.println("Error -> File Cannot Contain More Files");
       }
       else {
         Node temp = findInDirectory(directories[i]);
         if(temp != null) current = temp;
         else return null;
-      }
+      }*/
     }
     return current;
   }
