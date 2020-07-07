@@ -18,6 +18,8 @@ public class TextSpeech {
   private String userText;
   
   private ErrorHandler err;
+  
+  private boolean speakMode;
       
   public TextSpeech(){
     System.setProperty(PARENT_DIR, VOICE_DIR);
@@ -28,17 +30,24 @@ public class TextSpeech {
     this.err = new ErrorHandler();
   }
   
-  public void convertTextToSpeech(String[] textToSay, boolean speakMode) {  
+  public void run(String [] arguments, String fullInput) {
+    if(arguments.length == 0) speakMode = true; 
+    convertTextToSpeech(arguments, fullInput, speakMode);        
+    if(fullInput.endsWith("QUIT")) speakMode = false;
+  }
+  
+  public void convertTextToSpeech(String[] textToSay, String fullInput, boolean val) {  
       
     text = Arrays.toString(textToSay);
     text = text.substring(1, text.length() - 1).replace(",", "").trim();
-    userText = text;
+    
+    userText = fullInput.substring(0, fullInput.indexOf("speak") + 5).trim();
         
     if(text.endsWith("QUIT")) {
       text = text.substring(0, text.indexOf("QUIT")).trim();
     }
         
-    if(!speakMode) {
+    if(!val) {
       if(text.startsWith("\"") && text.endsWith("\"")) {
         if(!(text.length() <= 1))
           text = text.substring(1, text.lastIndexOf("\""));
@@ -54,6 +63,7 @@ public class TextSpeech {
     }
     
     try {
+      voice.speak(text);
     } catch (Exception e) {
       e.printStackTrace();
     }   

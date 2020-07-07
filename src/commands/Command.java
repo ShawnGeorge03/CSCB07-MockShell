@@ -43,13 +43,9 @@ public class Command {
   public void run(String command, String[] arguments, String fullInput) {  
     switch(command) {        
       case "speak":
-        if(arguments.length == 0) {
-          speakMode = true;
-        } 
-        tts.convertTextToSpeech(arguments, speakMode);        
-        if(fullInput.endsWith("QUIT")) { 
-          speakMode = false;
-        }
+        if(arguments.length == 0) speakMode = true;
+        tts.run(arguments, fullInput);        
+        if(fullInput.endsWith("QUIT")) speakMode = false;
         break;
       case "mkdir":
         Mkdir mkdir_exe = new Mkdir(arguments);
