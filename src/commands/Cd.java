@@ -8,17 +8,34 @@ import data.FileSystem;
 public class Cd extends DirectoryManager implements CommandI {
 
   ArrayList<String> cd_args;
-  FileSystem filesys;
   boolean successfulPath = false;
-  ErrorHandler error;
   String err_output;
+  /**
+   * Declare instance of FileSystem
+   */
+  FileSystem filesys;
+  /**
+   * Declare instance of ErrorHandler
+   */
+  ErrorHandler error;
 
+  /**
+   * Constructor for method Cd which changes directories within the FileSystem
+   */
   public Cd() {
     filesys = FileSystem.getFileSys();
     error = new ErrorHandler();
 
   }
 
+  /**
+   * Starting run method which checks if arguments were given, then passes it to another run method
+   * which processes the command
+   * 
+   * @param args This is a string array of arguments
+   * @param fullInput This is the full line of input that the user gives into JShell
+   * @return string Returns any error messages if there are any
+   */
   public String run(String[] args, String fullInput) {
     if (args.length == 0) {
       err_output = error.getError("No parameters provided", "");
@@ -28,6 +45,12 @@ public class Cd extends DirectoryManager implements CommandI {
     return null;
   }
 
+  /**
+   * Returns true if the argument follows the pattern of ../ in which each pair of periods dictates
+   * how many directories to go up
+   * 
+   * @return True if argument matches pattern, false otherwise
+   */
   public boolean isBackwards() {
     String cur = this.cd_args.get(0);
     if (Pattern.matches("(../)+", cur) || (Pattern.matches("(../..)+", cur))) {
@@ -36,12 +59,18 @@ public class Cd extends DirectoryManager implements CommandI {
     return false;
   }
 
-  public void printArr(String[] arr) {
-    for (int i = 0; i < arr.length; i++) {
-      System.out.println(arr[i]);
-    }
-  }
-
+  /**
+   * Main run method that executes the performance of changing directories based on what argument
+   * is given.
+   * If argument is ".", nothing happens
+   * If argument is "..", go up one directory
+   * If argument is "/", change the cd to root
+   * If argument is absolute path, check if the path exists, then change to that directory
+   * If argument is relative path, check if that path exists, then change to that directory
+   * 
+   * @param arguments Array of arguments provided by user
+   * @return True if the argument was processed and the change of directory was successful
+   */
   public boolean run(String[] arguments) {
     this.cd_args = new ArrayList<String>(Arrays.asList(arguments));
     String argument = this.cd_args.get(0);
@@ -83,11 +112,22 @@ public class Cd extends DirectoryManager implements CommandI {
         successfulPath = this.makeRelativePath(argument);
       }
     }
+    if (!successfulPath) {
+      System.out.println(error.getError("Directory Not Found", ""));
+    }
     return successfulPath;
   }
 
 
-  public static void main(String[] args) {
-
-  }
+//  public static void main(String[] args) {
+//    Cd test = new Cd();
+//    test.run("/");
+//    System.out.println(test.getCurrentPath());
+//    test.run(".");
+//    System.out.println(test.getCurrentPath());
+//    test.run("..");
+//    System.out.println(test.getCurrentPath());
+//    
+//
+//  }
 }
