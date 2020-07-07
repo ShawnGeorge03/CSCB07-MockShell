@@ -5,17 +5,11 @@ public class Echo extends FileManager implements CommandI {
   private String argument;
 
   public String run(String[] args, String fullInput) {
-    compile_arguments(fullInput);
-    return null;
-  }
-
-  public void compile_arguments(String fullInput) {
-
-    int num_arrow = count_arrows(fullInput);
     String[] sliced = fullInput.split(" ");;
 
     argument = fix_argument(sliced);
-    run(sliced, num_arrow, fullInput);
+    execute(sliced, fullInput);
+    return null;
   }
 
   public boolean hasQuotations(String fullInput) {
@@ -52,14 +46,16 @@ public class Echo extends FileManager implements CommandI {
     System.out.println(output.replaceAll("\"", ""));
   }
 
-  public void run(String[] args, int num_arrow, String fullInput) {
-
+  public void execute(String[] args, String fullInput) {
+    
     String fileContents = "";
     if (hasQuotations(fullInput)) {
       fileContents = fullInput.substring(fullInput.indexOf("\"") + 1, fullInput.lastIndexOf("\""));
       String fileName = argument.substring(argument.lastIndexOf(">") + 1, argument.length());
       fileName = fileName.replaceAll("^\\s+", "");
-      // if(isValidFileName(fileName)) {
+            
+      int num_arrow = count_arrows(fullInput.substring(fullInput.lastIndexOf("\"")+1, fullInput.length()));
+      
       if (num_arrow == 0 && args.length > 1)
         printToConsole(args);
 
@@ -68,7 +64,7 @@ public class Echo extends FileManager implements CommandI {
           EchoOverwrite overwrite_exe = new EchoOverwrite();
           overwrite_exe.execute(fileContents, fileName);
         } else
-          System.out.println(this.getErrorHandler().getError("Invalid Argument", fullInput));
+          System.out.println(this.getErrorHandler().getError("No parameters provided", fullInput));
       }
 
       else if (num_arrow == 2) {
@@ -76,17 +72,14 @@ public class Echo extends FileManager implements CommandI {
           EchoAppend append_exe = new EchoAppend();
           append_exe.execute(fileContents, fileName);
         } else
-          System.out.println(this.getErrorHandler().getError("Invalid Argument", fullInput));
+          System.out.println(this.getErrorHandler().getError("No parameters provided", fullInput));
       }
 
       else
         System.out.println(this.getErrorHandler().getError("Invalid Argument", fullInput));
-      // }
-      // else System.out.println(this.getErrorHandler().getError("Invalid File", fullInput));
     }
-
     else
-      System.out.println(this.getErrorHandler().getError("Invalid Argument", fullInput));
+      System.out.println(this.getErrorHandler().getError("Missing Quotes", fullInput));
 
   }
 }

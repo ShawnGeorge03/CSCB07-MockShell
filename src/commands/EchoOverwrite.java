@@ -23,6 +23,7 @@ public class EchoOverwrite extends Echo{
           filesys.addToDirectory(newFile);
         }
       }
+      else System.out.println(this.getErrorHandler().getError("Invalid File", fileName));
     }
     
     else {
@@ -45,6 +46,7 @@ public class EchoOverwrite extends Echo{
           this.filesys.assignCurrent(currentNode);
         }
       }
+      else System.out.println(this.getErrorHandler().getError("Invalid File", path[path.length-2]));
     }
     
   }
