@@ -8,14 +8,17 @@ public class Cat extends FileManager implements CommandI {
   FileSystem filesys;
   private ErrorHandler error;
   
+  String output;
+  
   public Cat() {
     this.filesys = FileSystem.getFileSys();
     this.error = new ErrorHandler();
+    this.output = "";
   }
   
-  @Override
-  public void run(String[] args, String fullInput) {
+  public String run(String[] args, String fullInput) {
     readFile(args);
+    return output;
   }
   
   public void readFile(String[] filePaths) {   
@@ -28,13 +31,13 @@ public class Cat extends FileManager implements CommandI {
       }
       
       if(file != null) {
-        System.out.println(filesys.getContent(file));
+        output += filesys.getContent(file);
       }else {
-        error.getError("File Not Found", filePaths[i]);
+        output += error.getError("File Not Found", filePaths[i]);
       }
       
       if(!(filePaths.length == 1 || i == filePaths.length - 1 )) {
-        System.out.println("\r\n" + "\r\n" );
+        output += "\r\n" + "\r\n";
       }
     }
   }

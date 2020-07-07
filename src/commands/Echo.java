@@ -4,8 +4,9 @@ public class Echo extends FileManager implements CommandI{
   
   private String argument;  
   
-  public void run(String[] args, String fullInput) {
+  public String run(String[] args, String fullInput) {
     compile_arguments(fullInput);
+    return null;
   }
 
   public void compile_arguments(String fullInput) {

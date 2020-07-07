@@ -6,14 +6,17 @@ import data.FileSystem;
 public class History implements CommandI {
   
   private ErrorHandler err;
+  String output;
   
   public History() {
     this.err = new ErrorHandler();
+    this.output = "";
   }
   
   @Override
-  public void run(String[] args, String fullInput) {
+  public String run(String[] args, String fullInput) {
     runHistory(args);
+    return output;
   }
   
   public void addCommands(String Command) {
@@ -54,7 +57,7 @@ public class History implements CommandI {
   public void printLastXCommands(int x) {
     for(int i = getCommandLogSize() - x; i < getCommandLogSize(); i++) {
       if(i < 0) continue;
-      System.out.println((i+1)+". " + FileSystem.getCommandLog().get(i));
+      output += (i+1)+". " + FileSystem.getCommandLog().get(i) + "\n";
     }
   }
 }

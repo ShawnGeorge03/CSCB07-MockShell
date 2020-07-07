@@ -9,8 +9,9 @@ public class Pop implements CommandI {
 	    this.error = new ErrorHandler();
 	  }
 	
-	  public void run(String[] args, String fullInput) {
+	  public String run(String[] args, String fullInput) {
 	    pop();
+	    return null;
 	  }
 	
 	public void pop() {

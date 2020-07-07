@@ -5,8 +5,9 @@ import commands.DirectoryManager;
 public class Pwd extends DirectoryManager implements CommandI {
   
   
-  public void run(String[] args, String fullInput) {
+  public String run(String[] args, String fullInput) {
     printDirectory();
+    return null;
   }
 
   public void printDirectory() {

@@ -14,8 +14,9 @@ public class Ls extends DirectoryManager implements CommandI {
     this.error = new ErrorHandler();
   }
   
-  public void run(String[] args, String fullInput) {
+  public String run(String[] args, String fullInput) {
     listDirectory(args);
+    return null;
   }
   
   public void listDirectory(String[] arguments) {

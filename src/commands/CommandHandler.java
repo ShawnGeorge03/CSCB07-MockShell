@@ -43,9 +43,11 @@ public class CommandHandler {
 	      this.command = "speak";
 	      args = splitInput;
 	    }
-	    if(command.equals("speak") && args.length == 0) speakMode = true;
+	    if(command.equals("speak") && args.length == 0) 
+	      speakMode = true;
 	    run(command, args, parsedInput);
-	    if(command.equals("speak") && parsedInput.endsWith("QUIT")) speakMode = false;
+	    if(command.equals("speak") && parsedInput.endsWith("QUIT")) 
+	      speakMode = false;
 	  }
 	  
 	  public void run(String command, String[] args, String fullInput) {
@@ -63,7 +65,9 @@ public class CommandHandler {
 	        CommandI commandObj = (CommandI) 
 	            Class.forName(className).getDeclaredConstructor().newInstance();
 	        
-	        commandObj.run(args, fullInput);
+	        String output = commandObj.run(args, fullInput);
+	        
+	        if(output != null) System.out.print(output);
 
 	      } catch (InstantiationException e) {
 	        e.printStackTrace();

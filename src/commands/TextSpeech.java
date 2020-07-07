@@ -26,10 +26,11 @@ public class TextSpeech implements CommandI {
     this.text = "";
   }
   
-  public void run(String[] args, String actualInput) {
+  public String run(String[] args, String actualInput) {
     if(args.length == 0) speakMode = true;
     convertTextToSpeech(args, speakMode);        
     if(actualInput.endsWith("QUIT")) speakMode = false;
+    return null;
   }
   
   public void convertTextToSpeech(String[] textToSay, boolean speakMode) {  

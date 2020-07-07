@@ -14,8 +14,9 @@ public class Mkdir extends DirectoryManager implements CommandI {
     this.error = new ErrorHandler();
   }
   
-  public void run(String[] args, String fullInput) {
+  public String run(String[] args, String fullInput) {
     MakeDirectory(args);
+    return null;
   }
   
   

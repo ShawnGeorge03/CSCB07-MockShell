@@ -11,8 +11,9 @@ public class Man implements CommandI{
 	}
 	
 	
-	  public void run(String[] args, String fullInput) {
+	  public String run(String[] args, String fullInput) {
 	    printDocumentation(args);
+	    return null;
 	  }
 	
 	public void printDocumentation(String[] userInput){  

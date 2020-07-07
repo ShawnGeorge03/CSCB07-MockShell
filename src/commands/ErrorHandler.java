@@ -34,12 +34,9 @@ public class ErrorHandler {
         "Error : Multiple Parameters have been provided");
   }
   
-  public void getError(String errorCode, String parameter) {
-    if (errorMap.containsKey(errorCode)){
-      System.out.println(errorMap.get(errorCode) + " : " + parameter);
-    }
-    
-    
-  }
-
+  public String getError(String errorCode, String parameter) {
+    if (errorMap.containsKey(errorCode))
+      return errorMap.get(errorCode) + " : " + parameter;
+    return null;
+ }
 }

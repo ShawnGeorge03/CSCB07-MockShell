@@ -11,8 +11,9 @@ public class Push extends DirectoryManager implements CommandI {
   }
   
   
-  public void run(String[] args, String fullInput) {
+  public String run(String[] args, String fullInput) {
     pushPath(args);
+    return null;
   }
 
   public void pushPath(String[] args) {

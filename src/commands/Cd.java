@@ -16,8 +16,9 @@ public class Cd extends DirectoryManager implements CommandI {
     
   }
   
-  public void run(String[] args, String fullInput) {
+  public String run(String[] args, String fullInput) {
     run(args);
+    return null;
   }
 
   public boolean isBackwards() {
