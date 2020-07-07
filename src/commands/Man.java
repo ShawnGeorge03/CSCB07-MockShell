@@ -85,10 +85,16 @@ public class Man implements CommandI {
             + "\n\tThis is a picture file" + "\n\n\n\tHello World" + "\n\n\n\tHow are you QUIT");
 
     my_dict.put("echo", "Command: echo"
-        + "\nParameters: String (in quotations), and arrow or double arrow followed by filename"
-        + "\nIf provided without arrow and fileaname, it simply prints out string in the console"
-        + "\nIf provided with a single arrow and filename, it overwrites that file's content with the string"
-        + "\nIf provided with double arrow and filename, it appends that file's content with the string ");
+        + "\n\tParameters: String (in quotations), and arrow or"
+        + "\n\tdouble arrow followed by filename"
+        + "\n\n\tIf provided without arrow and fileaname, "
+        + "\n\tit simply prints out string in the console"
+        + "\n\n\tIf provided with a single arrow and filename,"
+        + "\n\tit overwrites that file's content with the string"
+        + "\n\n\tIf provided with double arrow and filename, "
+        + "\n\tit appends that file's content with the string"
+        + "\n\n\tFilename can be given in the form of an absolute"
+        + "\n\tpath or relative path");
 
     my_dict.put("man",
         "Command: man" + "\nProvides documentation on all commands within THIS Java Shell"
