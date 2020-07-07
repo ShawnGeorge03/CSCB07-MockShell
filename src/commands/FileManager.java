@@ -24,11 +24,14 @@ public class FileManager {
       return checkList(current, fileName);
     
     Node temp = null;
-    for(int i = 0; i < current.getList().size(); i++) {
-      if((i+1) != current.getList().size()) {
-        temp = findInDirectory(path[i]);
+    int currPath = 0;
+    for(int i = 0; i < path.length; i++) {
+      if((i+1) != path.length) {
+        temp = findInDirectory(path[currPath]);
+        if(temp == null) return null;
+        else currPath++;
       }
-      else return checkList(temp, path[i]);
+      else return checkList(temp, path[currPath]);
     }
     
     return null;
@@ -58,6 +61,38 @@ public class FileManager {
       }
     }
     return null;
+  }
+  
+  public String getCurrentPath() {
+    Node current = this.filesys.getCurrent();
+    Node parent = current.getParent();
+    
+    if(parent == null) return "C/";
+    String path = parent.getName() + "/" + current.getName();
+    parent = parent.getParent();
+    while(parent != null)
+    {
+      path = parent.getName() + "/" + path;
+      parent = parent.getParent();
+    }
+    
+    return path;
+     
+  }
+  
+  public Node findFolderGivenAbsolute(String absolutePath) {
+    Node current = filesys.getRoot();
+    String[] directories = absolutePath.split("/");    
+    
+    for(int i = 1; i < directories.length; i++) { 
+       for(int j = 0; j < current.getList().size(); j++) {
+         if(current.getList().get(j).getName().equals(directories[i])) {
+           current = current.getList().get(j);
+           break;
+         }
+       }
+    }
+    return current;
   }
   
   public Node findFileGivenAbsolute(String absolutePath) {

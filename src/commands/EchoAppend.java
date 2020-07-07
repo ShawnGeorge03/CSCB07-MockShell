@@ -34,7 +34,9 @@ public class EchoAppend extends Echo{
         }
         else {
           Node currentNode = this.filesys.getCurrent();
-          Node parent = this.findInDirectory(path[path.length-2]);
+          String desiredPath = getCurrentPath() + fileName;
+          desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
+          Node parent = findFolderGivenAbsolute(desiredPath);
           this.filesys.assignCurrent(parent);
           Node newFile = new Node();
           newFile.setDir(false);
