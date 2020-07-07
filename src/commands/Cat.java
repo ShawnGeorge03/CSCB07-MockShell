@@ -36,9 +36,8 @@ public class Cat extends FileManager implements CommandI {
         output += error.getError("File Not Found", filePaths[i]);
       }
       
-      if(!(filePaths.length == 1 || i == filePaths.length - 1 )) {
-        output += "\r\n" + "\r\n";
-      }
+      if(!(filePaths.length == 1 || i == filePaths.length - 1 )) 
+        output += "\n" + "\n" + "\n";
     }
   }
 
