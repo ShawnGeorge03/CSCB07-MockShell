@@ -3,10 +3,10 @@ package commands;
 import commands.DirectoryManager;
 import data.FileSystem;
 
-public class PushAndPop extends DirectoryManager {
+public class Push extends DirectoryManager {
   private ErrorHandler error;
 
-  public PushAndPop() {
+  public Push() {
     this.error = new ErrorHandler();
   }
 
@@ -24,17 +24,7 @@ public class PushAndPop extends DirectoryManager {
     newWorkingDirectory.run(args);
   }
 
-  public void pop() {
-    if (FileSystem.getStack().size() == 0) {
-      System.out.println("stack is empty");
-      return;
-    }
-    FileSystem.getStack().pop();
-    String[] path = {FileSystem.getStack().peek()};
-    FileSystem.getStack().remove();
-    Cd newWorkingDirectory = new Cd();
-    newWorkingDirectory.run(path);
-  }
+  
 
 
 }
