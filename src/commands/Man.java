@@ -3,7 +3,7 @@ package commands;
 import java.util.Hashtable;
 import commands.Command;
 
-public class Man extends Command{
+public class Man{
 	Hashtable<String, String> my_dict;
 	
 	public Man() {
