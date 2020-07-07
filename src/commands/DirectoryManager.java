@@ -6,8 +6,15 @@ import data.Node;
 
 public class DirectoryManager {
 
-  FileSystem filesys = null;
   ArrayList<String> path = new ArrayList<String>();
+  /**
+   * Declare instance of FileSystem
+   */
+  FileSystem filesys = null;
+  /**
+   * Declare instance of ErrorHandler
+   */
+  ErrorHandler error = new ErrorHandler();
 
   public DirectoryManager() {
     filesys = FileSystem.getFileSys();
@@ -58,9 +65,11 @@ public class DirectoryManager {
       if (indexOfDir != -1) {
         if (currNode.getList().get(indexOfDir).isDir()) {
           currNode = currNode.getList().get(indexOfDir);
+        } else {
+          System.out.println(error.getError("Invalid Directory", path));
         }
       } else {
-
+        System.out.println(error.getError("Directory Not Found", path));
         return false;
       }
     }
@@ -77,11 +86,11 @@ public class DirectoryManager {
         if (currNode.getList().get(indexOfDir).isDir()) {
           currNode = currNode.getList().get(indexOfDir);
         } else {
-          // Error msg. suggestedd path is not a directory!
+          System.out.println(error.getError("Invalid Directory", path));
           return false;
         }
       } else {
-        System.out.println("Error. Directory not found");
+        System.out.println(error.getError("Directory Not Found", path));
         return false;
       }
     }
