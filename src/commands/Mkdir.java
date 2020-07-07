@@ -63,7 +63,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 
         for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
           if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
-        	error.getError("Same Directory", newArgs[0] + " already exists");
+        	error.getError("Same Directory", newNode.getName() + " already exists");
             return;
           }
         }
@@ -72,7 +72,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
         return;
       }
     } else {
-    	error.getError("Same Directory", newArgs[0] + " already exists");
+    	error.getError("Invalid Arguments", "Expecting 1 Argument only");
     }
   }
 
