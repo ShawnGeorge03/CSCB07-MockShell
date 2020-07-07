@@ -85,7 +85,7 @@ public class Man implements CommandI {
             + "\n\tThis is a picture file" + "\n\n\n\tHello World" + "\n\n\n\tHow are you QUIT");
 
     my_dict.put("echo", "Command: echo"
-        + "\nParameters: String, and arrow or double arrow followed by filename"
+        + "\nParameters: String (in quotations), and arrow or double arrow followed by filename"
         + "\nIf provided without arrow and fileaname, it simply prints out string in the console"
         + "\nIf provided with a single arrow and filename, it overwrites that file's content with the string"
         + "\nIf provided with double arrow and filename, it appends that file's content with the string ");
