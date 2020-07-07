@@ -33,23 +33,29 @@ package driver;
 import java.util.Scanner;
 import commands.Checker;
 import commands.History;
+import commands.TestCases;
 
 public class JShell {
 
   public static void main(String[] args) {
 
-    Checker parser = new Checker();
-    History history = new History();
-    Scanner sc = new Scanner(System.in);
+//    Checker parser = new Checker();
+//    History history = new History();
+//    Scanner sc = new Scanner(System.in);
+    TestCases tester = new TestCases();
+    
+//    boolean running = true;
 
-    boolean running = true;
-
-    while (running) {
-      System.out.print("$");
-      String input = sc.nextLine();
-      history.addCommands(input);
-      parser.parseInput(input);
-    }
-    sc.close();
+//    while (running) {
+//      System.out.print("$");
+//      String input = sc.nextLine();
+//      history.addCommands(input);
+//      parser.parseInput(input);
+//    }
+//    sc. close();
+    
+    tester.setupEnviro();
+    tester.cdTestCases();
+    
   }
 }
