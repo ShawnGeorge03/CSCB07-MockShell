@@ -1,8 +1,15 @@
 package commands;
 
+import java.util.Arrays;
 import data.FileSystem;
 
 public class History {
+  
+  private ErrorHandler err;
+  
+  public History() {
+    this.err = new ErrorHandler();
+  }
   
   public void addCommands(String Command) {
     FileSystem.getCommandLog().add(Command);
@@ -29,16 +36,18 @@ public class History {
       if(numeric && number >= 0 && number % 1 == 0) {
         printLastXCommands(number); 
       } else {
-        System.out.println("Invalid Argument(s)");
+        err.getError("Invalid Argument", args[0]);
       }
     }else if(args.length > 1) {
-      System.out.println("Invalid Argument(s)");
+      String parameter = Arrays.toString(args);
+      parameter = parameter.substring(1, parameter.length() - 1).replace(",", "").trim();
+      err.getError("Mulptile parameters provided", parameter);
     }
     
   }
   
   public void printLastXCommands(int x) {
-    for(int i = FileSystem.getCommandLog().size() - x; i < FileSystem.getCommandLog().size(); i++) {
+    for(int i = getCommandLogSize() - x; i < getCommandLogSize(); i++) {
       if(i < 0) continue;
       System.out.println((i+1)+". " + FileSystem.getCommandLog().get(i));
     }

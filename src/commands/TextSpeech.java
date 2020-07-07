@@ -16,6 +16,8 @@ public class TextSpeech {
   
   private String text;
   private String userText;
+  
+  private ErrorHandler err;
       
   public TextSpeech(){
     System.setProperty(PARENT_DIR, VOICE_DIR);
@@ -23,6 +25,7 @@ public class TextSpeech {
     this.voice = this.vm.getVoice(VOICENAME);
     this.voice.allocate();
     this.text = "";
+    this.err = new ErrorHandler();
   }
   
   public void convertTextToSpeech(String[] textToSay, boolean speakMode) {  
@@ -40,18 +43,17 @@ public class TextSpeech {
         if(!(text.length() <= 1))
           text = text.substring(1, text.lastIndexOf("\""));
       }else {
-        System.out.println("Missing Quotation : " + userText);
+        err.getError("Missing Quotes", userText);
         return;
       }
       
       if(text.indexOf("\"") != -1) {
-        System.out.println("Malformed Text : " + userText);
+        err.getError("Malformed Input", userText);
         return;
       } 
     }
     
     try {
-      voice.speak(text);
     } catch (Exception e) {
       e.printStackTrace();
     }   
