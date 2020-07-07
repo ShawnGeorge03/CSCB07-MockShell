@@ -67,7 +67,7 @@ public class Echo extends FileManager implements CommandI{
             EchoOverwrite overwrite_exe = new EchoOverwrite();
             overwrite_exe.execute(fileContents, fileName);
           }
-          else System.out.println("Error -> Invalid Arguments");
+          else System.out.println(this.getErrorHandler().getError("Invalid Argument", fullInput));
         }
         
         else if(num_arrow == 2) {        
@@ -75,15 +75,15 @@ public class Echo extends FileManager implements CommandI{
             EchoAppend append_exe = new EchoAppend();
             append_exe.execute(fileContents, fileName);
           }
-          else System.out.println("Error -> Invalid Arguments");
+          else System.out.println(this.getErrorHandler().getError("Invalid Argument", fullInput));
         }
         
-        else System.out.println("Error -> No arguments");
+        else System.out.println(this.getErrorHandler().getError("Invalid Argument", fullInput));
       }
-      else System.out.println("Error -> Invalid File Name");
+      else System.out.println(this.getErrorHandler().getError("Invalid File", fullInput));
     }
     
-    else System.out.println("Error -> Must Have Quotations");
+    else System.out.println(this.getErrorHandler().getError("Invalid Argument", fullInput));
     
   }
 }

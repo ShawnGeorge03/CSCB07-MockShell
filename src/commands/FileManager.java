@@ -6,39 +6,20 @@ import data.Node;
 public class FileManager {
   
   public FileSystem filesys;
+  protected ErrorHandler error;
   
   public FileManager() {
     filesys = FileSystem.getFileSys();
+    error = new ErrorHandler();
+  }
+  
+  public ErrorHandler getErrorHandler() {
+    return this.error;
   }
   
   public Node findFileGivenRelative(String fileName) {
- 
     Node current = filesys.getCurrent();
     return checkList(current, fileName);
-    
-    /*for(int i = 0; i < current.list.size(); i++) {
-      if(current.list.get(i).name.equals(fileName) && !current.list.get(i).isDir) 
-        return current.list.get(i);
-    }
-    return null;
-    */
-    /* PLEASE LEAVE ON 
-    if(filesys.getCurrent().parent != null) {
-      Node parent = filesys.getCurrent().parent;
-      System.out.println(parent.name);
-      for(int i = 0; i < parent.list.size(); i++) {
-        //System.out.println(parent.list.get(i).name);
-        if(parent.list.get(i).name.equals(fileName)) 
-          return parent.list.get(i);
-      } 
-    }
-    else {
-      Node current = filesys.getCurrent().parent;
-      for(int i = 0; i < current.list.size(); i++) {
-        if(current.list.get(i).name.equals(fileName) && !current.list.get(i).isDir) 
-          return current.list.get(i);
-      }
-    }*/
   }
   
   private Node checkList(Node current, String fileName) {
@@ -80,38 +61,16 @@ public class FileManager {
     Node current = filesys.getRoot();
     String[] directories = absolutePath.split("/");    
     
-    for(int i = 1; i < directories.length; i++) { //loop through the directory
-         
+    for(int i = 1; i < directories.length; i++) { 
       if((i+1) == directories.length) {
         return checkList(current, directories[i]);
       }
-      else if(ifFile(directories[i])) System.out.println("Error -> File Cannot Contain More Files");
+      else if(!ifFile(directories[i])) System.out.println("Error -> File Cannot Contain More Files");
       else {
         Node temp = findInDirectory(directories[i]);
         if(temp != null) current = temp;
         else return null;
       }
-      
-      
-      /*if(directories[i].contains(".txt")){ 
-        if((i+1) >= directories.length) {
-          return checkList(current, directories[i]);*/
-          /*Node found = null;
-          for(int j = 0; j < current.list.size(); j++) {
-            if(current.list.get(j).name.equals(directories[i]) && !current.list.get(j).isDir) {
-              found = current.list.get(j);
-              break;
-            }
-          }
-          return found;*/
-       /* }
-        else System.out.println("Error -> File Cannot Contain More Files");
-      }
-      else {
-        Node temp = findInDirectory(directories[i]);
-        if(temp != null) current = temp;
-        else return null;
-      }*/
     }
     return current;
   }
