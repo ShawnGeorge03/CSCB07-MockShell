@@ -11,9 +11,9 @@ public class Cd extends DirectoryManager {
   FileSystem filesys;
   boolean successfulPath = false;
 
-  public Cd(String[] arguments) {
+  public Cd() {
     filesys = FileSystem.getFileSys();
-    this.cd_args = new ArrayList<String>(Arrays.asList(arguments));
+    
   }
 
   public boolean isBackwards() {
@@ -30,7 +30,8 @@ public class Cd extends DirectoryManager {
     }
   }
 
-  public boolean run() {
+  public boolean run(String[] arguments) {
+	this.cd_args = new ArrayList<String>(Arrays.asList(arguments));
     String argument = this.cd_args.get(0);
     if (argument.equals(this.filesys.getRoot().getName()) || (argument.charAt(0) == ('/'))) {
       this.filesys.assignCurrent(this.filesys.getRoot());

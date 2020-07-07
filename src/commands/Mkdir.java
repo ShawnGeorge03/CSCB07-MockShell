@@ -10,22 +10,21 @@ public class Mkdir extends DirectoryManager {
   ArrayList<String> args;
   private ErrorHandler error;
 
-  public Mkdir(String[] args) {
+  public Mkdir() {
     this.error = new ErrorHandler();
-
-    this.args = new ArrayList<String>(Arrays.asList(args));
   }
 
-  public void MakeDirectory() {
-
+  public void MakeDirectory(String[] arguments) {
+	 this.args = new ArrayList<String>(Arrays.asList(arguments));
+	  
     if (checkValidArgs()) {
       if (checkPath()) {
         String[] currentPath = {getCurrentPath()};
         String[] newArgs = {args.get(0).substring(0, args.get(0).lastIndexOf('/'))};
+        
 
-
-        Cd newpath = new Cd(newArgs);
-        if (newpath.run()) {
+        Cd newpath = new Cd();
+        if (newpath.run(newArgs)) {
           Node newNode = new Node();
           newNode.setContent(null);
           newNode.setDir(true);
@@ -33,8 +32,8 @@ public class Mkdir extends DirectoryManager {
 
           for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
             if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
-              Cd goBack = new Cd(currentPath);
-              goBack.run();
+              Cd goBack = new Cd();
+              goBack.run(currentPath);
               error.getError("Same Directory", newArgs[0] + " already exists");
               return;
             }
@@ -45,8 +44,8 @@ public class Mkdir extends DirectoryManager {
           error.getError("Invalid Directory", newArgs[0] + " is not a valid directory");
         }
 
-        Cd goBack = new Cd(currentPath);
-        goBack.run();
+        Cd goBack = new Cd();
+        goBack.run(currentPath);
         return;
       } else {
         Node newNode = new Node();

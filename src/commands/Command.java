@@ -49,16 +49,16 @@ public class Command {
         tts.run(arguments, fullInput);        
         break;
       case "mkdir":
-        Mkdir mkdir_exe = new Mkdir(arguments);
-        mkdir_exe.MakeDirectory();
+        Mkdir mkdir_exe = new Mkdir();
+        mkdir_exe.MakeDirectory(arguments);
         break;
       case "cd":
-        Cd cd_exe = new Cd(arguments);
-        cd_exe.run();
+        Cd cd_exe = new Cd();
+        cd_exe.run(arguments);
         break;
       case "ls":
-        Ls ls_exe = new Ls(arguments);
-        ls_exe.listDirectory();
+        Ls ls_exe = new Ls();
+        ls_exe.listDirectory(arguments);
         break;
       case "pwd":
         pwd_exe.printDirectory();

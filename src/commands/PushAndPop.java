@@ -20,8 +20,8 @@ public class PushAndPop extends DirectoryManager {
       FileSystem.getStack().push(getCurrentPath());
     }
     FileSystem.getStack().push(args[0]);
-    Cd newWorkingDirectory = new Cd(args);
-    newWorkingDirectory.run();
+    Cd newWorkingDirectory = new Cd();
+    newWorkingDirectory.run(args);
   }
 
   public void pop() {
@@ -32,8 +32,8 @@ public class PushAndPop extends DirectoryManager {
     FileSystem.getStack().pop();
     String[] path = {FileSystem.getStack().peek()};
     FileSystem.getStack().remove();
-    Cd newWorkingDirectory = new Cd(path);
-    newWorkingDirectory.run();
+    Cd newWorkingDirectory = new Cd();
+    newWorkingDirectory.run(path);
   }
 
 
