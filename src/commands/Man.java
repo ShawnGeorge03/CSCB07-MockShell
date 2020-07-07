@@ -36,12 +36,29 @@ public class Man{
           + "\n\tConverts Whats up to audio"
           + "\n\t$ Hello Professor, How are you QUIT"
           + "\n\tConverts Hello Professor How are you to audio and exits ");
-      my_dict.put("mkdir", "2");
+      
+      my_dict.put("mkdir", "Command: mkdir"
+      		+ "\nCreates a new directory in the current working directory"
+      		+ "\nYou can specify a relative or absolute path where you would like the "
+      		+ "new directory to be created");
+      
       my_dict.put("cd", "3");
-      my_dict.put("ls", "4");
-      my_dict.put("pwd", "5");
-      my_dict.put("pushd", "6");
-      my_dict.put("popd", "7");
+      my_dict.put("ls", "Command: ls"
+      		+ "\nLists all the files and directories within the specified directory"
+      		+ "\nParameters: No arguments or an absolute or relative pathname"
+      		+ "\nIf not arguments, all files and directories within current working directory will be listed"
+      		+ "\nIf pathname provided, all files and directories in that path will be listed");
+      
+      my_dict.put("pwd", "Command: pwd"
+      		+ "\nPrints the current working directory");
+      
+      my_dict.put("pushd", "Command: pushd"
+      		+ "\nTakes a relative or absolute path as an argument and pushes it onto"
+      		+ "\nthe current directory stack");
+      
+      my_dict.put("popd", "Command: popd"
+      		+ "\nPops the latest directory on the directory stack into the current working directory");
+      
       my_dict.put("history", "Command : history"
           + "\n\tPrints out recent commands, one command per line. "
           + "\n\tIf there is a number after the commad, then the output is "
@@ -59,6 +76,7 @@ public class Man{
           + "\n\t 5. cat C/pics/picturefile.txt"
           + "\n\t 6. history"
           + "\n\t 7. history 4");
+      
       my_dict.put("cat", "Command : cat"
           + "\n\tDisplays the content of File(s) in series"
           + "\n\n\tParameter : FILE(s) can be absolute or relative path(s)"
@@ -70,8 +88,17 @@ public class Man{
           + "\n\tThis is a picture file"
           + "\n\n\n\tHello World"
           + "\n\n\n\tHow are you QUIT");
-      my_dict.put("echo", "10");
-      my_dict.put("man", "11");
+      
+      my_dict.put("echo", "Command: echo"
+      		+ "\nParameters: String, and arrow or double arrow followed by filename"
+      		+ "\nIf provided without arrow and fileaname, it simply prints out string in the console"
+      		+ "\nIf provided with a single arrow and filename, it overwrites that file's content with the string"
+      		+ "\nIf provided with double arrow and filename, it appends that file's content with the string ");
+      
+      my_dict.put("man", "Command: man"
+      		+ "\nProvides documentation on all commands within THIS Java Shell"
+      		+ "\nProvides information such as arguments and function.");
+      
       my_dict.put("exit", "Command : exit"
           + "\n\n\tCloses the current session and leaves the Shell"
           + "\n\n\tParameter : None");     
