@@ -6,12 +6,12 @@ public class Pwd extends DirectoryManager implements CommandI {
   
   
   public String run(String[] args, String fullInput) {
-    printDirectory();
-    return null;
+    return printDirectory();
   }
 
-  public void printDirectory() {
-    System.out.println(this.getCurrentPath());
+  public String printDirectory() {
+    //System.out.println(this.getCurrentPath());
+    return this.getCurrentPath();
   }
 
  
