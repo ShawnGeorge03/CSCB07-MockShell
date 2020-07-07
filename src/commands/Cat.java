@@ -6,18 +6,20 @@
 public class Cat extends FileManager implements CommandI {
   
   FileSystem filesys;
-  private ErrorHandler error;
   
   String output;
   
   public Cat() {
     this.filesys = FileSystem.getFileSys();
-    this.error = new ErrorHandler();
     this.output = "";
   }
   
   public String run(String[] args, String fullInput) {
-    readFile(args);
+    if(args.length == 0) {
+      output = getErrorHandler().getError("No parameters provided", "");
+    }else {
+      readFile(args);
+    }
     return output;
   }
   
@@ -33,7 +35,7 @@ public class Cat extends FileManager implements CommandI {
       if(file != null) {
         output += filesys.getContent(file);
       }else {
-        output += error.getError("File Not Found", filePaths[i]);
+        output += getErrorHandler().getError("File Not Found", filePaths[i]);
       }
       
       if(!(filePaths.length == 1 || i == filePaths.length - 1 )) 
