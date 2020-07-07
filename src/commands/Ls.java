@@ -21,6 +21,11 @@ public class Ls extends DirectoryManager implements CommandI {
   
   public void listDirectory(String[] arguments) {
 	this.args = new ArrayList<String>(Arrays.asList(arguments));
+	
+	if (args.size() > 1) {
+		System.out.println(error.getError("Mulptile parameters provided", "Expecting 0 or 1 parameter"));
+	}
+	
     if (args.size() == 0) {
       Node curr = filesys.getCurrent();
       for (int i = 0; i < curr.getList().size(); i++) {
@@ -42,7 +47,7 @@ public class Ls extends DirectoryManager implements CommandI {
           System.out.println(current.getList().get(i).getName());
         }
       } else {
-        error.getError("Invalid Directory", args.get(0) + "is not a valid directory");
+        System.out.println(error.getError("Invalid Directory", args.get(0) + "is not a valid directory"));
       }
 
       Cd goBack = new Cd();
