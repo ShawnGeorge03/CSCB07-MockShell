@@ -36,7 +36,6 @@ public class EchoOverwrite extends Echo{
           Node currentNode = this.filesys.getCurrent();
           Node parent = this.findInDirectory(path[path.length-2]);
           this.filesys.assignCurrent(parent);
-          System.out.println(parent.getName());
           Node newFile = new Node();
           newFile.setDir(false);
           newFile.setContent(fileContents);
