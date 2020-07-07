@@ -10,13 +10,20 @@ public class Cd extends DirectoryManager implements CommandI {
   ArrayList<String> cd_args;
   FileSystem filesys;
   boolean successfulPath = false;
+  ErrorHandler error;
+  String err_output;
 
   public Cd() {
     filesys = FileSystem.getFileSys();
+    error = new ErrorHandler();
     
   }
   
   public String run(String[] args, String fullInput) {
+    if (args.length == 0) {
+      err_output = error.getError("No parameters provided", "");
+      return err_output;
+    }
     run(args);
     return null;
   }
@@ -77,5 +84,10 @@ public class Cd extends DirectoryManager implements CommandI {
       }
     }
     return successfulPath;
+  }
+  
+  
+  public static void main(String[] args) {
+    
   }
 }
