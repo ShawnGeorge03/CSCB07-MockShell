@@ -72,7 +72,7 @@ public class Cd extends DirectoryManager implements CommandI {
       }
 
       else {
-        this.makeRelativePath(argument);
+        successfulPath = this.makeRelativePath(argument);
       }
     }
 
