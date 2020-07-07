@@ -60,13 +60,11 @@ public class Cd extends DirectoryManager implements CommandI {
   }
 
   /**
-   * Main run method that executes the performance of changing directories based on what argument
-   * is given.
-   * If argument is ".", nothing happens
-   * If argument is "..", go up one directory
-   * If argument is "/", change the cd to root
-   * If argument is absolute path, check if the path exists, then change to that directory
-   * If argument is relative path, check if that path exists, then change to that directory
+   * Main run method that executes the performance of changing directories based on what argument is
+   * given. If argument is ".", nothing happens If argument is "..", go up one directory If argument
+   * is "/", change the cd to root If argument is absolute path, check if the path exists, then
+   * change to that directory If argument is relative path, check if that path exists, then change
+   * to that directory
    * 
    * @param arguments Array of arguments provided by user
    * @return True if the argument was processed and the change of directory was successful
@@ -112,22 +110,19 @@ public class Cd extends DirectoryManager implements CommandI {
         successfulPath = this.makeRelativePath(argument);
       }
     }
-    if (!successfulPath) {
-      System.out.println(error.getError("Directory Not Found", ""));
-    }
     return successfulPath;
   }
 
 
-//  public static void main(String[] args) {
-//    Cd test = new Cd();
-//    test.run("/");
-//    System.out.println(test.getCurrentPath());
-//    test.run(".");
-//    System.out.println(test.getCurrentPath());
-//    test.run("..");
-//    System.out.println(test.getCurrentPath());
-//    
-//
-//  }
+  // public static void main(String[] args) {
+  // Cd test = new Cd();
+  // test.run("/");
+  // System.out.println(test.getCurrentPath());
+  // test.run(".");
+  // System.out.println(test.getCurrentPath());
+  // test.run("..");
+  // System.out.println(test.getCurrentPath());
+  //
+  //
+  // }
 }
