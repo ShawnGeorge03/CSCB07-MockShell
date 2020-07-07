@@ -11,6 +11,7 @@ public class TestCases {
   private Mkdir mkdir;
   private Ls ls;
   private Echo echo;
+  private Man man;
   
   private String output;
   private String currentPath;
@@ -22,6 +23,7 @@ public class TestCases {
     this.mkdir = new Mkdir();
     this.ls = new Ls();
     this.echo =  new Echo();
+    this.man = new Man();
   }
   
   public void setupEnviro() {
@@ -99,6 +101,43 @@ public class TestCases {
       System.out.println("Case #4 Passed");
     else
       System.out.println("Case #4 Failed");
+  }
+  
+  public void manTestCases() {
+	  
+	  String output;
+	  String[] testInput = {"ls"};
+	  
+	  System.out.println("Testing Command: man");
+	  
+	  //Case 1: Get the documentation for ls
+	  output = man.run(testInput, "man");
+	  
+	  if (output.contains("Command: ls")) {
+		  System.out.println("Case #1 Passed");
+	  }else {
+		  System.out.println("Case #1 Failed");
+	  }
+	  
+	  //Case 2: Get documentation for invalid input
+	  testInput[0] = "false command";
+	  output = man.run(testInput, "man");
+	  
+	  if (output.contains("Invalid Argument")) {
+		  System.out.println("Case #2 Passed");
+	  }else {
+		  System.out.println("Case #2 Failed");
+	  }
+	  
+	  //Case 3: Get documetnation for multiple arguments (not supported)
+	  String[] multipleArguments = {"ls", "cd"};
+	  output = man.run(testInput, "man");
+	  
+	  if (output.contains("Invalid Argument")) {
+		  System.out.println("Case #3 Passed");
+	  }else {
+		  System.out.println("Case #3 Failed");
+	  }
   }
 	
 	
