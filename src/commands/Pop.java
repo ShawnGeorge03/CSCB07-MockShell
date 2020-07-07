@@ -16,7 +16,7 @@ public class Pop implements CommandI {
 	
 	public void pop() {
 	    if (FileSystem.getStack().size() == 0) {
-	      System.out.println("stack is empty");
+	      System.out.println("Stack is empty");
 	      return;
 	    }
 	    FileSystem.getStack().pop();
