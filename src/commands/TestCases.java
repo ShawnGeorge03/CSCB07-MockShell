@@ -1,6 +1,10 @@
 package commands;
 
+import data.FileSystem;
+
 public class TestCases {
+  
+  private FileSystem fs;
   
   private Cd cd;
   private Pwd pwd;
@@ -12,6 +16,7 @@ public class TestCases {
   private String currentPath;
   
   public TestCases() {
+    this.fs = FileSystem.getFileSys();
     this.cd = new Cd();
     this.pwd = new Pwd();
     this.mkdir = new Mkdir();
