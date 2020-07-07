@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.regex.*;
 import data.FileSystem;
 
+/**
+ * Class Cd is responsible for changing directories within the FileSystem
+ */
 public class Cd extends DirectoryManager implements CommandI {
 
   ArrayList<String> cd_args;
@@ -20,7 +23,7 @@ public class Cd extends DirectoryManager implements CommandI {
   ErrorHandler error;
 
   /**
-   * Constructor for method Cd which changes directories within the FileSystem
+   * Constructor for method Cd
    */
   public Cd() {
     filesys = FileSystem.getFileSys();
@@ -32,9 +35,9 @@ public class Cd extends DirectoryManager implements CommandI {
    * Starting run method which checks if arguments were given, then passes it to another run method
    * which processes the command
    * 
-   * @param args This is a string array of arguments
-   * @param fullInput This is the full line of input that the user gives into JShell
-   * @return string Returns any error messages if there are any
+   * @param args  the string array of arguments
+   * @param fullInput  the full line of input that the user gives into JShell
+   * @return any error messages if there are any
    */
   public String run(String[] args, String fullInput) {
     if (args.length == 0) {
@@ -46,10 +49,10 @@ public class Cd extends DirectoryManager implements CommandI {
   }
 
   /**
-   * Returns true if the argument follows the pattern of ../ in which each pair of periods dictates
+   * Checks if the argument follows the pattern of ../ in which each pair of periods dictates
    * how many directories to go up
    * 
-   * @return True if argument matches pattern, false otherwise
+   * @return true if argument matches pattern, false otherwise
    */
   public boolean isBackwards() {
     String cur = this.cd_args.get(0);
@@ -66,8 +69,8 @@ public class Cd extends DirectoryManager implements CommandI {
    * change to that directory If argument is relative path, check if that path exists, then change
    * to that directory
    * 
-   * @param arguments Array of arguments provided by user
-   * @return True if the argument was processed and the change of directory was successful
+   * @param arguments  the array of arguments provided by user
+   * @return true if the argument was processed and the change of directory was successful
    */
   public boolean run(String[] arguments) {
     this.cd_args = new ArrayList<String>(Arrays.asList(arguments));
