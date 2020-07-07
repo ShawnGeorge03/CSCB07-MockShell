@@ -34,7 +34,7 @@ public class FileManager {
     return null;
   }
   
-  private Node checkList(Node current, String fileName) {
+  public Node checkList(Node current, String fileName) {
     for(int i = 0; i < current.getList().size(); i++) {
       if(current.getList().get(i).getName().equals(fileName) && !current.getList().get(i).isDir()) 
         return current.getList().get(i);
@@ -42,7 +42,7 @@ public class FileManager {
     return null;
   }
   
-  private Node findInDirectory(String file) {
+  public Node findInDirectory(String file) {
     if(filesys.getCurrent().getParent() != null) {
       Node parent = filesys.getCurrent().getParent();
       for(int i = 0; i < parent.getList().size(); i++) {
