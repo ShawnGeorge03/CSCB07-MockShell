@@ -12,7 +12,7 @@ public class PushAndPop extends DirectoryManager {
 
   public void pushPath(String[] args) {
     if (args.length == 0) {
-      error.getError("Invalid Argument");
+      error.getError("Invalid Argument",  Integer.toString(args.length) + " arguments, expecting 1 argument");
       return;
     }
     

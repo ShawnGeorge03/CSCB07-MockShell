@@ -35,14 +35,14 @@ public class Mkdir extends DirectoryManager {
             if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
               Cd goBack = new Cd(currentPath);
               goBack.run();
-              error.getError("Same Directory");
+              error.getError("Same Directory", newArgs[0] + " already exists");
               return;
             }
           }
 
           filesys.addToDirectory(newNode);
         } else {
-          error.getError("Invalid Directory");
+          error.getError("Invalid Directory", newArgs[0] + " is not a valid directory");
         }
 
         Cd goBack = new Cd(currentPath);

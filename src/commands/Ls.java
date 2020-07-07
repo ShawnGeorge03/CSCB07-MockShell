@@ -22,7 +22,6 @@ public class Ls extends DirectoryManager {
         if (curr.getList().get(i).isDir()) {
           System.out.println(curr.getList().get(i).getName());
         } else {
-          // System.out.println(curr.list.get(i).name + ".txt");
           System.out.println(curr.getList().get(i).getName());
         }
       }
@@ -38,7 +37,7 @@ public class Ls extends DirectoryManager {
           System.out.println(current.getList().get(i).getName());
         }
       } else {
-        error.getError("Invalid Directory");
+        error.getError("Invalid Directory", args.get(0) + "is not a valid directory");
       }
 
       Cd goBack = new Cd(currentPath);
