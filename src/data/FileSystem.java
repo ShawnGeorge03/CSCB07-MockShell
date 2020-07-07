@@ -21,37 +21,6 @@ public class FileSystem {
     root.isRoot = true;
     root.setParent(null);
     current = root;
-
-    // First dummy in Root
-    Node users = new Node();
-    users.setDir(true);
-    users.setContent(null);
-    users.setName("users");
-    users.setParent(root);
-
-    // second dummy in Root
-    Node pics = new Node();
-    pics.setDir(true);
-    pics.setContent(null);
-    pics.setName("pics");
-    pics.setParent(root);
-
-    // Picfile in pics
-    Node picfile = new Node();
-    picfile.setDir(false);
-    picfile.setContent("this is a picture");
-    picfile.setName("picturefile");
-    picfile.setParent(pics);
-
-    pics.getList().add(picfile);
-
-    root.getList().add(users);
-    root.getList().add(pics);
-
-    // C
-    // Users
-    // pics
-    // picturefile
   }
 
   public static FileSystem getFileSys() {
