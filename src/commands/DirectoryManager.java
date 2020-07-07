@@ -51,13 +51,16 @@ public class DirectoryManager {
     String[] pathArr = path.split("/");
     Node currNode = filesys.getRoot();
     for (int i = 0; i < pathArr.length; i++) {
+      if (pathArr[i].equals(filesys.getRoot().getName())) {
+        continue;
+      }
       int indexOfDir = checkDirExists(currNode.getList(), pathArr[i]);
       if (indexOfDir != -1) {
         if (currNode.getList().get(indexOfDir).isDir()) {
           currNode = currNode.getList().get(indexOfDir);
         }
       } else {
-        // Error msg (path not found)
+
         return false;
       }
     }
