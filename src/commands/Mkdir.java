@@ -6,13 +6,19 @@ import commands.DirectoryManager;
 import data.Node;
 
 
-public class Mkdir extends DirectoryManager {
+public class Mkdir extends DirectoryManager implements CommandI {
   ArrayList<String> args;
   private ErrorHandler error;
 
   public Mkdir() {
     this.error = new ErrorHandler();
   }
+  
+  public void run(String[] args, String fullInput) {
+    MakeDirectory(args);
+  }
+  
+  
 
   public void MakeDirectory(String[] arguments) {
 	 this.args = new ArrayList<String>(Arrays.asList(arguments));
@@ -75,5 +81,4 @@ public class Mkdir extends DirectoryManager {
   private boolean checkPath() {
     return args.get(0).contains("/");
   }
-
 }

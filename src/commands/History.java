@@ -3,12 +3,17 @@ package commands;
 import java.util.Arrays;
 import data.FileSystem;
 
-public class History {
+public class History implements CommandI {
   
   private ErrorHandler err;
   
   public History() {
     this.err = new ErrorHandler();
+  }
+  
+  @Override
+  public void run(String[] args, String fullInput) {
+    runHistory(args);
   }
   
   public void addCommands(String Command) {
@@ -19,7 +24,7 @@ public class History {
     return FileSystem.getCommandLog().size();
   }
   
-  public void run(String args[]) {
+  public void runHistory(String args[]) {
     
     if(args.length == 0) {
       printLastXCommands(getCommandLogSize());
@@ -52,7 +57,4 @@ public class History {
       System.out.println((i+1)+". " + FileSystem.getCommandLog().get(i));
     }
   }
-  
-  
-
 }

@@ -6,15 +6,18 @@ import commands.DirectoryManager;
 import data.FileSystem;
 import data.Node;
 
-public class Ls extends DirectoryManager {
+public class Ls extends DirectoryManager implements CommandI {
   ArrayList<String> args;
   private ErrorHandler error;
 
   public Ls() {
     this.error = new ErrorHandler();
-
   }
-
+  
+  public void run(String[] args, String fullInput) {
+    listDirectory(args);
+  }
+  
   public void listDirectory(String[] arguments) {
 	this.args = new ArrayList<String>(Arrays.asList(arguments));
     if (args.size() == 0) {

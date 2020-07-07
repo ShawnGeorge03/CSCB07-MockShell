@@ -2,13 +2,13 @@ package commands;
 
 public class Checker {
   
-  private Command commandHandler;
+  private CommandHandler manager;
   
   public String userInput;
   
   public Checker() {
     this.userInput = "";
-    this.commandHandler = new Command();
+    this.manager = new CommandHandler();
   }
   
   public void parseInput(String input) {
@@ -27,7 +27,7 @@ public class Checker {
     }
     else parsedInput = input.trim().replaceAll("\\s+", " ");
 
-    commandHandler.setCommand(parsedInput);
+    manager.setCommand(parsedInput);
   }
   
 }

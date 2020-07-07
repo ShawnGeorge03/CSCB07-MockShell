@@ -1,15 +1,19 @@
 package commands;
 
 import java.util.Hashtable;
-import commands.Command;
 
-public class Man{
+public class Man implements CommandI{
 	Hashtable<String, String> my_dict;
 	
 	public Man() {
 	  my_dict = new Hashtable<String, String>();
       setDictionary();
 	}
+	
+	
+	  public void run(String[] args, String fullInput) {
+	    printDocumentation(args);
+	  }
 	
 	public void printDocumentation(String[] userInput){  
 	  if(userInput.length == 0 || userInput.length > 1 
@@ -103,4 +107,6 @@ public class Man{
           + "\n\n\tCloses the current session and leaves the Shell"
           + "\n\n\tParameter : None");     
   }
+
+  
 }

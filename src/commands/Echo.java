@@ -1,8 +1,12 @@
 package commands;
 
-public class Echo extends FileManager{
+public class Echo extends FileManager implements CommandI{
   
   private String argument;  
+  
+  public void run(String[] args, String fullInput) {
+    compile_arguments(fullInput);
+  }
 
   public void compile_arguments(String fullInput) {
     

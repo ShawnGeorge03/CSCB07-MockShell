@@ -4,7 +4,7 @@ import java.util.Arrays;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
-public class TextSpeech {
+public class TextSpeech implements CommandI {
    
   private Voice voice;
   private VoiceManager vm;

@@ -3,11 +3,16 @@ package commands;
 import commands.DirectoryManager;
 import data.FileSystem;
 
-public class Push extends DirectoryManager {
+public class Push extends DirectoryManager implements CommandI {
   private ErrorHandler error;
 
   public Push() {
     this.error = new ErrorHandler();
+  }
+  
+  
+  public void run(String[] args, String fullInput) {
+    pushPath(args);
   }
 
   public void pushPath(String[] args) {
@@ -23,8 +28,4 @@ public class Push extends DirectoryManager {
     Cd newWorkingDirectory = new Cd();
     newWorkingDirectory.run(args);
   }
-
-  
-
-
 }

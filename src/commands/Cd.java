@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.regex.*;
 import data.FileSystem;
 
-public class Cd extends DirectoryManager {
+public class Cd extends DirectoryManager implements CommandI {
 
   ArrayList<String> cd_args;
   FileSystem filesys;
@@ -14,6 +14,10 @@ public class Cd extends DirectoryManager {
   public Cd() {
     filesys = FileSystem.getFileSys();
     
+  }
+  
+  public void run(String[] args, String fullInput) {
+    run(args);
   }
 
   public boolean isBackwards() {

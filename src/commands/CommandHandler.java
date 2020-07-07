@@ -1,6 +1,6 @@
 package commands;
 
-import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -8,20 +8,33 @@ public class CommandHandler {
 
 	String[] splitInput;
 	String command;
-	HashMap<String, String> commandLibrary = new HashMap<String, String>();
+	HashMap<String, String> commandMap; 
 	
 	boolean speakMode = false;
 	
+	private ErrorHandler err;
+	
 	public CommandHandler() {
-		fillLibrary();
+	  err = new ErrorHandler();
+	  commandMap = new HashMap<String, String>();
+	  intizializeCommandMap();
 	}
 	
-	public void fillLibrary() {
-		commandLibrary.put("mkdir", "Mkdir");
-		commandLibrary.put("cat", "Cat");
+	public void intizializeCommandMap() {
+      commandMap.put("speak", "commands.TextSpeech");
+      commandMap.put("mkdir", "commands.Mkdir");
+      commandMap.put("cd", "commands.Cd");
+      commandMap.put("ls", "commands.Ls");
+      commandMap.put("pwd", "commands.Pwd");
+      commandMap.put("pushd", "commands.Push");
+      commandMap.put("popd", "commands.Pop");
+      commandMap.put("history", "commands.History");
+      commandMap.put("cat", "commands.Cat");
+      commandMap.put("echo", "commands.Echo");
+      commandMap.put("man", "commands.Man");	 
 	}
 	
-	public void setCommand(String parsedInput) {
+	  public void setCommand(String parsedInput) {
 	    splitInput = parsedInput.split(" ");
 	    command = splitInput[0];
 	    String args[] = Arrays.copyOfRange(splitInput, 1, splitInput.length);
@@ -30,21 +43,43 @@ public class CommandHandler {
 	      this.command = "speak";
 	      args = splitInput;
 	    }
-	    
+	    if(command.equals("speak") && args.length == 0) speakMode = true;
 	    run(command, args, parsedInput);
-	}
+	    if(command.equals("speak") && parsedInput.endsWith("QUIT")) speakMode = false;
+	  }
+	  
+	  public void run(String command, String[] args, String fullInput) {
+	    if(!commandMap.containsKey(command)) {
+	      err.getError("Invalid Command", command);
+	      return;
+	    } 
+	    
+	    
+	    try {
+	        String className = commandMap.get(command);
+
+	      try {
 	
-	public void run(String command, String[] arguments, String fullInput) {  
-		try {
-			Class currentCommand = Class.forName(commandLibrary.get(command));
-			Constructor constructor = currentCommand.getConstructor(String[].class);
-			
-			Object newCommand = constructor.newInstance(arguments);
-			((Command) newCommand.run());
-		} catch (ClassNotFoundException e) {
-			//ERROR
-		}
-		
-		
-	}
+	        CommandI commandObj = (CommandI) 
+	            Class.forName(className).getDeclaredConstructor().newInstance();
+	        
+	        commandObj.run(args, fullInput);
+
+	      } catch (InstantiationException e) {
+	        e.printStackTrace();
+	      } catch (IllegalAccessException e) {
+	        e.printStackTrace();
+	      } catch (IllegalArgumentException e) {
+	        e.printStackTrace();
+	      } catch (InvocationTargetException e) {
+	        e.printStackTrace();
+	      } catch (NoSuchMethodException e) {
+	        e.printStackTrace();
+	      } catch (SecurityException e) {
+	        e.printStackTrace();
+	      }
+	    } catch (ClassNotFoundException e) {
+	      e.printStackTrace();
+	    }	    
+	  }
 }

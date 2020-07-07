@@ -3,7 +3,7 @@
  import data.FileSystem;
  import data.Node;
 
-public class Cat extends FileManager {
+public class Cat extends FileManager implements CommandI {
   
   FileSystem filesys;
   private ErrorHandler error;
@@ -11,6 +11,11 @@ public class Cat extends FileManager {
   public Cat() {
     this.filesys = FileSystem.getFileSys();
     this.error = new ErrorHandler();
+  }
+  
+  @Override
+  public void run(String[] args, String fullInput) {
+    readFile(args);
   }
   
   public void readFile(String[] filePaths) {   
@@ -31,7 +36,8 @@ public class Cat extends FileManager {
       if(!(filePaths.length == 1 || i == filePaths.length - 1 )) {
         System.out.println("\r\n" + "\r\n" );
       }
-
     }
   }
+
+
 }

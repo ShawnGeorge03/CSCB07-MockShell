@@ -2,11 +2,15 @@ package commands;
 
 import data.FileSystem;
 
-public class Pop {
+public class Pop implements CommandI {
 	private ErrorHandler error;
 	
 	public Pop() {
 	    this.error = new ErrorHandler();
+	  }
+	
+	  public void run(String[] args, String fullInput) {
+	    pop();
 	  }
 	
 	public void pop() {
