@@ -36,6 +36,7 @@ public class TestCases {
     mkdir.MakeDirectory(setupDirs);
     setupDirs[0] = "Sys";
     mkdir.MakeDirectory(setupDirs);
+    echo.run(setupDirs, "echo \"Wow what a project\" > A2");
     
     //users Folder
     setupDirs[0] = "C/users";
@@ -53,11 +54,44 @@ public class TestCases {
     
     //pics Folder
     echo.run(setupDirs, "echo \"this is a picturefile indeed\" > pics/picfile");
-    //setupDirs[0] = "pics";
-    //cd.run(setupDirs, "cd pics");
-    //echo.run(setupDirs, "echo \"Hello TA\" > CSCB07");
+    setupDirs[0] = "pics";
+    cd.run(setupDirs, "cd pics");
+    echo.run(setupDirs, "echo \"Hello TA from the pics Folder\" > CSCB07");
+    setupDirs[0] = "..";
+    cd.run(setupDirs, "cd ..");
 
+    //Sys Folder
+    setupDirs[0] = "Sys";
+    cd.run(setupDirs, "cd Sys");
+    setupDirs[0] = "IO";
+    mkdir.MakeDirectory(setupDirs);
+    setupDirs[0] = "LOL";
+    mkdir.MakeDirectory(setupDirs);
+    
+    //IO Folder
+    setupDirs[0] = "IO";
+    cd.run(setupDirs, "cd IO");
+    setupDirs[0] = "keyboard";
+    mkdir.MakeDirectory(setupDirs);
+    setupDirs[0] = "Mouse";
+    mkdir.MakeDirectory(setupDirs);
+    
+    //keyboard Folder
+    setupDirs[0] = "keyboard";
+    cd.run(setupDirs, "cd keyboard");
+    echo.run(setupDirs, "echo \"QWERTY\" > keys");
+    echo.run(setupDirs, "echo \"RGB == ways more      F    P   S\" > RGB");
+    setupDirs[0] = "../";
+    cd.run(setupDirs, "cd ../");
+    
+    //Mouse Folder
+    setupDirs[0] = "Mouse";
+    cd.run(setupDirs, "cd Mouse");
+    echo.run(setupDirs, "echo \"Mouse is in Mouse Folder\" > Presses");
 
+    //C Folder
+    setupDirs[0] = "../../../";
+    cd.run(setupDirs, "cd ../../../");
   }
   
   public void cdTestCases() {
