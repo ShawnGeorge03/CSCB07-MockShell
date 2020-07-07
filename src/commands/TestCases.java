@@ -134,17 +134,64 @@ public class TestCases {
       System.out.println("Case #3 Failed");
     
     //Case 4: Change Directory to users
-    testCase2[0] = "users";
+    testCase2[0] = "users/desktop";
     
-    output = cd.run(testCase2, "cd users");
+    output = cd.run(testCase2, "cd users/desktop");
     currentPath = pwd.run(testCase1, "pwd");
     
     
-    if(currentPath.equals("C/users")) 
+    if(currentPath.equals("C/users/desktop")) 
       System.out.println("Case #4 Passed");
     else
       System.out.println("Case #4 Failed");
+    
+    //Case 5: Pattern -> ../..
+    testCase2[0] = "../..";
+    
+    output = cd.run(testCase2, "cd ../..");
+    currentPath = pwd.run(testCase1, "pwd");
+    
+    if(currentPath.equals("C")) 
+      System.out.println("Case #5 Passed");
+    else
+      System.out.println("Case #5 Failed");
+    
+    //Case 6: Pattern -> Change directory to a file --> Issue
+    testCase2[0] = "A2";
+    
+    output = cd.run(testCase2, "cd A2");
+    currentPath = pwd.run(testCase1, "pwd");
+    
+    if(currentPath.equals("C")) 
+      System.out.println("Case #6 Passed -> Not Actually");
+    else
+      System.out.println("Case #6 Failed -> Not Actually");
+    
+    //Case 7: Changing directory to keyboard Folder
+    testCase2[0] = "C/Sys/IO/keyboard";
+    
+    output = cd.run(testCase2, "cd C/Sys/IO/keyboard");
+    currentPath = pwd.run(testCase1, "pwd");
+    
+    if(currentPath.equals("C/Sys/IO/keyboard")) 
+      System.out.println("Case #7 Passed");
+    else
+      System.out.println("Case #7 Failed");
+    
+    //Case 8: Change directory to C
+    testCase2[0] = "../../../";
+    
+    output = cd.run(testCase2, "cd ../../../");
+    currentPath = pwd.run(testCase1, "pwd");
+    
+    if(currentPath.equals("C")) 
+      System.out.println("Case #8 Passed");
+    else
+      System.out.println("Case #8 Failed");
+    
   }
+  
+  
   
   public void manTestCases() {
 	  
