@@ -29,7 +29,7 @@ public class TestCases {
   public void setupEnviro() {
     String[] setupDirs = new String[1];
     
-    //C Foder
+    //C Folder
     setupDirs[0] = "users";
     mkdir.MakeDirectory(setupDirs);
     setupDirs[0] = "pics";
@@ -38,16 +38,25 @@ public class TestCases {
     mkdir.MakeDirectory(setupDirs);
     
     //users Folder
-    //setupDirs[0] = "C/users";
-    //cd.run(setupDirs, "cd C/users");
-    //setupDirs[0] = "desktop";
-    //mkdir.MakeDirectory(setupDirs);
-    //setupDirs[0] = "C/users/desktop";
-    //cd.run(setupDirs, "cd C/users/desktop");
+    setupDirs[0] = "C/users";
+    cd.run(setupDirs, "cd C/users");
+    setupDirs[0] = "desktop";
+    mkdir.MakeDirectory(setupDirs);
     
     //desktop Folder
-    //echo.run(setupDirs, "echo \"Hello TA\" > file");
-   
+    setupDirs[0] = "C/users/desktop";
+    cd.run(setupDirs, "cd C/users/desktop");    
+    echo.run(setupDirs, "echo \"Hello TA\" > CSCB07");
+    echo.run(setupDirs, "echo \"2+2=5\" > Hwk");
+    setupDirs[0] = "../../";
+    cd.run(setupDirs, "cd ../../");
+    
+    //pics Folder
+    echo.run(setupDirs, "echo \"this is a picturefile indeed\" > pics/picfile");
+    //setupDirs[0] = "pics";
+    //cd.run(setupDirs, "cd pics");
+    //echo.run(setupDirs, "echo \"Hello TA\" > CSCB07");
+
 
   }
   
