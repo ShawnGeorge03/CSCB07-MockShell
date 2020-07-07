@@ -16,10 +16,7 @@ public class TextSpeech {
   
   private String text;
   private String userText;
-  
-  private ErrorHandler err;
-  
-  private boolean speakMode;
+  private boolean speakMode = false;
       
   public TextSpeech(){
     System.setProperty(PARENT_DIR, VOICE_DIR);
@@ -27,37 +24,35 @@ public class TextSpeech {
     this.voice = this.vm.getVoice(VOICENAME);
     this.voice.allocate();
     this.text = "";
-    this.err = new ErrorHandler();
   }
   
-  public void run(String [] arguments, String fullInput) {
-    if(arguments.length == 0) speakMode = true; 
-    convertTextToSpeech(arguments, fullInput, speakMode);        
-    if(fullInput.endsWith("QUIT")) speakMode = false;
+  public void run(String[] args, String actualInput) {
+    if(args.length == 0) speakMode = true;
+    convertTextToSpeech(args, speakMode);        
+    if(actualInput.endsWith("QUIT")) speakMode = false;
   }
   
-  public void convertTextToSpeech(String[] textToSay, String fullInput, boolean val) {  
+  public void convertTextToSpeech(String[] textToSay, boolean speakMode) {  
       
     text = Arrays.toString(textToSay);
     text = text.substring(1, text.length() - 1).replace(",", "").trim();
-    
-    userText = fullInput.substring(0, fullInput.indexOf("speak") + 5).trim();
+    userText = text;
         
     if(text.endsWith("QUIT")) {
       text = text.substring(0, text.indexOf("QUIT")).trim();
     }
         
-    if(!val) {
+    if(!speakMode) {
       if(text.startsWith("\"") && text.endsWith("\"")) {
         if(!(text.length() <= 1))
           text = text.substring(1, text.lastIndexOf("\""));
       }else {
-        err.getError("Missing Quotes", userText);
+        System.out.println("Missing Quotation : " + userText);
         return;
       }
       
       if(text.indexOf("\"") != -1) {
-        err.getError("Malformed Input", userText);
+        System.out.println("Malformed Text : " + userText);
         return;
       } 
     }

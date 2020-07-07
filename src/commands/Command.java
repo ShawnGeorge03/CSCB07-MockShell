@@ -16,6 +16,7 @@ public class Command {
   private History history;
   private Cat cat;
   private Echo echo;
+  private Man man;
 
   public Command() {
    this.tts = new TextSpeech();
@@ -25,6 +26,7 @@ public class Command {
    this.cat = new Cat();
    this.history = new History();
    this.echo = new Echo();
+   this.man = new Man();
   }
   
   public void setCommand(String parsedInput) {
@@ -36,16 +38,15 @@ public class Command {
       this.command = "speak";
       args = splitInput;
     }
-    
+    if(args.length == 0) speakMode = true;
     run(command, args, parsedInput);
+    if(parsedInput.endsWith("QUIT")) speakMode = false;
   }
 
   public void run(String command, String[] arguments, String fullInput) {  
     switch(command) {        
       case "speak":
-        if(arguments.length == 0) speakMode = true;
         tts.run(arguments, fullInput);        
-        if(fullInput.endsWith("QUIT")) speakMode = false;
         break;
       case "mkdir":
         Mkdir mkdir_exe = new Mkdir(arguments);
@@ -78,8 +79,7 @@ public class Command {
         echo.compile_arguments(fullInput);
         break;
       case "man":
-        Man man_exe = new Man();
-    	man_exe.printDocumentation(arguments);
+    	man.printDocumentation(arguments);
         break;
       case "exit":
         System.exit(0);
