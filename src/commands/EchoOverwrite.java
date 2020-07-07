@@ -32,7 +32,9 @@ public class EchoOverwrite extends Echo{
           file.setContent(fileContents);
         }
         else {
+          Node currentNode = this.filesys.getCurrent();
           Node parent = this.findInDirectory(path[path.length-2]);
+          this.filesys.assignCurrent(parent);
           System.out.println(parent.getName());
           Node newFile = new Node();
           newFile.setDir(false);
@@ -40,6 +42,7 @@ public class EchoOverwrite extends Echo{
           newFile.setName(path[path.length-1]);
           newFile.setParent(parent);
           filesys.addToDirectory(newFile);
+          this.filesys.assignCurrent(currentNode);
         }
       }
     }
