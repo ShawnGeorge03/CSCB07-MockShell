@@ -67,7 +67,7 @@ public class CommandHandler {
 	        
 	        String output = commandObj.run(args, fullInput);
 	        
-	        if(output != null) System.out.print(output);
+	        if(output != null) System.out.println(output);
 
 	      } catch (InstantiationException e) {
 	        e.printStackTrace();
