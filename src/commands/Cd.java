@@ -16,9 +16,9 @@ public class Cd extends DirectoryManager implements CommandI {
   public Cd() {
     filesys = FileSystem.getFileSys();
     error = new ErrorHandler();
-    
+
   }
-  
+
   public String run(String[] args, String fullInput) {
     if (args.length == 0) {
       err_output = error.getError("No parameters provided", "");
@@ -43,7 +43,7 @@ public class Cd extends DirectoryManager implements CommandI {
   }
 
   public boolean run(String[] arguments) {
-	this.cd_args = new ArrayList<String>(Arrays.asList(arguments));
+    this.cd_args = new ArrayList<String>(Arrays.asList(arguments));
     String argument = this.cd_args.get(0);
     if (argument.equals(this.filesys.getRoot().getName()) || (argument.charAt(0) == ('/'))) {
       this.filesys.assignCurrent(this.filesys.getRoot());
@@ -85,9 +85,9 @@ public class Cd extends DirectoryManager implements CommandI {
     }
     return successfulPath;
   }
-  
-  
+
+
   public static void main(String[] args) {
-    
+
   }
 }
