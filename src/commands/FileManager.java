@@ -17,12 +17,21 @@ public class FileManager {
     return this.error;
   }
   
-  //change with file path
   public Node findFileGivenRelative(String fileName) {
     Node current = filesys.getCurrent();
-    String[] split = fileName.split("/");
+    String[] path = fileName.split("/");
+    if(path.length == 1)
+      return checkList(current, fileName);
     
-    return checkList(current, fileName);
+    Node temp = null;
+    for(int i = 0; i < current.getList().size(); i++) {
+      if((i+1) != current.getList().size()) {
+        temp = findInDirectory(path[i]);
+      }
+      else return checkList(temp, path[i]);
+    }
+    
+    return null;
   }
   
   private Node checkList(Node current, String fileName) {
@@ -51,15 +60,6 @@ public class FileManager {
     return null;
   }
   
-  private boolean ifFile(String fileName) {
-    Node dir = filesys.getRoot();
-    for(int i = 0; i < dir.getList().size(); i++) {
-      if(dir.getList().get(i).getName().equals(fileName) && !dir.getList().get(i).isDir()) 
-        return true;
-    }
-    return false;
-  }
-  
   public Node findFileGivenAbsolute(String absolutePath) {
     Node current = filesys.getRoot();
     String[] directories = absolutePath.split("/");    
@@ -68,7 +68,6 @@ public class FileManager {
       if((i+1) == directories.length) {
         return checkList(current, directories[i]);
       }
-      //else if(ifFile(directories[i])) System.out.println("Error -> File Cannot Contain More Files");
       else {
         Node temp = findInDirectory(directories[i]);
         if(temp != null) current = temp;
