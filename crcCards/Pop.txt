@@ -1,11 +1,12 @@
-Class name: Mkdir
+Class name: Pop
 Parent class: N/A
 Subclasses: N/A
 
 Responsibilties:
-*Creates new directory where the user requests
+* Pops top most directory on stack onto working directory
 
 Collaborators:
+*CommandI
 *DirectoryManager
 *FileSystem
-*CommandI
+*Cd

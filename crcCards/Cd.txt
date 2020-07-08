@@ -7,5 +7,6 @@ Responsibilties:
 *Accepts both relative path and absolute path
 
 Collaborators:
+*CommandI
 *DirectoryManager
 *FileSystem

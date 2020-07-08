@@ -1,4 +1,4 @@
-Class Name: Command
+Class Name: CommandHandler
 Parent Class:
 Subclass:
 
@@ -6,8 +6,8 @@ Responsibilities:
 *Manages commands that the user requests into the shell
 
 Collaborators:
-*DirectoryManager
-*FileManager
+*ErrorHandler
+*CommandI
 *FileSystem
 *Cat
 *Cd

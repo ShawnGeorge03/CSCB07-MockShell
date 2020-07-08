@@ -6,6 +6,5 @@ Responsibilties:
 *Checks if user input is valid or not
 
 Collaborators:
-*Shell
-*Command
-*ErrorMessage
+*JShell
+*CommandHandler

@@ -6,6 +6,6 @@ Responsibilties:
 *Displays contents of file given by user's request
 
 Collaborators:
-*DirectoryManager
+*CommandI
 *FileManager
 *FileSystem
