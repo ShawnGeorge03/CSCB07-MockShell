@@ -15,10 +15,8 @@ public class Echo extends FileManager implements CommandI {
 
     argument = fix_argument(sliced);
     execute(sliced, fullInput);
-    if(num_arrow == 0) {
-      return output;
-    }
-    return null;
+    
+    return output;
   }
 
   public boolean hasQuotations(String fullInput) {
