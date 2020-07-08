@@ -615,8 +615,8 @@ public class TestCases {
     echoCorrectOutputMap.put(1, "Hello");
     echoCorrectOutputMap.put(2, "Error : Missing Quotes : echo \"Hello");
     echoCorrectOutputMap.put(3, "Error : Missing Quotes : echo Hello");
-    echoCorrectOutputMap.put(4, "Error: Invalid File : echo Hello >");
-    echoCorrectOutputMap.put(5, "Error: Invalid File : echo Hello >>");
+    echoCorrectOutputMap.put(4, "Error: Invalid File : echo \"Hello\" >");
+    echoCorrectOutputMap.put(5, "Error: Invalid File : echo \"Hello\" >>");
     echoCorrectOutputMap.put(6, "Hello");
     echoCorrectOutputMap.put(7, "Hello" + "\n" + "Bye");
     echoCorrectOutputMap.put(8, "okay");
