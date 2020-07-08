@@ -3,18 +3,35 @@ package commands;
 import java.util.Arrays;
 import java.util.Hashtable;
 
+/**
+ * Class man provides documentation for requested command
+ */
 public class Man implements CommandI {
+  /**
+   * Declare instance variable of Hashtable
+   */
   Hashtable<String, String> my_dict;
-  
+  /**
+   * Declare instance variable of ErrorHandler to handle error messages
+   */
   private ErrorHandler err;
 
+  /**
+   * Constructor for Man which initializes instance variables and fills Hashtable
+   */
   public Man() {
     my_dict = new Hashtable<String, String>();
     this.err = new ErrorHandler();
     setDictionary();
   }
 
-
+  /**
+   * Provides documentation depending on the command requested
+   * 
+   * @param args  the string array with all arguements provided by user
+   * @param fullInput the string that contains the raw input provided by user in JShell
+   * @return the documentation of the requested commands
+   */
   public String run(String[] args, String fullInput) {
     if (args.length == 0 || args.length > 1 || !my_dict.containsKey(args[0])) {
       
@@ -26,7 +43,9 @@ public class Man implements CommandI {
     return my_dict.get(args[0]);
   }
 
-
+  /**
+   * Fills hashtable with all commands and their respective documentation
+   */
   public void setDictionary() {
 
     my_dict.put("speak",
