@@ -27,7 +27,7 @@ public class Ls extends DirectoryManager implements CommandI {
   }
   
   /**
-   * Calls the listDirectory method which does the work of displaying all its child nodes
+   * Displays all of the given directory's child nodes
    * 
    * @param args  the string array that contains the arguments
    * @param fullInput  the string that contains the raw input that the user provides to JShell
