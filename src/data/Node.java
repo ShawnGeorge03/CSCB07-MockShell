@@ -2,15 +2,22 @@ package data;
 
 import java.util.ArrayList;
 
+/**
+ * Class Node is what each object in the filesystem is made of including directories and files
+ */
 public class Node {
   
   private boolean isDir;
   boolean isRoot = false;
+  /**
+   * Instance variable of String to contain the content of the node
+   */
   protected String content;
   private String name;
   private ArrayList<Node> list = new ArrayList<Node>();
   private Node parent;
 
+  //Trivial methods below do not require JavaDoc
   public String getName() {
     return name;
   }
