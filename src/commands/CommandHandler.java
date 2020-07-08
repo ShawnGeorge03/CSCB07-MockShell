@@ -56,6 +56,8 @@ public class CommandHandler {
     commandMap.put("cat", "commands.Cat");
     commandMap.put("echo", "commands.Echo");
     commandMap.put("man", "commands.Man");
+    commandMap.put("exit", "commands.Exit");
+
   }
 
   /**
@@ -77,6 +79,8 @@ public class CommandHandler {
     run(command, args, parsedInput);
     if (command.equals("speak") && parsedInput.endsWith("QUIT"))
       speakMode = false;
+
+
   }
 
   /**
@@ -117,6 +121,7 @@ public class CommandHandler {
         e.printStackTrace();
       }
     }
-    if(output != null) System.out.println(output);
+    if (output != null)
+      System.out.println(output);
   }
 }
