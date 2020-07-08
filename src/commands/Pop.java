@@ -15,13 +15,12 @@ public class Pop extends DirectoryManager implements CommandI {
 	  }
 	
 	public String pop() {
+		FileSystem.getStack().pop();
 	    if (FileSystem.getStack().size() == 0) {
 	      System.out.println("Stack is empty");
-	      return "";
+	      return "Stack is empty";
 	    }
-	    FileSystem.getStack().pop();
 	    String[] path = {FileSystem.getStack().peek()};
-	    FileSystem.getStack().remove();
 	    Cd newWorkingDirectory = new Cd();
 	    newWorkingDirectory.run(path);
 	    return getCurrentPath();

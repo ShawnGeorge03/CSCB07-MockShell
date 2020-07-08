@@ -64,8 +64,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
             if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
               Cd goBack = new Cd();
               goBack.run(currentPath);
-              error.getError("Same Directory", newArgs[0] + " already exists");
-              return null;
+              return error.getError("Same Directory", newArgs[0] + " already exists");
             }
           }
 
