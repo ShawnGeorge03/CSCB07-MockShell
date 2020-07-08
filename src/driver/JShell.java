@@ -41,10 +41,11 @@ public class JShell {
 
     boolean testing = true;
     
-    TestCases tester = new TestCases();
+   
 
 
     if (testing) {
+      TestCases tester = new TestCases();
       tester.cdTestCases();
       tester.manTestCases();
       tester.mkdirTestCases();

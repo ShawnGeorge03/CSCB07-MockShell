@@ -48,10 +48,15 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 this.args = new ArrayList<String>(Arrays.asList(arguments));
 	  
     if (checkValidArgs()) {
+    	
       if (checkPath()) {
         String[] currentPath = {getCurrentPath()};
         String[] newArgs = {args.get(0).substring(0, args.get(0).lastIndexOf('/'))};
         
+        if (!isValidDirectoryName(args.get(0).substring(args.get(0).lastIndexOf('/') + 1))) {
+        	return error.getError("Invalid Directory", args.get(0).substring(args.get(0).lastIndexOf('/') + 1) + 
+        			" is not a valid directory name");
+        }
 
         Cd newpath = new Cd();
         if (newpath.run(newArgs)) {
@@ -77,6 +82,10 @@ public class Mkdir extends DirectoryManager implements CommandI {
         goBack.run(currentPath);
         return null;
       } else {
+    	  if (!isValidDirectoryName(args.get(0))) {
+          	return error.getError("Invalid Directory", args.get(0) + " is not a valid directory name");
+          }
+    	  
         Node newNode = new Node();
         newNode.setContent(null);
         newNode.setDir(true);
@@ -92,7 +101,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
         return null;
       }
     } else {
-    	return error.getError("Invalid Arguments", "Expecting 1 Argument only");
+    	return error.getError("Invalid Argument", "Expecting 1 Argument only");
     }
   }
 

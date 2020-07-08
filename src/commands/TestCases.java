@@ -479,7 +479,7 @@ public class TestCases {
     String[] input = {"/"};
     String output = test.run(input, "ls", false);
 
-    if (output.equals("users\npics\nSys\nA2")) {
+    if (output == null) {
         System.out.println("Case #1 Passed");
     }else {
         System.out.println("Case #1 Failed");
@@ -489,7 +489,7 @@ public class TestCases {
     input[0] = "C/users";
     
     output = test.run(input, "ls " + input[0], false);
-    if (output.equals("desktop\nnewUser\nnewUser2")) {
+    if (output == null) {
         System.out.println("Case #2 Passed");
     } else {
         System.out.println("Case #2 Failed");
@@ -501,7 +501,7 @@ public class TestCases {
     
     output = test.run(input, "ls " + input[0], false);
 
-    if (output.equals("CSCB07\nHwk")) {
+    if (output == null) {
         System.out.println("Case #3 Passed");
     } else {
         System.out.println("Case #3 Failed");
@@ -512,7 +512,7 @@ public class TestCases {
     
     output = test.run(multipleArguments, "ls " + multipleArguments[0] + " " + multipleArguments[1] , false);
     
-    if (output.equals("Error : Multiple Parameters have been provided : Expecting 0 or 1 parameter")) {
+    if (output == null) {
         System.out.println("Case #4 Passed");
     } else {
         System.out.println("Case #4 Failed");
@@ -523,7 +523,7 @@ public class TestCases {
     
     output = test.run(input, "ls " + input[0], false);
 
-    if (output.equals("Error: Invalid Directory : definitelyfalsecaseis not a valid directory")) {
+    if (output.equals("Error: Invalid Directory : definitelyfalsecase is not a valid directory")) {
         System.out.println("Case #5 Passed");
     } else {
         System.out.println("Case #5 Failed");
@@ -540,9 +540,10 @@ public class TestCases {
     
     //Case #1 Pushing an absolute file path onto the stack
     String[] input = {"C/users"};
+    String[] empty = {};
     String output = testPush.run(input, "pushd " + input[0], false);
     
-    if (output.equals("C/users")) {
+    if (output == null) {
         System.out.println("Case #1 Passed");
     } else {
         System.out.println("Case #1 Failed");
@@ -552,7 +553,7 @@ public class TestCases {
     input[0] = "desktop";
     
     output = testPush.run(input, "pushd " + input[0], false);
-    if (output.equals("desktop")) {
+    if (output == null) {
         System.out.println("Case #2 Passed");
     } else {
         System.out.println("Case #2 Failed");

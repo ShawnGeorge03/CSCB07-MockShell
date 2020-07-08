@@ -36,9 +36,6 @@ public class Ls extends DirectoryManager implements CommandI {
   public String run(String[] arguments, String fullInput, boolean val) {
 	  this.args = new ArrayList<String>(Arrays.asList(arguments));
 	  String output = "";
-		if (args.size() > 1) {
-			return error.getError("Mulptile parameters provided", "Expecting 0 or 1 parameter");
-		}
 		
 	    if (args.size() == 0) {
 	      Node curr = filesys.getCurrent();
@@ -46,23 +43,26 @@ public class Ls extends DirectoryManager implements CommandI {
 	    	  output += curr.getList().get(i).getName() + "\n";
 	      }
 	    } else {
-	      String[] path = {args.get(0)};
-	      String[] currentPath = {getCurrentPath()};
+	      for (int i = 0; i < args.size(); i++) {
+	    	  String[] path = {args.get(i)};
+		      String[] currentPath = {getCurrentPath()};
 
-	      Cd traverse = new Cd();
-	      if (traverse.run(path)) {
-	        Node current = FileSystem.getFileSys().getCurrent();
+		      Cd traverse = new Cd();
+		      if (traverse.run(path)) {
+		        Node current = FileSystem.getFileSys().getCurrent();
+		        System.out.println(path[0]);
+		        for (int j = 0; j < current.getList().size(); j++) {
+		          System.out.println(current.getList().get(j).getName());
+		        }
+		      } else {
+		        return error.getError("Invalid Directory", args.get(i) + " is not a valid directory");
+		      }
 
-	        for (int i = 0; i < current.getList().size(); i++) {
-	          output += current.getList().get(i).getName() + "\n";
-	        }
-	      } else {
-	        return error.getError("Invalid Directory", args.get(0) + "is not a valid directory");
+		      Cd goBack = new Cd();
+		      goBack.run(currentPath);
+		      System.out.println();
 	      }
-
-	      Cd goBack = new Cd();
-	      goBack.run(currentPath);
 	    }
-    return output.substring(0, output.length() - 1);
+    return null;
   }
 }

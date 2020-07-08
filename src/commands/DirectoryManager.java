@@ -127,5 +127,16 @@ public class DirectoryManager {
     filesys.assignCurrent(currNode);
     return true;
   }
+  
+  public boolean isValidDirectoryName(String fileName) {
+	    String[] invalidChars = {"/", ".", "\\s+", "!", "@", "#", "$", "%", "^", "&"
+	        , "*", "(", ")", "{", "}", "~", "|", "<", ">", "?"};
+	    for(int i = 0; i < invalidChars.length; i++) {
+	      if(fileName.contains(invalidChars[i])) {
+	        return false;
+	      }
+	    }
+	    return true;
+	  }
 
 }

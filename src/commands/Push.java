@@ -51,7 +51,7 @@ public class Push extends DirectoryManager implements CommandI {
       Cd newWorkingDirectory = new Cd();
       newWorkingDirectory.run(args);
     
-    return FileSystem.getStack().peekFirst();
+    return null;
   }
 }
 

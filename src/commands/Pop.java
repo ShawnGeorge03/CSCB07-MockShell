@@ -10,6 +10,9 @@ public class Pop extends DirectoryManager implements CommandI {
 	  }
 	
 	  public String run(String[] args, String fullInput, boolean val) {
+		if (args.length != 0) {
+			return error.getError("Invalid Argument", "No arguments should be given");
+		}
 	    String output = pop();
 	    return output;
 	  }
@@ -17,7 +20,6 @@ public class Pop extends DirectoryManager implements CommandI {
 	public String pop() {
 		FileSystem.getStack().pop();
 	    if (FileSystem.getStack().size() == 0) {
-	      System.out.println("Stack is empty");
 	      return "Stack is empty";
 	    }
 	    String[] path = {FileSystem.getStack().peek()};
