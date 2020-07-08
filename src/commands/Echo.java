@@ -3,12 +3,21 @@ package commands;
 public class Echo extends FileManager implements CommandI {
 
   private String argument;
+  private int num_arrow;
+  String output = "";
+
 
   public String run(String[] args, String fullInput) {
-    String[] sliced = fullInput.split(" ");;
+    if(args.length == 0) {
+      return getErrorHandler().getError("No parameters provided", "");
+    }
+    String[] sliced = fullInput.split(" ");
 
     argument = fix_argument(sliced);
     execute(sliced, fullInput);
+    if(num_arrow == 0) {
+      return output;
+    }
     return null;
   }
 
@@ -36,14 +45,11 @@ public class Echo extends FileManager implements CommandI {
   }
 
   public void printToConsole(String[] args) {
-    String output = "";
-
     for (int i = 1; i < args.length; i++) {
       output += args[i] + " ";
     }
 
-    output = output.substring(0, output.length() - 1);
-    System.out.println(output.replaceAll("\"", ""));
+    output = output.substring(0, output.length() - 1).replaceAll("\"", "");
   }
 
   public void execute(String[] args, String fullInput) {
@@ -54,7 +60,7 @@ public class Echo extends FileManager implements CommandI {
       String fileName = argument.substring(argument.lastIndexOf(">") + 1, argument.length());
       fileName = fileName.replaceAll("^\\s+", "");
             
-      int num_arrow = count_arrows(fullInput.substring(fullInput.lastIndexOf("\"")+1, fullInput.length()));
+      num_arrow = count_arrows(fullInput.substring(fullInput.lastIndexOf("\"")+1, fullInput.length()));
       
       if (num_arrow == 0 && args.length > 1)
         printToConsole(args);
@@ -64,22 +70,25 @@ public class Echo extends FileManager implements CommandI {
           EchoOverwrite overwrite_exe = new EchoOverwrite();
           overwrite_exe.execute(fileContents, fileName);
         } else
-          System.out.println(this.getErrorHandler().getError("No parameters provided", fullInput));
-      }
+          output = this.getErrorHandler().getError("No parameters provided", fullInput);
+          return;
+        }
 
       else if (num_arrow == 2) {
         if (argument.split(">>").length == 2 && !argument.split(">>")[0].equals("")) {
           EchoAppend append_exe = new EchoAppend();
           append_exe.execute(fileContents, fileName);
         } else
-          System.out.println(this.getErrorHandler().getError("No parameters provided", fullInput));
+          output = this.getErrorHandler().getError("No parameters provided", fullInput);
+          return;
       }
 
       else
-        System.out.println(this.getErrorHandler().getError("Invalid Argument", fullInput));
+        output = this.getErrorHandler().getError("Invalid Argument", fullInput);
+        return;
     }
     else
-      System.out.println(this.getErrorHandler().getError("Missing Quotes", fullInput));
-
+      output = this.getErrorHandler().getError("Missing Quotes", fullInput);
+      return;
   }
 }
