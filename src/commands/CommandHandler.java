@@ -4,24 +4,46 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * Class CommandHandler is responsible for creating instances of the requested command and running 
+ * them
+ */
 public class CommandHandler {
-
+  
+  /**
+   * Declare instance variable of String array to hold the command and its arguments
+   */
   String[] splitInput;
+  /**
+   * Declare instance variable of String to hold the actual command
+   */
   String command;
+  /**
+   * Declare instance variable of HashMap to hold all of the commands this program provides
+   */
   HashMap<String, String> commandMap;
 
   boolean speakMode = false;
 
   private ErrorHandler err;
-
+  /**
+   * Declare instance variable of String to hold the output that the command may give
+   */
   String output;
 
+  /**
+   * Constructor for CommandHandler which initializes the instance variables and populates the
+   * commandMap with commands
+   */
   public CommandHandler() {
     err = new ErrorHandler();
     commandMap = new HashMap<String, String>();
     intizializeCommandMap();
   }
 
+  /**
+   * Populates HashMap with commands and their respective methods
+   */
   public void intizializeCommandMap() {
     commandMap.put("speak", "commands.TextSpeech");
     commandMap.put("mkdir", "commands.Mkdir");
@@ -36,6 +58,11 @@ public class CommandHandler {
     commandMap.put("man", "commands.Man");
   }
 
+  /**
+   * Splits up command and arguments, then sends it to the run method
+   * 
+   * @param parsedInput  the parsed input containing the command, and its arguments
+   */
   public void setCommand(String parsedInput) {
     splitInput = parsedInput.split(" ");
     command = splitInput[0];
@@ -52,6 +79,13 @@ public class CommandHandler {
       speakMode = false;
   }
 
+  /**
+   * Calls the requested command's run method
+   * 
+   * @param command  the name of the command
+   * @param args  the string array of arguments
+   * @param fullInput  the raw input that the user gave to JShell
+   */
   public void run(String command, String[] args, String fullInput) {
     if (!commandMap.containsKey(command)) {
       output = err.getError("Invalid Command", command);
