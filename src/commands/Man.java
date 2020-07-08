@@ -32,7 +32,7 @@ public class Man implements CommandI {
    * @param fullInput the string that contains the raw input provided by user in JShell
    * @return the documentation of the requested commands
    */
-  public String run(String[] args, String fullInput) {
+  public String run(String[] args, String fullInput, boolean val) {
     if (args.length == 0 || args.length > 1 || !my_dict.containsKey(args[0])) {
       
       String param = Arrays.toString(args);

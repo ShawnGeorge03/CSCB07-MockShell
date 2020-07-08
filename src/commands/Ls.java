@@ -33,7 +33,7 @@ public class Ls extends DirectoryManager implements CommandI {
    * @param fullInput  the string that contains the raw input that the user provides to JShell
    * @return null always
    */
-  public String run(String[] arguments, String fullInput) {
+  public String run(String[] arguments, String fullInput, boolean val) {
 	  this.args = new ArrayList<String>(Arrays.asList(arguments));
 	  String output = "";
 		if (args.size() > 1) {

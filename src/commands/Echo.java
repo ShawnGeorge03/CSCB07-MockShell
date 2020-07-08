@@ -6,8 +6,7 @@ public class Echo extends FileManager implements CommandI {
   private int num_arrow;
   String output = "";
 
-
-  public String run(String[] args, String fullInput) {
+  public String run(String[] args, String fullInput, boolean val) {
     if(args.length == 0) {
       return getErrorHandler().getError("No parameters provided", "");
     }

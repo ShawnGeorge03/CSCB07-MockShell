@@ -39,7 +39,7 @@ public class Cd extends DirectoryManager implements CommandI {
    * @param fullInput  the full line of input that the user gives into JShell
    * @return any error messages if there are any
    */
-  public String run(String[] args, String fullInput) {
+  public String run(String[] args, String fullInput, boolean val) {
     if (args.length == 0) {
       err_output = error.getError("No parameters provided", "");
       return err_output;

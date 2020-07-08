@@ -33,7 +33,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
    * @param fullInput the string of the entire raw input provided by user in JShell
    * @return null always
    */
-  public String run(String[] args, String fullInput) {
+  public String run(String[] args, String fullInput, boolean val) {
     String output = MakeDirectory(args);
     return output;
   }

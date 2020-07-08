@@ -76,7 +76,7 @@ public class CommandHandler {
     }
     if (command.equals("speak") && args.length == 0)
       speakMode = true;
-    run(command, args, parsedInput);
+    run(command, args, parsedInput);    
     if (command.equals("speak") && parsedInput.endsWith("QUIT"))
       speakMode = false;
 
@@ -102,7 +102,7 @@ public class CommandHandler {
           CommandI commandObj =
               (CommandI) Class.forName(className).getDeclaredConstructor().newInstance();
 
-          output = commandObj.run(args, fullInput);
+          output = commandObj.run(args, fullInput, speakMode);
 
         } catch (InstantiationException e) {
           e.printStackTrace();

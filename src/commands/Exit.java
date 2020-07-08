@@ -13,7 +13,7 @@ public class Exit implements CommandI{
    * @return null no matter what
    */
   @Override
-  public String run(String[] args, String fullInput) {
+  public String run(String[] args, String fullInput, boolean val) {
     System.exit(0);
     return null;
   }

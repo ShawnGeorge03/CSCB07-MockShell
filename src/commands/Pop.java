@@ -9,7 +9,7 @@ public class Pop extends DirectoryManager implements CommandI {
 	    this.error = new ErrorHandler();
 	  }
 	
-	  public String run(String[] args, String fullInput) {
+	  public String run(String[] args, String fullInput, boolean val) {
 	    String output = pop();
 	    return output;
 	  }

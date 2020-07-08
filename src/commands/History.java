@@ -33,7 +33,7 @@ public class History implements CommandI {
    * @return the error message if there is any or the actual history
    */
   @Override
-  public String run(String[] args, String fullInput) {   
+  public String run(String[] args, String fullInput, boolean val) {   
     if(args.length == 0) {
       printLastXCommands(getCommandLogSize());
     }else if(args.length == 1) {

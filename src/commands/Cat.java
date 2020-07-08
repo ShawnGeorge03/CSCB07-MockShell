@@ -33,7 +33,7 @@ public class Cat extends FileManager implements CommandI {
    * @param fullInput  the string that contains the raw input given to JShell
    * @return the contents of file
    */
-  public String run(String[] args, String fullInput) {
+  public String run(String[] args, String fullInput, boolean val) {
     if(args.length == 0) {
       return getErrorHandler().getError("No parameters provided", "");
     }else {

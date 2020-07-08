@@ -28,7 +28,7 @@ public class Push extends DirectoryManager implements CommandI {
    * @param fullInput  the full line of input that the user gives into JShell
    * @return String holding the absolute path to the current working directory, or an error message
    */
-  public String run(String[] args, String fullInput) {
+  public String run(String[] args, String fullInput, boolean val) {
 	Cd goBack = new Cd();
 	String[] root = {FileSystem.getFileSys().getRoot().getName()};
     

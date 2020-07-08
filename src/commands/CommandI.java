@@ -2,6 +2,6 @@ package commands;
 
 interface CommandI {
   
-	public String run(String args[], String fullInput);
+	public String run(String args[], String fullInput, boolean val);
 	
 }
