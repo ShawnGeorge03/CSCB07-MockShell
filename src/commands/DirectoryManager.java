@@ -11,16 +11,16 @@ public class DirectoryManager {
 
   ArrayList<String> path = new ArrayList<String>();
   /**
-   * Declare instance of FileSystem
+   * Declare instance of FileSystem to access filesystem
    */
   FileSystem filesys = null;
   /**
-   * Declare instance of ErrorHandler
+   * Declare instance of ErrorHandler to handle error messages
    */
   ErrorHandler error = new ErrorHandler();
   
   /**
-   * Constructor for DirectoryManager
+   * Constructor for DirectoryManager which initializes filesystem
    */
   public DirectoryManager() {
     filesys = FileSystem.getFileSys();
