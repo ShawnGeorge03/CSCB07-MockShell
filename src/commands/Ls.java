@@ -43,8 +43,7 @@ public class Ls extends DirectoryManager implements CommandI {
 	    if (args.size() == 0) {
 	      Node curr = filesys.getCurrent();
 	      for (int i = 0; i < curr.getList().size(); i++) {
-	    	  System.out.println(curr.getList().get(i).getName());
-	    	  output += curr.getList().get(i).getName() + "|";
+	    	  output += curr.getList().get(i).getName() + "\n";
 	      }
 	    } else {
 	      String[] path = {args.get(0)};
@@ -55,8 +54,7 @@ public class Ls extends DirectoryManager implements CommandI {
 	        Node current = FileSystem.getFileSys().getCurrent();
 
 	        for (int i = 0; i < current.getList().size(); i++) {
-	          System.out.println(current.getList().get(i).getName());
-	          output += current.getList().get(i).getName() + "|";
+	          output += current.getList().get(i).getName() + "\n";
 	        }
 	      } else {
 	        return error.getError("Invalid Directory", args.get(0) + "is not a valid directory");
@@ -65,6 +63,6 @@ public class Ls extends DirectoryManager implements CommandI {
 	      Cd goBack = new Cd();
 	      goBack.run(currentPath);
 	    }
-    return output;
+    return output.substring(0, output.length() - 1);
   }
 }

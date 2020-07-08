@@ -520,7 +520,7 @@ public class TestCases {
     String[] input = {"/"};
     String output = test.run(input, "ls", false);
 
-    if (output.equals("users|pics|Sys|A2|")) {
+    if (output.equals("users\npics\nSys\nA2")) {
         System.out.println("Case #1 Passed");
     }else {
         System.out.println("Case #1 Failed");
@@ -530,7 +530,7 @@ public class TestCases {
     input[0] = "C/users";
     
     output = test.run(input, "ls " + input[0], false);
-    if (output.equals("desktop|newUser|newUser2|")) {
+    if (output.equals("desktop\nnewUser\nnewUser2")) {
         System.out.println("Case #2 Passed");
     } else {
         System.out.println("Case #2 Failed");
@@ -542,7 +542,7 @@ public class TestCases {
     
     output = test.run(input, "ls " + input[0], false);
 
-    if (output.equals("CSCB07|Hwk|")) {
+    if (output.equals("CSCB07\nHwk")) {
         System.out.println("Case #3 Passed");
     } else {
         System.out.println("Case #3 Failed");
