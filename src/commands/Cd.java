@@ -23,7 +23,7 @@ public class Cd extends DirectoryManager implements CommandI {
   ErrorHandler error;
 
   /**
-   * Constructor for method Cd
+   * Constructor for class Cd
    */
   public Cd() {
     filesys = FileSystem.getFileSys();
