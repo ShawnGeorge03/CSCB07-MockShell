@@ -437,7 +437,7 @@ public class TestCases {
     catInputMap.put(3, "A0".split(" "));
     catInputMap.put(4, "A2".split(" "));
     catInputMap.put(5, "C/users/desktop/CSCB07 A2".split(" "));
-    catInputMap.put(6, "C/users/desktop/Hwk C/Sys/LOL C/Sys/IO/Keyboad/RGB".split(" "));
+    catInputMap.put(6, "C/users/desktop/Hwk C/Sys/LOL C/Sys/IO/keyboard/RGB".split(" "));
     
     HashMap<Integer, String> catCommandMap = new HashMap<Integer, String>();
 
@@ -447,7 +447,7 @@ public class TestCases {
     catCommandMap.put(3, "cat A0");
     catCommandMap.put(4, "cat A2");
     catCommandMap.put(5, "cat C/users/desktop/CSCB07 A2");
-    catCommandMap.put(6, "cat C/users/desktop/Hwk C/Sys/LOL C/Sys/IO/Keyboad/RGB");
+    catCommandMap.put(6, "cat C/users/desktop/Hwk C/Sys/LOL C/Sys/IO/keyboard/RGB");
     
     HashMap<Integer, String> catCorrectOutputMap = new HashMap<Integer, String>();
 
@@ -455,12 +455,12 @@ public class TestCases {
     catCorrectOutputMap.put(1, "Error: File Not Found : C/pics/picflex");
     catCorrectOutputMap.put(2, "this is a picturefile indeed");
     catCorrectOutputMap.put(3, "Error: File Not Found : A0");
-    catCorrectOutputMap.put(4, "Wow hat a project");
+    catCorrectOutputMap.put(4, "Wow what a project");
     catCorrectOutputMap.put(5, "Hello TA"
         + "\n" 
         + "\n" 
         + "\n" 
-        + "Wow hat a project");
+        + "Wow what a project");
     catCorrectOutputMap.put(6,"2+2=5" 
         + "\n" 
         + "\n" 
