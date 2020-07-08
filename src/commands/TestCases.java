@@ -310,11 +310,33 @@ public class TestCases {
     }
 
     if (allContent.contains("newUser2")) {
-      System.out.println("Case #3 Passed\n");
+      System.out.println("Case #3 Passed");
     } else {
-      System.out.println("Case #3 Failed\n");
+      System.out.println("Case #3 Failed");
     }
-
+    
+    //Case 4: Make a directory that already exists
+    input[0] = "users/newUser2";
+    cd.run(root);
+    output = mkdir.run(input, "mkdir " + input[0]);
+    
+    if (output.equals("Error: Same Directory with that name already exists! : users already exists")) {
+      System.out.println("Case #4 Passed");
+    } else {
+      System.out.println("Case #4 Failed");
+    }
+    
+    //Case 5: Make a directory using an invalid pathname
+    input[0] = "deifnitelyfalse/newUser2";
+    output = mkdir.run(input, "mkdir " + input[0]);
+    
+    if (output.equals("Error: Invalid Directory : deifnitelyfalse is not a valid directory")) {
+      System.out.println("Case #5 Passed");
+    } else {
+      System.out.println("Case #5 Failed");
+    }
+    
+    System.out.println();
   }
 
   public void historyTestCases() {
@@ -507,8 +529,7 @@ public class TestCases {
     input[0] = "C/users";
     
     output = test.run(input, "ls " + input[0]);
-    
-    if (output.equals("desktop|newUser|")) {
+    if (output.equals("desktop|")) {
         System.out.println("Case #2 Passed");
     } else {
         System.out.println("Case #2 Failed");
@@ -591,7 +612,6 @@ public class TestCases {
     input[0] = "definitelyFalsepath";
     
     output = testPush.run(input, "pushd " + input[0]);
-    System.out.println(output);
     if (output.equals("Error: Invalid Directory : definitelyFalsepathis not a valid directory")) {
         System.out.println("Case #4 Passed");
     } else {
@@ -599,7 +619,30 @@ public class TestCases {
     }
     
     //Case #5 Popping back into first pushed directory
-    testPop.pop();
+    output = testPop.pop();
+    if (output.equals("C/users")) {
+    	 System.out.println("Case #5 Passed");
+    }else {
+    	System.out.println("Case #5 Failed");
+    }
+    
+    //Case #6 Popping into last directory in stack
+    output = testPop.pop();
+    if (output.equals("C")) {
+    	 System.out.println("Case #6 Passed");
+    }else {
+    	System.out.println("Case #6 Failed");
+    }
+    
+  //Case #6 Popping an empty stack
+    output = testPop.pop();
+    if (output.equals("Stack is empty")) {
+    	 System.out.println("Case #7 Passed");
+    }else {
+    	System.out.println("Case #7 Failed");
+    }
+    
+    System.out.println();
 }
   
   public void echoTestCases() {
