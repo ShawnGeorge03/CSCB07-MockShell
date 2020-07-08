@@ -57,7 +57,6 @@ public class Echo extends FileManager implements CommandI {
     return args.substring(0, args.length() - 1);
   }
 
-  
   /**
    * Method that is responsible for printing the required arguments to the shell/console.
    * 
