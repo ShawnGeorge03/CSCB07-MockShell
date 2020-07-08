@@ -16,8 +16,9 @@ public class Cat extends FileManager implements CommandI {
   
   public String run(String[] args, String fullInput) {
     if(args.length == 0) {
-      output = getErrorHandler().getError("No parameters provided", "");
+      return getErrorHandler().getError("No parameters provided", "");
     }else {
+      output = "";
       readFile(args);
     }
     return output;
