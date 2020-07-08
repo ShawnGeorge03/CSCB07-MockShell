@@ -29,45 +29,35 @@ public class Push extends DirectoryManager implements CommandI {
    * @return String holding the absolute path to the current working directory, or an error message
    */
   public String run(String[] args, String fullInput) {
-    pushPath(args);
+    
+    if (args.length != 1) {
+        return error.getError("Invalid Argument",  Integer.toString(args.length) + " arguments, expecting 1 argument");
+      }
+      
+      if (FileSystem.getStack().isEmpty()) {
+        FileSystem.getStack().push(getCurrentPath());
+      }
+      
+      Node Current = FileSystem.getFileSys().getCurrent();
+      if (args[0].substring(0, 1).equals("/")) {
+      	if (makePathFromRoot(args[0])) {
+      		FileSystem.getFileSys().assignCurrent(Current);
+      	}else {
+      		return error.getError("Invalid Directory", args[0] + "is not a valid directory");
+      	}
+      }else {
+      	if (makeRelativePath(args[0])) {
+      		FileSystem.getFileSys().assignCurrent(Current);
+      	}else {
+      		return error.getError("Invalid Directory", args[0] + "is not a valid directory");
+      	}
+      }
+      
+      FileSystem.getStack().push(args[0]);
+      Cd newWorkingDirectory = new Cd();
+      newWorkingDirectory.run(args);
+    
     return null;
   }
-
-  /**
-   * Method Description
-   * 
-   * @param args  the string array of arguments
-   * @return null 
-   */
-  public void pushPath(String[] args) {
-    if (args.length != 1) {
-      error.getError("Invalid Argument",  Integer.toString(args.length) + " arguments, expecting 1 argument");
-      return;
-    }
-    
-    if (FileSystem.getStack().isEmpty()) {
-      FileSystem.getStack().push(getCurrentPath());
-    }
-    
-    Node Current = FileSystem.getFileSys().getCurrent();
-    if (args[0].substring(0, 1).equals("/")) {
-    	if (makePathFromRoot(args[0])) {
-    		FileSystem.getFileSys().assignCurrent(Current);
-    	}else {
-    		System.out.println(error.getError("Invalid Directory", args[0] + "is not a valid directory"));
-    		return;
-    	}
-    }else {
-    	if (makeRelativePath(args[0])) {
-    		FileSystem.getFileSys().assignCurrent(Current);
-    	}else {
-    		System.out.println(error.getError("Invalid Directory", args[0] + "is not a valid directory"));
-    		return;
-    	}
-    }
-    
-    FileSystem.getStack().push(args[0]);
-    Cd newWorkingDirectory = new Cd();
-    newWorkingDirectory.run(args);
-  }
 }
+

@@ -481,8 +481,79 @@ public class TestCases {
         System.out.println("Case # " + (i+1) +"  : Failed");
     }
     System.out.println();
-
-    
-
   }
+  
+  public void lsTestCases() {
+	  Cd toRoot = new Cd();
+	  String[] root = {"C"};
+	  cd.run(root);
+	  
+	  
+	  System.out.println("Testing Command : ls");
+	  //Case 1: Testing ls in root directory
+	  Ls test = new Ls();
+	  String[] input = {"/"};
+	  String output = test.run(input, "ls");
+
+	  if (output.equals("users|pics|Sys|A2|")) {
+		  System.out.println("Case #1 Passed");
+	  }else {
+		  System.out.println("Case #1 Failed");
+	  }
+	  
+	  //Case 2: Testing with Absolute path specified
+	  input[0] = "C/users";
+	  
+	  output = test.run(input, "ls " + input[0]);
+	  
+	  if (output.equals("desktop|newUser|")) {
+		  System.out.println("Case #2 Passed");
+	  } else {
+		  System.out.println("Case #2 Failed");
+	  }
+	  
+	  //Case 3: Testing with Relative path specified
+	  
+	  input[0] = "users/desktop";
+	  
+	  output = test.run(input, "ls " + input[0]);
+
+	  if (output.equals("CSCB07|Hwk|")) {
+		  System.out.println("Case #3 Passed");
+	  } else {
+		  System.out.println("Case #3 Failed");
+	  }
+	  
+	  //Case 4: Testing with multiple arguments
+	  String[] multipleArguments = {"C/users", "users/desktop"};
+	  
+	  output = test.run(multipleArguments, "ls " + multipleArguments[0] + " " + multipleArguments[1]);
+	  
+	  if (output.equals("Error : Multiple Parameters have been provided : Expecting 0 or 1 parameter")) {
+		  System.out.println("Case #4 Passed");
+	  } else {
+		  System.out.println("Case #4 Failed");
+	  }
+	  
+	  //Case 5: Giving an invalid path
+	  input[0] = "definitelyfalsecase";
+	  
+	  output = test.run(input, "ls " + input[0]);
+
+	  if (output.equals("Error: Invalid Directory : definitelyfalsecaseis not a valid directory")) {
+		  System.out.println("Case #5 Passed");
+	  } else {
+		  System.out.println("Case #5 Failed");
+	  }
+	  
+	  System.out.println();
+  }
+  
+  public void pushAndPopTestCases() {
+	  Push testPush = new Push();
+	  Pop testPop = new Pop();
+	  
+	  
+  }
+  
 }
