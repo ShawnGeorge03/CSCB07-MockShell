@@ -6,22 +6,44 @@ import commands.DirectoryManager;
 import data.FileSystem;
 import data.Node;
 
-
+/**
+ * Class Mkdir handles making directories anywhere in the filesystem
+ */
 public class Mkdir extends DirectoryManager implements CommandI {
+  /**
+   * Declare instance variable of ArrayList to hold all arguments
+   */
   ArrayList<String> args;
+  /**
+   * Declare instance variable of ErrorHandler to handle error messages
+   */
   private ErrorHandler error;
-
+  
+  /**
+   * Constructor of Mkdir to initialize error
+   */
   public Mkdir() {
     this.error = new ErrorHandler();
   }
   
+  /**
+   * Generic run method to call on method that does the work of creating directories
+   * 
+   * @param args  the string array of all arguments
+   * @param fullInput the string of the entire raw input provided by user in JShell
+   * @return null always
+   */
   public String run(String[] args, String fullInput) {
     MakeDirectory(args);
     return null;
   }
   
   
-
+  /**
+   * Makes directories at locations in filesystem based on the path given
+   * 
+   * @param arguments  the string array of all arguments provided
+   */
   public void MakeDirectory(String[] arguments) {
 	 this.args = new ArrayList<String>(Arrays.asList(arguments));
 	  
