@@ -51,6 +51,9 @@ public class JShell {
       tester.historyTestCases();
       tester.pwdTestCases();
       tester.catTestCases();
+      tester.lsTestCases();
+      tester.pushAndPopTestCases();
+      tester.echoTestCases();
     } else {
       Checker parser = new Checker();
       History history = new History();
