@@ -33,50 +33,38 @@ public class Ls extends DirectoryManager implements CommandI {
    * @param fullInput  the string that contains the raw input that the user provides to JShell
    * @return null always
    */
-  public String run(String[] args, String fullInput) {
-    listDirectory(args);
-    return null;
-  }
-  
-  /**
-   * Prints out all child nodes of given directory
-   * 
-   * @param arguments  the arguments that the user gives
-   */
-  public void listDirectory(String[] arguments) {
-	this.args = new ArrayList<String>(Arrays.asList(arguments));
-	
-	if (args.size() > 1) {
-		System.out.println(error.getError("Mulptile parameters provided", "Expecting 0 or 1 parameter"));
-	}
-	
-    if (args.size() == 0) {
-      Node curr = filesys.getCurrent();
-      for (int i = 0; i < curr.getList().size(); i++) {
-        if (curr.getList().get(i).isDir()) {
-          System.out.println(curr.getList().get(i).getName());
-        } else {
-          System.out.println(curr.getList().get(i).getName());
-        }
-      }
-    } else {
-      String[] path = {args.get(0)};
-      String[] currentPath = {getCurrentPath()};
+  public String run(String[] arguments, String fullInput) {
+	  this.args = new ArrayList<String>(Arrays.asList(arguments));
+	  String output = "";
+		if (args.size() > 1) {
+			return error.getError("Mulptile parameters provided", "Expecting 0 or 1 parameter");
+		}
+		
+	    if (args.size() == 0) {
+	      Node curr = filesys.getCurrent();
+	      for (int i = 0; i < curr.getList().size(); i++) {
+	    	  System.out.println(curr.getList().get(i).getName());
+	    	  output += curr.getList().get(i).getName() + "|";
+	      }
+	    } else {
+	      String[] path = {args.get(0)};
+	      String[] currentPath = {getCurrentPath()};
 
-      Cd traverse = new Cd();
-      if (traverse.run(path)) {
-        Node current = FileSystem.getFileSys().getCurrent();
+	      Cd traverse = new Cd();
+	      if (traverse.run(path)) {
+	        Node current = FileSystem.getFileSys().getCurrent();
 
-        for (int i = 0; i < current.getList().size(); i++) {
-          System.out.println(current.getList().get(i).getName());
-        }
-      } else {
-        System.out.println(error.getError("Invalid Directory", args.get(0) + "is not a valid directory"));
-      }
+	        for (int i = 0; i < current.getList().size(); i++) {
+	          System.out.println(current.getList().get(i).getName());
+	          output += current.getList().get(i).getName() + "|";
+	        }
+	      } else {
+	        return error.getError("Invalid Directory", args.get(0) + "is not a valid directory");
+	      }
 
-      Cd goBack = new Cd();
-      goBack.run(currentPath);
-      return;
-    }
+	      Cd goBack = new Cd();
+	      goBack.run(currentPath);
+	    }
+    return output;
   }
 }

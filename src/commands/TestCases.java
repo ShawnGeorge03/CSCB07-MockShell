@@ -553,7 +553,28 @@ public class TestCases {
 	  Push testPush = new Push();
 	  Pop testPop = new Pop();
 	  
+	  System.out.println("Testing Command : pushd & popd");
 	  
+	  //Case #1 Pushing an absolute file path onto the stack
+	  String[] input = {"C/users"};
+	  String output = testPush.run(input, "pushd " + input[0]);
+	  
+	  if (output.equals("C/users")) {
+		  System.out.println("Case #1 Passed");
+	  } else {
+		  System.out.println("Case #1 Failed");
+	  }
+	  
+	  //Case #2 Pushing a relative file path onto the stack
+	  input[0] = "users/desktop";
+	  
+	  output = testPush.run(input, "pushd " + input[0]);
+	  System.out.println(output);
+	  if (output.equals("C/users")) {
+		  System.out.println("Case #1 Passed");
+	  } else {
+		  System.out.println("Case #1 Failed");
+	  }
   }
   
 }

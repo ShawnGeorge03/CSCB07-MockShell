@@ -29,6 +29,8 @@ public class Push extends DirectoryManager implements CommandI {
    * @return String holding the absolute path to the current working directory, or an error message
    */
   public String run(String[] args, String fullInput) {
+	Cd goBack = new Cd();
+	String[] root = {FileSystem.getFileSys().getRoot().getName()};
     
     if (args.length != 1) {
         return error.getError("Invalid Argument",  Integer.toString(args.length) + " arguments, expecting 1 argument");
@@ -38,26 +40,18 @@ public class Push extends DirectoryManager implements CommandI {
         FileSystem.getStack().push(getCurrentPath());
       }
       
-      Node Current = FileSystem.getFileSys().getCurrent();
-      if (args[0].substring(0, 1).equals("/")) {
-      	if (makePathFromRoot(args[0])) {
-      		FileSystem.getFileSys().assignCurrent(Current);
-      	}else {
-      		return error.getError("Invalid Directory", args[0] + "is not a valid directory");
-      	}
+      if (goBack.run(args)) {
+    	  goBack.run(root);
       }else {
-      	if (makeRelativePath(args[0])) {
-      		FileSystem.getFileSys().assignCurrent(Current);
-      	}else {
-      		return error.getError("Invalid Directory", args[0] + "is not a valid directory");
-      	}
+    	return error.getError("Invalid Directory", args[0] + "is not a valid directory");
       }
+      
       
       FileSystem.getStack().push(args[0]);
       Cd newWorkingDirectory = new Cd();
       newWorkingDirectory.run(args);
     
-    return null;
+    return FileSystem.getStack().peekFirst();
   }
 }
 
