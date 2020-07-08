@@ -5,11 +5,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 /**
- * Class CommandHandler is responsible for creating instances of the requested command and running 
+ * Class CommandHandler is responsible for creating instances of the requested command and running
  * them
  */
 public class CommandHandler {
-  
+
   /**
    * Declare instance variable of String array to hold the command and its arguments
    */
@@ -25,7 +25,7 @@ public class CommandHandler {
 
   boolean speakMode = false;
 
-  private ErrorHandler err;
+  private ErrorHandler errorManager;
   /**
    * Declare instance variable of String to hold the output that the command may give
    */
@@ -36,7 +36,7 @@ public class CommandHandler {
    * commandMap with commands
    */
   public CommandHandler() {
-    err = new ErrorHandler();
+    errorManager = new ErrorHandler();
     commandMap = new HashMap<String, String>();
     intizializeCommandMap();
   }
@@ -63,7 +63,7 @@ public class CommandHandler {
   /**
    * Splits up command and arguments, then sends it to the run method
    * 
-   * @param parsedInput  the parsed input containing the command, and its arguments
+   * @param parsedInput the parsed input containing the command, and its arguments
    */
   public void setCommand(String parsedInput) {
     splitInput = parsedInput.split(" ");
@@ -76,7 +76,7 @@ public class CommandHandler {
     }
     if (command.equals("speak") && args.length == 0)
       speakMode = true;
-    run(command, args, parsedInput);    
+    run(command, args, parsedInput);
     if (command.equals("speak") && parsedInput.endsWith("QUIT"))
       speakMode = false;
 
@@ -86,21 +86,21 @@ public class CommandHandler {
   /**
    * Calls the requested command's run method
    * 
-   * @param command  the name of the command
-   * @param args  the string array of arguments
-   * @param fullInput  the raw input that the user gave to JShell
+   * @param command the name of the command
+   * @param args the string array of arguments
+   * @param fullInput the raw input that the user gave to JShell
    */
   public void run(String command, String[] args, String fullInput) {
     if (!commandMap.containsKey(command)) {
-      output = err.getError("Invalid Command", command);
+      output = errorManager.getError("Invalid Command", command);
     } else {
       try {
         String className = commandMap.get(command);
 
         try {
 
-          CommandI commandObj =
-              (CommandI) Class.forName(className).getDeclaredConstructor().newInstance();
+          CommandI commandObj = (CommandI) Class.forName(className)
+              .getDeclaredConstructor().newInstance();
 
           output = commandObj.run(args, fullInput, speakMode);
 
