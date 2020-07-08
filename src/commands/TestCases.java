@@ -457,12 +457,30 @@ public class TestCases {
     catCorrectOutputMap.put(2, "this is a picturefile indeed");
     catCorrectOutputMap.put(3, "Error: File Not Found : A0");
     catCorrectOutputMap.put(4, "Wow hat a project");
-    catCorrectOutputMap.put(5, "Error: File Not Found : C/users/desktop/CSCB07"
+    catCorrectOutputMap.put(5, "Hello TA"
         + "\n" 
         + "\n" 
         + "\n" 
         + "Wow hat a project");
-    //catCorrectOutputMap.put(6, );
+    catCorrectOutputMap.put(6,"2+2=5" 
+        + "\n" 
+        + "\n" 
+        + "\n" 
+        + "Error: File Not Found : C/Sys/LOL"
+        + "\n" 
+        + "\n" 
+        + "\n"
+        + "RGB == ways more      F    P   S");
+    
+    for(int i = 0; i < catInputMap.size(); i++) {
+      output = cat.run(catInputMap.get(i), "history");
+
+      if (output.contains(catCorrectOutputMap.get(i)))
+        System.out.println("Case # " + (i+1) +"  : Passed");
+      else
+        System.out.println("Case # " + (i+1) +"  : Failed");
+    }
+    System.out.println();
 
     
 
