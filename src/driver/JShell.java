@@ -39,26 +39,33 @@ public class JShell {
 
   public static void main(String[] args) {
 
-//    Checker parser = new Checker();
-//    History history = new History();
-//    Scanner sc = new Scanner(System.in);
+    boolean testing = false;
+    
     TestCases tester = new TestCases();
-    
-//    boolean running = true;
 
-//    while (running) {
-//      System.out.print("$");
-//      String input = sc.nextLine();
-//      history.addCommands(input);
-//      parser.parseInput(input);
-//    }
-//    sc. close();
-    
-    tester.cdTestCases();
-    tester.manTestCases();
-    tester.mkdirTestCases();
-    tester.historyTestCases();
-    tester.pwdTestCases();
-    tester.catTestCases();
+
+    if (testing) {
+      tester.cdTestCases();
+      tester.manTestCases();
+      tester.mkdirTestCases();
+      tester.historyTestCases();
+      tester.pwdTestCases();
+      tester.catTestCases();
+    } else {
+      Checker parser = new Checker();
+      History history = new History();
+      Scanner sc = new Scanner(System.in);
+
+      boolean running = true;
+
+      while (running) {
+        System.out.print("$");
+        String input = sc.nextLine();
+        history.addCommands(input);
+        parser.parseInput(input);
+      }
+      sc.close();
+
+    }
   }
 }
