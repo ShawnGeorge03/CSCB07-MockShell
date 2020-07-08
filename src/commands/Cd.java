@@ -14,16 +14,16 @@ public class Cd extends DirectoryManager implements CommandI {
   boolean successfulPath = false;
   String err_output;
   /**
-   * Declare instance of FileSystem
+   * Declare instance of FileSystem so we can access the filesystem
    */
   FileSystem filesys;
   /**
-   * Declare instance of ErrorHandler
+   * Declare instance of ErrorHandler to handle error messages
    */
   ErrorHandler error;
 
   /**
-   * Constructor for class Cd
+   * Constructor for class Cd which initalizes instance variables
    */
   public Cd() {
     filesys = FileSystem.getFileSys();
