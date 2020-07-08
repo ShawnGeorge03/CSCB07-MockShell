@@ -23,15 +23,14 @@ public class FileManager {
     if(path.length == 1)
       return checkList(current, fileName);
     
-    Node temp = null;
-    int currPath = 0;
     for(int i = 0; i < path.length; i++) {
-      if((i+1) != path.length) {
-        temp = findInDirectory(path[currPath]);
-        if(temp == null) return null;
-        else currPath++;
+      if((i+1) == path.length) {
+        return checkList(current, path[i]);
       }
-      else return checkList(temp, path[currPath]);
+      else {
+        current = findInDirectory(path[i], current);
+        if(current == null) return null;
+      }
     }
     
     return null;
@@ -45,20 +44,10 @@ public class FileManager {
     return null;
   }
   
-  private Node findInDirectory(String file) {
-    if(filesys.getCurrent().getParent() != null) {
-      Node parent = filesys.getCurrent().getParent();
-      for(int i = 0; i < parent.getList().size(); i++) {
-        if(parent.getList().get(i).getName().equals(file)) 
-          return parent.getList().get(i);
-      } 
-    }
-    else {
-      Node current = filesys.getCurrent();
-      for(int i = 0; i < current.getList().size(); i++) {
-        if(current.getList().get(i).getName().equals(file)) 
+  private Node findInDirectory(String file, Node current) {
+    for(int i = 0; i < current.getList().size(); i++) {
+      if(current.getList().get(i).getName().equals(file)) 
           return current.getList().get(i);
-      }
     }
     return null;
   }
@@ -104,7 +93,7 @@ public class FileManager {
         return checkList(current, directories[i]);
       }
       else {
-        Node temp = findInDirectory(directories[i]);
+        Node temp = findInDirectory(directories[i], current);
         if(temp != null) current = temp;
         else return null;
       }
