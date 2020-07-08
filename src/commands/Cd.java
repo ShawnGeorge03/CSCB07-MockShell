@@ -49,9 +49,8 @@ public class Cd extends DirectoryManager implements CommandI {
           fullInput.substring(fullInput.indexOf("cd") + 2).trim());      
       return err_output;
     }
-    run(args);
-    
-    if(!successfulPath) {
+      
+    if(!run(args)) {
       String 
       err_output = error.getError("Invalid Directory", 
           fullInput.substring(fullInput.indexOf("cd") + 2).trim());
