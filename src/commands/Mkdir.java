@@ -18,18 +18,18 @@ public class Mkdir extends DirectoryManager implements CommandI {
    * Declare instance variable of ErrorHandler to handle error messages
    */
   private ErrorHandler error;
-  
+
   /**
    * Constructor of Mkdir to initialize error
    */
   public Mkdir() {
     this.error = new ErrorHandler();
   }
-  
+
   /**
    * Generic run method to call on method that does the work of creating directories
    * 
-   * @param args  the string array of all arguments
+   * @param args the string array of all arguments
    * @param fullInput the string of the entire raw input provided by user in JShell
    * @return null always
    */
@@ -37,25 +37,28 @@ public class Mkdir extends DirectoryManager implements CommandI {
     String output = MakeDirectory(args);
     return output;
   }
-  
-  
+
+
   /**
    * Makes directories at locations in filesystem based on the path given
    * 
-   * @param arguments  the string array of all arguments provided
+   * @param arguments the string array of all arguments provided
    */
   public String MakeDirectory(String[] arguments) {
-	 this.args = new ArrayList<String>(Arrays.asList(arguments));
-	  
+    this.args = new ArrayList<String>(Arrays.asList(arguments));
+
     if (checkValidArgs()) {
-    	
+
       if (checkPath()) {
         String[] currentPath = {getCurrentPath()};
-        String[] newArgs = {args.get(0).substring(0, args.get(0).lastIndexOf('/'))};
-        
-        if (!isValidDirectoryName(args.get(0).substring(args.get(0).lastIndexOf('/') + 1))) {
-        	return error.getError("Invalid Directory", args.get(0).substring(args.get(0).lastIndexOf('/') + 1) + 
-        			" is not a valid directory name");
+        String[] newArgs =
+            {args.get(0).substring(0, args.get(0).lastIndexOf('/'))};
+
+        if (!isValidDirectoryName(
+            args.get(0).substring(args.get(0).lastIndexOf('/') + 1))) {
+          return error.getError("Invalid Directory",
+              args.get(0).substring(args.get(0).lastIndexOf('/') + 1)
+                  + " is not a valid directory name");
         }
 
         Cd newpath = new Cd();
@@ -63,37 +66,44 @@ public class Mkdir extends DirectoryManager implements CommandI {
           Node newNode = new Node();
           newNode.setContent(null);
           newNode.setDir(true);
-          newNode.setName(args.get(0).substring(args.get(0).lastIndexOf('/') + 1));
+          newNode
+              .setName(args.get(0).substring(args.get(0).lastIndexOf('/') + 1));
 
           for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
-            if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
+            if (filesys.getCurrent().getList().get(i).getName()
+                .equals(newNode.getName())) {
               Cd goBack = new Cd();
               goBack.run(currentPath);
-              return error.getError("Same Directory", newArgs[0] + " already exists");
+              return error.getError("Same Directory",
+                  newArgs[0] + " already exists");
             }
           }
 
           filesys.addToDirectory(newNode);
         } else {
-          return error.getError("Invalid Directory", newArgs[0] + " is not a valid directory");
+          return error.getError("Invalid Directory",
+              newArgs[0] + " is not a valid directory");
         }
 
         Cd goBack = new Cd();
         goBack.run(currentPath);
         return null;
       } else {
-    	  if (!isValidDirectoryName(args.get(0))) {
-          	return error.getError("Invalid Directory", args.get(0) + " is not a valid directory name");
-          }
-    	  
+        if (!isValidDirectoryName(args.get(0))) {
+          return error.getError("Invalid Directory",
+              args.get(0) + " is not a valid directory name");
+        }
+
         Node newNode = new Node();
         newNode.setContent(null);
         newNode.setDir(true);
         newNode.setName(args.get(0));
 
         for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
-          if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
-        	return error.getError("Same Directory", newNode.getName() + " already exists");
+          if (filesys.getCurrent().getList().get(i).getName()
+              .equals(newNode.getName())) {
+            return error.getError("Same Directory",
+                newNode.getName() + " already exists");
           }
         }
 
@@ -101,7 +111,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
         return null;
       }
     } else {
-    	return error.getError("Invalid Argument", "Expecting 1 Argument only");
+      return error.getError("Invalid Argument", "Expecting 1 Argument only");
     }
   }
 
