@@ -529,7 +529,7 @@ public class TestCases {
     input[0] = "C/users";
     
     output = test.run(input, "ls " + input[0]);
-    if (output.equals("desktop|")) {
+    if (output.equals("desktop|newUser|newUser2|")) {
         System.out.println("Case #2 Passed");
     } else {
         System.out.println("Case #2 Failed");

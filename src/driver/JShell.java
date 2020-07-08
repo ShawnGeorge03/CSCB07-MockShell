@@ -39,7 +39,7 @@ public class JShell {
 
   public static void main(String[] args) {
 
-    boolean testing = false;
+    boolean testing = true;
     
     TestCases tester = new TestCases();
 
