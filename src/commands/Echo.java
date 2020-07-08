@@ -68,7 +68,7 @@ public class Echo extends FileManager implements CommandI {
           EchoOverwrite overwrite_exe = new EchoOverwrite();
           overwrite_exe.execute(fileContents, fileName);
         } else
-          output = this.getErrorHandler().getError("No parameters provided", fullInput);
+          output = this.getErrorHandler().getError("Invalid File", fullInput);
           return;
         }
 
@@ -77,7 +77,7 @@ public class Echo extends FileManager implements CommandI {
           EchoAppend append_exe = new EchoAppend();
           append_exe.execute(fileContents, fileName);
         } else
-          output = this.getErrorHandler().getError("No parameters provided", fullInput);
+          output = this.getErrorHandler().getError("Invalid File", fullInput);
           return;
       }
 
