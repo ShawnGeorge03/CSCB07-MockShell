@@ -1,6 +1,7 @@
 package commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import data.FileSystem;
 
@@ -624,24 +625,31 @@ public class TestCases {
     echoCorrectOutputMap.put(10, "QWERTY");
     
 
-    HashMap<Integer, String> catCorrectOutputMap = new HashMap<Integer, String>(); 
+    HashMap<Integer, String[]> catInputMap = new HashMap<Integer, String[]>(); 
+    catInputMap.put(6, "file".split(" "));
+    catInputMap.put(7, "file".split(" ")); 
+    catInputMap.put(8, "file".split(" ")); 
+    catInputMap.put(9, "C/Sys/IO/keyboard/keys".split(" ")); 
+    catInputMap.put(10, "C/Sys/IO/keyboard/keys".split(" ")); 
 
-
-
-    
+   
     for(int i = 0; i < echoInputMap.size(); i++) {
+      System.out.println(Arrays.toString(echoInputMap.get(i)) + "  " + echoCommandMap.get(i));
+
+      output = echo.run(echoInputMap.get(i), echoCommandMap.get(i));
+
       if(i < 6) {
-        output = echo.run(echoInputMap.get(i), echoCommandMap.get(i));
         if (output.contains(echoCorrectOutputMap.get(i)))
-          System.out.println("Case # " + (i+1) +"  : Passed");
+          System.out.println("Case # " + (i) +"  : Passed LOL");
         else
-          System.out.println("Case # " + (i+1) +"  : Failed");
+          System.out.println("Case # " + (i) +"  : Failed");
       }else {
-        output = cat.run(echoInputMap.get(i), echoCommandMap.get(i));
-        if (output.contains(echoCorrectOutputMap.get(i)))
-          System.out.println("Case # " + (i+1) +"  : Passed");
+       String catOutput = cat.run(catInputMap.get(i), echoCommandMap.get(i));
+       System.out.println(output + " | " + catOutput);
+        if (output == null && catOutput.equals(echoCorrectOutputMap.get(i)))
+          System.out.println("Case # " + (i) +"  : Passed");
         else
-          System.out.println("Case # " + (i+1) +"  : Failed");
+          System.out.println("Case # " + (i) +"  : Failed");
       } 
     }
     System.out.println();
