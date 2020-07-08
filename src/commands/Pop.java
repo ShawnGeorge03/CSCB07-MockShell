@@ -25,6 +25,6 @@ public class Pop extends DirectoryManager implements CommandI {
 	    String[] path = {FileSystem.getStack().peek()};
 	    Cd newWorkingDirectory = new Cd();
 	    newWorkingDirectory.run(path);
-	    return getCurrentPath();
+	    return null;
 	  }
 }

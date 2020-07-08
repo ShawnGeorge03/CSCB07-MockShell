@@ -34,7 +34,7 @@ public class FileSystem {
   private FileSystem() {
     root.setDir(true);
     root.setContent(null);
-    root.setName("/");
+    root.setName("C");
     root.isRoot = true;
     root.setParent(null);
     current = root;

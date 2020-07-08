@@ -357,6 +357,8 @@ public class TestCases {
 
   public void pwdTestCases() {
     System.out.println("Testing Command: pwd");
+    
+    
 
     String[] testCase1_cd = {};
     String[] testCase1_pwd = {};
@@ -476,8 +478,9 @@ public class TestCases {
     System.out.println("Testing Command : ls");
     //Case 1: Testing ls in root directory
     Ls test = new Ls();
-    String[] input = {"/"};
+    String[] input = {"C"};
     String output = test.run(input, "ls", false);
+    System.out.println(output);
 
     if (output == null) {
         System.out.println("Case #1 Passed");
@@ -540,7 +543,6 @@ public class TestCases {
     
     //Case #1 Pushing an absolute file path onto the stack
     String[] input = {"C/users"};
-    String[] empty = {};
     String output = testPush.run(input, "pushd " + input[0], false);
     
     if (output == null) {
@@ -581,7 +583,7 @@ public class TestCases {
     
     //Case #5 Popping back into first pushed directory
     output = testPop.pop();
-    if (output.equals("C/users")) {
+    if (output == null) {
     	 System.out.println("Case #5 Passed");
     }else {
     	System.out.println("Case #5 Failed");
@@ -589,7 +591,7 @@ public class TestCases {
     
     //Case #6 Popping into last directory in stack
     output = testPop.pop();
-    if (output.equals("C")) {
+    if (output == null) {
     	 System.out.println("Case #6 Passed");
     }else {
     	System.out.println("Case #6 Failed");
