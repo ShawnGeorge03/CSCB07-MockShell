@@ -3,9 +3,10 @@ package commands;
 import java.util.ArrayList;
 import data.FileSystem;
 import data.Node;
+
 /**
- * Class DirectoryManager which provides helper methods for other directory-related commands
- * such as getting the current path and creating new paths
+ * Class DirectoryManager which provides helper methods for other directory-related commands such as
+ * getting the current path and creating new paths
  */
 public class DirectoryManager {
 
@@ -18,14 +19,14 @@ public class DirectoryManager {
    * Declare instance of ErrorHandler to handle error messages
    */
   ErrorHandler error = new ErrorHandler();
-  
+
   /**
    * Constructor for DirectoryManager which initializes filesystem
    */
   public DirectoryManager() {
     filesys = FileSystem.getFileSys();
   }
-  
+
   /**
    * Finds the current path within the FileSystem
    * 
@@ -33,22 +34,22 @@ public class DirectoryManager {
    */
   public String getCurrentPath() {
     String output = "";
-    Node curr = filesys.getCurrent();
+    Node current = filesys.getCurrent();
 
-    if (curr.equals(this.filesys.getRoot())) {
+    if (current.equals(this.filesys.getRoot())) {
       return this.filesys.getRoot().getName();
     }
 
-    path.add(curr.getName());
-    while (curr != this.filesys.getRoot()) {
-      curr = curr.getParent();
-      path.add(curr.getName());
+    path.add(current.getName());
+    while (current != this.filesys.getRoot()) {
+      current = current.getParent();
+      path.add(current.getName());
     }
 
-    int i = path.size();
-    while (i > 0) {
-      output = output.concat(path.get(i - 1) + "/");
-      i--;
+    int pathLength = path.size();
+    while (pathLength > 0) {
+      output = output.concat(path.get(pathLength - 1) + "/");
+      pathLength--;
     }
 
     path.clear();
@@ -59,8 +60,8 @@ public class DirectoryManager {
   /**
    * Checks if requested directory exists in the ArrayList of nodes in the current node
    * 
-   * @param toCheck  ArrayList of Nodes that contain all of a Node's children
-   * @param dir  the requested directory to check
+   * @param toCheck ArrayList of Nodes that contain all of a Node's children
+   * @param dir the requested directory to check
    * @return the index of the requested directory if it exists, -1 otherwise
    */
   public int checkDirExists(ArrayList<Node> toCheck, String dir) {
@@ -71,11 +72,11 @@ public class DirectoryManager {
     }
     return -1;
   }
-  
+
   /**
    * Makes path from the root
    * 
-   * @param path  the path that the user is requesting
+   * @param path the path that the user is requesting
    * @return true if path was made successfully, false otherwise
    */
   public boolean makePathFromRoot(String path) {
@@ -90,10 +91,10 @@ public class DirectoryManager {
         if (currNode.getList().get(indexOfDir).isDir()) {
           currNode = currNode.getList().get(indexOfDir);
         } else {
-          //System.out.println(error.getError("Invalid Directory", path));
+          // System.out.println(error.getError("Invalid Directory", path));
         }
       } else {
-        //System.out.println(error.getError("Directory Not Found", path));
+        // System.out.println(error.getError("Directory Not Found", path));
         return false;
       }
     }
@@ -104,7 +105,7 @@ public class DirectoryManager {
   /**
    * Makes relative path from current directory
    * 
-   * @param path  the path that the user is requesting
+   * @param path the path that the user is requesting
    * @return true if path was made successfully, false otherwise
    */
   public boolean makeRelativePath(String path) {
@@ -116,27 +117,35 @@ public class DirectoryManager {
         if (currNode.getList().get(indexOfDir).isDir()) {
           currNode = currNode.getList().get(indexOfDir);
         } else {
-          //System.out.println(error.getError("Invalid Directory", path));
+          // System.out.println(error.getError("Invalid Directory", path));
           return false;
         }
       } else {
-        //System.out.println(error.getError("Directory Not Found", path));
+        // System.out.println(error.getError("Directory Not Found", path));
         return false;
       }
     }
     filesys.assignCurrent(currNode);
     return true;
   }
-  
+
+  /**
+   * Method that checks if the file name that the user inputted is a valid file name. If the file name
+   * contains illegal characters then this method returns false. If the file name does not contain any
+   * illegal characters then it returns true.
+   * 
+   * @param fileName String that stores the file name that the user inputted
+   * @return boolean false if file name contains illegal characters, otherwise returns true
+   */
   public boolean isValidDirectoryName(String fileName) {
-	    String[] invalidChars = {"/", ".", "\\s+", "!", "@", "#", "$", "%", "^", "&"
-	        , "*", "(", ")", "{", "}", "~", "|", "<", ">", "?"};
-	    for(int i = 0; i < invalidChars.length; i++) {
-	      if(fileName.contains(invalidChars[i])) {
-	        return false;
-	      }
-	    }
-	    return true;
-	  }
+    String[] invalidChars = {"/", ".", "\\s+", "!", "@", "#", "$", "%", "^",
+        "&", "*", "(", ")", "{", "}", "~", "|", "<", ">", "?"};
+    for (int i = 0; i < invalidChars.length; i++) {
+      if (fileName.contains(invalidChars[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
 
 }
