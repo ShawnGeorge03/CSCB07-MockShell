@@ -51,7 +51,6 @@ public class Echo extends FileManager implements CommandI {
   }
 
   public void execute(String[] args, String fullInput) {
-    
     String fileContents = "";
     if (hasQuotations(fullInput)) {
       fileContents = fullInput.substring(fullInput.indexOf("\"") + 1, fullInput.lastIndexOf("\""));
@@ -67,6 +66,8 @@ public class Echo extends FileManager implements CommandI {
         if (argument.split(">").length == 2 && !argument.split(">")[0].equals("")) {
           EchoOverwrite overwrite_exe = new EchoOverwrite();
           overwrite_exe.execute(fileContents, fileName);
+          output = null;
+          return;
         } else
           output = this.getErrorHandler().getError("Invalid File", fullInput);
           return;
@@ -76,6 +77,8 @@ public class Echo extends FileManager implements CommandI {
         if (argument.split(">>").length == 2 && !argument.split(">>")[0].equals("")) {
           EchoAppend append_exe = new EchoAppend();
           append_exe.execute(fileContents, fileName);
+          output = null;
+          return;
         } else
           output = this.getErrorHandler().getError("Invalid File", fullInput);
           return;
