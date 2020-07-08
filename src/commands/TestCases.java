@@ -45,33 +45,33 @@ public class TestCases {
     mkdir.MakeDirectory(setupDirs);
     setupDirs[0] = "Sys";
     mkdir.MakeDirectory(setupDirs);
-    echo.run(setupDirs, "echo \"Wow what a project\" > A2");
+    echo.run(setupDirs, "echo \"Wow what a project\" > A2", false);
 
     // users Folder
     setupDirs[0] = "C/users";
-    cd.run(setupDirs, "cd C/users");
+    cd.run(setupDirs, "cd C/users", false);
     setupDirs[0] = "desktop";
     mkdir.MakeDirectory(setupDirs);
 
     // desktop Folder
     setupDirs[0] = "C/users/desktop";
-    cd.run(setupDirs, "cd C/users/desktop");
-    echo.run(setupDirs, "echo \"Hello TA\" > CSCB07");
-    echo.run(setupDirs, "echo \"2+2=5\" > Hwk");
+    cd.run(setupDirs, "cd C/users/desktop", false);
+    echo.run(setupDirs, "echo \"Hello TA\" > CSCB07", false);
+    echo.run(setupDirs, "echo \"2+2=5\" > Hwk", false);
     setupDirs[0] = "../../";
-    cd.run(setupDirs, "cd ../../");
+    cd.run(setupDirs, "cd ../../", false);
 
     // pics Folder
-    echo.run(setupDirs, "echo \"this is a picturefile indeed\" > pics/picfile");
+    echo.run(setupDirs, "echo \"this is a picturefile indeed\" > pics/picfile", false);
     setupDirs[0] = "pics";
-    cd.run(setupDirs, "cd pics");
-    echo.run(setupDirs, "echo \"Hello TA from the pics Folder\" > CSCB07");
+    cd.run(setupDirs, "cd pics", false);
+    echo.run(setupDirs, "echo \"Hello TA from the pics Folder\" > CSCB07", false);
     setupDirs[0] = "..";
-    cd.run(setupDirs, "cd ..");
+    cd.run(setupDirs, "cd ..", false);
 
     // Sys Folder
     setupDirs[0] = "Sys";
-    cd.run(setupDirs, "cd Sys");
+    cd.run(setupDirs, "cd Sys", false);
     setupDirs[0] = "IO";
     mkdir.MakeDirectory(setupDirs);
     setupDirs[0] = "LOL";
@@ -79,7 +79,7 @@ public class TestCases {
 
     // IO Folder
     setupDirs[0] = "IO";
-    cd.run(setupDirs, "cd IO");
+    cd.run(setupDirs, "cd IO", false);
     setupDirs[0] = "keyboard";
     mkdir.MakeDirectory(setupDirs);
     setupDirs[0] = "Mouse";
@@ -87,20 +87,20 @@ public class TestCases {
 
     // keyboard Folder
     setupDirs[0] = "keyboard";
-    cd.run(setupDirs, "cd keyboard");
-    echo.run(setupDirs, "echo \"QWERTY\" > keys");
-    echo.run(setupDirs, "echo \"RGB == ways more      F    P   S\" > RGB");
+    cd.run(setupDirs, "cd keyboard", false);
+    echo.run(setupDirs, "echo \"QWERTY\" > keys", false);
+    echo.run(setupDirs, "echo \"RGB == ways more      F    P   S\" > RGB", false);
     setupDirs[0] = "../";
-    cd.run(setupDirs, "cd ../");
+    cd.run(setupDirs, "cd ../", false);
 
     // Mouse Folder
     setupDirs[0] = "Mouse";
-    cd.run(setupDirs, "cd Mouse");
-    echo.run(setupDirs, "echo \"Mouse is in Mouse Folder\" > Presses");
+    cd.run(setupDirs, "cd Mouse", false);
+    echo.run(setupDirs, "echo \"Mouse is in Mouse Folder\" > Presses", false);
 
     // C Folder
     setupDirs[0] = "../../../";
-    cd.run(setupDirs, "cd ../../../");
+    cd.run(setupDirs, "cd ../../../", false);
 
     // Setup History
     history.addCommands("mkdir users");
@@ -121,8 +121,8 @@ public class TestCases {
     String[] inputArrayForPwd = {};
 
     // Case 1: No Input
-    output = cd.run(testCase1cd, "cd");
-    correctOuput = pwd.run(inputArrayForPwd, "pwd");
+    output = cd.run(testCase1cd, "cd", false);
+    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
 
     if (correctOuput.contains("C") && output.equals("Error : No parameters provided : "))
       System.out.println("Case #1 Passed");
@@ -132,8 +132,8 @@ public class TestCases {
     // Case 2: Change Directory to pics
     testCase2cd[0] = "pics";
 
-    output = cd.run(testCase2cd, "cd pics");
-    correctOuput = pwd.run(inputArrayForPwd, "pwd");
+    output = cd.run(testCase2cd, "cd pics", false);
+    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
 
     if (correctOuput.equals("C/pics") && output == null)
       System.out.println("Case #2 Passed");
@@ -143,8 +143,8 @@ public class TestCases {
     // Case 3: Change Directory back one
     testCase2cd[0] = "..";
 
-    output = cd.run(testCase2cd, "cd ..");
-    correctOuput = pwd.run(inputArrayForPwd, "pwd");
+    output = cd.run(testCase2cd, "cd ..", false);
+    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
 
     if (correctOuput.equals("C") && output == null)
       System.out.println("Case #3 Passed");
@@ -154,8 +154,8 @@ public class TestCases {
     // Case 4: Change Directory to users
     testCase2cd[0] = "users/desktop";
 
-    output = cd.run(testCase2cd, "cd users/desktop");
-    correctOuput = pwd.run(inputArrayForPwd, "pwd");
+    output = cd.run(testCase2cd, "cd users/desktop", false);
+    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
 
     if (correctOuput.equals("C/users/desktop") && output == null)
       System.out.println("Case #4 Passed");
@@ -165,8 +165,8 @@ public class TestCases {
     // Case 5: Pattern -> ../..
     testCase2cd[0] = "../..";
 
-    output = cd.run(testCase2cd, "cd ../..");
-    correctOuput = pwd.run(inputArrayForPwd, "pwd");
+    output = cd.run(testCase2cd, "cd ../..", false);
+    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
 
     if (correctOuput.equals("C") && output == null)
       System.out.println("Case #5 Passed");
@@ -176,8 +176,8 @@ public class TestCases {
     // Case 6: Pattern -> Change directory to a file
     testCase2cd[0] = "A2";
 
-    output = cd.run(testCase2cd, "cd A2");
-    correctOuput = pwd.run(inputArrayForPwd, "pwd");
+    output = cd.run(testCase2cd, "cd A2", false);
+    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
 
     if (correctOuput.equals("C") && output.equals("Error: Invalid Directory : A2"))
       System.out.println("Case #6 Passed");
@@ -187,8 +187,8 @@ public class TestCases {
     // Case 7: Changing directory to keyboard Folder
     testCase2cd[0] = "C/Sys/IO/keyboard";
 
-    output = cd.run(testCase2cd, "cd C/Sys/IO/keyboard");
-    correctOuput = pwd.run(inputArrayForPwd, "pwd");
+    output = cd.run(testCase2cd, "cd C/Sys/IO/keyboard", false);
+    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
 
     if (correctOuput.equals("C/Sys/IO/keyboard") && output == null)
       System.out.println("Case #7 Passed");
@@ -198,8 +198,8 @@ public class TestCases {
     // Case 8: Change directory to C
     testCase2cd[0] = "../../../";
 
-    output = cd.run(testCase2cd, "cd ../../../");
-    correctOuput = pwd.run(inputArrayForPwd, "pwd");
+    output = cd.run(testCase2cd, "cd ../../../", false);
+    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
 
     if (correctOuput.equals("C") && output == null)
       System.out.println("Case #8 Passed");
@@ -210,8 +210,8 @@ public class TestCases {
     testCase3cd[0] = "C/pics";
     testCase3cd[1] = "C/Sys/LOL";
 
-    output = cd.run(testCase3cd, "cd C/pics C/Sys/LoL");
-    correctOuput = pwd.run(inputArrayForPwd, "pwd");
+    output = cd.run(testCase3cd, "cd C/pics C/Sys/LoL", false);
+    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
 
     if (correctOuput.equals("C")
         && output.equals("Error : Multiple Parameters have been provided : C/pics C/Sys/LoL"))
@@ -228,7 +228,7 @@ public class TestCases {
     System.out.println("Testing Command: man");
 
     // Case 1: Get the documentation for ls
-    output = man.run(testInput, "man");
+    output = man.run(testInput, "man", false);
 
     if (output.contains("Command: ls")) {
       System.out.println("Case #1 Passed");
@@ -238,7 +238,7 @@ public class TestCases {
 
     // Case 2: Get documentation for invalid input
     testInput[0] = "false command";
-    output = man.run(testInput, "man");
+    output = man.run(testInput, "man", false);
 
     if (output.contains("Invalid Argument")) {
       System.out.println("Case #2 Passed");
@@ -248,7 +248,7 @@ public class TestCases {
 
     // Case 3: Get documentation for multiple arguments (not supported)
     String[] multipleArguments = {"ls", "cd"};
-    output = man.run(testInput, "man");
+    output = man.run(testInput, "man", false);
 
     if (output.contains("Invalid Argument")) {
       System.out.println("Case #3 Passed\n");
@@ -262,7 +262,7 @@ public class TestCases {
 
     // Case 1: Make a directory under root directory
     String[] input = {"users"};
-    mkdir.run(input, "mkdir " + input[0]);
+    mkdir.run(input, "mkdir " + input[0],false);
 
     ArrayList<String> allContent = new ArrayList<String>();
 
@@ -280,7 +280,7 @@ public class TestCases {
 
     // Case 2: Make a directory using absolute path
     input[0] = "C/users/newUser";
-    mkdir.run(input, "mkdir " + input[0]);
+    mkdir.run(input, "mkdir " + input[0],false);
 
     String[] enterDirectoryAbove = {"C/users"};
     cd.run(enterDirectoryAbove);
@@ -302,7 +302,7 @@ public class TestCases {
     cd.run(root);
     input[0] = "users/newUser2";
 
-    String output = mkdir.run(input, "mkdir " + input[0]);
+    String output = mkdir.run(input, "mkdir " + input[0],false);
     cd.run(enterDirectoryAbove);
 
     for (int i = 0; i < fs.getCurrent().getList().size(); i++) {
@@ -318,7 +318,7 @@ public class TestCases {
     //Case 4: Make a directory that already exists
     input[0] = "users/newUser2";
     cd.run(root);
-    output = mkdir.run(input, "mkdir " + input[0]);
+    output = mkdir.run(input, "mkdir " + input[0],false);
     
     if (output.equals("Error: Same Directory with that name already exists! : users already exists")) {
       System.out.println("Case #4 Passed");
@@ -328,7 +328,7 @@ public class TestCases {
     
     //Case 5: Make a directory using an invalid pathname
     input[0] = "deifnitelyfalse/newUser2";
-    output = mkdir.run(input, "mkdir " + input[0]);
+    output = mkdir.run(input, "mkdir " + input[0],false);
     
     if (output.equals("Error: Invalid Directory : deifnitelyfalse is not a valid directory")) {
       System.out.println("Case #5 Passed");
@@ -338,6 +338,7 @@ public class TestCases {
     
     System.out.println();
   }
+
 
   public void historyTestCases() {
     System.out.println("Testing Command: history");
@@ -385,7 +386,7 @@ public class TestCases {
     
     for(int i = 0; i < historyInputMap.size(); i++) {
       history.addCommands(historyCommandMap.get(i));
-      output = history.run(historyInputMap.get(i), "history");
+      output = history.run(historyInputMap.get(i), "history", false);
 
       if (output.contains(historyCorrectOutputMap.get(i)))
         System.out.println("Case # " + (i+1) +"  : Passed");
@@ -405,8 +406,8 @@ public class TestCases {
     String[] testCase2_pwd = new String[2];
 
     // Case 1: Startup on FileSystem
-    output = cd.run(testCase1_cd, "cd");
-    correctOuput = pwd.run(testCase1_pwd, "pwd");
+    output = cd.run(testCase1_cd, "cd", false);
+    correctOuput = pwd.run(testCase1_pwd, "pwd", false);
 
     if (correctOuput.contains("C"))
       System.out.println("Case #1 Passed");
@@ -416,8 +417,8 @@ public class TestCases {
     // Case 2: Change Directory
     testCase2_cd[0] = "C/Sys/IO/keyboard";
 
-    output = cd.run(testCase2_cd, "cd pics");
-    correctOuput = pwd.run(testCase1_pwd, "pwd");
+    output = cd.run(testCase2_cd, "cd pics", false);
+    correctOuput = pwd.run(testCase1_pwd, "pwd", false);
 
     if (correctOuput.equals(testCase2_cd[0]))
       System.out.println("Case #2 Passed");
@@ -427,8 +428,8 @@ public class TestCases {
     // Case 3: Change directory back to C
     testCase2_cd[0] = "../../../";
 
-    output = cd.run(testCase2_cd, "cd ../../../");
-    correctOuput = pwd.run(testCase1_pwd, "pwd");
+    output = cd.run(testCase2_cd, "cd ../../../", false);
+    correctOuput = pwd.run(testCase1_pwd, "pwd", false);
 
     if (correctOuput.equals("C") && output == null)
       System.out.println("Case #3 Passed");
@@ -440,8 +441,8 @@ public class TestCases {
     testCase2_pwd[0] = "C/Sys/LOL";
     testCase2_pwd[1] = "C/pics";
 
-    output = cd.run(testCase2_cd, "cd C");
-    correctOuput = pwd.run(testCase2_pwd, "pwd");
+    output = cd.run(testCase2_cd, "cd C", false);
+    correctOuput = pwd.run(testCase2_pwd, "pwd", false);
 
     if (correctOuput.equals("Error: Invalid Argument : pwd doesn't take any arguments"))
       System.out.println("Case #4 Passed\n");
@@ -497,7 +498,7 @@ public class TestCases {
         + "RGB == ways more      F    P   S");
     
     for(int i = 0; i < catInputMap.size(); i++) {
-      output = cat.run(catInputMap.get(i), "history");
+      output = cat.run(catInputMap.get(i), "history", false);
 
       if (output.contains(catCorrectOutputMap.get(i)))
         System.out.println("Case # " + (i+1) +"  : Passed");
@@ -517,7 +518,7 @@ public class TestCases {
     //Case 1: Testing ls in root directory
     Ls test = new Ls();
     String[] input = {"/"};
-    String output = test.run(input, "ls");
+    String output = test.run(input, "ls", false);
 
     if (output.equals("users|pics|Sys|A2|")) {
         System.out.println("Case #1 Passed");
@@ -528,7 +529,7 @@ public class TestCases {
     //Case 2: Testing with Absolute path specified
     input[0] = "C/users";
     
-    output = test.run(input, "ls " + input[0]);
+    output = test.run(input, "ls " + input[0], false);
     if (output.equals("desktop|newUser|newUser2|")) {
         System.out.println("Case #2 Passed");
     } else {
@@ -539,7 +540,7 @@ public class TestCases {
     
     input[0] = "users/desktop";
     
-    output = test.run(input, "ls " + input[0]);
+    output = test.run(input, "ls " + input[0], false);
 
     if (output.equals("CSCB07|Hwk|")) {
         System.out.println("Case #3 Passed");
@@ -550,7 +551,7 @@ public class TestCases {
     //Case 4: Testing with multiple arguments
     String[] multipleArguments = {"C/users", "users/desktop"};
     
-    output = test.run(multipleArguments, "ls " + multipleArguments[0] + " " + multipleArguments[1]);
+    output = test.run(multipleArguments, "ls " + multipleArguments[0] + " " + multipleArguments[1] , false);
     
     if (output.equals("Error : Multiple Parameters have been provided : Expecting 0 or 1 parameter")) {
         System.out.println("Case #4 Passed");
@@ -561,7 +562,7 @@ public class TestCases {
     //Case 5: Giving an invalid path
     input[0] = "definitelyfalsecase";
     
-    output = test.run(input, "ls " + input[0]);
+    output = test.run(input, "ls " + input[0], false);
 
     if (output.equals("Error: Invalid Directory : definitelyfalsecaseis not a valid directory")) {
         System.out.println("Case #5 Passed");
@@ -580,7 +581,7 @@ public class TestCases {
     
     //Case #1 Pushing an absolute file path onto the stack
     String[] input = {"C/users"};
-    String output = testPush.run(input, "pushd " + input[0]);
+    String output = testPush.run(input, "pushd " + input[0], false);
     
     if (output.equals("C/users")) {
         System.out.println("Case #1 Passed");
@@ -591,7 +592,7 @@ public class TestCases {
     //Case #2 Pushing a relative file path onto the stack
     input[0] = "desktop";
     
-    output = testPush.run(input, "pushd " + input[0]);
+    output = testPush.run(input, "pushd " + input[0], false);
     if (output.equals("desktop")) {
         System.out.println("Case #2 Passed");
     } else {
@@ -601,7 +602,7 @@ public class TestCases {
     //Case #3 Giving multiple arguments
     String[] multipleArguments = {"C/users", "C/users/desktop"};
     
-    output = testPush.run(multipleArguments, "pushd " + multipleArguments[0] + " " + multipleArguments[1]);
+    output = testPush.run(multipleArguments, "pushd " + multipleArguments[0] + " " + multipleArguments[1], false);
     if (output.equals("Error: Invalid Argument : 2 arguments, expecting 1 argument")) {
         System.out.println("Case #3 Passed");
     } else {
@@ -611,7 +612,7 @@ public class TestCases {
     //Case #4 Pushing invalid directory
     input[0] = "definitelyFalsepath";
     
-    output = testPush.run(input, "pushd " + input[0]);
+    output = testPush.run(input, "pushd " + input[0], false);
     if (output.equals("Error: Invalid Directory : definitelyFalsepathis not a valid directory")) {
         System.out.println("Case #4 Passed");
     } else {
@@ -702,14 +703,14 @@ public class TestCases {
 
    
     for(int i = 0; i < echoInputMap.size(); i++) {
-      output = echo.run(echoInputMap.get(i), echoCommandMap.get(i));
+      output = echo.run(echoInputMap.get(i), echoCommandMap.get(i), false);
       if(i < 6) {
         if (output.contains(echoCorrectOutputMap.get(i)))
-          System.out.println("Case # " + (i+1) +"  : Passed LOL");
+          System.out.println("Case # " + (i+1) +"  : Passed");
         else
           System.out.println("Case # " + (i+1) +"  : Failed");
       }else {
-       String catOutput = cat.run(catInputMap.get(i), echoCommandMap.get(i));
+       String catOutput = cat.run(catInputMap.get(i), echoCommandMap.get(i), false);
         if (output == null && catOutput.equals(echoCorrectOutputMap.get(i)))
           System.out.println("Case # " + (i+1) +"  : Passed");
         else
