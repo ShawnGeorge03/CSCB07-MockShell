@@ -1,7 +1,6 @@
 package commands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import data.FileSystem;
 
@@ -482,99 +481,170 @@ public class TestCases {
     }
     System.out.println();
   }
-  
+
   public void lsTestCases() {
-	  Cd toRoot = new Cd();
-	  String[] root = {"C"};
-	  cd.run(root);
-	  
-	  
-	  System.out.println("Testing Command : ls");
-	  //Case 1: Testing ls in root directory
-	  Ls test = new Ls();
-	  String[] input = {"/"};
-	  String output = test.run(input, "ls");
+    Cd toRoot = new Cd();
+    String[] root = {"C"};
+    cd.run(root);
+    
+    
+    System.out.println("Testing Command : ls");
+    //Case 1: Testing ls in root directory
+    Ls test = new Ls();
+    String[] input = {"/"};
+    String output = test.run(input, "ls");
 
-	  if (output.equals("users|pics|Sys|A2|")) {
-		  System.out.println("Case #1 Passed");
-	  }else {
-		  System.out.println("Case #1 Failed");
-	  }
-	  
-	  //Case 2: Testing with Absolute path specified
-	  input[0] = "C/users";
-	  
-	  output = test.run(input, "ls " + input[0]);
-	  
-	  if (output.equals("desktop|newUser|")) {
-		  System.out.println("Case #2 Passed");
-	  } else {
-		  System.out.println("Case #2 Failed");
-	  }
-	  
-	  //Case 3: Testing with Relative path specified
-	  
-	  input[0] = "users/desktop";
-	  
-	  output = test.run(input, "ls " + input[0]);
+    if (output.equals("users|pics|Sys|A2|")) {
+        System.out.println("Case #1 Passed");
+    }else {
+        System.out.println("Case #1 Failed");
+    }
+    
+    //Case 2: Testing with Absolute path specified
+    input[0] = "C/users";
+    
+    output = test.run(input, "ls " + input[0]);
+    
+    if (output.equals("desktop|newUser|")) {
+        System.out.println("Case #2 Passed");
+    } else {
+        System.out.println("Case #2 Failed");
+    }
+    
+    //Case 3: Testing with Relative path specified
+    
+    input[0] = "users/desktop";
+    
+    output = test.run(input, "ls " + input[0]);
 
-	  if (output.equals("CSCB07|Hwk|")) {
-		  System.out.println("Case #3 Passed");
-	  } else {
-		  System.out.println("Case #3 Failed");
-	  }
-	  
-	  //Case 4: Testing with multiple arguments
-	  String[] multipleArguments = {"C/users", "users/desktop"};
-	  
-	  output = test.run(multipleArguments, "ls " + multipleArguments[0] + " " + multipleArguments[1]);
-	  
-	  if (output.equals("Error : Multiple Parameters have been provided : Expecting 0 or 1 parameter")) {
-		  System.out.println("Case #4 Passed");
-	  } else {
-		  System.out.println("Case #4 Failed");
-	  }
-	  
-	  //Case 5: Giving an invalid path
-	  input[0] = "definitelyfalsecase";
-	  
-	  output = test.run(input, "ls " + input[0]);
+    if (output.equals("CSCB07|Hwk|")) {
+        System.out.println("Case #3 Passed");
+    } else {
+        System.out.println("Case #3 Failed");
+    }
+    
+    //Case 4: Testing with multiple arguments
+    String[] multipleArguments = {"C/users", "users/desktop"};
+    
+    output = test.run(multipleArguments, "ls " + multipleArguments[0] + " " + multipleArguments[1]);
+    
+    if (output.equals("Error : Multiple Parameters have been provided : Expecting 0 or 1 parameter")) {
+        System.out.println("Case #4 Passed");
+    } else {
+        System.out.println("Case #4 Failed");
+    }
+    
+    //Case 5: Giving an invalid path
+    input[0] = "definitelyfalsecase";
+    
+    output = test.run(input, "ls " + input[0]);
 
-	  if (output.equals("Error: Invalid Directory : definitelyfalsecaseis not a valid directory")) {
-		  System.out.println("Case #5 Passed");
-	  } else {
-		  System.out.println("Case #5 Failed");
-	  }
-	  
-	  System.out.println();
-  }
+    if (output.equals("Error: Invalid Directory : definitelyfalsecaseis not a valid directory")) {
+        System.out.println("Case #5 Passed");
+    } else {
+        System.out.println("Case #5 Failed");
+    }
+    
+    System.out.println();
+}
   
   public void pushAndPopTestCases() {
-	  Push testPush = new Push();
-	  Pop testPop = new Pop();
-	  
-	  System.out.println("Testing Command : pushd & popd");
-	  
-	  //Case #1 Pushing an absolute file path onto the stack
-	  String[] input = {"C/users"};
-	  String output = testPush.run(input, "pushd " + input[0]);
-	  
-	  if (output.equals("C/users")) {
-		  System.out.println("Case #1 Passed");
-	  } else {
-		  System.out.println("Case #1 Failed");
-	  }
-	  
-	  //Case #2 Pushing a relative file path onto the stack
-	  input[0] = "users/desktop";
-	  
-	  output = testPush.run(input, "pushd " + input[0]);
-	  System.out.println(output);
-	  if (output.equals("C/users")) {
-		  System.out.println("Case #1 Passed");
-	  } else {
-		  System.out.println("Case #1 Failed");
-	  }
-  }
+    Push testPush = new Push();
+    Pop testPop = new Pop();
+    
+    System.out.println("Testing Command : pushd & popd");
+    
+    //Case #1 Pushing an absolute file path onto the stack
+    String[] input = {"C/users"};
+    String output = testPush.run(input, "pushd " + input[0]);
+    
+    if (output.equals("C/users")) {
+        System.out.println("Case #1 Passed");
+    } else {
+        System.out.println("Case #1 Failed");
+    }
+    
+    //Case #2 Pushing a relative file path onto the stack
+    input[0] = "users/desktop";
+    
+    output = testPush.run(input, "pushd " + input[0]);
+    System.out.println(output);
+    if (output.equals("C/users")) {
+        System.out.println("Case #1 Passed");
+    } else {
+        System.out.println("Case #1 Failed");
+    }
+}
   
+  public void echoTestCases() {
+    System.out.println("Testing Command : echo");
+    
+    String[] testCase1cat = {};
+    
+    HashMap<Integer, String[]> echoInputMap = new HashMap<Integer, String[]>();
+
+    echoInputMap.put(0, testCase1cat);
+    echoInputMap.put(1, "echo \"Hello\"".split(" "));
+    echoInputMap.put(2, "echo \"Hello".split(" "));
+    echoInputMap.put(3, "echo Hello".split(" "));
+    echoInputMap.put(4, "echo \"Hello\" >".split(" "));
+    echoInputMap.put(5, "echo \"Hello\" >>".split(" "));
+    echoInputMap.put(6, "echo \"Hello\" > file".split(" "));
+    echoInputMap.put(7, "echo \"Bye\" >> file".split(" "));
+    echoInputMap.put(8, "echo \"Bye\" >> file".split(" "));
+    echoInputMap.put(9,"echo \"KeyWASD\" > C/Sys/IO/keyboard/keys".split(" "));
+    echoInputMap.put(10,"echo \"QWERTY\" >> C/Sys/IO/keyboard/keys".split(" "));
+    
+    HashMap<Integer, String> echoCommandMap = new HashMap<Integer, String>();
+
+    echoCommandMap.put(0, "echo");
+    echoCommandMap.put(1, "echo \"Hello\"");
+    echoCommandMap.put(2, "echo \"Hello");
+    echoCommandMap.put(3, "echo Hello");
+    echoCommandMap.put(4, "echo \"Hello\" >");
+    echoCommandMap.put(5, "echo \"Hello\" >>");
+    echoCommandMap.put(6, "echo \"Hello\" > file");
+    echoCommandMap.put(7, "echo \"Bye\" >> file");
+    echoCommandMap.put(8, "echo \"okay\" > file");
+    echoCommandMap.put(9,"echo \"KeyWASD\" > C/Sys/IO/keyboard/keys");
+    echoCommandMap.put(10,"echo \"QWERTY\" >> C/Sys/IO/keyboard/keys");
+    
+    HashMap<Integer, String> echoCorrectOutputMap = new HashMap<Integer, String>(); 
+    
+    echoCorrectOutputMap.put(0, "Error : No parameters provided : ");
+    echoCorrectOutputMap.put(1, "Hello");
+    echoCorrectOutputMap.put(2, "Error : Missing Quotes : echo \"Hello");
+    echoCorrectOutputMap.put(3, "Error : Missing Quotes : echo Hello");
+    echoCorrectOutputMap.put(4, "Error: Invalid File : echo Hello >");
+    echoCorrectOutputMap.put(5, "Error: Invalid File : echo Hello >>");
+    echoCorrectOutputMap.put(6, "Hello");
+    echoCorrectOutputMap.put(7, "Hello" + "\n" + "Bye");
+    echoCorrectOutputMap.put(8, "okay");
+    echoCorrectOutputMap.put(9, "KeyWASD");
+    echoCorrectOutputMap.put(10, "QWERTY");
+    
+
+    HashMap<Integer, String> catCorrectOutputMap = new HashMap<Integer, String>(); 
+
+
+
+    
+    for(int i = 0; i < echoInputMap.size(); i++) {
+      if(i < 6) {
+        output = echo.run(echoInputMap.get(i), echoCommandMap.get(i));
+        if (output.contains(echoCorrectOutputMap.get(i)))
+          System.out.println("Case # " + (i+1) +"  : Passed");
+        else
+          System.out.println("Case # " + (i+1) +"  : Failed");
+      }else {
+        output = cat.run(echoInputMap.get(i), echoCommandMap.get(i));
+        if (output.contains(echoCorrectOutputMap.get(i)))
+          System.out.println("Case # " + (i+1) +"  : Passed");
+        else
+          System.out.println("Case # " + (i+1) +"  : Failed");
+      } 
+    }
+    System.out.println();
+
+  }
 }
