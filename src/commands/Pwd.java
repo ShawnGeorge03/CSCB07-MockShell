@@ -2,6 +2,9 @@ package commands;
 
 import commands.DirectoryManager;
 
+/**
+ * Class Pwd is responsible for providing the absolute path of the current working directory
+ */
 public class Pwd extends DirectoryManager implements CommandI {
   
   /**
