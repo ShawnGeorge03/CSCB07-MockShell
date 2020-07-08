@@ -2,7 +2,7 @@ package commands;
 
 import data.FileSystem;
 
-public class Pop implements CommandI {
+public class Pop extends DirectoryManager implements CommandI {
 	private ErrorHandler error;
 	
 	public Pop() {
@@ -10,19 +10,20 @@ public class Pop implements CommandI {
 	  }
 	
 	  public String run(String[] args, String fullInput) {
-	    pop();
-	    return null;
+	    String output = pop();
+	    return output;
 	  }
 	
-	public void pop() {
+	public String pop() {
 	    if (FileSystem.getStack().size() == 0) {
 	      System.out.println("Stack is empty");
-	      return;
+	      return "";
 	    }
 	    FileSystem.getStack().pop();
 	    String[] path = {FileSystem.getStack().peek()};
 	    FileSystem.getStack().remove();
 	    Cd newWorkingDirectory = new Cd();
 	    newWorkingDirectory.run(path);
+	    return getCurrentPath();
 	  }
 }

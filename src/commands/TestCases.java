@@ -288,7 +288,7 @@ public class TestCases {
     for (int i = 0; i < fs.getCurrent().getList().size(); i++) {
       allContent.add(fs.getCurrent().getList().get(i).getName());
     }
-
+    
     if (allContent.contains("newUser")) {
       System.out.println("Case #2 Passed");
     } else {
@@ -298,9 +298,11 @@ public class TestCases {
     allContent.clear();
 
     // Case 3: Make a directory using relative path
+    String[] root = {FileSystem.getFileSys().getRoot().getName()};
+    cd.run(root);
     input[0] = "users/newUser2";
 
-    mkdir.run(input, "mkdir " + input[0]);
+    String output = mkdir.run(input, "mkdir " + input[0]);
     cd.run(enterDirectoryAbove);
 
     for (int i = 0; i < fs.getCurrent().getList().size(); i++) {
@@ -566,15 +568,38 @@ public class TestCases {
     }
     
     //Case #2 Pushing a relative file path onto the stack
-    input[0] = "users/desktop";
+    input[0] = "desktop";
+    
+    output = testPush.run(input, "pushd " + input[0]);
+    if (output.equals("desktop")) {
+        System.out.println("Case #2 Passed");
+    } else {
+        System.out.println("Case #2 Failed");
+    }
+    
+    //Case #3 Giving multiple arguments
+    String[] multipleArguments = {"C/users", "C/users/desktop"};
+    
+    output = testPush.run(multipleArguments, "pushd " + multipleArguments[0] + " " + multipleArguments[1]);
+    if (output.equals("Error: Invalid Argument : 2 arguments, expecting 1 argument")) {
+        System.out.println("Case #3 Passed");
+    } else {
+        System.out.println("Case #3 Failed");
+    }
+    
+    //Case #4 Pushing invalid directory
+    input[0] = "definitelyFalsepath";
     
     output = testPush.run(input, "pushd " + input[0]);
     System.out.println(output);
-    if (output.equals("C/users")) {
-        System.out.println("Case #1 Passed");
+    if (output.equals("Error: Invalid Directory : definitelyFalsepathis not a valid directory")) {
+        System.out.println("Case #4 Passed");
     } else {
-        System.out.println("Case #1 Failed");
+        System.out.println("Case #4 Failed");
     }
+    
+    //Case #5 Popping back into first pushed directory
+    testPop.pop();
 }
   
   public void echoTestCases() {

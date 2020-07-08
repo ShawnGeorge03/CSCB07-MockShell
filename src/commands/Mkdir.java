@@ -34,8 +34,8 @@ public class Mkdir extends DirectoryManager implements CommandI {
    * @return null always
    */
   public String run(String[] args, String fullInput) {
-    MakeDirectory(args);
-    return null;
+    String output = MakeDirectory(args);
+    return output;
   }
   
   
@@ -44,7 +44,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
    * 
    * @param arguments  the string array of all arguments provided
    */
-  public void MakeDirectory(String[] arguments) {
+  public String MakeDirectory(String[] arguments) {
 	 this.args = new ArrayList<String>(Arrays.asList(arguments));
 	  
     if (checkValidArgs()) {
@@ -65,18 +65,18 @@ public class Mkdir extends DirectoryManager implements CommandI {
               Cd goBack = new Cd();
               goBack.run(currentPath);
               error.getError("Same Directory", newArgs[0] + " already exists");
-              return;
+              return null;
             }
           }
 
           filesys.addToDirectory(newNode);
         } else {
-          error.getError("Invalid Directory", newArgs[0] + " is not a valid directory");
+          return error.getError("Invalid Directory", newArgs[0] + " is not a valid directory");
         }
 
         Cd goBack = new Cd();
         goBack.run(currentPath);
-        return;
+        return null;
       } else {
         Node newNode = new Node();
         newNode.setContent(null);
@@ -85,16 +85,15 @@ public class Mkdir extends DirectoryManager implements CommandI {
 
         for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
           if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
-        	error.getError("Same Directory", newNode.getName() + " already exists");
-            return;
+        	return error.getError("Same Directory", newNode.getName() + " already exists");
           }
         }
 
         filesys.addToDirectory(newNode);
-        return;
+        return null;
       }
     } else {
-    	error.getError("Invalid Arguments", "Expecting 1 Argument only");
+    	return error.getError("Invalid Arguments", "Expecting 1 Argument only");
     }
   }
 
