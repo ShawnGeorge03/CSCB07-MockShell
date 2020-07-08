@@ -8,12 +8,12 @@ import commands.DirectoryManager;
 public class Pwd extends DirectoryManager implements CommandI {
   
   /**
-   * Declare instance of ErrorHandler
+   * Declare instance of ErrorHandler to handle any errors that occur
    */
   ErrorHandler error;
 
   /**
-   * Constructor for Pwd
+   * Constructor for Pwd that initializes the ErrorHandler object
    */
   public Pwd() {
     this.error = new ErrorHandler();
