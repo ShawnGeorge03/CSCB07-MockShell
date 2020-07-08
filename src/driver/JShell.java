@@ -58,5 +58,8 @@ public class JShell {
     tester.cdTestCases();
     tester.manTestCases();
     tester.mkdirTestCases();
+    tester.historyTestCases();
+    tester.pwdTestCases();
+    tester.catTestCases();
   }
 }
