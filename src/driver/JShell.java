@@ -54,7 +54,6 @@ public class JShell {
 //    }
 //    sc. close();
     
-    tester.setupEnviro();
     tester.cdTestCases();
     tester.manTestCases();
     tester.mkdirTestCases();

@@ -15,7 +15,6 @@ public class History implements CommandI {
   
   @Override
   public String run(String[] args, String fullInput) {   
-    System.out.print(Arrays.toString(args));
     if(args.length == 0) {
       printLastXCommands(getCommandLogSize());
     }else if(args.length == 1) {

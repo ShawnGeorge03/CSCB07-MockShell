@@ -43,8 +43,20 @@ public class Cd extends DirectoryManager implements CommandI {
     if (args.length == 0) {
       err_output = error.getError("No parameters provided", "");
       return err_output;
+    }else if (args.length > 1) {
+      String 
+      err_output = error.getError("Mulptile parameters provided", 
+          fullInput.substring(fullInput.indexOf("cd") + 2).trim());      
+      return err_output;
     }
     run(args);
+    
+    if(!successfulPath) {
+      String 
+      err_output = error.getError("Invalid Directory", 
+          fullInput.substring(fullInput.indexOf("cd") + 2).trim());
+      return err_output;
+    }
     return null;
   }
 

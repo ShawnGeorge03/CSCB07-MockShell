@@ -34,6 +34,7 @@ public class TestCases {
   }
   
   public void setupEnviro() {
+
     String[] setupDirs = new String[1];
     
     //C Folder
@@ -99,105 +100,122 @@ public class TestCases {
     //C Folder
     setupDirs[0] = "../../../";
     cd.run(setupDirs, "cd ../../../");
-  }
-  
+    
+    //Setup History
+    history.addCommands("mkdir users");
+    history.addCommands("mkdir pics");
+    history.addCommands("mkdir Sys");
+    history.addCommands("echo \"Wow what a project\" > A2");
+    history.addCommands("cd C/users");
+    history.addCommands("mkdir desktop");
+    
+  }  
   public void cdTestCases() {
+    System.out.println("Testing Command: cd");
+    
+    String[] testCase1cd = new String[0];   
+    String[] testCase2cd = new String[1];
+    String[] testCase3cd = new String[2];
+    String[] inputArrayForPwd = {};
     
     //Case 1: No Input
-    String[] testCase1 = {};
+    output = cd.run(testCase1cd, "cd");
+    correctOuput = pwd.run(inputArrayForPwd, "pwd");
     
-    output = cd.run(testCase1, "cd");
-    correctOuput = pwd.run(testCase1, "pwd");
-    
-    if(output.equals("Error : No parameters provided : ")) 
+    if(correctOuput.contains("C") && output.equals("Error : No parameters provided : ")) 
       System.out.println("Case #1 Passed");
     else
       System.out.println("Case #1 Failed");
     
-    
    //Case 2: Change Directory to pics
-    String[] testCase2 = new String[1];
-    testCase2[0] = "pics";
+    testCase2cd[0] = "pics";
         
-    output = cd.run(testCase2, "cd pics");
-    correctOuput = pwd.run(testCase1, "pwd");
+    output = cd.run(testCase2cd, "cd pics");
+    correctOuput = pwd.run(inputArrayForPwd, "pwd");
     
-    
-    if(correctOuput.equals("C/pics")) 
+    if(correctOuput.equals("C/pics") && output == null) 
       System.out.println("Case #2 Passed");
     else
       System.out.println("Case #2 Failed");
     
     //Case 3: Change Directory back one
-    testCase2[0] = "..";
+    testCase2cd[0] = "..";
     
-    output = cd.run(testCase2, "cd ..");
-    correctOuput = pwd.run(testCase1, "pwd");
+    output = cd.run(testCase2cd, "cd ..");
+    correctOuput = pwd.run(inputArrayForPwd, "pwd");
     
-    
-    if(correctOuput.equals("C")) 
+    if(correctOuput.equals("C") && output == null) 
       System.out.println("Case #3 Passed");
     else
       System.out.println("Case #3 Failed");
     
     //Case 4: Change Directory to users
-    testCase2[0] = "users/desktop";
+    testCase2cd[0] = "users/desktop";
     
-    output = cd.run(testCase2, "cd users/desktop");
-    correctOuput = pwd.run(testCase1, "pwd");
+    output = cd.run(testCase2cd, "cd users/desktop");
+    correctOuput = pwd.run(inputArrayForPwd, "pwd");
     
-    
-    if(correctOuput.equals("C/users/desktop")) 
+    if(correctOuput.equals("C/users/desktop") && output == null) 
       System.out.println("Case #4 Passed");
     else
       System.out.println("Case #4 Failed");
     
     //Case 5: Pattern -> ../..
-    testCase2[0] = "../..";
+    testCase2cd[0] = "../..";
     
-    output = cd.run(testCase2, "cd ../..");
-    correctOuput = pwd.run(testCase1, "pwd");
+    output = cd.run(testCase2cd, "cd ../..");
+    correctOuput = pwd.run(inputArrayForPwd, "pwd");
     
-    if(correctOuput.equals("C")) 
+    if(correctOuput.equals("C") && output == null) 
       System.out.println("Case #5 Passed");
     else
       System.out.println("Case #5 Failed");
     
-    //Case 6: Pattern -> Change directory to a file --> Issue
-    testCase2[0] = "A2";
+    //Case 6: Pattern -> Change directory to a file
+    testCase2cd[0] = "A2";
     
-    output = cd.run(testCase2, "cd A2");
-    correctOuput = pwd.run(testCase1, "pwd");
+    output = cd.run(testCase2cd, "cd A2");
+    correctOuput = pwd.run(inputArrayForPwd, "pwd");
     
-    if(correctOuput.equals("C")) 
-      System.out.println("Case #6 Passed -> Not Actually");
+    if(correctOuput.equals("C") && output.equals("Error: Invalid Directory : A2")) 
+      System.out.println("Case #6 Passed");
     else
-      System.out.println("Case #6 Failed -> Not Actually");
+      System.out.println("Case #6 Failed");
     
     //Case 7: Changing directory to keyboard Folder
-    testCase2[0] = "C/Sys/IO/keyboard";
+    testCase2cd[0] = "C/Sys/IO/keyboard";
     
-    output = cd.run(testCase2, "cd C/Sys/IO/keyboard");
-    correctOuput = pwd.run(testCase1, "pwd");
+    output = cd.run(testCase2cd, "cd C/Sys/IO/keyboard");
+    correctOuput = pwd.run(inputArrayForPwd, "pwd");
     
-    if(correctOuput.equals("C/Sys/IO/keyboard")) 
+    if(correctOuput.equals("C/Sys/IO/keyboard") && output == null) 
       System.out.println("Case #7 Passed");
     else
       System.out.println("Case #7 Failed");
     
     //Case 8: Change directory to C
-    testCase2[0] = "../../../";
+    testCase2cd[0] = "../../../";
     
-    output = cd.run(testCase2, "cd ../../../");
-    correctOuput = pwd.run(testCase1, "pwd");
+    output = cd.run(testCase2cd, "cd ../../../");
+    correctOuput = pwd.run(inputArrayForPwd, "pwd");
     
-    if(correctOuput.equals("C")) 
+    if(correctOuput.equals("C") && output == null) 
       System.out.println("Case #8 Passed");
     else
       System.out.println("Case #8 Failed");
     
-  }
+    //Case 9: Multiple directory
+    testCase3cd[0] = "C/pics";
+    testCase3cd[1] = "C/Sys/LOL";
     
+    output = cd.run(testCase3cd, "cd C/pics C/Sys/LoL");
+    correctOuput = pwd.run(inputArrayForPwd, "pwd");
+    
+    if(correctOuput.equals("C") && output.equals("Error : Multiple Parameters have been provided : C/pics C/Sys/LoL")) 
+      System.out.println("Case #9 Passed\n");
+    else
+      System.out.println("Case #9 Failed\n");    
+  }
   public void manTestCases() {
 	  
 	  String output;
@@ -229,12 +247,11 @@ public class TestCases {
 	  output = man.run(testInput, "man");
 	  
 	  if (output.contains("Invalid Argument")) {
-		  System.out.println("Case #3 Passed");
+		  System.out.println("Case #3 Passed\n");
 	  }else {
-		  System.out.println("Case #3 Failed");
+		  System.out.println("Case #3 Failed\n");
 	  }
   }
-  
   public void mkdirTestCases() {
 	  System.out.println("Testing Command: mkdir");
 	  
@@ -286,19 +303,18 @@ public class TestCases {
 	  }
 	  
 	  if (allContent.contains("newUser2")) {
-		  System.out.println("Case #3 Passed");
+		  System.out.println("Case #3 Passed\n");
 	  } else {
-		  System.out.println("Case #3 Failed");
+		  System.out.println("Case #3 Failed\n");
 	  }
 	  
-  }
-	
+  }	
   public void historyTestCases() {
     System.out.println("Testing Command: history");
 
     
     //Case 1: No Input
-    correctOuput = "1. mkdir users\n" + 
+    correctOuput ="1. mkdir users\n" + 
                   "2. mkdir pics\n" + 
                   "3. mkdir Sys\n" + 
                   "4. echo \"Wow what a project\" > A2\n" + 
@@ -308,15 +324,14 @@ public class TestCases {
     
     String[] testCase1history = {};
     
-    history.addCommands("history");    
+    history.addCommands("history");   
     output = history.run(testCase1history, "history");
     
     if(output.contains(correctOuput))
       System.out.println("Case # 1 : Passed");
     else
       System.out.println("Case # 1 : Failed");
-    
-    
+        
    //Case 2: An Integer number larger than size of History
     correctOuput = "1. mkdir users\n" + 
         "2. mkdir pics\n" + 
@@ -394,8 +409,7 @@ public class TestCases {
       System.out.println("Case # 6 : Passed\n");
     else
       System.out.println("Case # 6 : Failed\n");   
-  }
-  
+  } 
   public void pwdTestCases(){
     System.out.println("Testing Command: pwd");
     

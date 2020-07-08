@@ -90,10 +90,10 @@ public class DirectoryManager {
         if (currNode.getList().get(indexOfDir).isDir()) {
           currNode = currNode.getList().get(indexOfDir);
         } else {
-          System.out.println(error.getError("Invalid Directory", path));
+          //System.out.println(error.getError("Invalid Directory", path));
         }
       } else {
-        System.out.println(error.getError("Directory Not Found", path));
+        //System.out.println(error.getError("Directory Not Found", path));
         return false;
       }
     }
@@ -116,11 +116,11 @@ public class DirectoryManager {
         if (currNode.getList().get(indexOfDir).isDir()) {
           currNode = currNode.getList().get(indexOfDir);
         } else {
-          System.out.println(error.getError("Invalid Directory", path));
+          //System.out.println(error.getError("Invalid Directory", path));
           return false;
         }
       } else {
-        System.out.println(error.getError("Directory Not Found", path));
+        //System.out.println(error.getError("Directory Not Found", path));
         return false;
       }
     }
