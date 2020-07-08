@@ -1,5 +1,7 @@
 package commands;
 
+import java.util.ArrayList;
+
 import data.FileSystem;
 
 public class TestCases {
@@ -219,7 +221,7 @@ public class TestCases {
 		  System.out.println("Case #2 Failed");
 	  }
 	  
-	  //Case 3: Get documetnation for multiple arguments (not supported)
+	  //Case 3: Get documentation for multiple arguments (not supported)
 	  String[] multipleArguments = {"ls", "cd"};
 	  output = man.run(testInput, "man");
 	  
@@ -228,6 +230,64 @@ public class TestCases {
 	  }else {
 		  System.out.println("Case #3 Failed");
 	  }
+  }
+  
+  public void mkdirTestCases() {
+	  System.out.println("Testing Command: mkdir");
+	  
+	  //Case 1: Make a directory under root directory
+	  String[] input = {"users"};
+	  mkdir.run(input, "mkdir " + input[0]);
+	  
+	  ArrayList<String> allContent = new ArrayList<String>();
+	  
+	  for (int i = 0; i < fs.getCurrent().getList().size(); i++) {
+		  allContent.add(fs.getCurrent().getList().get(i).getName());
+	  }
+	  
+	  if (allContent.contains(input[0])) {
+		  System.out.println("Case #1 Passed");
+	  } else {
+		  System.out.println("Case #1 Failed");
+	  }
+	  
+	  allContent.clear();
+	  
+	  //Case 2: Make a directory using absolute path
+	  input[0] = "C/users/newUser";
+	  mkdir.run(input, "mkdir " + input[0]);
+	  
+	  String[] enterDirectoryAbove = {"C/users"};
+	  cd.run(enterDirectoryAbove);
+	  
+	  for (int i = 0; i < fs.getCurrent().getList().size(); i++) {
+		  allContent.add(fs.getCurrent().getList().get(i).getName());
+	  }
+	  
+	  if (allContent.contains("newUser")) {
+		  System.out.println("Case #2 Passed");
+	  } else {
+		  System.out.println("Case #2 Failed");
+	  }
+	  
+	  allContent.clear();
+	  
+	  //Case 3: Make a directory using relative path
+	  input[0] = "users/newUser2";
+	  
+	  mkdir.run(input, "mkdir " + input[0]);
+	  cd.run(enterDirectoryAbove);
+	  
+	  for (int i = 0; i < fs.getCurrent().getList().size(); i++) {
+		  allContent.add(fs.getCurrent().getList().get(i).getName());
+	  }
+	  
+	  if (allContent.contains("newUser2")) {
+		  System.out.println("Case #3 Passed");
+	  } else {
+		  System.out.println("Case #3 Failed");
+	  }
+	  
   }
 	
 	
