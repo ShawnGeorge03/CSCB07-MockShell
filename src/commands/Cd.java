@@ -106,6 +106,7 @@ public class Cd extends DirectoryManager implements CommandI {
           return true;
         }
         filesys.assignCurrent(this.filesys.getCurrent().getParent());
+        return true;
       }
 
       else if (argument.equals(".")) {
