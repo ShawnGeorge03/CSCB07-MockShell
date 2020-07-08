@@ -114,111 +114,70 @@ public class TestCases {
 
   public void cdTestCases() {
     System.out.println("Testing Command: cd");
+    
+    String[] emptyArr = {};
+    
+    HashMap<Integer, String[]> cdInputMap = new  HashMap<Integer, String[]>();
+    
+    cdInputMap.put(0, emptyArr);      //Error
+    cdInputMap.put(1, "pics".split(" "));
+    cdInputMap.put(2, "..".split(" "));   
+    cdInputMap.put(3, "users/desktop".split(" "));
+    cdInputMap.put(4, "../..".split(" "));
+    cdInputMap.put(5, "A2".split(" "));    //Error
+    cdInputMap.put(6, "C/Sys/IO/keyboard".split(" "));
+    cdInputMap.put(7, "../../../".split(" "));
+    cdInputMap.put(8, "C/pics C/Sys/LOL".split(" "));
+    
+    HashMap<Integer, String> cdCommandMap = new  HashMap<Integer, String>();
+    
+    cdCommandMap.put(0, "cd ");      //Error
+    cdCommandMap.put(1, "cd pics");
+    cdCommandMap.put(2, "cd ..");   
+    cdCommandMap.put(3, "cd users/desktop");
+    cdCommandMap.put(4, " cd ../..");
+    cdCommandMap.put(5, "cd A2");    //Error
+    cdCommandMap.put(6, "cd C/Sys/IO/keyboard");
+    cdCommandMap.put(7, "cd ../../../");
+    cdCommandMap.put(8, "cd C/pics C/Sys/LOL");
+    
+    HashMap<Integer, String> cdCorrectOutputMap = new  HashMap<Integer, String>();
+    
+    cdCorrectOutputMap.put(0, "Error : No parameters provided : ");      //Error
+    cdCorrectOutputMap.put(1, null);
+    cdCorrectOutputMap.put(2, null);   
+    cdCommandMap.put(3, null);
+    cdCorrectOutputMap.put(4, null);
+    cdCorrectOutputMap.put(5, "Error: Invalid Directory : A2");    //Error
+    cdCorrectOutputMap.put(6, null);
+    cdCorrectOutputMap.put(7, null);
+    cdCorrectOutputMap.put(8, "Error : Multiple Parameters have been provided : C/pics C/Sys/LOL");
+    
+    HashMap<Integer, String> pwdOutputMap = new  HashMap<Integer, String>();
+    
+    pwdOutputMap.put(0, "C");      //Error
+    pwdOutputMap.put(1, "C/pics");
+    pwdOutputMap.put(2, "C");   
+    pwdOutputMap.put(3, "C/users/desktop");
+    pwdOutputMap.put(4, "C");
+    pwdOutputMap.put(5, "C");    //Error
+    pwdOutputMap.put(6, "C/Sys/IO/keyboard");
+    pwdOutputMap.put(7, "C");
+    pwdOutputMap.put(8, "C");
 
-    String[] testCase1cd = new String[0];
-    String[] testCase2cd = new String[1];
-    String[] testCase3cd = new String[2];
-    String[] inputArrayForPwd = {};
-
-    // Case 1: No Input
-    output = cd.run(testCase1cd, "cd", false);
-    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
-
-    if (correctOuput.contains("C") && output.equals("Error : No parameters provided : "))
-      System.out.println("Case #1 Passed");
-    else
-      System.out.println("Case #1 Failed");
-
-    // Case 2: Change Directory to pics
-    testCase2cd[0] = "pics";
-
-    output = cd.run(testCase2cd, "cd pics", false);
-    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
-
-    if (correctOuput.equals("C/pics") && output == null)
-      System.out.println("Case #2 Passed");
-    else
-      System.out.println("Case #2 Failed");
-
-    // Case 3: Change Directory back one
-    testCase2cd[0] = "..";
-
-    output = cd.run(testCase2cd, "cd ..", false);
-    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
-
-    if (correctOuput.equals("C") && output == null)
-      System.out.println("Case #3 Passed");
-    else
-      System.out.println("Case #3 Failed");
-
-    // Case 4: Change Directory to users
-    testCase2cd[0] = "users/desktop";
-
-    output = cd.run(testCase2cd, "cd users/desktop", false);
-    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
-
-    if (correctOuput.equals("C/users/desktop") && output == null)
-      System.out.println("Case #4 Passed");
-    else
-      System.out.println("Case #4 Failed");
-
-    // Case 5: Pattern -> ../..
-    testCase2cd[0] = "../..";
-
-    output = cd.run(testCase2cd, "cd ../..", false);
-    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
-
-    if (correctOuput.equals("C") && output == null)
-      System.out.println("Case #5 Passed");
-    else
-      System.out.println("Case #5 Failed");
-
-    // Case 6: Pattern -> Change directory to a file
-    testCase2cd[0] = "A2";
-
-    output = cd.run(testCase2cd, "cd A2", false);
-    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
-
-    if (correctOuput.equals("C") && output.equals("Error: Invalid Directory : A2"))
-      System.out.println("Case #6 Passed");
-    else
-      System.out.println("Case #6 Failed");
-
-    // Case 7: Changing directory to keyboard Folder
-    testCase2cd[0] = "C/Sys/IO/keyboard";
-
-    output = cd.run(testCase2cd, "cd C/Sys/IO/keyboard", false);
-    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
-
-    if (correctOuput.equals("C/Sys/IO/keyboard") && output == null)
-      System.out.println("Case #7 Passed");
-    else
-      System.out.println("Case #7 Failed");
-
-    // Case 8: Change directory to C
-    testCase2cd[0] = "../../../";
-
-    output = cd.run(testCase2cd, "cd ../../../", false);
-    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
-
-    if (correctOuput.equals("C") && output == null)
-      System.out.println("Case #8 Passed");
-    else
-      System.out.println("Case #8 Failed");
-
-    // Case 9: Multiple directory
-    testCase3cd[0] = "C/pics";
-    testCase3cd[1] = "C/Sys/LOL";
-
-    output = cd.run(testCase3cd, "cd C/pics C/Sys/LoL", false);
-    correctOuput = pwd.run(inputArrayForPwd, "pwd", false);
-
-    if (correctOuput.equals("C")
-        && output.equals("Error : Multiple Parameters have been provided : C/pics C/Sys/LoL"))
-      System.out.println("Case #9 Passed\n");
-    else
-      System.out.println("Case #9 Failed\n");
-  }
+    for(int i = 0; i < cdInputMap.size(); i++) {
+      output = cd.run(cdInputMap.get(i),cdCommandMap.get(i) , false);
+      correctOuput = pwd.run(emptyArr, "pwd", false);
+      
+        if (correctOuput.contains(pwdOutputMap.get(i)) && 
+            (output == cdCorrectOutputMap.get(i) || output.equals(cdCorrectOutputMap.get(i))))
+          System.out.println("Case #" + (i+1) + " Passed");
+        else
+          System.out.println("Case #" + (i+1) + " Failed");     
+    }
+    System.out.println();
+    
+   }
 
   public void manTestCases() {
 
