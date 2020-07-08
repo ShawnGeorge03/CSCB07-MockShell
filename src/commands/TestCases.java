@@ -634,22 +634,18 @@ public class TestCases {
 
    
     for(int i = 0; i < echoInputMap.size(); i++) {
-      System.out.println(Arrays.toString(echoInputMap.get(i)) + "  " + echoCommandMap.get(i));
-
       output = echo.run(echoInputMap.get(i), echoCommandMap.get(i));
-
       if(i < 6) {
         if (output.contains(echoCorrectOutputMap.get(i)))
-          System.out.println("Case # " + (i) +"  : Passed LOL");
+          System.out.println("Case # " + (i+1) +"  : Passed LOL");
         else
-          System.out.println("Case # " + (i) +"  : Failed");
+          System.out.println("Case # " + (i+1) +"  : Failed");
       }else {
        String catOutput = cat.run(catInputMap.get(i), echoCommandMap.get(i));
-       System.out.println(output + " | " + catOutput);
         if (output == null && catOutput.equals(echoCorrectOutputMap.get(i)))
-          System.out.println("Case # " + (i) +"  : Passed");
+          System.out.println("Case # " + (i+1) +"  : Passed");
         else
-          System.out.println("Case # " + (i) +"  : Failed");
+          System.out.println("Case # " + (i+1) +"  : Failed");
       } 
     }
     System.out.println();
