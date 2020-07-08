@@ -2,8 +2,17 @@ package commands;
 
 import data.Node;
 
+/**
+ * Class EchoOverwrite overwrites the contents of requested file with given string
+ */
 public class EchoOverwrite extends Echo{
   
+  /**
+   * Takes contents and overwrites it to the contents of the requested file
+   * 
+   * @param fileContents  the contents that the user wants to overwrite with
+   * @param fileName  name of the file
+   */
   public void execute(String fileContents, String fileName) {
     
     String[] path = fileName.split("/");

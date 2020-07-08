@@ -10,8 +10,8 @@ public class EchoAppend extends Echo{
   /**
    * Takes the new content and appends it to the contents of the file
    * 
-   * @param fileContents  Contents the user wishes to append
-   * @param fileName  Name of requested file
+   * @param fileContents  the contents the user wishes to append
+   * @param fileName  the name of requested file
    */
   public void execute(String fileContents, String fileName) {
     
