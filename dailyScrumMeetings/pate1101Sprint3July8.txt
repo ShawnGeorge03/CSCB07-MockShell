@@ -1,0 +1,14 @@
+What did I work on in the last three days?
+    - Went through and revised Echo, EchoAppend, EchoOverwrite, FileManager
+    - Help Shawn create test cases for echo
+    - Applied the styling to the individual classes
+    - Throughly test, debug, and fix errors in most classes
+    - Implemented error checking for Echo, EchoAppend, EchoOverwrite, FileManager
+    - Made fixes to CRC cards to reflect current design
+    - Added JavaDoc for some of the classes
+
+What do I plan to work in the next three days?
+    - Nothing
+
+Am I blocked on anything?
+    - Nothing
