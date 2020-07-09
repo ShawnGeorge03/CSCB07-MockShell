@@ -30,9 +30,9 @@ public class Man implements CommandI {
   /**
    * Provides documentation depending on the command requested
    * 
-   * @param args the string array with all arguements provided by user
-   * @param fullInput the string that contains the raw input provided by user in JShell
-   * @param val stores a boolean value
+   * @param args  the string array with all arguements provided by user
+   * @param fullInput  the string that contains the raw input provided by user in JShell
+   * @param val  stores a boolean value
    * @return the documentation of the requested commands
    */
   public String run(String[] args, String fullInput, boolean val) {
