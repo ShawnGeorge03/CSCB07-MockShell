@@ -40,7 +40,7 @@ public class CommandHandler {
   public CommandHandler() {
     //Initializes a ErrorHandler Object
     errorManager = new ErrorHandler();
-    // Creates a HashTable Object called commandMap
+    // Creates a HashMap Object called commandMap
     commandMap = new HashMap<String, String>();
     // Initializes the HashMap with the keys and values
     intizializeCommandMap();
