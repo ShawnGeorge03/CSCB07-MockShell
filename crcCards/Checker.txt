@@ -1,5 +1,5 @@
 Class name: Checker
-Parent class: 
+Parent class: N/A
 Subclasses:
 
 Responsibilties:

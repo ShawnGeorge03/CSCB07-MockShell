@@ -1,6 +1,6 @@
 Class name: Cd
 Parent class: DirectoryManager
-Subclasses:
+Subclasses: 
 
 Responsibilties:
 *Changes directory to user's requested location
