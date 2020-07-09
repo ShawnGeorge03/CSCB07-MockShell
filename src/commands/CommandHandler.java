@@ -38,13 +38,13 @@ public class CommandHandler {
    * commandMap with commands
    */
   public CommandHandler() {
-    //Initializes a ErrorHandler Object
+    // Initializes a ErrorHandler Object
     errorManager = new ErrorHandler();
     // Creates a HashMap Object called commandMap
     commandMap = new HashMap<String, String>();
     // Initializes the HashMap with the keys and values
     intizializeCommandMap();
-    
+
   }
 
   private void intizializeCommandMap() {
@@ -77,64 +77,64 @@ public class CommandHandler {
   /**
    * Splits up command and arguments, then sends it to the run method
    * 
-   * @param parsedInput the parsed input containing the command, and its arguments
+   * @param parsedInput  the parsed input containing the command, and its arguments
    */
   public void setCommand(String parsedInput) {
-    //Initializes an array containing the words of the parsedInput
+    // Initializes an array containing the words of the parsedInput
     splitInput = parsedInput.split(" ");
-    //Retrieving the command portion of the the user input from array 
+    // Retrieving the command portion of the the user input from array
     command = splitInput[0];
-    //Retrieving the arguments portion of the the user input from array 
+    // Retrieving the arguments portion of the the user input from array
     String args[] = Arrays.copyOfRange(splitInput, 1, splitInput.length);
 
-    //If we are in speak mode
+    // If we are in speak mode
     if (speakMode) {
-      //Sets the command to the String speak
+      // Sets the command to the String speak
       this.command = "speak";
-      //Sets the arguments to the splitInput
+      // Sets the arguments to the splitInput
       args = splitInput;
     }
-    
-    //If the command was speak and there was no user input
+
+    // If the command was speak and there was no user input
     if (command.equals("speak") && args.length == 0)
-      //The console enters into speak mode
+      // The console enters into speak mode
       speakMode = true;
-    
-    //Calls the function to run the command
+
+    // Calls the function to run the command
     run(command, args, parsedInput);
-    
-    //If the command was speak and the user input ends with the special keyword QUIT
+
+    // If the command was speak and the user input ends with the special keyword QUIT
     if (command.equals("speak") && parsedInput.endsWith("QUIT"))
-      //The console exits into speak mode
+      // The console exits into speak mode
       speakMode = false;
   }
 
   /**
    * Calls the requested command's run method
    * 
-   * @param command the name of the command
-   * @param args the string array of arguments
-   * @param fullInput the raw input that the user gave to JShell
+   * @param command  the name of the command
+   * @param args  the string array of arguments
+   * @param fullInput  the raw input that the user gave to JShell
    */
   public void run(String command, String[] args, String fullInput) {
-    
-    //Check if the command is supported 
+
+    // Check if the command is supported
     if (!commandMap.containsKey(command)) {
-      //Sets the error as Invalid Command
+      // Sets the error as Invalid Command
       output = errorManager.getError("Invalid Command", command + " is not supported");
     } else {
       try {
-        
-        //Gets the class path of the command that needs to ne run
+
+        // Gets the class path of the command that needs to ne run
         String className = commandMap.get(command);
 
         try {
 
-          //Created an instance of the Class and initialized it 
-          CommandI commandObj = (CommandI) Class.forName(className)
-              .getDeclaredConstructor().newInstance();
+          // Created an instance of the Class and initialized it
+          CommandI commandObj =
+              (CommandI) Class.forName(className).getDeclaredConstructor().newInstance();
 
-          //Calls the run command in that respective class anc collects the output
+          // Calls the run command in that respective class anc collects the output
           output = commandObj.run(args, fullInput, speakMode);
 
         } catch (InstantiationException e) {
@@ -154,7 +154,7 @@ public class CommandHandler {
         e.printStackTrace();
       }
     }
-   
+
     if (output != null)
       System.out.println(output);
   }
