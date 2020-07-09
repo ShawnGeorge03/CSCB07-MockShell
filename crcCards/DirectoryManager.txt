@@ -1,5 +1,5 @@
 Class Name: DirectoryManager
-Parent Class:
+Parent Class: N/A
 Subclass:
 
 Resposibilities:
@@ -7,5 +7,5 @@ Resposibilities:
 
 Collaborators:
 *CommandI
-*DirectoryManger
 *FileSystem
+*ErrorHandler
