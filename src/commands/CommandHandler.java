@@ -49,7 +49,7 @@ public class CommandHandler {
 
   private void intizializeCommandMap() {
     // Adds a key named speak and adds its path
-    commandMap.put("speak", "commands.TextSpeech");
+    commandMap.put("speak", "commands.Speak");
     // Adds a key named mkdir and adds its path
     commandMap.put("mkdir", "commands.Mkdir");
     // Adds a key named cd and adds its path
