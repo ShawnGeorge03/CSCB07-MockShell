@@ -295,7 +295,6 @@ public class TestCases {
     }
 
     // Case 3: Get documentation for multiple arguments (not supported)
-    String[] multipleArguments = {"ls", "cd"};
     output = man.run(testInput, "man", false);
 
     if (output.contains("Invalid Argument")) {
@@ -574,16 +573,14 @@ public class TestCases {
   }
 
   private void lsTestCases() {
-    Cd toRoot = new Cd();
     String[] root = {"C"};
     cd.run(root);
 
 
     System.out.println("Testing Command : ls");
     // Case 1: Testing ls in root directory
-    Ls test = new Ls();
     String[] input = {"C"};
-    String output = test.run(input, "ls", false);
+    String output = ls.run(input, "ls", false);
     System.out.println(output);
 
     if (output == null) {
@@ -595,7 +592,7 @@ public class TestCases {
     // Case 2: Testing with Absolute path specified
     input[0] = "C/users";
 
-    output = test.run(input, "ls " + input[0], false);
+    output = ls.run(input, "ls " + input[0], false);
     if (output == null) {
       System.out.println("Case #2 Passed");
     } else {
@@ -606,7 +603,7 @@ public class TestCases {
 
     input[0] = "users/desktop";
 
-    output = test.run(input, "ls " + input[0], false);
+    output = ls.run(input, "ls " + input[0], false);
 
     if (output == null) {
       System.out.println("Case #3 Passed");
@@ -617,7 +614,7 @@ public class TestCases {
     // Case 4: Testing with multiple arguments
     String[] multipleArguments = {"C/users", "users/desktop"};
 
-    output = test.run(multipleArguments,
+    output = ls.run(multipleArguments,
         "ls " + multipleArguments[0] + " " + multipleArguments[1], false);
 
     if (output == null) {
@@ -629,7 +626,7 @@ public class TestCases {
     // Case 5: Giving an invalid path
     input[0] = "definitelyfalsecase";
 
-    output = test.run(input, "ls " + input[0], false);
+    output = ls.run(input, "ls " + input[0], false);
 
     if (output.equals(
         "Error: Invalid Directory : definitelyfalsecase is not a valid directory")) {
