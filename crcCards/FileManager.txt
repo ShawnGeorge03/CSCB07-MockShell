@@ -1,10 +1,11 @@
 Class name: FileManager
-Parent class:
-Subclasses:
+Parent class: N/A
+Subclasses: Echo, Cat
 
 Responsibilties:
 *Initializes the correct file class based of user input
+*Handles finding files/folders for Echo and Cat
 
 Collaborators:
-*Parser
 *FileSystem
+*ErrorHandler

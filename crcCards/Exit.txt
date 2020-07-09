@@ -1,9 +1,9 @@
 Class name: Exit
-Parent class:
+Parent class: N/A
 Subclasses:
+Implements: CommandI
 
 Responsibilties:
 *Exits the shell program
 
 Collaborators:
-*Checker
