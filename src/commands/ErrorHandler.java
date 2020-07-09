@@ -16,14 +16,14 @@ public class ErrorHandler {
    * Constructor for ErrorHandler to initialize instance variables and populate HashMap
    */
   public ErrorHandler() {
+    // Creates a HashMap Object called commandMap
     this.errorMap = new HashMap<String, String>();
+    // Initializes the HashMap with the keys and values
     initializeErrorMap();
   }
 
-  /**
-   * Populates the HashMap with error names and error messages
-   */
-  public void initializeErrorMap() {
+  private void initializeErrorMap() {
+    // Adds the respective error key and adds its respective erro message to the commandMap
     errorMap.put("Invalid Command", "Error: Invalid Command");
     errorMap.put("Invalid Argument", "Error: Invalid Argument");
     errorMap.put("Invalid File", "Error: Invalid File");
@@ -43,12 +43,12 @@ public class ErrorHandler {
    * Returns error messages for requested error
    * 
    * @param errorCode the name of the error
-   * @param parameter the parameter that the user provided
+   * @param text explanation for the error
    * @return the error message
    */
-  public String getError(String errorCode, String parameter) {
+  public String getError(String errorCode, String text) {
     if (errorMap.containsKey(errorCode))
-      return errorMap.get(errorCode) + " : " + parameter;
+      return errorMap.get(errorCode) + " : " + text;
     return null;
   }
 }
