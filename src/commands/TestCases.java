@@ -366,7 +366,7 @@ public class TestCases {
     input[0] = "users/newUser2";
     cd.run(root);
     output = mkdir.run(input, "mkdir " + input[0], false);
-
+    System.out.println(output);
     if (output.equals(
         "Error: Same Directory with that name already exists! : users already exists")) {
       System.out.println("Case #4 Passed");

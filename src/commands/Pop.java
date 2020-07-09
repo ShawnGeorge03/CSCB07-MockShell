@@ -3,7 +3,9 @@ package commands;
 import data.FileSystem;
 
 /**
- * Class Pop is responsible for
+ * Class Pop is responsible for popping the top most directory 
+ * on the directory stack onto the working directory of the 
+ * user
  */
 public class Pop extends DirectoryManager implements CommandI {
   /**
