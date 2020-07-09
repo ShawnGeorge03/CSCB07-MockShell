@@ -30,10 +30,10 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * Generic run method to call on method that does the work of creating
 	 * directories
 	 * 
-	 * @param args      the string array of all arguments
-	 * @param fullInput the string of the entire raw input provided by user in
-	 *                  JShell
-	 * @return null always
+	 * @param args  the string array of all arguments
+	 * @param fullInput  the string of the entire raw input provided by user in
+	 *                   JShell
+	 * @return String  null always
 	 */
 	public String run(String[] args, String fullInput, boolean val) {
 		String output = MakeDirectory(args);
@@ -43,7 +43,8 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	/**
 	 * Makes directories at locations in filesystem based on the path given
 	 * 
-	 * @param arguments the string array of all arguments provided
+	 * @param arguments  The string array of all arguments provided
+	 * @return String  An error message, else null
 	 */
 	public String MakeDirectory(String[] arguments) {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
@@ -76,16 +77,18 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	}
 
 	/**
+	 * Checks if and only if one argument was provided
 	 * 
-	 * @return if one and only one argument was provided
+	 * @return Boolean  A boolean value indicating the above
 	 */
 	private boolean checkValidArgs() {
 		return args.size() == 1;
 	}
 
 	/**
+	 * Returns a boolean if the argument is a relative or absolute path or not
 	 * 
-	 * @return a boolean if the argument contains a relative or absolute path or is just a name
+	 * @return Boolean  A boolean value indicating the above
 	 */
 	private boolean checkPath() {
 		return args.get(0).contains("/");
@@ -94,7 +97,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	/**
 	 * Makes a Node and adds it to the current working directory
 	 * 
-	 * @return A string if there is an error in adding the node
+	 * @return String  A string if there is an error in adding the node, else null
 	 */
 	private String mkDirWithinCurrent() {
 		if (!isValidDirectoryName(args.get(0))) {
@@ -119,7 +122,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	/**
 	 * Creates an instance of a Node to be returned to be added into the directory
 	 * 
-	 * @return The new node
+	 * @return Node  The new node to be added
 	 */
 	private Node getDirNode() {
 		Node newNode = new Node();
@@ -132,10 +135,10 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * Checks if a soon to be added node has the same name as an already existing directory 
 	 * node within the current working directory
 	 * 
-	 * @param newNode - Node to be added
-	 * @param currentPath - Current working directory
-	 * @param newArgs - Argument provided
-	 * @return
+	 * @param newNode  Node to be added
+	 * @param currentPath  Current working directory
+	 * @param newArgs  Argument provided
+	 * @return String  A string if only there is an error, else null
 	 */
 	private String checkForRepitition(Node newNode, String[] currentPath, String[] newArgs) {
 		for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {

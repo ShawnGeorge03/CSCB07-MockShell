@@ -21,10 +21,10 @@ public class Pop extends DirectoryManager implements CommandI {
   /**
    * Method Description
    * 
-   * @param args the string array of all arguments
-   * @param fullInput the....
-   * @param val ....
-   * @return String ....
+   * @param args  The string array of all arguments
+   * @param fullInput  The full input provided by the user
+   * @param val  A boolean for speak mode
+   * @return String  An error message, else null
    */
   public String run(String[] args, String fullInput, boolean val) {
     if (args.length != 0) {
