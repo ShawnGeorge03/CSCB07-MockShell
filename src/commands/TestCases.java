@@ -394,19 +394,23 @@ public class TestCases {
 
     String[] testCase1history = {};
 
+    //Declares and initializes the historyInputMap as a HashMap Object
     HashMap<Integer, String[]> historyInputMap =
         new HashMap<Integer, String[]>();
+        
+    //Adds the respective key and value to the historyInputMap
+    historyInputMap.put(0, testCase1history); //No Arguments
+    historyInputMap.put(1, "100".split(" ")); //Very large integer
+    historyInputMap.put(2, "5".split(" ")); //Very small integer
+    historyInputMap.put(3, "-3".split(" ")); //Negative integer
+    historyInputMap.put(4, "1.0".split(" ")); //Not an intger
+    historyInputMap.put(5, "hello".split(" "));//Not an intger
+    historyInputMap.put(6, "1 3 5".split(" ")); //Multiple Arguments
 
-    historyInputMap.put(0, testCase1history);
-    historyInputMap.put(1, "100".split(" "));
-    historyInputMap.put(2, "5".split(" "));
-    historyInputMap.put(3, "-3".split(" "));
-    historyInputMap.put(4, "1.0".split(" "));
-    historyInputMap.put(5, "hello".split(" "));
-    historyInputMap.put(6, "1 3 5".split(" "));
-
+    //Declares and initializes the historyCommandMap as a HashMap Object
     HashMap<Integer, String> historyCommandMap = new HashMap<Integer, String>();
 
+    //Adds the respective key and value to the historyCommandMap
     historyCommandMap.put(0, "history");
     historyCommandMap.put(1, "history 100");
     historyCommandMap.put(2, "history 5");
@@ -415,9 +419,11 @@ public class TestCases {
     historyCommandMap.put(5, "history hello");
     historyCommandMap.put(6, "history 1 3 5");
 
+    //Declares and initializes the historyCorrectOutputMap as a HashMap Object
     HashMap<Integer, String> historyCorrectOutputMap =
         new HashMap<Integer, String>();
 
+    //Adds the respective key and value to the historyCorrectOutputMap
     historyCorrectOutputMap.put(0,
         "1. mkdir users\n" + "2. mkdir pics\n" + "3. mkdir Sys\n"
             + "4. echo \"Wow what a project\" > A2\n" + "5. cd C/users\n"
@@ -432,12 +438,13 @@ public class TestCases {
     historyCorrectOutputMap.put(4, "Invalid Argument : 1.0");
     historyCorrectOutputMap.put(5, "Invalid Argument : hello");
     historyCorrectOutputMap.put(6,
-        "Error : Multiple Parameters have been provided : 1 3 5");
+        "Error : Multiple Parameters have been provided : 1 3 5 , either one or no input");
 
+    //Runs through different test cases and checks if they return the correct 
+    //values
     for (int i = 0; i < historyInputMap.size(); i++) {
       history.addCommands(historyCommandMap.get(i));
       output = history.run(historyInputMap.get(i), "history", false);
-
       if (output.contains(historyCorrectOutputMap.get(i)))
         System.out.println("Case # " + (i + 1) + "  : Passed");
       else
@@ -448,8 +455,6 @@ public class TestCases {
 
   private void pwdTestCases() {
     System.out.println("Testing Command: pwd");
-
-
 
     String[] testCase1_cd = {};
     String[] testCase1_pwd = {};
@@ -508,19 +513,29 @@ public class TestCases {
 
     String[] testCase1cat = {};
 
+    //Declares and initializes the catInputMap as a HashMap Object
     HashMap<Integer, String[]> catInputMap = new HashMap<Integer, String[]>();
 
-    catInputMap.put(0, testCase1cat);
-    catInputMap.put(1, "C/pics/picflex".split(" "));
-    catInputMap.put(2, "C/pics/picfile".split(" "));
+    //Adds the respective key and value to the catInputMap
+    catInputMap.put(0, testCase1cat); //No Input
+    //Absolute path to file, but path does not exist
+    catInputMap.put(1, "C/pics/picflex".split(" ")); 
+    //Absolute path to file, but path does exist
+    catInputMap.put(2, "C/pics/picfile".split(" ")); 
+    //Relative path to file, but path does not exist
     catInputMap.put(3, "A0".split(" "));
+    //Relative path to file, but path does exist
     catInputMap.put(4, "A2".split(" "));
+    //Multiple Files, one Absolute and relative files both exists
     catInputMap.put(5, "C/users/desktop/CSCB07 A2".split(" "));
+    //Multiple Files, some Absolute and relative files some exists or not
     catInputMap.put(6,
         "C/users/desktop/Hwk C/Sys/LOL C/Sys/IO/keyboard/RGB".split(" "));
 
+    //Declares and initializes the catCommandMap as a HashMap Object
     HashMap<Integer, String> catCommandMap = new HashMap<Integer, String>();
 
+    //Adds the respective key and value to the catCommandMap
     catCommandMap.put(0, "cat");
     catCommandMap.put(1, "cat C/pics/picflex");
     catCommandMap.put(2, "cat C/pics/picfile");
@@ -530,9 +545,11 @@ public class TestCases {
     catCommandMap.put(6,
         "cat C/users/desktop/Hwk C/Sys/LOL C/Sys/IO/keyboard/RGB");
 
+    //Declares and initializes the catCorrectOutputMap as a HashMap Object
     HashMap<Integer, String> catCorrectOutputMap =
         new HashMap<Integer, String>();
 
+    //Declares and initializes the catCorrectOutputMap as a HashMap Object
     catCorrectOutputMap.put(0, "Error : No parameters provided : ");
     catCorrectOutputMap.put(1, "Error: File Not Found : C/pics/picflex");
     catCorrectOutputMap.put(2, "this is a picturefile indeed");
@@ -544,9 +561,10 @@ public class TestCases {
         "2+2=5" + "\n" + "\n" + "\n" + "Error: File Not Found : C/Sys/LOL"
             + "\n" + "\n" + "\n" + "RGB == ways more      F    P   S");
 
+    //Runs through different test cases and checks if they return the correct 
+    //values
     for (int i = 0; i < catInputMap.size(); i++) {
       output = cat.run(catInputMap.get(i), "history", false);
-
       if (output.contains(catCorrectOutputMap.get(i)))
         System.out.println("Case # " + (i + 1) + "  : Passed");
       else
@@ -566,6 +584,7 @@ public class TestCases {
     Ls test = new Ls();
     String[] input = {"C"};
     String output = test.run(input, "ls", false);
+    System.out.println(output);
 
     if (output == null) {
       System.out.println("Case #1 Passed");
@@ -703,23 +722,37 @@ public class TestCases {
 
     String[] testCase1cat = {};
 
+    //Declares and initializes the echoInputMap as a HashMap Object
     HashMap<Integer, String[]> echoInputMap = new HashMap<Integer, String[]>();
 
+    //Adds the respective key and value to the echoInputMap
+    
+    //No Input
     echoInputMap.put(0, testCase1cat);
-    echoInputMap.put(1, "echo \"Hello\"".split(" "));
+    //Proper Text but no file given
+    echoInputMap.put(1, "echo \"Hello\"".split(" ")); 
+    //Malformed Text 
     echoInputMap.put(2, "echo \"Hello".split(" "));
     echoInputMap.put(3, "echo Hello".split(" "));
+    //No Files given
     echoInputMap.put(4, "echo \"Hello\" >".split(" "));
     echoInputMap.put(5, "echo \"Hello\" >>".split(" "));
+    //Proper text but, file does not exist in relative directory
     echoInputMap.put(6, "echo \"Hello\" > file".split(" "));
+    //Append content of a relative file
     echoInputMap.put(7, "echo \"Bye\" >> file".split(" "));
+    //Overwrite content of a relative file
     echoInputMap.put(8, "echo \"Bye\" >> file".split(" "));
+    //Overwrite content of a absolute path file
     echoInputMap.put(9, "echo \"KeyWASD\" > C/Sys/IO/keyboard/keys".split(" "));
+    //Append content of a absolute path file
     echoInputMap.put(10,
         "echo \"QWERTY\" >> C/Sys/IO/keyboard/keys".split(" "));
 
+    //Declares and initializes the echoCommandMap as a HashMap Object
     HashMap<Integer, String> echoCommandMap = new HashMap<Integer, String>();
 
+    //Adds the respective key and value to the echoCommandMap
     echoCommandMap.put(0, "echo");
     echoCommandMap.put(1, "echo \"Hello\"");
     echoCommandMap.put(2, "echo \"Hello");
@@ -732,9 +765,11 @@ public class TestCases {
     echoCommandMap.put(9, "echo \"KeyWASD\" > C/Sys/IO/keyboard/keys");
     echoCommandMap.put(10, "echo \"QWERTY\" >> C/Sys/IO/keyboard/keys");
 
+    //Declares and initializes the echoCorrectOutputMap as a HashMap Object
     HashMap<Integer, String> echoCorrectOutputMap =
         new HashMap<Integer, String>();
 
+    //Adds the respective key and value to the echoCorrectOutputMap
     echoCorrectOutputMap.put(0, "Error : No parameters provided : ");
     echoCorrectOutputMap.put(1, "Hello");
     echoCorrectOutputMap.put(2, "Error : Missing Quotes : echo \"Hello");
@@ -748,14 +783,18 @@ public class TestCases {
     echoCorrectOutputMap.put(10, "QWERTY");
 
 
+    //Declares and initializes the catInputMap as a HashMap Object
     HashMap<Integer, String[]> catInputMap = new HashMap<Integer, String[]>();
+    
+    //Adds the respective key and value to the catInputMap
     catInputMap.put(6, "file".split(" "));
     catInputMap.put(7, "file".split(" "));
     catInputMap.put(8, "file".split(" "));
     catInputMap.put(9, "C/Sys/IO/keyboard/keys".split(" "));
     catInputMap.put(10, "C/Sys/IO/keyboard/keys".split(" "));
 
-
+    //Runs through different test cases and checks if they return the correct 
+    //values
     for (int i = 0; i < echoInputMap.size(); i++) {
       output = echo.run(echoInputMap.get(i), echoCommandMap.get(i), false);
       if (i < 6) {
@@ -764,6 +803,7 @@ public class TestCases {
         else
           System.out.println("Case # " + (i + 1) + "  : Failed");
       } else {
+        //Declares and Initializes a string to collect the output from cat
         String catOutput =
             cat.run(catInputMap.get(i), echoCommandMap.get(i), false);
         if (output == null && catOutput.equals(echoCorrectOutputMap.get(i)))
