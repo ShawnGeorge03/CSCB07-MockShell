@@ -1,6 +1,6 @@
 Class name: Checker
 Parent class: N/A
-Subclasses:
+Subclasses: N/A
 
 Responsibilties:
 *Checks if user input is valid or not

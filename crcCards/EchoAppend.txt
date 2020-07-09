@@ -1,6 +1,6 @@
 Class name: EchoAppend
 Parent class: Echo
-Subclasses:
+Subclasses: N/A
 
 Responsibilties:
 *Write given string into given file

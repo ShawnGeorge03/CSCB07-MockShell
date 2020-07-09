@@ -1,6 +1,6 @@
 Class name: ErrorHandler
 Parent class: N/A
-Subclasses:
+Subclasses: N/A
 
 Responsibilties:
 *Outputs an error message based of user input.

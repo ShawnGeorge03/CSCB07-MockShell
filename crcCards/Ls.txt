@@ -1,6 +1,6 @@
 Class name: Ls
 Parent class: DirectoryManager
-Subclasses:
+Subclasses: N/A
 Implements: CommandI
 
 Responsibilties:

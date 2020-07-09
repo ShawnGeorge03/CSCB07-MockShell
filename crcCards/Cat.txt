@@ -1,6 +1,6 @@
 Class name: Cat
 Parent class: FileManager
-Subclasses:
+Subclasses: N/A
 Implements: CommandI
 
 Responsibilties:

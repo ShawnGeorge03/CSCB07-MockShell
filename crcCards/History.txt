@@ -1,6 +1,6 @@
 Class name: History
 Parent class: N/A
-Subclasses:
+Subclasses: N/A
 Implements: CommandI
 
 Responsibilties:

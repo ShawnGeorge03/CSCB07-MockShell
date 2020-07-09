@@ -1,6 +1,6 @@
 Class Name: CommandHandler
 Parent Class: N/A
-Subclass:
+Subclass: N/A
 
 Responsibilities:
 *Manages commands that the user requests into the shell

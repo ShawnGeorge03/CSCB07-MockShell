@@ -1,6 +1,6 @@
 Class name: FileSystem
 Parent class: N/A
-Subclasses:
+Subclasses: N/A
 
 Responsibilties:
 *Store the information about the directories for convenient access 

@@ -1,6 +1,6 @@
 Class name: EchoOverwrite
 Parent class: Echo
-Subclasses:
+Subclasses: N/A
 
 Responsibilties:
 *Overwrite the file contents with the user given string

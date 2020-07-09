@@ -1,6 +1,6 @@
 Class name: Exit
 Parent class: N/A
-Subclasses:
+Subclasses: N/A
 Implements: CommandI
 
 Responsibilties:
