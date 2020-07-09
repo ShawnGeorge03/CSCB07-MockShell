@@ -32,7 +32,6 @@ package commands;
 import java.util.ArrayList;
 import java.util.Arrays;
 import commands.DirectoryManager;
-import data.FileSystem;
 import data.Node;
 
 /**
@@ -164,26 +163,6 @@ public class Mkdir extends DirectoryManager implements CommandI {
 		newNode.setDir(true);
 		newNode.setName(args.get(0).substring(args.get(0).lastIndexOf('/') + 1));
 		return newNode;
-	}
-	/**
-	 * Checks if a soon to be added node has the same name as an already existing directory 
-	 * node within the current working directory
-	 * 
-	 * @param newNode  Node to be added
-	 * @param currentPath  Current working directory
-	 * @param newArgs  Argument provided
-	 * @return String  A string if only there is an error, else null
-	 */
-	private String checkForRepitition(Node newNode, String[] currentPath, String[] newArgs) {
-		for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
-			//System.out.println(filesys.getCurrent().getList().get(i).getName().equals(newNode.getName()));
-			if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
-				Cd goBack = new Cd();
-				goBack.run(currentPath);
-				return error.getError("Same Directory", newArgs[0] + " already exists");
-			}
-		}
-		return null;
 	}
 
 }
