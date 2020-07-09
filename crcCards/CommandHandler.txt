@@ -1,5 +1,5 @@
 Class Name: CommandHandler
-Parent Class:
+Parent Class: N/A
 Subclass:
 
 Responsibilities:
