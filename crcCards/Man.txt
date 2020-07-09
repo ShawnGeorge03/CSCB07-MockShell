@@ -1,9 +1,10 @@
 Class name: Man
-Parent class:
+Parent class: N/A
 Subclasses:
+Implements: CommandI
 
 Responsibilties:
 *Displays the documentation corresponding to the user-inputted command
 
 Collaborators:
-*Command
+*ErrorHandler
