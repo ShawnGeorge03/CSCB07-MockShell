@@ -1,10 +1,10 @@
 Class name: Pwd
-Parent class: N/A
+Parent class: DirectoryManager
 Subclasses: N/A
+Implements: CommandI
 
 Responsibilties:
 *Displays the directory the user which includes the entire path
 
 Collaborators:
-*DirectoryManager
-*FileSystem
+*ErrorHandler
