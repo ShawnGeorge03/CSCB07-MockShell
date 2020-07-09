@@ -42,8 +42,8 @@ public class ErrorHandler {
   /**
    * Returns error messages for requested error
    * 
-   * @param errorCode the name of the error
-   * @param text explanation for the error
+   * @param errorCode  the name of the error
+   * @param text  explanation for the error
    * @return the error message
    */
   public String getError(String errorCode, String text) {
