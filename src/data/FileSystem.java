@@ -8,7 +8,7 @@ import java.util.Deque;
  * Class FileSystem hosts the data structure required to contain all directory and file nodes
  */
 public class FileSystem {
-  
+
   /**
    * Declare instance variable FileSystem which is yet to be intialized
    */
@@ -41,8 +41,8 @@ public class FileSystem {
   }
 
   /**
-   * Returns FileSystem of object, keep in mind that it is returning the same object 
-   * unless being called for the first time
+   * Returns FileSystem of object, keep in mind that it is returning the same object unless being
+   * called for the first time
    * 
    * @return the filesystem object
    */
@@ -55,7 +55,7 @@ public class FileSystem {
     }
   }
 
-  //Trivial methods below that require no JavaDoc
+  // Trivial methods below that require no JavaDoc
   public Node getRoot() {
     return root;
   }
