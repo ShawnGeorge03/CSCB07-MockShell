@@ -10,116 +10,116 @@ import data.Node;
  * Class Mkdir handles making directories anywhere in the filesystem
  */
 public class Mkdir extends DirectoryManager implements CommandI {
-  /**
-   * Declare instance variable of ArrayList to hold all arguments
-   */
-  ArrayList<String> args;
-  /**
-   * Declare instance variable of ErrorHandler to handle error messages
-   */
-  private ErrorHandler error;
+	/**
+	 * Declare instance variable of ArrayList to hold all arguments
+	 */
+	ArrayList<String> args;
+	/**
+	 * Declare instance variable of ErrorHandler to handle error messages
+	 */
+	private ErrorHandler error;
 
-  /**
-   * Constructor of Mkdir to initialize error
-   */
-  public Mkdir() {
-    this.error = new ErrorHandler();
-  }
+	/**
+	 * Constructor of Mkdir to initialize error
+	 */
+	public Mkdir() {
+		this.error = new ErrorHandler();
+	}
 
-  /**
-   * Generic run method to call on method that does the work of creating directories
-   * 
-   * @param args the string array of all arguments
-   * @param fullInput the string of the entire raw input provided by user in JShell
-   * @return null always
-   */
-  public String run(String[] args, String fullInput, boolean val) {
-    String output = MakeDirectory(args);
-    return output;
-  }
+	/**
+	 * Generic run method to call on method that does the work of creating
+	 * directories
+	 * 
+	 * @param args      the string array of all arguments
+	 * @param fullInput the string of the entire raw input provided by user in
+	 *                  JShell
+	 * @return null always
+	 */
+	public String run(String[] args, String fullInput, boolean val) {
+		String output = MakeDirectory(args);
+		return output;
+	}
 
+	/**
+	 * Makes directories at locations in filesystem based on the path given
+	 * 
+	 * @param arguments the string array of all arguments provided
+	 */
+	public String MakeDirectory(String[] arguments) {
+		this.args = new ArrayList<String>(Arrays.asList(arguments));
+		if (checkValidArgs()) {
+			if (checkPath()) {
+				String[] currentPath = { getCurrentPath() };
+				String[] newArgs = { args.get(0).substring(0, args.get(0).lastIndexOf('/')) };
 
-  /**
-   * Makes directories at locations in filesystem based on the path given
-   * 
-   * @param arguments the string array of all arguments provided
-   */
-  public String MakeDirectory(String[] arguments) {
-    this.args = new ArrayList<String>(Arrays.asList(arguments));
+				if (!isValidDirectoryName(args.get(0).substring(args.get(0).lastIndexOf('/') + 1))) {
+					return error.getError("Invalid Directory",
+							args.get(0).substring(args.get(0).lastIndexOf('/') + 1) + " is not a valid directory name");
+				}
 
-    if (checkValidArgs()) {
+				Cd newpath = new Cd();
+				if (newpath.run(newArgs)) {
+					Node newNode = getDirNode();
 
-      if (checkPath()) {
-        String[] currentPath = {getCurrentPath()};
-        String[] newArgs =
-            {args.get(0).substring(0, args.get(0).lastIndexOf('/'))};
+					if (checkForRepitition(newNode, currentPath, newArgs) != null) {
+						return checkForRepitition(newNode, currentPath, newArgs);
+					}
 
-        if (!isValidDirectoryName(
-            args.get(0).substring(args.get(0).lastIndexOf('/') + 1))) {
-          return error.getError("Invalid Directory",
-              args.get(0).substring(args.get(0).lastIndexOf('/') + 1)
-                  + " is not a valid directory name");
-        }
+					filesys.addToDirectory(newNode);
+				} else return error.getError("Invalid Directory", newArgs[0] + " is not a valid directory");
 
-        Cd newpath = new Cd();
-        if (newpath.run(newArgs)) {
-          Node newNode = new Node();
-          newNode.setContent(null);
-          newNode.setDir(true);
-          newNode
-              .setName(args.get(0).substring(args.get(0).lastIndexOf('/') + 1));
+				Cd goBack = new Cd();
+				goBack.run(currentPath);
+				return null;
+			} else return mkDirWithinCurrent();
+		} else return error.getError("Invalid Argument", "Expecting 1 Argument only");
+	}
 
-          for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
-            if (filesys.getCurrent().getList().get(i).getName()
-                .equals(newNode.getName())) {
-              Cd goBack = new Cd();
-              goBack.run(currentPath);
-              return error.getError("Same Directory",
-                  newArgs[0] + " already exists");
-            }
-          }
+	private boolean checkValidArgs() {
+		return args.size() == 1;
+	}
 
-          filesys.addToDirectory(newNode);
-        } else {
-          return error.getError("Invalid Directory",
-              newArgs[0] + " is not a valid directory");
-        }
+	private boolean checkPath() {
+		return args.get(0).contains("/");
+	}
 
-        Cd goBack = new Cd();
-        goBack.run(currentPath);
-        return null;
-      } else {
-        if (!isValidDirectoryName(args.get(0))) {
-          return error.getError("Invalid Directory",
-              args.get(0) + " is not a valid directory name");
-        }
+	private String mkDirWithinCurrent() {
+		if (!isValidDirectoryName(args.get(0))) {
+			return error.getError("Invalid Directory", args.get(0) + " is not a valid directory name");
+		}
 
-        Node newNode = new Node();
-        newNode.setContent(null);
-        newNode.setDir(true);
-        newNode.setName(args.get(0));
+		Node newNode = new Node();
+		newNode.setContent(null);
+		newNode.setDir(true);
+		newNode.setName(args.get(0));
 
-        for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
-          if (filesys.getCurrent().getList().get(i).getName()
-              .equals(newNode.getName())) {
-            return error.getError("Same Directory",
-                newNode.getName() + " already exists");
-          }
-        }
+		for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
+			if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
+				return error.getError("Same Directory", newNode.getName() + " already exists");
+			}
+		}
 
-        filesys.addToDirectory(newNode);
-        return null;
-      }
-    } else {
-      return error.getError("Invalid Argument", "Expecting 1 Argument only");
-    }
-  }
+		filesys.addToDirectory(newNode);
+		return null;
+	}
 
-  private boolean checkValidArgs() {
-    return args.size() == 1;
-  }
+	private Node getDirNode() {
+		Node newNode = new Node();
+		newNode.setContent(null);
+		newNode.setDir(true);
+		newNode.setName(args.get(0).substring(args.get(0).lastIndexOf('/') + 1));
+		return newNode;
+	}
 
-  private boolean checkPath() {
-    return args.get(0).contains("/");
-  }
+	private String checkForRepitition(Node newNode, String[] currentPath, String[] newArgs) {
+		for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
+			if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
+				Cd goBack = new Cd();
+				goBack.run(currentPath);
+				return error.getError("Same Directory", newArgs[0] + " already exists");
+			}
+		}
+		return null;
+	}
+
 }
