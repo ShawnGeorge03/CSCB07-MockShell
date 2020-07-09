@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Class Node is what each object in the filesystem is made of including directories and files
  */
 public class Node {
-  
+
   private boolean isDir;
   boolean isRoot = false;
   /**
@@ -17,7 +17,7 @@ public class Node {
   private ArrayList<Node> list = new ArrayList<Node>();
   private Node parent;
 
-  //Trivial methods below do not require JavaDoc
+  // Trivial methods below do not require JavaDoc
   public String getName() {
     return name;
   }
