@@ -1,3 +1,32 @@
+// **********************************************************
+// Assignment2:
+// Student1:
+// UTORID user_name: patelt26
+// UT Student #: 1005904103
+// Author: Shawn Santhoshgeorge
+//
+// Student2:
+// UTORID user_name: shaiskan
+// UT Student #: 1006243940
+// Author: Keshavaa Shaiskandan
+//
+// Student3:
+// UTORID user_name: patelt26
+// UT Student #: 1005904103
+// Author: Tirth Patel
+//
+// Student4:
+// UTORID user_name: pate1101
+// UT Student #: 1006315765
+// Author: Abhay Patel
+//
+//
+// Honor Code: I pledge that this program represents my own
+// program code and that I have coded on my own. I received
+// help from no one in designing and debugging my program.
+// I have also read the plagiarism section in the course info
+// sheet of CSC B07 and understand the consequences.
+// *********************************************************
 package commands;
 
 import java.util.ArrayList;
@@ -29,8 +58,8 @@ public class Ls extends DirectoryManager implements CommandI {
   /**
    * Displays all of the given directory's child nodes
    * 
-   * @param args the string array that contains the arguments
-   * @param fullInput the string that contains the raw input that the user provides to JShell
+   * @param args  the string array that contains the arguments
+   * @param fullInput  the string that contains the raw input that the user provides to JShell
    * @return null always
    */
   public String run(String[] arguments, String fullInput, boolean val) {
