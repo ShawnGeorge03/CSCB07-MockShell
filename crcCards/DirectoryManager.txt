@@ -1,11 +1,10 @@
 Class Name: DirectoryManager
 Parent Class: N/A
-Subclass:
+Subclass:Cd, Ls, Mkdir, Pop, Push, Pwd
 
 Resposibilities:
 *Manages functions pertaining to directory changes within the system
 
 Collaborators:
-*CommandI
 *FileSystem
 *ErrorHandler
