@@ -70,6 +70,28 @@ public class Echo extends FileManager implements CommandI {
     output = output.substring(0, output.length() - 1).replaceAll("\"", "");
   }
 
+  private void executeAppend(String fileContents, String fileName, String fullInput) {
+    if (argument.split(">").length == 2
+        && !argument.split(">")[0].equals("")) {
+      EchoOverwrite overwriteExe = new EchoOverwrite();
+      overwriteExe.execute(fileContents, fileName);
+      output = null;
+      return;
+    } else
+      output = this.getErrorHandler().getError("Invalid File", fullInput);
+  }
+  
+  private void executeOverwrite(String fileContents, String fileName, String fullInput) {
+    if (argument.split(">>").length == 2
+        && !argument.split(">>")[0].equals("")) {
+      EchoAppend appendExe = new EchoAppend();
+      appendExe.execute(fileContents, fileName);
+      output = null;
+      return;
+    } else
+      output = this.getErrorHandler().getError("Invalid File", fullInput);
+  }
+  
   private void execute(String[] args, String fullInput) {
     String fileContents = "";
     if (hasQuotations(fullInput)) {
@@ -84,31 +106,14 @@ public class Echo extends FileManager implements CommandI {
 
       if (numArrows == 0 && args.length > 1)
         printToConsole(args);
-
       else if (numArrows == 1) {
-        if (argument.split(">").length == 2
-            && !argument.split(">")[0].equals("")) {
-          EchoOverwrite overwriteExe = new EchoOverwrite();
-          overwriteExe.execute(fileContents, fileName);
-          output = null;
-          return;
-        } else
-          output = this.getErrorHandler().getError("Invalid File", fullInput);
+        executeAppend(fileContents, fileName, fullInput);
         return;
       }
-
       else if (numArrows == 2) {
-        if (argument.split(">>").length == 2
-            && !argument.split(">>")[0].equals("")) {
-          EchoAppend appendExe = new EchoAppend();
-          appendExe.execute(fileContents, fileName);
-          output = null;
-          return;
-        } else
-          output = this.getErrorHandler().getError("Invalid File", fullInput);
+        executeOverwrite(fileContents, fileName, fullInput);
         return;
       }
-
       else
         output = this.getErrorHandler().getError("Invalid Argument", fullInput);
       return;
