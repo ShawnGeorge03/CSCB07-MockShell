@@ -82,6 +82,9 @@ public class DirectoryManager {
   public boolean makePathFromRoot(String path) {
     String[] pathArr = path.split("/");
     Node currNode = filesys.getRoot();
+    // Loop through pathArr which is array of all directories in the path and change directory to
+    // the
+    // last one (if its a valid path)
     for (int i = 0; i < pathArr.length; i++) {
       if (pathArr[i].equals(filesys.getRoot().getName())) {
         continue;
@@ -91,10 +94,10 @@ public class DirectoryManager {
         if (currNode.getList().get(indexOfDir).isDir()) {
           currNode = currNode.getList().get(indexOfDir);
         } else {
-          // System.out.println(error.getError("Invalid Directory", path));
+          System.out.println(error.getError("Invalid Directory", path));
         }
       } else {
-        // System.out.println(error.getError("Directory Not Found", path));
+        System.out.println(error.getError("Directory Not Found", path));
         return false;
       }
     }
@@ -111,17 +114,19 @@ public class DirectoryManager {
   public boolean makeRelativePath(String path) {
     String[] pathArr = path.split("/");
     Node currNode = filesys.getCurrent();
+    // Loop through pathArr which is array of all directories in the path and change directory to
+    // the last one (if its a valid path)
     for (int i = 0; i < pathArr.length; i++) {
       int indexOfDir = checkDirExists(currNode.getList(), pathArr[i]);
       if (indexOfDir != -1) {
         if (currNode.getList().get(indexOfDir).isDir()) {
           currNode = currNode.getList().get(indexOfDir);
         } else {
-          // System.out.println(error.getError("Invalid Directory", path));
+          System.out.println(error.getError("Invalid Directory", path));
           return false;
         }
       } else {
-        // System.out.println(error.getError("Directory Not Found", path));
+        System.out.println(error.getError("Directory Not Found", path));
         return false;
       }
     }
@@ -130,16 +135,16 @@ public class DirectoryManager {
   }
 
   /**
-   * Method that checks if the file name that the user inputted is a valid file name. If the file name
-   * contains illegal characters then this method returns false. If the file name does not contain any
-   * illegal characters then it returns true.
+   * Method that checks if the file name that the user inputted is a valid file name. If the file
+   * name contains illegal characters then this method returns false. If the file name does not
+   * contain any illegal characters then it returns true.
    * 
    * @param fileName String that stores the file name that the user inputted
    * @return boolean false if file name contains illegal characters, otherwise returns true
    */
   public boolean isValidDirectoryName(String fileName) {
-    String[] invalidChars = {"/", ".", "\\s+", "!", "@", "#", "$", "%", "^",
-        "&", "*", "(", ")", "{", "}", "~", "|", "<", ">", "?"};
+    String[] invalidChars = {"/", ".", "\\s+", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")",
+        "{", "}", "~", "|", "<", ">", "?"};
     for (int i = 0; i < invalidChars.length; i++) {
       if (fileName.contains(invalidChars[i])) {
         return false;
