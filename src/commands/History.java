@@ -71,8 +71,9 @@ public class History implements CommandI {
     } else if (args.length > 1) {
 
       // Collects the user input from the fullInput
-      String parameter =
-          fullInput.substring(fullInput.indexOf("history") + 7).trim();
+      String parameter = Arrays.toString(args);
+      parameter = parameter.substring(1, parameter.length() - 1).
+          replace(",", "").trim();
       // Returns an error of Mulptile parameters provided
       output = error.getError("Mulptile parameters provided",
           parameter + " , either one or no input");
