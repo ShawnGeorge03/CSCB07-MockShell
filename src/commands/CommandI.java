@@ -30,7 +30,7 @@
 package commands;
 
 /**
- * Interface CommandI is responsible for providing a comman method to call any 
+ * Interface CommandI is responsible for providing a common method to call any 
  * class containing that certain command
  */  
 
