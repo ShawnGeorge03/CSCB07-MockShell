@@ -33,7 +33,6 @@ package driver;
 import java.util.Scanner;
 import commands.Checker;
 import commands.History;
-import commands.TestCases;
 
 /**
  * Class JShell is the main driver program where the user inputs commands
@@ -46,7 +45,7 @@ public class JShell {
   public static void main(String[] args) {
 
     //For running TestCases.java set to true
-    boolean testing = false;
+    boolean testing = true;
 
     if (testing) {
       TestCases tester = new TestCases();
