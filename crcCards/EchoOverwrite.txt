@@ -1,12 +1,11 @@
 Class name: EchoOverwrite
-Parent class:
+Parent class: Echo
 Subclasses:
 
 Responsibilties:
-*Write given string into given file
+*Overwrite the file contents with the user given string
 *If file does not exist in the directory, it is created and then string is written in there
 *If file does exist and has existing contents, it is replaced by user's string that they gave
 
 Collaborators:
-*DirectoryManager
 *FileSystem
