@@ -62,7 +62,6 @@ public class Mkdir extends DirectoryManager implements CommandI {
 				if (newpath.run(newArgs)) {
 					Node newNode = getDirNode();
 					for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
-						//System.out.println(filesys.getCurrent().getList().get(i).getName().equals(newNode.getName()));
 						if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
 							Cd goBack = new Cd();
 							goBack.run(currentPath);
