@@ -48,8 +48,14 @@ public class Checker {
       args = input.substring(input.indexOf("\""), input.length());
       //Reconstructs the user input
       parsedInput = commandName + " " + args;
-    //If the quotation contains multiple whitespace(s)
-    } else
+      //If the user input contains single quotations (' ')
+    } else if (input.contains("'")) {
+      commandName =
+          input.substring(0, input.indexOf("'")).trim().replaceAll("\\s+", " ");
+      args = input.substring(input.indexOf("'"), input.length());
+      parsedInput = commandName + " " + args;
+    //If the quotation contains multiple whitespace(s)  
+    }else
       //Converts user input by removing all extra whitespace
       parsedInput = input.trim().replaceAll("\\s+", " ");
 

@@ -77,19 +77,19 @@ public class TextSpeech implements CommandI {
     text = Arrays.toString(args);
     text = text.substring(1, text.length() - 1).replace(",", "").trim();
 
+    // If the user enters nothing or just QUIT
+    if (text.length() == 0) {
+      // The method returns null
+      return null;
+    }
+    
     // Stores the exact user input
-    userText = actualInput.substring(actualInput.indexOf("speak" + 5)).trim();
+    userText = text; 
 
     // If the text ends with the special keyword QUIR
     if (text.endsWith("QUIT")) {
       // Stores a new copy of the user text except no QUIT
       text = text.substring(0, text.indexOf("QUIT")).trim();
-    }
-
-    // If the user enters nothing or just QUIT
-    if (text.length() == 0) {
-      // The method returns null
-      return null;
     }
 
     // If we are not in speak mode
