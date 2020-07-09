@@ -66,9 +66,9 @@ public class Speak implements CommandI {
   /**
    * This function checks if the text given is valid and then converts it audio
    * 
-   * @param args the string array of arguments
-   * @param fullInput the full line of input that the user gives into JShell
-   * @param val tells if the it should enter speakMode or not
+   * @param args  the string array of arguments
+   * @param fullInput  the full line of input that the user gives into JShell
+   * @param val  tells if the it should enter speakMode or not
    * @return any error messages if there are any or null
    */
   public String run(String[] args, String actualInput, boolean val) {
