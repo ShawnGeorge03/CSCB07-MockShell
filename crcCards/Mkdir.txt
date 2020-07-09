@@ -1,11 +1,12 @@
 Class name: Mkdir
-Parent class: N/A
+Parent class: DirectoryManager
 Subclasses: N/A
+Implements: CommandI
 
 Responsibilties:
 *Creates new directory where the user requests
 
 Collaborators:
-*DirectoryManager
-*FileSystem
-*CommandI
+*Node
+*Cd
+*ErrorHandler
