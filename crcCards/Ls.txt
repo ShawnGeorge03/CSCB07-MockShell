@@ -1,11 +1,11 @@
 Class name: Ls
-Parent class:
+Parent class: DirectoryManager
 Subclasses:
+Implements: CommandI
 
 Responsibilties:
 *Displays all files and directories that reside in the user's current directory
 
 Collaborators:
-*DirectoryManager
-*FileSystem
-*FileManager
+*ErrorHandler
+*Cd
