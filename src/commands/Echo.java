@@ -1,3 +1,32 @@
+// **********************************************************
+// Assignment2:
+// Student1:
+// UTORID user_name: patelt26
+// UT Student #: 1005904103
+// Author: Shawn Santhoshgeorge
+//
+// Student2:
+// UTORID user_name: shaiskan
+// UT Student #: 1006243940
+// Author: Keshavaa Shaiskandan
+//
+// Student3:
+// UTORID user_name: patelt26
+// UT Student #: 1005904103
+// Author: Tirth Patel
+//
+// Student4:
+// UTORID user_name: pate1101
+// UT Student #: 1006315765
+// Author: Abhay Patel
+//
+//
+// Honor Code: I pledge that this program represents my own
+// program code and that I have coded on my own. I received
+// help from no one in designing and debugging my program.
+// I have also read the plagiarism section in the course info
+// sheet of CSC B07 and understand the consequences.
+// *********************************************************
 package commands;
 
 /**
@@ -19,7 +48,7 @@ public class Echo extends FileManager implements CommandI {
    * execute method that will perform the required task for the appropriate scenario. Returns a String
    * that will either contain an error message if there was an error or return null
    * 
-   * @param args the String array of arguments provided by user (split from a whitespace)
+   * @param args  the String array of arguments provided by user (split from a whitespace)
    * @return String will either be null if there were no errors or an appropriate error message
    */
   public String run(String[] args, String fullInput, boolean val) {
@@ -64,7 +93,7 @@ public class Echo extends FileManager implements CommandI {
   /**
    * Method that is responsible for printing the required arguments to the shell/console.
    * 
-   * @param args the string array of arguments
+   * @param  args the string array of arguments
    */
   public void printToConsole(String[] args) {
     for (int i = 1; i < args.length; i++) {
