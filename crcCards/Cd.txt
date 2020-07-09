@@ -1,5 +1,5 @@
 Class name: Cd
-Parent class: N/A
+Parent class: DirectoryManager
 Subclasses:
 
 Responsibilties:

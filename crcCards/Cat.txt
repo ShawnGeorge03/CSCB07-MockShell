@@ -1,5 +1,5 @@
 Class name: Cat
-Parent class: N/A
+Parent class: FileManager
 Subclasses:
 
 Responsibilties:
