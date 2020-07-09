@@ -60,8 +60,8 @@ public class DirectoryManager {
   /**
    * Checks if requested directory exists in the ArrayList of nodes in the current node
    * 
-   * @param toCheck ArrayList of Nodes that contain all of a Node's children
-   * @param dir the requested directory to check
+   * @param toCheck  ArrayList of Nodes that contain all of a Node's children
+   * @param dir  the requested directory to check
    * @return the index of the requested directory if it exists, -1 otherwise
    */
   public int checkDirExists(ArrayList<Node> toCheck, String dir) {
@@ -76,7 +76,7 @@ public class DirectoryManager {
   /**
    * Makes path from the root
    * 
-   * @param path the path that the user is requesting
+   * @param path  the path that the user is requesting
    * @return true if path was made successfully, false otherwise
    */
   public boolean makePathFromRoot(String path) {
@@ -108,7 +108,7 @@ public class DirectoryManager {
   /**
    * Makes relative path from current directory
    * 
-   * @param path the path that the user is requesting
+   * @param path  the path that the user is requesting
    * @return true if path was made successfully, false otherwise
    */
   public boolean makeRelativePath(String path) {
@@ -139,7 +139,7 @@ public class DirectoryManager {
    * name contains illegal characters then this method returns false. If the file name does not
    * contain any illegal characters then it returns true.
    * 
-   * @param fileName String that stores the file name that the user inputted
+   * @param fileName  String that stores the file name that the user inputted
    * @return boolean false if file name contains illegal characters, otherwise returns true
    */
   public boolean isValidDirectoryName(String fileName) {
