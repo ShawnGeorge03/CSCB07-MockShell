@@ -1,0 +1,12 @@
+What did I work on in the last three days?
+    - Finished Cd, DirectoryManager, and made ErrorManager
+    - Added JavaDocs
+    - Testing for bugs
+    - Added error catching to Cd and DirectoryManager
+    - Made fixes to CRC cards
+
+What do I plan to work in the next three days?
+    - Nothing
+
+Am I blocked on anything?
+    - Nothing
