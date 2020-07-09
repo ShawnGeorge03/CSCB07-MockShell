@@ -1,6 +1,7 @@
 Class Name: Speak
 Parent Class: N/A
 Subclass: N/A
+Implements: CommandI
 
 Responsibilities:
 * Waits for user input if no text initially provided
