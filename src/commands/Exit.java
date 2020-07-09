@@ -1,7 +1,7 @@
 package commands;
 
 /**
- * Class Exit handles exiting the JShel
+ * Class Exit handles exiting the JShell
  */
 public class Exit implements CommandI {
 
@@ -14,8 +14,9 @@ public class Exit implements CommandI {
    */
   @Override
   public String run(String[] args, String fullInput, boolean val) {
+    //Exits the session of the Shell
     System.exit(0);
     return null;
   }
-
+  
 }
