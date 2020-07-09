@@ -1,9 +1,10 @@
 Class name: History
-Parent class:
+Parent class: N/A
 Subclasses:
+Implements: CommandI
 
 Responsibilties:
 *Tracks and displays the previous inputs by the user from oldest to most recent order
 
 Collaborators:
-*Shell
+*ErrorHandler
