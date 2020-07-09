@@ -48,7 +48,7 @@ public class Cd extends DirectoryManager implements CommandI {
           fullInput.substring(fullInput.indexOf("cd") + 2).trim());
       return errorOutput;
     }
-
+    // If the change of directory was unsuccesful, then an error msg is returned
     if (!run(args)) {
       String errorOutput = error.getError("Invalid Directory",
           fullInput.substring(fullInput.indexOf("cd") + 2).trim());
@@ -58,8 +58,8 @@ public class Cd extends DirectoryManager implements CommandI {
   }
 
   /**
-   * Checks if the argument follows the pattern of ../ in which each pair of periods dictates how many
-   * directories to go up
+   * Checks if the argument follows the pattern of ../ in which each pair of periods dictates how
+   * many directories to go up
    * 
    * @return true if argument matches pattern, false otherwise
    */
@@ -71,26 +71,59 @@ public class Cd extends DirectoryManager implements CommandI {
     return false;
   }
 
+  private boolean run_1_arg(String argument) {
+    // Processes change of directory with all the one argument options
+    if (argument.equals("..")) {
+      //Traverse one directory up
+      if (filesys.getCurrent().getName().equals(this.filesys.getRoot().getName())) {
+        return true;
+      }
+      filesys.assignCurrent(this.filesys.getCurrent().getParent());
+      return true;
+    } else if (argument.equals(".")) {
+      return true;
+    } else {
+      //Relative path to requested dir
+      successfulPath = this.makeRelativePath(argument);
+    }
+    return successfulPath;
+  }
+
+  private boolean run_more_args(String argument, String[] splitArgs) {
+    //If there are more arguments, it wil create a relative path depending on the first element
+    //being a root or not
+    if (splitArgs[0].equals(filesys.getRoot().getName())) {
+      successfulPath = this.makePathFromRoot(argument);
+    } else {
+      successfulPath = this.makeRelativePath(argument);
+    }
+    return successfulPath;
+  }
+
   /**
    * Main run method that executes the performance of changing directories based on what argument is
    * given. If argument is ".", nothing happens If argument is "..", go up one directory If argument
-   * is "/", change the cd to root If argument is absolute path, check if the path exists, then change
-   * to that directory If argument is relative path, check if that path exists, then change to that
-   * directory
+   * is "/", change the cd to root If argument is absolute path, check if the path exists, then
+   * change to that directory If argument is relative path, check if that path exists, then change
+   * to that directory
    * 
    * @param arguments the array of arguments provided by user
    * @return true if the argument was processed and the change of directory was successful
    */
   public boolean run(String[] arguments) {
+    //Initializing variables
     this.cdArguments = new ArrayList<String>(Arrays.asList(arguments));
     String argument = this.cdArguments.get(0);
-    if (argument.equals(this.filesys.getRoot().getName())
-        || (argument.charAt(0) == ('/'))) {
+    //Changing to root
+    if (argument.equals(this.filesys.getRoot().getName()) || (argument.charAt(0) == ('/'))) {
       this.filesys.assignCurrent(this.filesys.getRoot());
       return true;
     }
+    //Splitting argument by slash to get path in an array
     String[] splitArgs = argument.split("/");
     if (this.isBackwards()) {
+      //If it matches the pattern described in isBackwards() JavaDoc, it will go back up n
+      //directories where n is the amount of ".."
       for (int i = 0; i < splitArgs.length; i++) {
         if (filesys.getCurrent().getParent() != null) {
           filesys.assignCurrent(this.filesys.getCurrent().getParent());
@@ -98,32 +131,10 @@ public class Cd extends DirectoryManager implements CommandI {
       }
       return true;
     }
-
     if (splitArgs.length == 1) {
-      if (argument.equals("..")) {
-        if (filesys.getCurrent().getName()
-            .equals(this.filesys.getRoot().getName())) {
-          return true;
-        }
-        filesys.assignCurrent(this.filesys.getCurrent().getParent());
-        return true;
-      }
-
-      else if (argument.equals(".")) {
-        return true;
-      }
-
-      else {
-        successfulPath = this.makeRelativePath(argument);
-      }
-    }
-
-    else {
-      if (splitArgs[0].equals(filesys.getRoot().getName())) {
-        successfulPath = this.makePathFromRoot(argument);
-      } else {
-        successfulPath = this.makeRelativePath(argument);
-      }
+      successfulPath = run_1_arg(argument);
+    } else {
+      successfulPath = run_more_args(argument, splitArgs);
     }
     return successfulPath;
   }
