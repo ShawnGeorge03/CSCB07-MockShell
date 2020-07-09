@@ -1,3 +1,32 @@
+// **********************************************************
+// Assignment2:
+// Student1:
+// UTORID user_name: patelt26
+// UT Student #: 1005904103
+// Author: Shawn Santhoshgeorge
+//
+// Student2:
+// UTORID user_name: shaiskan
+// UT Student #: 1006243940
+// Author: Keshavaa Shaiskandan
+//
+// Student3:
+// UTORID user_name: patelt26
+// UT Student #: 1005904103
+// Author: Tirth Patel
+//
+// Student4:
+// UTORID user_name: pate1101
+// UT Student #: 1006315765
+// Author: Abhay Patel
+//
+//
+// Honor Code: I pledge that this program represents my own
+// program code and that I have coded on my own. I received
+// help from no one in designing and debugging my program.
+// I have also read the plagiarism section in the course info
+// sheet of CSC B07 and understand the consequences.
+// *********************************************************
 package commands;
 
 import data.Node;
@@ -10,8 +39,8 @@ public class EchoAppend extends Echo {
   /**
    * Takes the new content and appends it to the contents of the file
    * 
-   * @param fileContents the contents the user wishes to append
-   * @param fileName the name of requested file
+   * @param fileContents  the contents the user wishes to append
+   * @param fileName  the name of requested file
    */
   public void execute(String fileContents, String fileName) {
     // Parses the user inputted path
