@@ -30,9 +30,9 @@ public class History implements CommandI {
   /**
    * Parses input and then calls print method to print history
    * 
-   * @param args the string array that contains given arguments
-   * @param fullInput the string that contains the raw input given to JShell
-   * @param val stores a boolean value
+   * @param args  the string array that contains given arguments
+   * @param fullInput  the string that contains the raw input given to JShell
+   * @param val  stores a boolean value
    * @return the error message if there is any or the actual history
    */
   public String run(String[] args, String fullInput, boolean val) {
@@ -86,7 +86,7 @@ public class History implements CommandI {
   /**
    * Adds a command to the CommandLog in FileSystem
    * 
-   * @param command this is the command that is to be placed in the CommandLog
+   * @param command  this is the command that is to be placed in the CommandLog
    */
   public void addCommands(String Command) {
     FileSystem.getCommandLog().add(Command);
