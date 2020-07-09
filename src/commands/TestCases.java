@@ -1,50 +1,102 @@
 package commands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import data.FileSystem;
 
 /**
- * Class TestCases is responsible for
+ * Class TestCases is responsible for testing all the commands
  */
 public class TestCases {
 
+  /**
+   * Declare instance of FileSystem so we can access the filesystem
+   */
   private FileSystem fs;
-
+  
+  /**
+   * Declare instance of Cd to test Cd
+   */
   private Cd cd;
+  
+  /**
+   * Declare instance of Pwd to test pwd
+   */
   private Pwd pwd;
+  
+  /**
+   * Declare instance of Mkdir to test mkdir
+   */
   private Mkdir mkdir;
+  
+  /**
+   * Declare instance of Ls to test ls
+   */
   private Ls ls;
+  
+  /**
+   * Declare instance of Echo to test echo
+   */
   private Echo echo;
+  
+  /**
+   * Declare instance of Man to test man
+   */
   private Man man;
+  
+  /**
+   * Declare instance of History to test history
+   */
   private History history;
+  
+  /**
+   * Declare instance of Cat to test cat
+   */
   private Cat cat;
 
+  /**
+   * Declare instance of a String object called output 
+   */
   private String output;
+  
+  /**
+   * Declare instance of a String object called correctOuput 
+   */
   private String correctOuput;
 
   /**
-   * Constructor for TestCases() that intializes all instance variables
+   * Constructor for TestCases that sets up the test environment and initializes 
+   * the instance variables
    */
   public TestCases() {
+    //Get the current FileSystem
     this.fs = FileSystem.getFileSys();
+    // Initializes a Cd Object
     this.cd = new Cd();
+    // Initializes a Pwd Object
     this.pwd = new Pwd();
+    // Initializes a mkdir Object
     this.mkdir = new Mkdir();
+    // Initializes a ls Object
     this.ls = new Ls();
+    // Initializes a echo Object
     this.echo = new Echo();
+    // Initializes a man Object
     this.man = new Man();
+    // Initializes a history Object
     this.history = new History();
+    // Initializes a cat Object
     this.cat = new Cat();
+    //Calls the function to setup the test environment
     setupEnviro();
   }
 
   private void setupEnviro() {
-    //Setting up test FileSystem
+    
+    //Declares and initializes a String array of size 1
     String[] setupDirs = new String[1];
 
-    // C Folder
+    //Sets up the C Folder
     setupDirs[0] = "users";
     mkdir.MakeDirectory(setupDirs);
     setupDirs[0] = "pics";
@@ -53,13 +105,13 @@ public class TestCases {
     mkdir.MakeDirectory(setupDirs);
     echo.run(setupDirs, "echo \"Wow what a project\" > A2", false);
 
-    // users Folder
+    //Sets up the users Folder
     setupDirs[0] = "C/users";
     cd.run(setupDirs, "cd C/users", false);
     setupDirs[0] = "desktop";
     mkdir.MakeDirectory(setupDirs);
 
-    // desktop Folder
+    //Sets up the desktop Folder
     setupDirs[0] = "C/users/desktop";
     cd.run(setupDirs, "cd C/users/desktop", false);
     echo.run(setupDirs, "echo \"Hello TA\" > CSCB07", false);
@@ -67,7 +119,7 @@ public class TestCases {
     setupDirs[0] = "../../";
     cd.run(setupDirs, "cd ../../", false);
 
-    // pics Folder
+    //Sets up the pics Folder
     echo.run(setupDirs, "echo \"this is a picturefile indeed\" > pics/picfile",
         false);
     setupDirs[0] = "pics";
@@ -77,7 +129,7 @@ public class TestCases {
     setupDirs[0] = "..";
     cd.run(setupDirs, "cd ..", false);
 
-    // Sys Folder
+    //Sets up the Sys Folder
     setupDirs[0] = "Sys";
     cd.run(setupDirs, "cd Sys", false);
     setupDirs[0] = "IO";
@@ -85,7 +137,7 @@ public class TestCases {
     setupDirs[0] = "LOL";
     mkdir.MakeDirectory(setupDirs);
 
-    // IO Folder
+    //Sets up the IO Folder
     setupDirs[0] = "IO";
     cd.run(setupDirs, "cd IO", false);
     setupDirs[0] = "keyboard";
@@ -93,7 +145,7 @@ public class TestCases {
     setupDirs[0] = "Mouse";
     mkdir.MakeDirectory(setupDirs);
 
-    // keyboard Folder
+    //Sets up the keyboard Folder
     setupDirs[0] = "keyboard";
     cd.run(setupDirs, "cd keyboard", false);
     echo.run(setupDirs, "echo \"QWERTY\" > keys", false);
@@ -102,27 +154,26 @@ public class TestCases {
     setupDirs[0] = "../";
     cd.run(setupDirs, "cd ../", false);
 
-    // Mouse Folder
+    //Sets up the Mouse Folder
     setupDirs[0] = "Mouse";
     cd.run(setupDirs, "cd Mouse", false);
     echo.run(setupDirs, "echo \"Mouse is in Mouse Folder\" > Presses", false);
 
-    // C Folder
+    //Sets up the C Folder
     setupDirs[0] = "../../../";
     cd.run(setupDirs, "cd ../../../", false);
 
-    // Setup History
+    //Setups the  History
     history.addCommands("mkdir users");
     history.addCommands("mkdir pics");
     history.addCommands("mkdir Sys");
     history.addCommands("echo \"Wow what a project\" > A2");
     history.addCommands("cd C/users");
     history.addCommands("mkdir desktop");
-
   }
 
   /**
-   * Run all command test cases
+   * Runs all the test cases
    */
   public void runTestCases() {
     cdTestCases();
@@ -141,20 +192,24 @@ public class TestCases {
 
     String[] emptyArr = {};
 
+    //Declares and initializes the cdInputMap as a HashMap Object
     HashMap<Integer, String[]> cdInputMap = new HashMap<Integer, String[]>();
 
-    cdInputMap.put(0, emptyArr); // Error
-    cdInputMap.put(1, "pics".split(" "));
-    cdInputMap.put(2, "..".split(" "));
-    cdInputMap.put(3, "users/desktop".split(" "));
-    cdInputMap.put(4, "../..".split(" "));
-    cdInputMap.put(5, "A2".split(" ")); // Error
-    cdInputMap.put(6, "C/Sys/IO/keyboard".split(" "));
-    cdInputMap.put(7, "../../../".split(" "));
-    cdInputMap.put(8, "C/pics C/Sys/LOL".split(" "));
+    //Adds the respective key and value to the cdInputMap
+    cdInputMap.put(0, emptyArr); // Not input given
+    cdInputMap.put(1, "pics".split(" ")); //Relative directory
+    cdInputMap.put(2, "..".split(" ")); //Going back one folder
+    cdInputMap.put(3, "users/desktop".split(" "));//Relative Path to a directory
+    cdInputMap.put(4, "../..".split(" ")); //Going back two directories
+    cdInputMap.put(5, "A2".split(" ")); //Going to a traverse to a File
+    cdInputMap.put(6, "C/Sys/IO/keyboard".split(" ")); //Absolute Path
+    cdInputMap.put(7, "../../../".split(" ")); //Going back to root
+    cdInputMap.put(8, "C/pics C/Sys/LOL".split(" ")); //Multiple Input
 
+    //Declares and initializes the cdCommandMap as a HashMap Object
     HashMap<Integer, String> cdCommandMap = new HashMap<Integer, String>();
 
+    //Adds the respective key and value to the cdCommandMap
     cdCommandMap.put(0, "cd "); // Error
     cdCommandMap.put(1, "cd pics");
     cdCommandMap.put(2, "cd ..");
@@ -165,13 +220,15 @@ public class TestCases {
     cdCommandMap.put(7, "cd ../../../");
     cdCommandMap.put(8, "cd C/pics C/Sys/LOL");
 
+    //Declares and initializes the cdCorrectOutputMap as a HashMap Object
     HashMap<Integer, String> cdCorrectOutputMap =
         new HashMap<Integer, String>();
 
+    //Adds the respective key and value to the cdCorrectOutputMap
     cdCorrectOutputMap.put(0, "Error : No parameters provided : "); // Error
     cdCorrectOutputMap.put(1, null);
     cdCorrectOutputMap.put(2, null);
-    cdCommandMap.put(3, null);
+    cdCorrectOutputMap.put(3, null);
     cdCorrectOutputMap.put(4, null);
     cdCorrectOutputMap.put(5, "Error: Invalid Directory : A2"); // Error
     cdCorrectOutputMap.put(6, null);
@@ -179,8 +236,11 @@ public class TestCases {
     cdCorrectOutputMap.put(8,
         "Error : Multiple Parameters have been provided : C/pics C/Sys/LOL");
 
+    //Declares and initializes the pwdOutputMap as a HashMap Object
     HashMap<Integer, String> pwdOutputMap = new HashMap<Integer, String>();
 
+    
+    //Adds the respective key and value to the pwdOutputMap
     pwdOutputMap.put(0, "C"); // Error
     pwdOutputMap.put(1, "C/pics");
     pwdOutputMap.put(2, "C");
@@ -191,6 +251,8 @@ public class TestCases {
     pwdOutputMap.put(7, "C");
     pwdOutputMap.put(8, "C");
 
+    //Runs through different test cases and checks if they return the correct 
+    //values
     for (int i = 0; i < cdInputMap.size(); i++) {
       output = cd.run(cdInputMap.get(i), cdCommandMap.get(i), false);
       correctOuput = pwd.run(emptyArr, "pwd", false);
