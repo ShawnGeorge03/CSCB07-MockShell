@@ -19,7 +19,9 @@ public class Pop extends DirectoryManager implements CommandI {
   }
 
   /**
-   * Method Description
+   * Run method checks if the user has given any arguments, and removes the top of the stack
+   * Returns string output, either an error message or if performed without error then will return
+   * null
    * 
    * @param args  The string array of all arguments
    * @param fullInput  The full input provided by the user
@@ -36,9 +38,9 @@ public class Pop extends DirectoryManager implements CommandI {
   }
 
   /**
-   * Method Description
+   * Pop takes the current stack and removes the very top of the stack
    * 
-   * @return String ....
+   * @return String  if performed without error then will return null else, it will return error
    */
   public String pop() {
     FileSystem.getStack().pop();
