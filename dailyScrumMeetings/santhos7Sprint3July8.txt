@@ -1,0 +1,18 @@
+a) What did I work on in the last three days? 
+	- Allow cat to work with absolute paths
+	- Fixed bugs in Speak, history, cat
+	- Helped with reimplementing Command structure
+	- Helped with adding comments to all Classes
+	- Helped with add errors to the ErrorHandler Class
+	- Restructured the entire package structure of the program
+	- Helped with building test cases
+	- Revise and make changes to the CRC cards
+	- Check for errors at run time
+	- Worked with teammates to fix up other classes
+
+b) What do I plan to work in the next three days?
+	-No tasks
+
+c) Am I blocked on anything?  
+	-Nothing
+
