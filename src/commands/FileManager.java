@@ -127,7 +127,7 @@ public class FileManager {
 
     //If we are in the root folder
     if (parent == null)
-      return current.getName();
+      return current.getName() + "/";
     //Create the absolute path
     String currentPath = parent.getName() + "/" + current.getName();
     parent = parent.getParent();
