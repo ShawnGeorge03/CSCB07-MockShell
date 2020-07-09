@@ -61,16 +61,18 @@ public class Mkdir extends DirectoryManager implements CommandI {
 				Cd newpath = new Cd();
 				if (newpath.run(newArgs)) {
 					Node newNode = getDirNode();
-
-					if (checkForRepitition(newNode, currentPath, newArgs) != null) {
-						return checkForRepitition(newNode, currentPath, newArgs);
+					for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
+						//System.out.println(filesys.getCurrent().getList().get(i).getName().equals(newNode.getName()));
+						if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
+							Cd goBack = new Cd();
+							goBack.run(currentPath);
+							return error.getError("Same Directory", newArgs[0] + " already exists");
+						}
 					}
 
-					filesys.addToDirectory(newNode);
+				filesys.addToDirectory(newNode);
 				} else return error.getError("Invalid Directory", newArgs[0] + " is not a valid directory");
-
-				Cd goBack = new Cd();
-				goBack.run(currentPath);
+				newpath.run(currentPath);
 				return null;
 			} else return mkDirWithinCurrent();
 		} else return error.getError("Invalid Argument", "Expecting 1 Argument only");
@@ -142,6 +144,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 */
 	private String checkForRepitition(Node newNode, String[] currentPath, String[] newArgs) {
 		for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
+			//System.out.println(filesys.getCurrent().getList().get(i).getName().equals(newNode.getName()));
 			if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
 				Cd goBack = new Cd();
 				goBack.run(currentPath);
