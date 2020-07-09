@@ -77,16 +77,20 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 */
 	public String MakeDirectory(String[] arguments) {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
+		//Checks for Valid arguments
 		if (checkValidArgs()) {
+			//Checks if a path was given or if the name was just iven
 			if (checkPath()) {
 				String[] currentPath = { getCurrentPath() };
 				String[] newArgs = { args.get(0).substring(0, args.get(0).lastIndexOf('/')) };
-
+				
+				//Checks if directory name is valid
 				if (!isValidDirectoryName(args.get(0).substring(args.get(0).lastIndexOf('/') + 1))) {
 					return error.getError("Invalid Directory",
 							args.get(0).substring(args.get(0).lastIndexOf('/') + 1) + " is not a valid directory name");
 				}
-
+				
+				//Cd's into path given, checks if filename is valid for that directory, and creates it
 				Cd newpath = new Cd();
 				if (newpath.run(newArgs)) {
 					Node newNode = getDirNode();
@@ -97,7 +101,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 							return error.getError("Same Directory", newArgs[0] + " already exists");
 						}
 					}
-
+					
 				filesys.addToDirectory(newNode);
 				} else return error.getError("Invalid Directory", newArgs[0] + " is not a valid directory");
 				newpath.run(currentPath);
