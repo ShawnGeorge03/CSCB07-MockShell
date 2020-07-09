@@ -1,9 +1,0 @@
-Class name: ErrorMessage
-Parent class:
-Subclasses:
-
-Responsibilties:
-*Outputs a error message based of user input.
-
-Collaborators:
-*Checker
