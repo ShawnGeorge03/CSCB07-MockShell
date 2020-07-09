@@ -39,23 +39,11 @@ public class JShell {
 
   public static void main(String[] args) {
 
-    boolean testing = true;
+    boolean testing = false;
     
-   
-
-
     if (testing) {
       TestCases tester = new TestCases();
       tester.runTestCases();
-      /*tester.cdTestCases();
-      tester.manTestCases();
-      tester.mkdirTestCases();
-      tester.historyTestCases();
-      tester.pwdTestCases();
-      tester.catTestCases();
-      //tester.lsTestCases();
-      //tester.pushAndPopTestCases();
-      tester.echoTestCases();*/
     } else {
       Checker parser = new Checker();
       History history = new History();
