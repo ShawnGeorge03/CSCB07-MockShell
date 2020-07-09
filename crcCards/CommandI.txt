@@ -1,0 +1,10 @@
+Class name: CommandI
+Parent class: N/A
+Subclasses: N/A
+Implements: N/A
+
+Responsibilties:
+*Provides a common method to call any class containing that certain command
+
+Collaborators:
+*N/A
