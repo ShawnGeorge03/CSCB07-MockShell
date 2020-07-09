@@ -20,9 +20,12 @@ public class Checker {
    * Constructor for Checker which initializes the instance variables
    */
   public Checker() {
+    //Initializing the String object output
     this.userInput = "";
+    //Initializing a CommandHandler object
     this.manager = new CommandHandler();
   }
+  
 
   /**
    * Parses the raw input that the user gives into JShell, which then sends it to CommandHandler if
@@ -31,22 +34,26 @@ public class Checker {
    * @param input the raw input provided by the user in JShell
    */
   public void parseInput(String input) {
+    //Declares and initialized String objects called parsedInput, commandName and args 
     String parsedInput = "";
     String commandName = "";
     String args = "";
+    
+    //Checks if the  input contains a quotation(s) in it
     if (input.contains("\"")) {
+      //Collects and stores the command  
       commandName = input.substring(0, input.indexOf("\"")).trim()
           .replaceAll("\\s+", " ");
+      //Collects and stores the arguments  
       args = input.substring(input.indexOf("\""), input.length());
+      //Reconstructs the user input
       parsedInput = commandName + " " + args;
-    } else if (input.contains("'")) {
-      commandName =
-          input.substring(0, input.indexOf("'")).trim().replaceAll("\\s+", " ");
-      args = input.substring(input.indexOf("'"), input.length());
-      parsedInput = commandName + " " + args;
+    //If the quotation contains multiple whitespace(s)
     } else
+      //Converts user input by removing all extra whitespace
       parsedInput = input.trim().replaceAll("\\s+", " ");
 
+    //Sets the parsed input to the CommandHandler 
     manager.setCommand(parsedInput);
   }
 
