@@ -1,17 +1,10 @@
 Class name: FileSystem
-Parent class:
+Parent class: N/A
 Subclasses:
 
 Responsibilties:
 *Store the information about the directories for convenient access 
 
 Collaborators:
-*Cat
-*Cd
-*EchoAppend
-*EchoOverwrite
-*Mkdir
-*PopAndPush
-*Pwd
-*Ls
+*Node
 
