@@ -24,9 +24,9 @@ public class Push extends DirectoryManager implements CommandI {
   /**
    * Method Description
    * 
-   * @param args the string array of arguments
-   * @param fullInput the full line of input that the user gives into JShell
-   * @return String ....
+   * @param args  the string array of arguments
+   * @param fullInput  the full line of input that the user gives into JShell
+   * @return String  An error message if any error, else null
    */
   public String run(String[] args, String fullInput, boolean val) {
     Cd goBack = new Cd();
