@@ -35,8 +35,8 @@ public class Cd extends DirectoryManager implements CommandI {
    * Starting run method which checks if arguments were given, then passes it to another run method
    * which processes the command
    * 
-   * @param args the string array of arguments
-   * @param fullInput the full line of input that the user gives into JShell
+   * @param args  the string array of arguments
+   * @param fullInput  the full line of input that the user gives into JShell
    * @return any error messages if there are any
    */
   public String run(String[] args, String fullInput, boolean val) {
@@ -74,7 +74,7 @@ public class Cd extends DirectoryManager implements CommandI {
   private boolean run_1_arg(String argument) {
     // Processes change of directory with all the one argument options
     if (argument.equals("..")) {
-      //Traverse one directory up
+      // Traverse one directory up
       if (filesys.getCurrent().getName().equals(this.filesys.getRoot().getName())) {
         return true;
       }
@@ -83,15 +83,15 @@ public class Cd extends DirectoryManager implements CommandI {
     } else if (argument.equals(".")) {
       return true;
     } else {
-      //Relative path to requested dir
+      // Relative path to requested dir
       successfulPath = this.makeRelativePath(argument);
     }
     return successfulPath;
   }
 
   private boolean run_more_args(String argument, String[] splitArgs) {
-    //If there are more arguments, it wil create a relative path depending on the first element
-    //being a root or not
+    // If there are more arguments, it wil create a relative path depending on the first element
+    // being a root or not
     if (splitArgs[0].equals(filesys.getRoot().getName())) {
       successfulPath = this.makePathFromRoot(argument);
     } else {
@@ -107,23 +107,23 @@ public class Cd extends DirectoryManager implements CommandI {
    * change to that directory If argument is relative path, check if that path exists, then change
    * to that directory
    * 
-   * @param arguments the array of arguments provided by user
+   * @param arguments  the array of arguments provided by user
    * @return true if the argument was processed and the change of directory was successful
    */
   public boolean run(String[] arguments) {
-    //Initializing variables
+    // Initializing variables
     this.cdArguments = new ArrayList<String>(Arrays.asList(arguments));
     String argument = this.cdArguments.get(0);
-    //Changing to root
+    // Changing to root
     if (argument.equals(this.filesys.getRoot().getName()) || (argument.charAt(0) == ('/'))) {
       this.filesys.assignCurrent(this.filesys.getRoot());
       return true;
     }
-    //Splitting argument by slash to get path in an array
+    // Splitting argument by slash to get path in an array
     String[] splitArgs = argument.split("/");
     if (this.isBackwards()) {
-      //If it matches the pattern described in isBackwards() JavaDoc, it will go back up n
-      //directories where n is the amount of ".."
+      // If it matches the pattern described in isBackwards() JavaDoc, it will go back up n
+      // directories where n is the amount of ".."
       for (int i = 0; i < splitArgs.length; i++) {
         if (filesys.getCurrent().getParent() != null) {
           filesys.assignCurrent(this.filesys.getCurrent().getParent());
