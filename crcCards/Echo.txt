@@ -1,0 +1,10 @@
+Class name: Echo
+Parent class: FileManager
+Subclasses: EchoAppend, EchoOverwrite
+
+Responsibilties:
+*Prints the user given string to the shell/console
+*Redirects the input to EchoAppend or EchoOverwrite in appropriate situations
+
+Collaborators:
+*FileSystem
