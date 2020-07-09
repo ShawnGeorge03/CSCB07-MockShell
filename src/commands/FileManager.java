@@ -19,13 +19,12 @@ public class FileManager {
    * Constructor for FileManager that initializes the ErrorHandler object and FileSystem object
    */
   public FileManager() {
+    //Get the current FileSystem
     filesys = FileSystem.getFileSys();
+    //Initializes the ErrorHandler object
     errorManager = new ErrorHandler();
   }
 
-  /**
-   * Getter method to access the ErrorHandler object
-   */
   public ErrorHandler getErrorHandler() {
     return this.errorManager;
   }
@@ -38,38 +37,51 @@ public class FileManager {
    * @return Node will return the node that holds the file or will return null if not found
    */
   public Node findFileGivenRelative(String fileName) {
+    //Grabs current folder/directory
     Node current = filesys.getCurrent();
+    //Splits the fileName to get the individual folder paths
     String[] givenPath = fileName.split("/");
+    //If only the file name was inputted
     if (givenPath.length == 1)
+      //Looks for the file in the current directory
       return checkList(current, fileName);
-
+   
     for (int i = 0; i < givenPath.length; i++) {
+      //The very last index should hold the name of the file
       if ((i + 1) == givenPath.length) {
+        //Look for and return the file
         return checkList(current, givenPath[i]);
       } else {
+        //Enter the next folder
         current = findInDirectory(givenPath[i], current);
+        //If the folder was not found then return null
         if (current == null)
           return null;
       }
     }
-
     return null;
   }
 
   private Node checkList(Node current, String fileName) {
+    //Loops through the directories and checks if the file exists
     for (int i = 0; i < current.getList().size(); i++) {
+      //If file name matches the desired file then return the node
       if (current.getList().get(i).getName().equals(fileName)
           && !current.getList().get(i).isDir())
         return current.getList().get(i);
     }
+    //Return null if not found
     return null;
   }
 
   private Node findInDirectory(String file, Node current) {
+    //Loops through the directories and checks if the folder exists
     for (int i = 0; i < current.getList().size(); i++) {
+      //If folder name matches the desired folder then return the node
       if (current.getList().get(i).getName().equals(file))
         return current.getList().get(i);
     }
+    //Return null if not found
     return null;
   }
 
@@ -79,18 +91,22 @@ public class FileManager {
    * @return String returns the full absolute path of the current working directory
    */
   public String getCurrentPath() {
+    //Grabs the current directory
     Node current = this.filesys.getCurrent();
+    //Grabs the parent of the current directory
     Node parent = current.getParent();
 
+    //If we are in the root folder
     if (parent == null)
-      return "C/";
+      return current.getName();
+    //Create the absolute path
     String currentPath = parent.getName() + "/" + current.getName();
     parent = parent.getParent();
     while (parent != null) {
       currentPath = parent.getName() + "/" + currentPath;
       parent = parent.getParent();
     }
-
+    //Return the final absolute path
     return currentPath;
 
   }
@@ -103,11 +119,16 @@ public class FileManager {
    * @return Node will return the node that holds the folder or will return null if not found
    */
   public Node findFolderGivenAbsolute(String absolutePath) {
+    //Grabs root directory
     Node current = filesys.getRoot();
+    //Splits the absolutePath into the individual folders
     String[] directories = absolutePath.split("/");
-
+    
+    //Loops through the directories array
     for (int i = 1; i < directories.length; i++) {
+      //Loops through the ArrayList of directories
       for (int j = 0; j < current.getList().size(); j++) {
+        //If the folder matches the one we need then return it
         if (current.getList().get(j).getName().equals(directories[i])) {
           current = current.getList().get(j);
           break;
@@ -125,14 +146,20 @@ public class FileManager {
    * @return Node will return the node that holds the file or will return null if not found
    */
   public Node findFileGivenAbsolute(String absolutePath) {
+    //Grabs root node
     Node current = filesys.getRoot();
+    //Splits the absolutePath into the individual folders
     String[] directories = absolutePath.split("/");
-
+    
+    //Loops through the individual directories
     for (int i = 1; i < directories.length; i++) {
+      //The file we want is in the last index of the array
       if ((i + 1) == directories.length) {
         return checkList(current, directories[i]);
       } else {
+        //Find the next folder we need to go in
         Node nextFolder = findInDirectory(directories[i], current);
+        //Set current to nextFolder
         if (nextFolder != null)
           current = nextFolder;
         else
