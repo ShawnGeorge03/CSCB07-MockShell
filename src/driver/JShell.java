@@ -2,24 +2,24 @@
 // **********************************************************
 // Assignment2:
 // Student1:
-// UTORID user_name:
-// UT Student #:
-// Author:
+// UTORID user_name: patelt26
+// UT Student #: 1005904103
+// Author: Shawn Santhoshgeorge
 //
 // Student2:
+// UTORID user_name: shaiskan
+// UT Student #: 1006243940
+// Author: Keshavaa Shaiskandan
+//
+// Student3:
+// UTORID user_name: patelt26
+// UT Student #: 1005904103
+// Author: Tirth Patel
+//
+// Student4:
 // UTORID user_name: pate1101
 // UT Student #: 1006315765
 // Author: Abhay Patel
-//
-// Student3:
-// UTORID user_name:
-// UT Student #:
-// Author:
-//
-// Student4:
-// UTORID user_name:
-// UT Student #:
-// Author:
 //
 //
 // Honor Code: I pledge that this program represents my own
@@ -35,12 +35,18 @@ import commands.Checker;
 import commands.History;
 import commands.TestCases;
 
+/**
+ * Class JShell is the main driver program where the user inputs commands
+ */
 public class JShell {
-
+  /**
+   * Main method which handles the main loop for shell commands
+   * @param args
+   */
   public static void main(String[] args) {
 
-    boolean testing = true;
-
+    boolean testing = false;
+    
     if (testing) {
       TestCases tester = new TestCases();
       tester.runTestCases();
