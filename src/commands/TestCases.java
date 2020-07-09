@@ -806,7 +806,7 @@ public class TestCases {
     echoCorrectOutputMap.put(7, "Hello" + "\n" + "Bye");
     echoCorrectOutputMap.put(8, "okay");
     echoCorrectOutputMap.put(9, "KeyWASD");
-    echoCorrectOutputMap.put(10, "QWERTY");
+    echoCorrectOutputMap.put(10, "KeyWASD" + "\n" + "QWERTY");
 
 
     //Declares and initializes the catInputMap as a HashMap Object
