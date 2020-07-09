@@ -7,9 +7,9 @@
 // Author:
 //
 // Student2:
-// UTORID user_name:
-// UT Student #:
-// Author:
+// UTORID user_name: pate1101
+// UT Student #: 1006315765
+// Author: Abhay Patel
 //
 // Student3:
 // UTORID user_name:
@@ -40,7 +40,7 @@ public class JShell {
   public static void main(String[] args) {
 
     boolean testing = true;
-    
+
     if (testing) {
       TestCases tester = new TestCases();
       tester.runTestCases();
