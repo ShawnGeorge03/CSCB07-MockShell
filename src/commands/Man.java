@@ -96,12 +96,12 @@ public class Man implements CommandI {
 
     // Adds a key named pushd and adds its manual
     manMap.put("pushd", "Command: pushd" + "\nTakes a relative or absolute path as an argument and "
-        + "pushes it onto" + "\nthe current directory stack");
+        + "pushes it onto\n" + "the current directory stack and traverses into that path");
 
     // Adds a key named popd and adds its manual
     manMap.put("popd",
-        "Command: popd" + "\nPops the latest directory on the directory stack into the "
-            + "current working directory");
+        "Command: popd" + "\nPops the latest directory on the directory stack into the\n"
+            + "current working directory and traverses into that path");
 
     // Adds a key named history and adds its manual
     manMap.put("history",
