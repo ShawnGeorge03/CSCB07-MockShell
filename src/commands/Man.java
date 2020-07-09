@@ -44,7 +44,7 @@ public class Man implements CommandI {
       // Collects the user input from the fullInput
       String param = fullInput.substring(fullInput.indexOf("man") + 3).trim();
 
-      // Returns an eror
+      // Returns an error
       return error.getError("Invalid Argument",
           param + " are/is not supported command(s)");
     }
