@@ -9,3 +9,5 @@ Responsibilties:
 Collaborators:
 *FileSystem
 *Checker
+*History
+*TestCases
