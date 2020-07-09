@@ -1,0 +1,14 @@
+What did I work on in the last three days?
+    - Went through and revised all error checking for mkdir, ls, pop and push
+    - Create test case function for mkdir, ls, pop and push
+    - Revised all function to ensure they followed style guidelines
+    - Thoroughly tested the entire shell to find bugs
+    - Changed CommandHandler to work using an interface instead of Dictionary (Shawn assisted me as well)
+    - Fixed any remaining bugs within code, and added error checking
+    - Made fixes to CRC cards to reflect current design
+
+What do I plan to work in the next three days?
+    - Nothing :)
+
+Am I blocked on anything?
+    - Nothing :)
