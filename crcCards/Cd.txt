@@ -1,12 +1,12 @@
 Class name: Cd
 Parent class: DirectoryManager
 Subclasses: 
+Implements: CommandI
 
 Responsibilties:
 *Changes directory to user's requested location
 *Accepts both relative path and absolute path
 
 Collaborators:
-*CommandI
 *DirectoryManager
 *FileSystem

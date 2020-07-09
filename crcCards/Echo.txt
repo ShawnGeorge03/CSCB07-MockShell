@@ -1,6 +1,7 @@
 Class name: Echo
 Parent class: FileManager
 Subclasses: EchoAppend, EchoOverwrite
+Implements: CommandI
 
 Responsibilties:
 *Prints the user given string to the shell/console

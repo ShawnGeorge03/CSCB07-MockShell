@@ -1,12 +1,12 @@
 Class name: Cat
 Parent class: FileManager
 Subclasses:
+Implements: CommandI
 
 Responsibilties:
 *Displays contents of file given by user's request
 *Accepts both relative path and absolute path
 
 Collaborators:
-*CommandI
 *FileManager
 *FileSystem
