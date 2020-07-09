@@ -35,6 +35,8 @@ import com.sun.speech.freetts.VoiceManager;
 
 /**
  * Class TextSpeech is responsible for converting given text to audio
+ * Note : Parts of this class was built from 
+ * https://www.youtube.com/watch?v=d50sZteNC1E
  */
 
 public class Speak implements CommandI {
