@@ -25,7 +25,7 @@ public class TestCases {
   private String correctOuput;
 
   /**
-   * Constructor for TestCases() that
+   * Constructor for TestCases() that intializes all instance variables
    */
   public TestCases() {
     this.fs = FileSystem.getFileSys();
@@ -41,7 +41,7 @@ public class TestCases {
   }
 
   private void setupEnviro() {
-
+    //Setting up test FileSystem
     String[] setupDirs = new String[1];
 
     // C Folder
@@ -122,7 +122,7 @@ public class TestCases {
   }
 
   /**
-   * Method Description
+   * Run all command test cases
    */
   public void runTestCases() {
     cdTestCases();
