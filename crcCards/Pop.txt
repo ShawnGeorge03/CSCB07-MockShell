@@ -1,12 +1,12 @@
 Class name: Pop
-Parent class: N/A
+Parent class: DirectoryManager
 Subclasses: N/A
+Implements: CommandI
 
 Responsibilties:
 * Pops top most directory on stack onto working directory
 
 Collaborators:
-*CommandI
-*DirectoryManager
 *FileSystem
 *Cd
+*ErrorHandler
