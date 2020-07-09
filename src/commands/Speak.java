@@ -33,12 +33,12 @@ public class Speak implements CommandI {
   /**
    * Declare instance of String to store the voice that is to be used
    */
-  private static final String PARENT_DIR = "freetts.voices";
+  private static final String PARENTDIR = "freetts.voices";
 
   /**
    * Declare instance of String to store the voice that is to be used
    */
-  private static final String VOICE_DIR =
+  private static final String VOICEDIR =
       "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory";
 
   private String text;
@@ -50,7 +50,7 @@ public class Speak implements CommandI {
    */
   public Speak() {
     // Set Property to where the voice exists
-    System.setProperty(PARENT_DIR, VOICE_DIR);
+    System.setProperty(PARENTDIR, VOICEDIR);
     // Creates a VoiceManager Object
     this.voiceManager = VoiceManager.getInstance();
     // Creates a Voice Object
