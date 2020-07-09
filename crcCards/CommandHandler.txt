@@ -7,7 +7,6 @@ Responsibilities:
 
 Collaborators:
 *ErrorHandler
-*CommandI
 *FileSystem
 *Cat
 *Cd
