@@ -75,14 +75,27 @@ public class Mkdir extends DirectoryManager implements CommandI {
 		} else return error.getError("Invalid Argument", "Expecting 1 Argument only");
 	}
 
+	/**
+	 * 
+	 * @return if one and only one argument was provided
+	 */
 	private boolean checkValidArgs() {
 		return args.size() == 1;
 	}
 
+	/**
+	 * 
+	 * @return a boolean if the argument contains a relative or absolute path or is just a name
+	 */
 	private boolean checkPath() {
 		return args.get(0).contains("/");
 	}
-
+	
+	/**
+	 * Makes a Node and adds it to the current working directory
+	 * 
+	 * @return A string if there is an error in adding the node
+	 */
 	private String mkDirWithinCurrent() {
 		if (!isValidDirectoryName(args.get(0))) {
 			return error.getError("Invalid Directory", args.get(0) + " is not a valid directory name");
@@ -102,7 +115,12 @@ public class Mkdir extends DirectoryManager implements CommandI {
 		filesys.addToDirectory(newNode);
 		return null;
 	}
-
+	
+	/**
+	 * Creates an instance of a Node to be returned to be added into the directory
+	 * 
+	 * @return The new node
+	 */
 	private Node getDirNode() {
 		Node newNode = new Node();
 		newNode.setContent(null);
@@ -110,7 +128,15 @@ public class Mkdir extends DirectoryManager implements CommandI {
 		newNode.setName(args.get(0).substring(args.get(0).lastIndexOf('/') + 1));
 		return newNode;
 	}
-
+	/**
+	 * Checks if a soon to be added node has the same name as an already existing directory 
+	 * node within the current working directory
+	 * 
+	 * @param newNode - Node to be added
+	 * @param currentPath - Current working directory
+	 * @param newArgs - Argument provided
+	 * @return
+	 */
 	private String checkForRepitition(Node newNode, String[] currentPath, String[] newArgs) {
 		for (int i = 0; i < filesys.getCurrent().getList().size(); i++) {
 			if (filesys.getCurrent().getList().get(i).getName().equals(newNode.getName())) {
