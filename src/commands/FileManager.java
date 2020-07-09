@@ -33,7 +33,7 @@ public class FileManager {
    * Method that searches the filesystem for a specific file given a relative path. Returns the node
    * that holds the file if found, otherwise it will return null
    * 
-   * @param fileName String that stores the relative path of the file we wish to search for
+   * @param fileName  String that stores the relative path of the file we wish to search for
    * @return Node will return the node that holds the file or will return null if not found
    */
   public Node findFileGivenRelative(String fileName) {
@@ -115,7 +115,7 @@ public class FileManager {
    * Method that searches the filesystem for a specific folder given an absolute path. Returns the
    * node that holds the folder if found, otherwise it will return null
    * 
-   * @param absolutePath String that stores the relative path of the folder we wish to search for
+   * @param absolutePath  String that stores the relative path of the folder we wish to search for
    * @return Node will return the node that holds the folder or will return null if not found
    */
   public Node findFolderGivenAbsolute(String absolutePath) {
@@ -142,7 +142,7 @@ public class FileManager {
    * Method that searches the filesystem for a specific file given an absolute path. Returns the node
    * of the file if found, otherwise it will return null
    * 
-   * @param absolutePath String that stores the absolute path of the file we wish to search for
+   * @param absolutePath  String that stores the absolute path of the file we wish to search for
    * @return Node will return the node that holds the file or will return null if not found
    */
   public Node findFileGivenAbsolute(String absolutePath) {
@@ -174,7 +174,7 @@ public class FileManager {
    * contains illegal characters then this method returns false. If the file name does not contain any
    * illegal characters then it returns true.
    * 
-   * @param fileName String that stores the file name that the user inputted
+   * @param fileName  String that stores the file name that the user inputted
    * @return boolean false if file name contains illegal characters, otherwise returns true
    */
   public boolean isValidFileName(String fileName) {
