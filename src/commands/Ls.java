@@ -40,7 +40,7 @@ public class Ls extends DirectoryManager implements CommandI {
     if (args.size() == 0) {
       Node curr = filesys.getCurrent();
       for (int i = 0; i < curr.getList().size(); i++) {
-        output += curr.getList().get(i).getName() + "\n";
+        System.out.println(curr.getList().get(i).getName());
       }
     } else {
       for (int i = 0; i < args.size(); i++) {
@@ -50,7 +50,7 @@ public class Ls extends DirectoryManager implements CommandI {
         Cd traverse = new Cd();
         if (traverse.run(path)) {
           Node current = FileSystem.getFileSys().getCurrent();
-          System.out.println(path[0]);
+          System.out.println("Path: " + path[0]);
           for (int j = 0; j < current.getList().size(); j++) {
             System.out.println(current.getList().get(j).getName());
           }

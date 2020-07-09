@@ -566,7 +566,6 @@ public class TestCases {
     Ls test = new Ls();
     String[] input = {"C"};
     String output = test.run(input, "ls", false);
-    System.out.println(output);
 
     if (output == null) {
       System.out.println("Case #1 Passed");
