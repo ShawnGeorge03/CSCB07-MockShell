@@ -88,7 +88,7 @@ public class EchoAppend extends Echo {
       } else {
         // Create new file and add to the FileSystem
         Node currentNode = this.filesys.getCurrent();
-        String desiredPath = getCurrentPath() + fileName;
+        String desiredPath = fileName;
         desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
         Node parent = findFolderGivenAbsolute(desiredPath);
         this.filesys.assignCurrent(parent);
