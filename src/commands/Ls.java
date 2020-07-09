@@ -64,8 +64,7 @@ public class Ls extends DirectoryManager implements CommandI {
    */
   public String run(String[] arguments, String fullInput, boolean val) {
     this.args = new ArrayList<String>(Arrays.asList(arguments));
-    String output = "";
-
+    
     if (args.size() == 0) {
       Node curr = filesys.getCurrent();
       for (int i = 0; i < curr.getList().size(); i++) {
