@@ -3,7 +3,7 @@ Backlog item                                                     | Estimated Tim
 01) As a user, I want to be able to quit/leave the shell/program |   
 ===============================================================================================                                                                
 02) As a user, I want to be able to convert text to audio and    |   
-    listen to the pronounciation of words                        |
+    listen to the pronunciation of words                         |
 ===============================================================================================
 03) As a user, I want to be able to view my current working      |    
     directory, as well as the path                               |
@@ -22,8 +22,8 @@ Backlog item                                                     | Estimated Tim
 ===============================================================================================                                                               
 07) As a user, I want to be able to save the current working     |   
     directory onto the directory stack and change to the new     | 
-    working directory so that I can resue the directory path     |
-    at a later time during the current session. The new working  |
+    working directory so that I can reuse the directory path     |
+    later during the current session. The new working            |
     directory can be relative or absolute path                   | 
 ===============================================================================================                                                                
 08) As a user, I want to be able to remove the top entry from    |   
@@ -37,9 +37,9 @@ Backlog item                                                     | Estimated Tim
     recent order so that I can keep track of the changes done    |
     in this session                                              |
 ===============================================================================================
-10) As a user, I should be able to retrive the contents of a list| 
-    of files which can be given as a relative or absolute file   | 
-    paths                                                        | 
+10) As a user, I should be able to retrieve the contents of a    | 
+    list of files which can be given as a relative or absolute   |
+    file paths                                                   |     
 ===============================================================================================
 11) As a user I should be able to print out string,              |
     or if file is given, then overwrite its contents with string.|
@@ -53,14 +53,14 @@ Backlog item                                                     | Estimated Tim
     commands                                                     |  
 ===============================================================================================
 14) As a user I should able to space part(s) of my command out   |   
-    by more than 1 space of tab and still recive the appropiate  |
+    by more than 1 space of tab and still receive the appropriate|
     output for my input                                          |
 ===============================================================================================
-15) As a user I should be able to recieve a copy of the output   |
+15) As a user I should be able to receive a copy of the output   |
     from commands that output to the screen to be redirected to  | 
     an OUTFILE                                                   |
 ===============================================================================================
-16) As a user I should be able to remove a diretory from the     |
+16) As a user I should be able to remove a directory from the    |
     File System given either an absolute or relative path        |
 ===============================================================================================
 17) As a user I should be able to move any file or directory to a|
@@ -84,15 +84,15 @@ Backlog item                                                     | Estimated Tim
     entire state of the program before the user exits            |
 ===============================================================================================
 21) As a user I should be able to load up my previous session    |
-    from a file that exists on my real filesytem. It should be   |  
+    from a file that exists on my real file system. It should be |  
     restore the program the previous state before the user       |
     exited the program                                           |
 ===============================================================================================
 22) As a user I should be to search with in a path for either a  |
     file or directory with the name that exactly match the       |
     expression provided. The location for the search can be      |  
-    relative or absoulte path.                                   |
+    relative or absolute path.                                   |
 ===============================================================================================
-23) As a user I should be able to see a visialiaztion of the     |
+23) As a user I should be able to see a visualization of the     |
     current filesystem as a tree structure starting from the root| 
     directory. It must print all subdirectories of directories   |
