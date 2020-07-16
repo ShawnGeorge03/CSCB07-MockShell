@@ -1,98 +1,98 @@
 Backlog item                                                     | Estimated Time (hrs or days) 
 ===============================================================================================
-01) As a user, I want to be able to quit/leave the shell/program |   
+01) As a user, I want to be able to quit/leave the shell/program |   1 Day
 ===============================================================================================                                                                
-02) As a user, I want to be able to convert text to audio and    |   
+02) As a user, I want to be able to convert text to audio and    |   2 Days   
     listen to the pronunciation of words                         |
 ===============================================================================================
-03) As a user, I want to be able to view my current working      |    
+03) As a user, I want to be able to view my current working      |   1 Day    
     directory, as well as the path                               |
 ===============================================================================================
-04) As a user, I should be able to make a single directory or    | 
+04) As a user, I should be able to make a single directory or    |   2 Days
     a list of directories based on relative or absolute paths    |
     for the location of the directory to exist                   |                  
 ===============================================================================================
-05) As a user, I should be able to change directory to a new     |
+05) As a user, I should be able to change directory to a new     |   1 Day
     directory which can either be relative or absolute path      |
 ===============================================================================================                                                              
-06) As a user, I should be able list all files in a directory    |
+06) As a user, I should be able list all files in a directory    |   2 Days
     which can be no path or relative or absolute path. If a      |
     special flag is provided then it lists all the subdirectories| 
     of the given directory                                       |     
 ===============================================================================================                                                               
-07) As a user, I want to be able to save the current working     |   
+07) As a user, I want to be able to save the current working     |   1 Day 
     directory onto the directory stack and change to the new     | 
     working directory so that I can reuse the directory path     |
     later during the current session. The new working            |
     directory can be relative or absolute path                   | 
 ===============================================================================================                                                                
-08) As a user, I want to be able to remove the top entry from    |   
+08) As a user, I want to be able to remove the top entry from    |   1 Day
     the directory stack and then make it the new working         |
     directory so that I can go back to a previous working        |
     directory                                                    |
 ===============================================================================================
 09) As a user, I want to be able to look back at all past        |   
     commands that has been inputted or the last X number of      | 
-    commands from the current session from oldest to most        |
+    commands from the current session from oldest to most        |   1 Day
     recent order so that I can keep track of the changes done    |
     in this session                                              |
 ===============================================================================================
 10) As a user, I should be able to retrieve the contents of a    | 
-    list of files which can be given as a relative or absolute   |
+    list of files which can be given as a relative or absolute   |   1 Day
     file paths                                                   |     
 ===============================================================================================
 11) As a user I should be able to print out string,              |
-    or if file is given, then overwrite its contents with string.|
+    or if file is given, then overwrite its contents with string.|   1 Day
     The path for the file can be absolute or relative            |              
 ===============================================================================================
 12) As a user I should be able to print out string,              |  
-    or if file is given, then append  its contents with string.  |
+    or if file is given, then append  its contents with string.  |   1 Day
     The path for the file can be absolute or relative            |                        
 ===============================================================================================
-13) As a user I should be able to get documentation for supported|
+13) As a user I should be able to get documentation for supported|   1 Day
     commands                                                     |  
 ===============================================================================================
 14) As a user I should able to space part(s) of my command out   |   
-    by more than 1 space of tab and still receive the appropriate|
+    by more than 1 space of tab and still receive the appropriate|   1 Day
     output for my input                                          |
 ===============================================================================================
 15) As a user I should be able to receive a copy of the output   |
-    from commands that output to the screen to be redirected to  | 
+    from commands that output to the screen to be redirected to  |   1 Day
     an OUTFILE                                                   |
 ===============================================================================================
 16) As a user I should be able to remove a directory from the    |
-    File System given either an absolute or relative path        |
+    File System given either an absolute or relative path        |   2 Days
 ===============================================================================================
 17) As a user I should be able to move any file or directory to a|
     new directory with in the filesystem, the file and directory |
-    location can be relative or absolute paths. The file or      | 
+    location can be relative or absolute paths. The file or      |   1 Day 
     directory that is to be moved must be removed from their     | 
     original location.                                           |
 ===============================================================================================
 18) As a user I should be able to copy any file or directory to a| 
     new directory with in the filesystem, the file and directory |   
-    location can be relative or absolute paths. The file or      |
+    location can be relative or absolute paths. The file or      |   1 Day
     directory that is to be moved should still exist in their    | 
     original location.                                           | 
 ===============================================================================================
 19) As a user I should be able to request and retrive a file from| 
-    a web server provided by a URL and add that file to the      |
+    a web server provided by a URL and add that file to the      |   3 Days
     current working directory                                    |
 ===============================================================================================
 20) As a user I should be able to save my current session of the | 
-    Shell to my real filesystem. This file should contain the    |
+    Shell to my real filesystem. This file should contain the    |   5 Days
     entire state of the program before the user exits            |
 ===============================================================================================
 21) As a user I should be able to load up my previous session    |
-    from a file that exists on my real file system. It should be |  
+    from a file that exists on my real file system. It should be |   5 Days
     restore the program the previous state before the user       |
     exited the program                                           |
 ===============================================================================================
 22) As a user I should be to search with in a path for either a  |
-    file or directory with the name that exactly match the       |
+    file or directory with the name that exactly match the       |   1 Day
     expression provided. The location for the search can be      |  
     relative or absolute path.                                   |
 ===============================================================================================
 23) As a user I should be able to see a visualization of the     |
-    current filesystem as a tree structure starting from the root| 
+    current filesystem as a tree structure starting from the root|   2 Days
     directory. It must print all subdirectories of directories   |
