@@ -56,14 +56,14 @@ b-01. (FileSystem) Fix Root Directory from "C\" to "\"
 b-02. (MkdirTest) Create and add JUnit testcases for current version of mkdir
 b-03. (CdTest) Create and add JUnit testcases for cd
 b-04. (LsTest) Create and add JUnit testcases for currnet version of ls
-b-05) (PwdTest) Create and add JUnit testcases for pwd
-b-06) (CatTest) Create and add JUnit testcases for cat
-b-07) (EchoTest) Create and add JUnit testcases for echo
-b-08) (ManTest) Create and add JUnit testcases for man
-b-09) (PushTest) Create and add JUnit testcases for pushd
-b-10) (PopTest) Create and add JUnit testcases for popd
-b-11) (HistoryTest) Create and add JUnit testcases for history
-c-01) (Ls) Modify existing ls class to check for flag
+b-05. (PwdTest) Create and add JUnit testcases for pwd
+b-06. (CatTest) Create and add JUnit testcases for cat
+b-07. (EchoTest) Create and add JUnit testcases for echo
+b-08. (ManTest) Create and add JUnit testcases for man
+b-09. (PushTest) Create and add JUnit testcases for pushd
+b-10. (PopTest) Create and add JUnit testcases for popd
+b-11. (HistoryTest) Create and add JUnit testcases for history
+c-01. (Ls) Modify existing ls class to check for flag
 c-02) (LS) Implement function to list subdirectories and contents in ls
 d-01) (Rm) Implement rm class
 e-01) (Mv) Implement mv class, possible to collaborate with cp class
@@ -94,10 +94,11 @@ User: Abhay
 Tasks: a-07, a-08, a-09, h-01, h-02, h-03, h-04, i-01, i-02, i-03, i-04
 
 User: Tirth Patel
-Tasks: a-10, a-11, b-01, j-01, j-02, k-01, k-02, k-03 
+Tasks: a-10, a-11, b-01, b-04, j-01, j-02, k-01, k-02, k-03 
 
 User: Keshavaa
-Tasks: a-01, a-02, a-03, a-04, a-05, c-01, d-01, e-01, f-01, 
+Tasks: a-01, a-02, a-03, a-04, a-05, b-09, b-10, c-01, c-02, d-01, e-01, f-01, 
 
 User: Shawn Santhoshgeorge
 Tasks: a-06, b-02, b-03, b-05, b-06, b-07, b-08, b-11, g-01, g-02, g-03, g-04, g-05, g-06
+
