@@ -41,57 +41,57 @@ k) As a user I should be able to see a visualization of the
    
 
 Specific tasks to be accomplished:
-a-1) Create and add a rm Class
-a-2) Make changes to the mkdir for new funtionality
-a-3) Make changes to the ls for new funtionality
-a-4) Create and add a mv Class
-a-5) Create and add a cp Class
-a-6) Create and add a curl Class
-a-7) Make changes to the echo for new funtionality
-a-8) Create and add a save Class
-a-9) Create and add a load Class
-a-10) Create and add a find Class
-a-11) Create and add a tree Class
-b-1) Fix Root Directory from "C\" to "\"
-b-2) Create and add JUnit testcases for currnet version of mkdir
-b-3) Create and add JUnit testcases for cd
-b-4) Create and add JUnit testcases for currnet version of ls
-b-5) Create and add JUnit testcases for pwd
-b-6) Create and add JUnit testcases for cat
-b-7) Create and add JUnit testcases for echo
-b-8) Create and add JUnit testcases for man
-b-9) Create and add JUnit testcases for pushd
-b-10) Create and add JUnit testcases for popd
-b-11) Create and add JUnit testcases for history
-b-12) Create and add JUnit testscases for tree
-b-13) Create and add JUnit testcases for find
-c-1) Modify existing ls class to check for flag
-c-2) Implment function to list subdirectories and contents in ls
-d-1) Implement rm class
-e-1) Implement mv class, possible to collaborate with cp class
-f-1) Implement cp class
-g-1) Research and find API/builtin Class regarding file transfer
-g-2) Implement function to retrive proper file name
-g-3) Implement method for file transfer
-g-4) Use code from project to create and write to file on current directory  
-g-5) Collect a list of test websites
-g-6) Create and add JUnit testcases for curl once done
-h-1) Abhay
-i-1) Abhay
-j-1) Create recursive search for tree and print it out in the requested format
-k-1) loop through directory in find desired files
-k-2) separate all paths given in find's arguments
+a-01. (CRC Cards) Create and add a rm Class
+a-02. (CRC Cards) Make changes to the mkdir for new funtionality
+a-03. (CRC Cards) Make changes to the ls for new funtionality
+a-04. (CRC Cards) Create and add a mv Class
+a-05. (CRC Cards) Create and add a cp Class
+a-06. (CRC Cards) Create and add a curl Class
+a-07. (CRC Cards) Make changes to the echo for new funtionality
+a-08. (CRC Cards) Create and add a save Class
+a-09. (CRC Cards) Create and add a load Class
+a-10. (CRC Cards) Create and add a find Class
+a-11. (CRC Cards) Create and add a tree Class
+b-01. (FileSystem) Fix Root Directory from "C\" to "\"
+b-02. (MkdirTest) Create and add JUnit testcases for currnet version of mkdir
+b-03. (CdTest) Create and add JUnit testcases for cd
+b-04. (LsTest) Create and add JUnit testcases for currnet version of ls
+b-05) (PwdTest) Create and add JUnit testcases for pwd
+b-06) (CatTest) Create and add JUnit testcases for cat
+b-07) (EchoTest) Create and add JUnit testcases for echo
+b-08) (ManTest) Create and add JUnit testcases for man
+b-09) (PushTest) Create and add JUnit testcases for pushd
+b-10) (PopTest) Create and add JUnit testcases for popd
+b-11) (HistoryTest) Create and add JUnit testcases for history
+c-01) (Ls) Modify existing ls class to check for flag
+c-02) (LS) Implment function to list subdirectories and contents in ls
+d-01) (Rm) Implement rm class
+e-01) (Mv) Implement mv class, possible to collaborate with cp class
+f-01) (Cp) Implement cp class
+g-01) (Curl) Research and find API/builtin Class regarding file transfer
+g-02) (Curl) Implement function to retrive proper file name
+g-03) (Curl) Implement method for file transfer
+g-04) (Curl) Use code from project to create and write to file on current directory  
+g-05) (Curl) Collect a list of test websites
+g-06) (CurlTest) Create and add JUnit testcases for curl once done
+h-01) Abhay
+i-01) Abhay
+j-01) (Find) Create recursive search for tree and print it out in the requested format
+j-02) (FindTest) Create and add JUnit testcases for find
+k-01) (Tree) Loop through directory in find desired files
+k-02) (Tree) Separate all paths given in find's arguments
+k-03) (TreeTest) Create and add JUnit testscases for tree
 
 These tasks are assigned as follows:
 
 User: Abhay
-Tasks:
+Tasks: a-07, a-08, a-09,
 
 User: Tirth Patel
-Tasks: a-11, a-10, j-1, k-1, k-2, b-12, b-13
+Tasks: a-10, a-11, j-01, j-02, k-01, k-02, k-03 
 
 User: Keshavaa
-Tasks: a-1, a-2, a-3, a-4, a-5, c-1, c-2, d-1,e-1, f-1
+Tasks: a-01, a-02, a-03, a-04, a-05, c-01, d-01, e-01, f-01, 
 
 User: Shawn Santhoshgeorge
-Tasks: a-6, b-2, b-5, b-6, b-11, g-1, g-2, g-3, g-4, g-5, g-6
+Tasks: a-06, b-02, b-03, b-05, b-06, b-07, b-08, b-11, g-01, g-02, g-03, g-04, g-05, g-06
