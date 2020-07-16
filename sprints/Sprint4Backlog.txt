@@ -1,0 +1,93 @@
+//Sprint 4 Backlog.  
+July 17 to July 23
+
+
+User Stories from Product Backlog that we will address in this sprint:
+a) Revise and Update CRC Cards
+b) Make changes to the current code to fit 2A requiremnets
+c) As a user, I should be able list all files in a directory 
+   which can be no path or relative or absolute path. If a      
+   special flag is provided then it lists all the subdirectories 
+   of the given directory
+d) As a user I should be able to remove a directory from the   
+   File System given either an absolute or relative path
+e) As a user I should be able to move any file or directory to a
+   new directory with in the filesystem, the file and directory 
+   location can be relative or absolute paths. The file or      
+   directory that is to be moved must be removed from their    
+   original location.  
+f) As a user I should be able to copy any file or directory to a 
+   new directory with in the filesystem, the file and directory 
+   location can be relative or absolute paths. The file or      
+   directory that is to be moved should still exist in their     
+   original location.
+g) As a user I should be able to request and retrive a file from 
+   a web server provided by a URL and add that file to the      
+   current working directory
+h) As a user I should be able to save my current session of the  
+   Shell to my real filesystem. This file should contain the  
+   entire state of the program before the user exits 
+i) As a user I should be able to load up my previous session    
+   from a file that exists on my real file system. It should be 
+   restore the program the previous state before the user       
+   exited the program 
+j) As a user I should be to search with in a path for either a  
+   file or directory with the name that exactly match the      
+   expression provided. The location for the search can be      
+   relative or absolute path.
+k) As a user I should be able to see a visualization of the     
+   current filesystem as a tree structure starting from the root
+   directory. It must print all subdirectories of directories
+   
+
+Specific tasks to be accomplished:
+a-1) Create and add a rm Class
+a-2) Make changes to the mkdir for new funtionality
+a-3) Make changes to the ls for new funtionality
+a-4) Create and add a mv Class
+a-5) Create and add a cp Class
+a-6) Create and add a curl Class
+a-7) Make changes to the echo for new funtionality
+a-8) Create and add a save Class
+a-9) Create and add a load Class
+a-10) Create and add a find Class
+a-11) Create and add a tree Class
+b-1) Fix Root Directory from "C\" to "\"
+b-2) Create and add JUnit testcases for currnet version of mkdir
+b-3) Create and add JUnit testcases for cd
+b-4) Create and add JUnit testcases for currnet version of ls
+b-5) Create and add JUnit testcases for pwd
+b-6) Create and add JUnit testcases for cat
+b-7) Create and add JUnit testcases for echo
+b-8) Create and add JUnit testcases for man
+b-9) Create and add JUnit testcases for pushd
+b-10) Create and add JUnit testcases for popd
+b-11) Create and add JUnit testcases for history
+c-1) Keshavaa 
+d-1) Keshavaa
+e-1) Keshavaa
+f-1) Keshavaa
+g-1) Research and find API/builtin Class regarding file transfer
+g-2) Implement function to retrive proper file name
+g-3) Implement method for file transfer
+g-4) Use code from project to create and write to file on current directory  
+g-5) Collect a list of test websites
+g-6) Create and add JUnit testcases for curl once done
+h-1) Abhay
+i-1) Abhay
+j-1) Tirth 
+k-1) Tirth  
+
+These tasks are assigned as follows:
+
+User: Abhay
+Tasks:
+
+User: Tirth Patel
+Tasks:
+
+User: Keshavaa
+Tasks:
+
+User: Shawn Santhoshgeorge
+Tasks: a-6, b-2, b-5, b-6, b-11, g-1, g-2, g-3, g-4, g-5, g-6
