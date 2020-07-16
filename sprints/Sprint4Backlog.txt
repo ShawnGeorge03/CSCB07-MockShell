@@ -63,10 +63,11 @@ b-8) Create and add JUnit testcases for man
 b-9) Create and add JUnit testcases for pushd
 b-10) Create and add JUnit testcases for popd
 b-11) Create and add JUnit testcases for history
-c-1) Keshavaa 
-d-1) Keshavaa
-e-1) Keshavaa
-f-1) Keshavaa
+c-1) Modify existing ls class to check for flag
+c-2) Implment function to list subdirectories and contents in ls
+d-1) Implement rm class
+e-1) Implement mv class, possible to collaborate with cp class
+f-1) Implement cp class
 g-1) Research and find API/builtin Class regarding file transfer
 g-2) Implement function to retrive proper file name
 g-3) Implement method for file transfer
@@ -88,7 +89,7 @@ User: Tirth Patel
 Tasks: a-11, a-10, j-1, k-1, k-2
 
 User: Keshavaa
-Tasks:
+Tasks: a-1, a-2, a-3, a-4, a-5, c-1, c-2, d-1,e-1, f-1
 
 User: Shawn Santhoshgeorge
 Tasks: a-6, b-2, b-5, b-6, b-11, g-1, g-2, g-3, g-4, g-5, g-6
