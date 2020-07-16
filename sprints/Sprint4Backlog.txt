@@ -75,8 +75,9 @@ g-5) Collect a list of test websites
 g-6) Create and add JUnit testcases for curl once done
 h-1) Abhay
 i-1) Abhay
-j-1) Tirth 
-k-1) Tirth  
+j-1) Create recursive search for tree and print it out in the requested format
+k-1) loop through directory in find desired files
+k-2) separate all paths given in find's arguments
 
 These tasks are assigned as follows:
 
@@ -84,7 +85,7 @@ User: Abhay
 Tasks:
 
 User: Tirth Patel
-Tasks:
+Tasks: a-11, a-10, j-1, k-1, k-2
 
 User: Keshavaa
 Tasks:
