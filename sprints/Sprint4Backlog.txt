@@ -63,6 +63,8 @@ b-8) Create and add JUnit testcases for man
 b-9) Create and add JUnit testcases for pushd
 b-10) Create and add JUnit testcases for popd
 b-11) Create and add JUnit testcases for history
+b-12) Create and add JUnit testscases for tree
+b-13) Create and add JUnit testcases for find
 c-1) Modify existing ls class to check for flag
 c-2) Implment function to list subdirectories and contents in ls
 d-1) Implement rm class
@@ -86,7 +88,7 @@ User: Abhay
 Tasks:
 
 User: Tirth Patel
-Tasks: a-11, a-10, j-1, k-1, k-2
+Tasks: a-11, a-10, j-1, k-1, k-2, b-12, b-13
 
 User: Keshavaa
 Tasks: a-1, a-2, a-3, a-4, a-5, c-1, c-2, d-1,e-1, f-1
