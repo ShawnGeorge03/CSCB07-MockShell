@@ -4,7 +4,7 @@ July 17 to July 23
 
 User Stories from Product Backlog that we will address in this sprint:
 a) Revise and Update CRC Cards
-b) Make changes to the current code to fit 2A requiremnets
+b) Make changes to the current code to fit 2A requirements
 c) As a user, I should be able list all files in a directory 
    which can be no path or relative or absolute path. If a      
    special flag is provided then it lists all the subdirectories 
@@ -28,8 +28,8 @@ h) As a user I should be able to save my current session of the
    Shell to my real filesystem. This file should contain the  
    entire state of the program before the user exits 
 i) As a user I should be able to load up my previous session    
-   from a file that exists on my real file system. It should be 
-   restore the program the previous state before the user       
+   from a file that exists on my real file system. It should
+   restore the program to the previous session before the user       
    exited the program 
 j) As a user I should be to search with in a path for either a  
    file or directory with the name that exactly match the      
@@ -42,18 +42,18 @@ k) As a user I should be able to see a visualization of the
 
 Specific tasks to be accomplished:
 a-01. (CRC Cards) Create and add a rm Class
-a-02. (CRC Cards) Make changes to the mkdir for new funtionality
-a-03. (CRC Cards) Make changes to the ls for new funtionality
+a-02. (CRC Cards) Make changes to the mkdir for new functionality
+a-03. (CRC Cards) Make changes to the ls for new functionality
 a-04. (CRC Cards) Create and add a mv Class
 a-05. (CRC Cards) Create and add a cp Class
 a-06. (CRC Cards) Create and add a curl Class
-a-07. (CRC Cards) Make changes to the echo for new funtionality
+a-07. (CRC Cards) Make changes to the echo for new functionality
 a-08. (CRC Cards) Create and add a save Class
 a-09. (CRC Cards) Create and add a load Class
 a-10. (CRC Cards) Create and add a find Class
 a-11. (CRC Cards) Create and add a tree Class
 b-01. (FileSystem) Fix Root Directory from "C\" to "\"
-b-02. (MkdirTest) Create and add JUnit testcases for currnet version of mkdir
+b-02. (MkdirTest) Create and add JUnit testcases for current version of mkdir
 b-03. (CdTest) Create and add JUnit testcases for cd
 b-04. (LsTest) Create and add JUnit testcases for currnet version of ls
 b-05) (PwdTest) Create and add JUnit testcases for pwd
@@ -64,18 +64,24 @@ b-09) (PushTest) Create and add JUnit testcases for pushd
 b-10) (PopTest) Create and add JUnit testcases for popd
 b-11) (HistoryTest) Create and add JUnit testcases for history
 c-01) (Ls) Modify existing ls class to check for flag
-c-02) (LS) Implment function to list subdirectories and contents in ls
+c-02) (LS) Implement function to list subdirectories and contents in ls
 d-01) (Rm) Implement rm class
 e-01) (Mv) Implement mv class, possible to collaborate with cp class
 f-01) (Cp) Implement cp class
 g-01) (Curl) Research and find API/builtin Class regarding file transfer
-g-02) (Curl) Implement function to retrive proper file name
+g-02) (Curl) Implement function to retrieve proper file name
 g-03) (Curl) Implement method for file transfer
 g-04) (Curl) Use code from project to create and write to file on current directory  
 g-05) (Curl) Collect a list of test websites
 g-06) (CurlTest) Create and add JUnit testcases for curl once done
-h-01) Abhay
-i-01) Abhay
+h-01) (Save) Implement method that will grab the users current session
+h-02) (Save) Implement method that will create a file on the computer
+h-03) (Save) Implement method that will write the contents of the file
+h-04) (Save) Implement method that will validate the path for the file location
+i-01) (Load) Research on how to extract information from certain files (XML, TXT, JSON, etc) using API or builtin libraries
+i-02) (Load) Implement a method that will check if the given file exists
+i-03) (Load) Implement a method that will extract the information from the file
+i-04) (Load) Implement a function that will create the users previous session using the file
 j-01) (Find) Create recursive search for tree and print it out in the requested format
 j-02) (FindTest) Create and add JUnit testcases for find
 k-01) (Tree) Loop through directory in find desired files
@@ -85,10 +91,10 @@ k-03) (TreeTest) Create and add JUnit testscases for tree
 These tasks are assigned as follows:
 
 User: Abhay
-Tasks: a-07, a-08, a-09,
+Tasks: a-07, a-08, a-09, h-01, h-02, h-03, h-04, i-01, i-02, i-03, i-04
 
 User: Tirth Patel
-Tasks: a-10, a-11, j-01, j-02, k-01, k-02, k-03 
+Tasks: a-10, a-11, b-01, j-01, j-02, k-01, k-02, k-03 
 
 User: Keshavaa
 Tasks: a-01, a-02, a-03, a-04, a-05, c-01, d-01, e-01, f-01, 
