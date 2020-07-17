@@ -65,9 +65,9 @@ b-10. (PopTest) Create and add JUnit testcases for popd
 b-11. (HistoryTest) Create and add JUnit testcases for history
 c-01. (Ls) Modify existing ls class to check for flag
 c-02) (LS) Implement function to list subdirectories and contents in ls
-d-01) (Rm) Implement rm class
-e-01) (Mv) Implement mv class, possible to collaborate with cp class
-f-01) (Cp) Implement cp class
+d-01) (Rm) Implement rm class, with function in filesystem to remove nodes
+e-01) (Mv) Implement mv class, with function in filesystem to move nodes
+f-01) (Cp) Implement cp class, with function in filesystem to create copies of nodes
 g-01) (Curl) Research and find API/builtin Class regarding file transfer
 g-02) (Curl) Implement function to retrieve proper file name
 g-03) (Curl) Implement method for file transfer
