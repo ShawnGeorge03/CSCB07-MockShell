@@ -105,6 +105,10 @@ public class FileSystem {
     newNode.setParent(current);
     current.getList().add(newNode);
   }
+  
+  public void removeFromDirectory(int i) {
+	  current.getList().remove(i);
+  }
 
   public static ArrayList<String> getCommandLog() {
     return CommandLog;

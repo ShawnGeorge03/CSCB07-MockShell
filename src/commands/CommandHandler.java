@@ -101,6 +101,8 @@ public class CommandHandler {
     commandMap.put("man", "commands.Man");
     // Adds a key named exit and adds its path
     commandMap.put("exit", "commands.Exit");
+    // Adds a key named rm and adds its path
+    commandMap.put("rm", "commands.Rm");
   }
 
   /**
