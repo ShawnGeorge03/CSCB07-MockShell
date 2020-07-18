@@ -6,7 +6,7 @@ import java.util.Arrays;
 import data.FileSystem;
 import data.Node;
 
-public class Mv extends DirectoryManager implements CommandI{
+public class Cp extends DirectoryManager implements CommandI{
 	
 	/**
 	 * Declare instance variable of ArrayList to hold all arguments
@@ -17,7 +17,7 @@ public class Mv extends DirectoryManager implements CommandI{
 	 */
 	private ErrorHandler error;
 	
-	public Mv() {
+	public Cp() {
 		error = new ErrorHandler();
 	}
 	
@@ -62,8 +62,6 @@ public class Mv extends DirectoryManager implements CommandI{
 			return error.getError("Invalid Directory", pathTo[0] + " does not exist!");
 		}
 		
-		filesys.assignCurrent(parentToMove);
-		filesys.removeFromDirectory(toRemove);
 		traverse.run(currentPath);
 		
 		return null;

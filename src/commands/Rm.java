@@ -17,6 +17,10 @@ public class Rm extends DirectoryManager implements CommandI{
 	 */
 	private ErrorHandler error;
 	
+	public Rm() {
+		error = new ErrorHandler();
+	}
+	
 	
 	public String run(String[] arguments, String actualInput, boolean val) {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
