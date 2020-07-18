@@ -103,6 +103,8 @@ public class CommandHandler {
     commandMap.put("exit", "commands.Exit");
     // Adds a key named rm and adds its path
     commandMap.put("rm", "commands.Rm");
+    // Adds a key named curl and adds its path
+    commandMap.put("curl", "commands.Curl");
   }
 
   /**
@@ -165,7 +167,7 @@ public class CommandHandler {
           CommandI commandObj =
               (CommandI) Class.forName(className).getDeclaredConstructor().newInstance();
 
-          // Calls the run command in that respective class anc collects the output
+          // Calls the run command in that respective class and collects the output
           output = commandObj.run(args, fullInput, speakMode);
 
         } catch (InstantiationException e) {
