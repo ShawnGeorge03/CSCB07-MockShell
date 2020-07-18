@@ -103,6 +103,8 @@ public class CommandHandler {
     commandMap.put("exit", "commands.Exit");
     // Adds a key named rm and adds its path
     commandMap.put("rm", "commands.Rm");
+ // Adds a key named mv and adds its path
+    commandMap.put("mv", "commands.Mv");
     // Adds a key named curl and adds its path
     commandMap.put("curl", "commands.Curl");
   }
