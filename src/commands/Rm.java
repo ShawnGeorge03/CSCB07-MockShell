@@ -35,7 +35,6 @@ public class Rm extends DirectoryManager implements CommandI{
 			Cd traverseFileSystem = new Cd();
 			
 			if (traverseFileSystem.run(dirAbove)) {
-				System.out.println(getCurrentPath());
 				Node current = FileSystem.getFileSys().getCurrent();
 				for (int i = 0; i < current.getList().size(); i++) {
 					if (current.getList().get(i).getName().equals(dirToRemove)) {
