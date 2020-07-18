@@ -103,35 +103,37 @@ public class Echo extends FileManager implements CommandI {
     output = output.substring(0, output.length() - 1).replaceAll("\"", "");
   }
 
-  private void executeAppend(String fileContents, String fileName,
+  private void executeOverwrite(String fileContents, String fileName,
       String fullInput) {
-    // If user has inputted both file content and file name
-    if (argument.split(">").length == 2 && !argument.split(">")[0].equals("")) {
-      // Create the EchoOverwrite object
+    // Create the EchoOverwrite object
+    if(fileName.length() > 0) {
       EchoOverwrite overwriteExe = new EchoOverwrite();
       // Execute the overwriting command
       overwriteExe.execute(fileContents, fileName);
       output = null;
-      return;
-    } else
-      // Throw an error
+    }
+    else {
+      //Throw an error
       output = this.getErrorHandler().getError("Invalid File", fullInput);
+    }
+    return;
   }
 
-  private void executeOverwrite(String fileContents, String fileName,
+  private void executeAppend(String fileContents, String fileName,
       String fullInput) {
-    // If user has inputted both file content and file name
-    if (argument.split(">>").length == 2
-        && !argument.split(">>")[0].equals("")) {
+    //System.out.println("Reached Append");
+    if(fileName.length() > 0) {
       // Create the EchoAppend object
       EchoAppend appendExe = new EchoAppend();
       // Execute the overwriting command
       appendExe.execute(fileContents, fileName);
       output = null;
-      return;
-    } else
-      // Throw an error
+    }
+    else {
+      //Throw an error
       output = this.getErrorHandler().getError("Invalid File", fullInput);
+    }
+    return;
   }
 
   private void execute(String[] args, String fullInput) {
@@ -143,6 +145,7 @@ public class Echo extends FileManager implements CommandI {
           fullInput.lastIndexOf("\""));
       String fileName =
           argument.substring(argument.lastIndexOf(">") + 1, argument.length());
+      //System.out.println(fullInput);
       fileName = fileName.replaceAll("^\\s+", "");
       // Gets number of arrows to distinguish between append and overwrite
       numArrows = count_arrows(fullInput
@@ -152,12 +155,12 @@ public class Echo extends FileManager implements CommandI {
         printToConsole(args);
       // Overwrite case
       else if (numArrows == 1) {
-        executeAppend(fileContents, fileName, fullInput);
+        executeOverwrite(fileContents, fileName, fullInput);
         return;
       }
       // Append case
       else if (numArrows == 2) {
-        executeOverwrite(fileContents, fileName, fullInput);
+        executeAppend(fileContents, fileName, fullInput);
         return;
       } else
         // Error handling for arguments
