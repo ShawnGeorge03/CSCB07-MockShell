@@ -1,0 +1,12 @@
+Class name: Rm
+Parent class: DirectoryManager
+Subclasses: N/A
+Implements: CommandI
+
+Responsibilties:
+*Removes file or directory specified by user, can be given an absolute or relative path.
+
+Collaborators:
+*Cd
+*FileSystem
+*ErrorHandler
