@@ -1,0 +1,14 @@
+Class name: Curl
+Parent class: N/A
+Subclasses: N/A
+Implements: CommandI
+
+Responsibilties:
+*Checks if a connection can be made with the URL
+*Retrives the file using that connection
+*Retrives the file name from the given URL 
+
+Collaborators:
+*Echo
+*ErrorManager
+
