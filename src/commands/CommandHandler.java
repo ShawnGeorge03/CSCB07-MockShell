@@ -111,6 +111,8 @@ public class CommandHandler {
     commandMap.put("cp", "commands.Cp");
     // Adds a key named find and adds its path
     commandMap.put("find", "commands.Find");
+    // Adds a key named save and adds its path
+    commandMap.put("save", "commands.Save");
   }
 
   /**
