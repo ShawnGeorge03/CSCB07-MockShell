@@ -109,6 +109,8 @@ public class CommandHandler {
     commandMap.put("curl", "commands.Curl");
  // Adds a key named curl and adds its path
     commandMap.put("cp", "commands.Cp");
+    // Adds a key named find and adds its path
+    commandMap.put("find", "commands.Find");
   }
 
   /**
