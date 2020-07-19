@@ -122,77 +122,38 @@ public class TestCases {
   }
 
   private void setupEnviro() {
+        //Sets up the C Folder
+        mkdir.MakeDirectory("users".split(" "));
+        mkdir.MakeDirectory("pics".split(" "));
+        mkdir.MakeDirectory("Sys".split(" "));
+        echo.run("Sys".split(" "), "echo \"Wow what a project\" > A2", false);
     
-    //Declares and initializes a String array of size 1
-    String[] setupDirs = new String[1];
-
-    //Sets up the C Folder
-    setupDirs[0] = "users";
-    mkdir.MakeDirectory(setupDirs);
-    setupDirs[0] = "pics";
-    mkdir.MakeDirectory(setupDirs);
-    setupDirs[0] = "Sys";
-    mkdir.MakeDirectory(setupDirs);
-    echo.run(setupDirs, "echo \"Wow what a project\" > A2", false);
-
-    //Sets up the users Folder
-    setupDirs[0] = "C/users";
-    cd.run(setupDirs, "cd C/users", false);
-    setupDirs[0] = "desktop";
-    mkdir.MakeDirectory(setupDirs);
-
-    //Sets up the desktop Folder
-    setupDirs[0] = "C/users/desktop";
-    cd.run(setupDirs, "cd C/users/desktop", false);
-    echo.run(setupDirs, "echo \"Hello TA\" > CSCB07", false);
-    echo.run(setupDirs, "echo \"2+2=5\" > Hwk", false);
-    setupDirs[0] = "../../";
-    cd.run(setupDirs, "cd ../../", false);
-
-    //Sets up the pics Folder
-    echo.run(setupDirs, "echo \"this is a picturefile indeed\" > pics/picfile",
-        false);
-    setupDirs[0] = "pics";
-    cd.run(setupDirs, "cd pics", false);
-    echo.run(setupDirs, "echo \"Hello TA from the pics Folder\" > CSCB07",
-        false);
-    setupDirs[0] = "..";
-    cd.run(setupDirs, "cd ..", false);
-
-    //Sets up the Sys Folder
-    setupDirs[0] = "Sys";
-    cd.run(setupDirs, "cd Sys", false);
-    setupDirs[0] = "IO";
-    mkdir.MakeDirectory(setupDirs);
-    setupDirs[0] = "LOL";
-    mkdir.MakeDirectory(setupDirs);
-
-    //Sets up the IO Folder
-    setupDirs[0] = "IO";
-    cd.run(setupDirs, "cd IO", false);
-    setupDirs[0] = "keyboard";
-    mkdir.MakeDirectory(setupDirs);
-    setupDirs[0] = "Mouse";
-    mkdir.MakeDirectory(setupDirs);
-
-    //Sets up the keyboard Folder
-    setupDirs[0] = "keyboard";
-    cd.run(setupDirs, "cd keyboard", false);
-    echo.run(setupDirs, "echo \"QWERTY\" > keys", false);
-    echo.run(setupDirs, "echo \"RGB == ways more      F    P   S\" > RGB",
-        false);
-    setupDirs[0] = "../";
-    cd.run(setupDirs, "cd ../", false);
-
-    //Sets up the Mouse Folder
-    setupDirs[0] = "Mouse";
-    cd.run(setupDirs, "cd Mouse", false);
-    echo.run(setupDirs, "echo \"Mouse is in Mouse Folder\" > Presses", false);
-
-    //Sets up the C Folder
-    setupDirs[0] = "../../../";
-    cd.run(setupDirs, "cd ../../../", false);
-
+        //Sets up the users Folder
+        mkdir.MakeDirectory("C/users/desktop".split(" "));
+    
+        //Sets up the desktop Folder
+        echo.run("C/users/desktop".split(" "), "echo \"Hello TA\" > C/users/desktop/CSCB07", false);
+        echo.run("C/users/desktop".split(" "), "echo \"2+2=5\" > C/users/desktop/Hwk", false);
+    
+        //Sets up the pics Folder
+        echo.run("pics".split(" "), "echo \"this is a picturefile indeed\" > pics/picfile",false);
+        echo.run("pics".split(" "), "echo \"Hello TA from the pics Folder\" > pics/CSCB07", false);
+       
+        //Sets up the Sys Folder
+        mkdir.MakeDirectory("Sys/IO".split(" "));
+        mkdir.MakeDirectory("Sys/LOL".split(" "));
+    
+        //Sets up the IO Folder
+        mkdir.MakeDirectory("C/Sys/IO/keyboard".split(" "));
+        mkdir.MakeDirectory("C/Sys/IO/Mouse".split(" "));
+    
+        //Sets up the keyboard Folder
+        echo.run("C/Sys/IO/keyboard".split(" "), "echo \"QWERTY\" > C/Sys/IO/keyboard/keys", false);
+        echo.run("C/Sys/IO/keyboard".split(" "), "echo \"RGB == ways more      F    P   S\" > C/Sys/IO/keyboard/RGB",false);
+    
+        //Sets up the Mouse Folder
+        echo.run("C/Sys/IO/Mouse".split(" "), "echo \"Mouse is in Mouse Folder\" > C/Sys/IO/Mouse/Presses", false);
+    
     //Setups the  History
     history.addCommands("mkdir users");
     history.addCommands("mkdir pics");

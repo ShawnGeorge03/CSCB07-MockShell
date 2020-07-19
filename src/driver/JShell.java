@@ -47,8 +47,10 @@ public class JShell {
     //For running TestCases.java set to true
     boolean testing = false;
 
+    TestCases tester = new TestCases();
+
+
     if (testing) {
-      TestCases tester = new TestCases();
       tester.runTestCases();
     } else {
       Checker parser = new Checker();

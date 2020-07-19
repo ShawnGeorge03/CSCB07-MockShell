@@ -1,0 +1,22 @@
+a) What did I work on in the last three days? 
+	- Created and added a curl CRC Card
+	- Created and added JUnit testcases for history
+	- Researched and found a builtin Class regarding file transfer
+	- Implemented function to retrieve proper file name
+	- Implemented method for file transfer
+	- Used code from project to create and write to file on current directory  
+	- Collected or created a list of test websites
+	- Created and added JUnit testcases for curl once done
+	
+b) What do I plan to work in the next three days?
+	- Create and add JUnit testcases for the new changes of mkdir
+	- Create and add JUnit testcases for cd
+	- Create and add JUnit testcases for pwd
+	- Create and add JUnit testcases for cat
+	- Create and add JUnit testcases for echo
+	- Create and add JUnit testcases for man
+	
+c) Am I blocked on anything?  
+	- Require changes to be made to mkdir to take a list of directory
+
+
