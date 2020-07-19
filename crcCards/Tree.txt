@@ -1,0 +1,10 @@
+Class name: Tree
+Parent class: DirectoryManager
+Subclasses: N/A
+Implements: CommandI
+
+Responsibilties:
+*Visually displays a tree-like diagram of all directories and files in the filesystem
+
+Collaborators:
+*ErrorHandler

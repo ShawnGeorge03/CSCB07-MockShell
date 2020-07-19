@@ -1,0 +1,11 @@
+Class name: Find
+Parent class: DirectoryManager
+Subclasses: N/A
+Implements: CommandI
+
+Responsibilties:
+*Checks given path to see if they contain the requested files
+
+Collaborators:
+*ErrorHandler
+*FileSystem
