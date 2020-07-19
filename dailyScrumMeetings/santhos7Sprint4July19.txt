@@ -9,8 +9,8 @@ a) What did I work on in the last three days?
 	- Created and added JUnit testcases for curl once done
 	
 b) What do I plan to work in the next three days?
-	- Create and add JUnit testcases for the new changes of mkdir
-	- Create and add JUnit testcases for cd
+	- Add 2 more JUnit testcases for the new changes of mkdir
+	- Add JUnit testcases for cd
 	- Create and add JUnit testcases for pwd
 	- Create and add JUnit testcases for cat
 	- Create and add JUnit testcases for echo
