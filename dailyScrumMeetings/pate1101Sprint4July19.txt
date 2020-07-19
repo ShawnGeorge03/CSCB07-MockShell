@@ -1,0 +1,18 @@
+a) What did I work on in the last three days? 
+	- Created and added a Save CRC Card
+	- Researched and tested different implementations for save using different builtin Java libraries
+	- Implemented function that creates and writes to a JSON file
+	- Implemented function that saves the current filesystem to a JSON file
+	- Implemented function that saves the command log to a JSON file
+	
+b) What do I plan to work in the next three days?
+	- Add error checking to the save class
+	- Research and test a basic implementation for load
+	- Fix relative path input for save class
+	- Add testing for save and load class
+	- Create and add a Load crcCard
+	
+c) Am I blocked on anything?  
+	- No
+
+
