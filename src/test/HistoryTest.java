@@ -4,10 +4,14 @@ import static org.junit.Assert.*;
 import java.lang.reflect.Field;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
 import org.junit.Test;
+
 import commands.History;
 import data.FileSystem;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class HistoryTest {
   
   private FileSystem fs;
@@ -33,7 +37,7 @@ public class HistoryTest {
   }
 
   @Test
-  public void testNoArgs() {
+  public void testANoArgs() {
     fs.getCommandLog().add("history");
     String[] testCase1history = {};
     actual = history.run(testCase1history, "history", false);
@@ -44,7 +48,7 @@ public class HistoryTest {
   }
   
   @Test
-  public void testLargeInteger() {
+  public void testBLargeInteger() {
     fs.getCommandLog().add("history");
     fs.getCommandLog().add("history 100");
     actual = history.run("100".split(" "), "history 100", false);
@@ -55,7 +59,7 @@ public class HistoryTest {
   }
   
   @Test
-  public void testSmallInteger() {
+  public void testCSmallInteger() {
     fs.getCommandLog().add("history");
     fs.getCommandLog().add("history 100");
     fs.getCommandLog().add("history 5");
@@ -66,7 +70,7 @@ public class HistoryTest {
   }
   
   @Test
-  public void testNegativeInteger() {
+  public void testDNegativeInteger() {
     fs.getCommandLog().add("history");
     fs.getCommandLog().add("history 100");
     fs.getCommandLog().add("history 5");
@@ -79,7 +83,7 @@ public class HistoryTest {
   
   
   @Test
-  public void testNotAnIntegerCase1() {
+  public void testENotAnIntegerCase1() {
     fs.getCommandLog().add("history");
     fs.getCommandLog().add("history 100");
     fs.getCommandLog().add("history 5");
@@ -92,7 +96,7 @@ public class HistoryTest {
   }
   
   @Test
-  public void testNotAnIntegerCase2() {
+  public void testFNotAnIntegerCase2() {
     fs.getCommandLog().add("history");
     fs.getCommandLog().add("history 100");
     fs.getCommandLog().add("history 5");
@@ -106,7 +110,7 @@ public class HistoryTest {
   }
   
   @Test
-  public void testMultipleArgs() {
+  public void testGMultipleArgs() {
     fs.getCommandLog().add("history");
     fs.getCommandLog().add("history 100");
     fs.getCommandLog().add("history 5");

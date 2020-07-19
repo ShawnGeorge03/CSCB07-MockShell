@@ -45,11 +45,11 @@ public class FileSystem {
   /**
    * Declare instance variable of ArrayList to contain the logs of all inputs given to JShell
    */
-  private static ArrayList<String> CommandLog = new ArrayList<String>();
+  private static ArrayList<String> CommandLog;
   /**
    * Declare instance variable of ArrayDeque
    */
-  private static Deque<String> stack = new ArrayDeque<String>();
+  private static Deque<String> stack;
 
   /**
    * Initialize current and root nodes
@@ -61,6 +61,8 @@ public class FileSystem {
    * Constructor for FileSystem to set root default values
    */
   private FileSystem() {
+    FileSystem.CommandLog = new ArrayList<String>();
+    FileSystem.stack = new ArrayDeque<String>();
     root.setDir(true);
     root.setContent(null);
     root.setName("C");
@@ -112,10 +114,6 @@ public class FileSystem {
 
   public static ArrayList<String> getCommandLog() {
     return CommandLog;
-  }
-
-  public static void setCommandLog(ArrayList<String> commandLog) {
-    CommandLog = commandLog;
   }
 
   public static Deque<String> getStack() {

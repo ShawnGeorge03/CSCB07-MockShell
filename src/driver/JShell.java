@@ -32,7 +32,7 @@ package driver;
 
 import java.util.Scanner;
 import commands.Checker;
-import commands.History;
+import data.FileSystem;
 
 /**
  * Class JShell is the main driver program where the user inputs commands
@@ -52,7 +52,7 @@ public class JShell {
       tester.runTestCases();
     } else {
       Checker parser = new Checker();
-      History history = new History();
+      FileSystem fs = FileSystem.getFileSys();
       Scanner sc = new Scanner(System.in);
 
       boolean running = true;
@@ -60,7 +60,7 @@ public class JShell {
       while (running) {
         System.out.print("$");
         String input = sc.nextLine();
-        history.addCommands(input);
+        fs.getCommandLog().add(input);
         parser.parseInput(input);
       }
       sc.close();

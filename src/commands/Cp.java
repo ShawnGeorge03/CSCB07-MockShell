@@ -3,7 +3,6 @@ package commands;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import data.FileSystem;
 import data.Node;
 
 public class Cp extends DirectoryManager implements CommandI{
@@ -36,18 +35,15 @@ public class Cp extends DirectoryManager implements CommandI{
 		String[] currentPath = {getCurrentPath()};
 		String[] pathFrom = {args.get(0)};
 		String[] pathTo = {args.get(1)};
-		int toRemove = -1;
-		
 		Node parentToMove;
 		Node toMove;
-		
+
 		if (traverse.run(pathFrom)) {
 			toMove = filesys.getCurrent();
 			parentToMove = toMove.getParent();
-			
+
 			for (int i = 0; i < parentToMove.getList().size(); i++) {
 				if (parentToMove.getList().get(i).equals(toMove)) {
-					toRemove = i;
 				}
 			}
 
