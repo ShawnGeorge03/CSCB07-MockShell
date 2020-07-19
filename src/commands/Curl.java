@@ -40,20 +40,20 @@ public class Curl implements CommandI {
 
         String inputLine, text = "";
         while ((inputLine = info.readLine()) != null) {
-          text += inputLine;
+          text += inputLine + "\n";
         }
         info.close();
    
         String[] echoArgs = text.split(" ");
         String echoFullInput = "echo \" " + text + "\" > " + fileName;
-        
+                
         echo.run(echoArgs, echoFullInput, false);
       } catch (MalformedURLException e) {
-        System.out.println("Parameter given is invalid " + e.getMessage());
-      } catch (FileNotFoundException e) {
-        System.out.println("File could not be found at : " + e.getMessage());
+        return "Parameter given is invalid " + args[0];
+      } catch (FileNotFoundException | StringIndexOutOfBoundsException e) {
+        return "URL provided does not contain a file " + args[0];
       } catch (IOException e) {
-        System.out.println("Connection could not be made to " + e.getMessage());
+        return "Connection could not be made to " + args[0];
       }
     }
 
