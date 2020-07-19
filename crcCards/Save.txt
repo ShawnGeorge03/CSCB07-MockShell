@@ -1,0 +1,12 @@
+Class name: Save
+Parent class: N/A
+Subclasses: N/A
+Implements: CommandI
+
+Responsibilties:
+*Saving the users current session to a JSON file
+*Location of the file is given by user in either absolute path or relative
+
+Collaborators:
+*FileSystem
+*ErrorHandler
