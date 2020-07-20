@@ -1,0 +1,17 @@
+a) What did I work on in the last three days? 
+	- Created and Added Rm Class
+	- Created and Added Rm CRC Card
+	- Created and Added Cp Class
+	- Created and Added Cp CRC Card
+	- Created and Added Mv Class
+	- Created and Added Mv CRC Card
+	
+b) What do I plan to work in the next three days?
+	- Modify Mkdir to accomodate new changes
+	- Modify Ls to accomodate new changes
+	- Write Unit Tests for Pushd and Popd
+	- Comment Classes Rm, Cp and Mv
+	
+c) Am I blocked on anything?  
+	- Not blocked, but would like for root to be changed to \ so testing can be done.
+
