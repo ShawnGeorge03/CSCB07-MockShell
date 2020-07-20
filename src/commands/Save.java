@@ -21,27 +21,30 @@ public class Save implements CommandI{
   @Override
   public String run(String[] args, String fullInput, boolean val) {
     filesys = filesys.getFileSys();
-    filePath = formatArguments(args);
-    System.out.println(filePath);
-    try {
-      writer = new FileWriter(filePath); 
-      writer.write("FILESYSTEM\n{\n");
-      storeFileSystem(writer);
-      writer.write("}");
-      //writer.write("If this doesn't work then I'll be sad");
-      
-      writer.write("\n\nNODES\n{\n");
-      storeNodeInformation(writer);
-      writer.write("}");
-   
-      writer.write("\n\nCOMMAND LOG\n{\n");
-      storeCommandHistoryToFile(writer);
-      writer.write("}");
-      
-      writer.close();
-    } catch (Exception e) {
-        e.printStackTrace();
+    if(args.length > 0) {
+      filePath = formatArguments(args);
+      System.out.println(filePath);
+      try {
+        writer = new FileWriter(filePath); 
+        writer.write("FILESYSTEM\n{\n");
+        storeFileSystem(writer);
+        writer.write("}");
+        //writer.write("If this doesn't work then I'll be sad");
+        
+        writer.write("\n\nNODES\n{\n");
+        storeNodeInformation(writer);
+        writer.write("}");
+     
+        writer.write("\n\nCOMMAND LOG\n{\n");
+        storeCommandHistoryToFile(writer);
+        writer.write("}");
+        
+        writer.close();
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
     }
+    else System.out.println("No file inputted");
     return null;
   }
   
