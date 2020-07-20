@@ -1,7 +1,7 @@
 package test;
 
 import static org.junit.Assert.*;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
@@ -11,16 +11,17 @@ import commands.Man;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ManTest {
 
-    private Man man;
-    private String expected;
-    private String actual;
+    private static Man man;
 
-    @Before
-    public void setup() throws Exception{
-        this.man = new Man();
+    private static String expected;
+    private static String actual;
 
-        this.expected = "";
-        this.actual = "";
+    @BeforeClass
+    public static void setup() throws Exception{
+        man = new Man();
+
+        expected = "";
+        actual = "";
     }
 
     @Test

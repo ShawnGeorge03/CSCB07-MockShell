@@ -1,7 +1,8 @@
 package test;
 
 import static org.junit.Assert.*;
-import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
@@ -11,27 +12,29 @@ import commands.Mkdir;
 import commands.Pwd;
 import data.FileSystem;
 
+import java.lang.reflect.Field;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PwdTest {
 
-    private FileSystem fs;
-    private Cd cd;
-    private Mkdir mkdir;
-    private Pwd pwd;
+    private static FileSystem fs;
+    private static Cd cd;
+    private static Mkdir mkdir;
+    private static Pwd pwd;
 
-    private String expectedPath;
-    private String actualPath;
+    private static String expectedPath;
+    private static String actualPath;
 
 
-    @Before
-    public void setup() throws Exception{
-        this.fs = FileSystem.getFileSys();
-        this.cd = new Cd();
-        this.mkdir = new Mkdir();
-        this.pwd = new Pwd();
+    @BeforeClass
+    public static void setup() throws Exception{
+        fs = FileSystem.getFileSys();
+        cd = new Cd();
+        mkdir = new Mkdir();
+        pwd = new Pwd();
 
-        this.expectedPath = "";
-        this.actualPath = "";
+        expectedPath = "";
+        actualPath = "";
 
         mkdir.MakeDirectory("C/users".split(" "));
         mkdir.MakeDirectory("C/users/desktop".split(" "));
@@ -40,7 +43,13 @@ public class PwdTest {
         mkdir.MakeDirectory("C/Sys/IO/keyboard".split(" "));
         mkdir.MakeDirectory("C/Sys/IO/Mouse".split(" "));
     }
-    
+
+    @AfterClass
+    public static void tearDown() throws Exception {
+        Field feild = fs.getClass().getDeclaredField("fileSys");
+        feild.setAccessible(true);
+        feild.set(null, null);
+    } 
 
     @Test
     public void testAInitialPath(){

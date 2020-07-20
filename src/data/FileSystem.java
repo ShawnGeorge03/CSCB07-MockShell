@@ -61,8 +61,8 @@ public class FileSystem {
    * Constructor for FileSystem to set root default values
    */
   private FileSystem() {
-    FileSystem.CommandLog = new ArrayList<String>();
-    FileSystem.stack = new ArrayDeque<String>();
+    CommandLog = new ArrayList<String>();
+    stack = new ArrayDeque<String>();
     root.setDir(true);
     root.setContent(null);
     root.setName("C");

@@ -1,7 +1,9 @@
 package test;
 
 import static org.junit.Assert.*;
-import org.junit.Before;
+
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
@@ -11,25 +13,27 @@ import commands.Echo;
 import commands.Cat;
 import data.FileSystem;
 
+import java.lang.reflect.Field;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CatTest {
 
-    private FileSystem fs;
-    private Mkdir mkdir;
-    private Echo echo;
-    private Cat cat;
+    private static FileSystem fs;
+    private static Mkdir mkdir;
+    private static Echo echo;
+    private static Cat cat;
 
-    private String expected, actual;
+    private static String expected, actual;
 
-    @Before
-    public void setup() throws Exception{
-        this.fs = FileSystem.getFileSys();
-        this.mkdir = new Mkdir();
-        this.echo = new Echo();
-        this.cat = new Cat();
+    @BeforeClass
+    public static void setup() throws Exception {
+        fs = FileSystem.getFileSys();
+        mkdir = new Mkdir();
+        echo = new Echo();
+        cat = new Cat();
 
-        this.expected = "";
-        this.actual = "";
+        expected = "";
+        actual = "";
 
         // Sets up the C Folder
         mkdir.MakeDirectory("users".split(" "));
@@ -62,6 +66,13 @@ public class CatTest {
 
         // Sets up the Mouse Folder
         echo.run("C/Sys/IO/Mouse".split(" "), "echo \"Mouse is in Mouse Folder\" > C/Sys/IO/Mouse/Presses", false);
+    }
+
+    @AfterClass
+    public static void tearDown() throws Exception {
+        Field feild = fs.getClass().getDeclaredField("fileSys");
+        feild.setAccessible(true);
+        feild.set(null, null);
     }
 
     @Test

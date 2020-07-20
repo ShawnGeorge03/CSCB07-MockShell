@@ -1,7 +1,8 @@
 package test;
 
 import static org.junit.Assert.*;
-import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
@@ -12,30 +13,32 @@ import commands.Echo;
 import commands.DirectoryManager;
 import data.FileSystem;
 
+import java.lang.reflect.Field;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CdTest {
 
-    private FileSystem fs;
-    private Cd cd;
-    private Mkdir mkdir;
-    private Echo echo;
-    private DirectoryManager pwd;
+    private static FileSystem fs;
+    private static Cd cd;
+    private static Mkdir mkdir;
+    private static Echo echo;
+    private static DirectoryManager pwd;
 
-    private String expectedCd, expectedPath;
-    private String actualCd, actualPath;
+    private static String expectedCd, expectedPath;
+    private static String actualCd, actualPath;
 
-    @Before
-    public void setUp() throws Exception {
-        this.fs = FileSystem.getFileSys();
-        this.cd = new Cd();
-        this.mkdir = new Mkdir();
-        this.echo = new Echo();
-        this.pwd = new DirectoryManager();
+    @BeforeClass
+    public static void setUp() throws Exception {
+        fs = FileSystem.getFileSys();
+        cd = new Cd();
+        mkdir = new Mkdir();
+        echo = new Echo();
+        pwd = new DirectoryManager();
 
-        this.expectedCd = "";
-        this.expectedPath = "";
-        this.actualCd = "";
-        this.actualPath = "";
+        expectedCd = "";
+        expectedPath = "";
+        actualCd = "";
+        actualPath = "";
 
         // Sets up the C Folder
         mkdir.MakeDirectory("users".split(" "));
@@ -46,14 +49,6 @@ public class CdTest {
         // Sets up the users Folder
         mkdir.MakeDirectory("C/users/desktop".split(" "));
 
-        // Sets up the desktop Folder
-        //echo.run("C/users/desktop".split(" "), "echo \"Hello TA\" > C/users/desktop/CSCB07", false);
-        //echo.run("C/users/desktop".split(" "), "echo \"2+2=5\" > C/users/desktop/Hwk", false);
-
-        // Sets up the pics Folder
-        //echo.run("pics".split(" "), "echo \"this is a picturefile indeed\" > pics/picfile", false);
-        //echo.run("pics".split(" "), "echo \"Hello TA from the pics Folder\" > pics/CSCB07", false);
-
         // Sets up the Sys Folder
         mkdir.MakeDirectory("Sys/IO".split(" "));
         mkdir.MakeDirectory("Sys/LOL".split(" "));
@@ -61,14 +56,13 @@ public class CdTest {
         // Sets up the IO Folder
         mkdir.MakeDirectory("C/Sys/IO/keyboard".split(" "));
         mkdir.MakeDirectory("C/Sys/IO/Mouse".split(" "));
+    }
 
-        // Sets up the keyboard Folder
-        //echo.run("C/Sys/IO/keyboard".split(" "), "echo \"QWERTY\" > C/Sys/IO/keyboard/keys", false);
-        //echo.run("C/Sys/IO/keyboard".split(" "), "echo \"RGB == ways more      F    P   S\" > C/Sys/IO/keyboard/RGB",
-        //        false);
-
-        // Sets up the Mouse Folder
-        //echo.run("C/Sys/IO/Mouse".split(" "), "echo \"Mouse is in Mouse Folder\" > C/Sys/IO/Mouse/Presses", false);
+    @AfterClass
+    public static void tearDown() throws Exception {
+        Field feild = fs.getClass().getDeclaredField("fileSys");
+        feild.setAccessible(true);
+        feild.set(null, null);
     }
 
     @Test
