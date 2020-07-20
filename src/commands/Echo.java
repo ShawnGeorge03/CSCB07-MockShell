@@ -60,7 +60,7 @@ public class Echo extends FileManager implements CommandI {
     String[] slicedInput = fullInput.split(" ");
 
     // Parses the args array and assigns it to argument
-    argument = fix_argument(slicedInput);
+    argument = fixArgument(slicedInput);
     // Execute the needed task
     execute(slicedInput, fullInput);
     // Return the output
@@ -76,11 +76,11 @@ public class Echo extends FileManager implements CommandI {
     return false;
   }
 
-  private int count_arrows(String parsedInput) {
+  private int countArrows(String parsedInput) {
     return parsedInput.length() - parsedInput.replaceAll(">", "").length();
   }
 
-  private String fix_argument(String[] splicedInput) {
+  private String fixArgument(String[] splicedInput) {
     String args = "";
     // Loops through the args array and appends everything to argument
     for (int i = 1; i < splicedInput.length; i++) {
@@ -148,7 +148,7 @@ public class Echo extends FileManager implements CommandI {
       //System.out.println(fullInput);
       fileName = fileName.replaceAll("^\\s+", "");
       // Gets number of arrows to distinguish between append and overwrite
-      numArrows = count_arrows(fullInput
+      numArrows = countArrows(fullInput
           .substring(fullInput.lastIndexOf("\"") + 1, fullInput.length()));
       // Simple print to shell case
       if (numArrows == 0 && args.length > 1)
