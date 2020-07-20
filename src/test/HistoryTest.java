@@ -28,12 +28,12 @@ public class HistoryTest {
     this.actual = "";
 
     //Setups the  History
-    history.addCommands("mkdir users");
-    history.addCommands("mkdir pics");
-    history.addCommands("mkdir Sys");
-    history.addCommands("echo \"Wow what a project\" > A2");
-    history.addCommands("cd C/users");
-    history.addCommands("mkdir desktop");
+    fs.getCommandLog().add("mkdir users");
+    fs.getCommandLog().add("mkdir pics");
+    fs.getCommandLog().add("mkdir Sys");
+    fs.getCommandLog().add("echo \"Wow what a project\" > A2");
+    fs.getCommandLog().add("cd C/users");
+    fs.getCommandLog().add("mkdir desktop");
   }
 
   @Test

@@ -47,11 +47,11 @@ public class JShell {
     //For running TestCases.java set to true
     boolean testing = false;
 
-    TestCases tester = new TestCases();
+    //TestCases tester = new TestCases();
 
 
     if (testing) {
-      tester.runTestCases();
+      //tester.runTestCases();
     } else {
       Checker parser = new Checker();
       FileSystem fs = FileSystem.getFileSys();

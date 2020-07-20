@@ -229,7 +229,6 @@ public class TestCases {
 
     //Declares and initializes the pwdOutputMap as a HashMap Object
     HashMap<Integer, String> pwdOutputMap = new HashMap<Integer, String>();
-
     
     //Adds the respective key and value to the pwdOutputMap
     pwdOutputMap.put(0, "C"); // Error
