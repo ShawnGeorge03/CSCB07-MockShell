@@ -100,19 +100,26 @@ public class Mkdir extends DirectoryManager implements CommandI {
 				Cd newpath = new Cd();
 				if (newpath.run(newArgs)) {
 					Node newNode = getDirNode(i);
+					boolean isValidDir = true;
 					for (int j = 0; j < FileSystem.getFileSys().getCurrent().getList().size(); j++) {
 						if (FileSystem.getFileSys().getCurrent().getList().get(j).getName().equals(newNode.getName())) {
 							Cd goBack = new Cd();
 							
 							goBack.run(currentPath);
-							output += error.getError("Same Directory", newNode.getContent() + " already exists");
+							output += error.getError("Same Directory", newNode.getName() + " already exists");
+							isValidDir = false;
 							continue;
 						}
+					}
+					
+					if (!isValidDir) {
+						continue;
 					}
 					
 					FileSystem.getFileSys().addToDirectory(newNode);
 				} else {
 					output += error.getError("Invalid Directory", newArgs[0] + " is not a valid directory");
+					
 				}
 				newpath.run(currentPath);
 			} else {
