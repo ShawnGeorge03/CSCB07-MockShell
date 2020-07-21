@@ -76,7 +76,13 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * @return String  An error message, else null
 	 */
 	public String MakeDirectory(String[] arguments) {
+		
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
+		
+		if (args.size() == 0) {
+			return error.getError("Invalid Argument", "Expected at least 1 argument");
+		}
+		
 		String output = "";
 		//Checks for Valid arguments
 			//Checks if a path was given or if the name was just iven
