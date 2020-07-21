@@ -112,7 +112,7 @@ public class FileSystem {
 	  current.getList().remove(i);
   }
 
-  public static ArrayList<String> getCommandLog() {
+  public ArrayList<String> getCommandLog() {
     return CommandLog;
   }
 

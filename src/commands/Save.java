@@ -17,10 +17,13 @@ public class Save implements CommandI{
   private FileWriter writer;
   private String filePath;
   private FileSystem filesys;
+
+  public Save(){
+    this.filesys = FileSystem.getFileSys();
+  }
   
   @Override
   public String run(String[] args, String fullInput, boolean val) {
-    filesys = filesys.getFileSys();
     if(args.length > 0) {
       filePath = formatArguments(args);
       System.out.println(filePath);
@@ -101,9 +104,9 @@ public class Save implements CommandI{
   }
   
   private void storeCommandHistoryToFile(FileWriter writer) {
-    for(int i = 0; i < FileSystem.getCommandLog().size(); i++) {
+    for(int i = 0; i < filesys.getCommandLog().size(); i++) {
       try {
-        writer.write("\t\"" + FileSystem.getCommandLog().get(i) + "\"\n");
+        writer.write("\t\"" + filesys.getCommandLog().get(i) + "\"\n");
       } catch (IOException e) {
         e.printStackTrace();
       }

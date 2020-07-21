@@ -155,12 +155,12 @@ public class TestCases {
         echo.run("C/Sys/IO/Mouse".split(" "), "echo \"Mouse is in Mouse Folder\" > C/Sys/IO/Mouse/Presses", false);
     
     //Setups the  History
-    history.addCommands("mkdir users");
-    history.addCommands("mkdir pics");
-    history.addCommands("mkdir Sys");
-    history.addCommands("echo \"Wow what a project\" > A2");
-    history.addCommands("cd C/users");
-    history.addCommands("mkdir desktop");
+    fs.getCommandLog().add("mkdir users");
+    fs.getCommandLog().add("mkdir pics");
+     fs.getCommandLog().add("mkdir Sys");
+     fs.getCommandLog().add("echo \"Wow what a project\" > A2");
+     fs.getCommandLog().add("cd C/users");
+     fs.getCommandLog().add("mkdir desktop");
   }
 
   /**
@@ -432,7 +432,7 @@ public class TestCases {
     //Runs through different test cases and checks if they return the correct 
     //values
     for (int i = 0; i < historyInputMap.size(); i++) {
-      history.addCommands(historyCommandMap.get(i));
+       fs.getCommandLog().add(historyCommandMap.get(i));
       output = history.run(historyInputMap.get(i), "history", false);
       if (output.contains(historyCorrectOutputMap.get(i)))
         System.out.println("Case # " + (i + 1) + "  : Passed");

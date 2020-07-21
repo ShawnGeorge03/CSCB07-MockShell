@@ -65,8 +65,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * @return String  null always
 	 */
 	public String run(String[] args, String fullInput, boolean val) {
-		String output = MakeDirectory(args);
-		return output;
+		return MakeDirectory(args);
 	}
 
 	/**
@@ -103,7 +102,6 @@ public class Mkdir extends DirectoryManager implements CommandI {
 				if (newpath.run(newArgs)) {
 					Node newNode = getDirNode(i);
 					for (int j = 0; j < FileSystem.getFileSys().getCurrent().getList().size(); j++) {
-						String currentNodeName = FileSystem.getFileSys().getCurrent().getList().get(j).getName();
 						if (FileSystem.getFileSys().getCurrent().getList().get(j).getName().equals(newNode.getName())) {
 							Cd goBack = new Cd();
 							

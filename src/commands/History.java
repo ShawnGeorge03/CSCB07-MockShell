@@ -37,6 +37,7 @@ import data.FileSystem;
  */
 public class History implements CommandI {
 
+  private FileSystem fs;
   /**
    * Declare instance variable of ErrorHandler to handle error messages
    */
@@ -50,6 +51,7 @@ public class History implements CommandI {
    * Constructor for History that initializes instance variables
    */
   public History() {
+    this.fs = FileSystem.getFileSys();
     // Initializes a ErrorHandler Object
     this.error = new ErrorHandler();
     // Initializes a String object called output
@@ -68,7 +70,7 @@ public class History implements CommandI {
     // If the user provides no arguments
     if (args.length == 0) {
       // Calls the following methods to print the entire history
-      printLastXCommands(getCommandLogSize());
+      printLastXCommands(fs.getCommandLog().size());
       // If the user provided 1 argument
     } else if (args.length == 1) {
       // Created and initialized an integer
@@ -112,34 +114,16 @@ public class History implements CommandI {
     return output.trim();
   }
 
-  /**
-   * Adds a command to the CommandLog in FileSystem
-   * 
-   * @param command  this is the command that is to be placed in the CommandLog
-   */
-  public void addCommands(String Command) {
-    FileSystem.getCommandLog().add(Command);
-  }
-
-  /**
-   * Returns the size of the CommandLog in FileSystem
-   * 
-   * @return the size of the Arraylist Object called CommandLog
-   */
-  public int getCommandLogSize() {
-    return FileSystem.getCommandLog().size();
-  }
-
   private void printLastXCommands(int x) {
     // Reads and stores the commands from the CommandLod in FileSystem
-    for (int i = getCommandLogSize() - x; i < getCommandLogSize(); i++) {
+    for (int i = fs.getCommandLog().size() - x; i < fs.getCommandLog().size() ; i++) {
       // If the counter is a negative number
       if (i < 0) {
         // Skips from reading the commandLog
         continue;
       }
       // Collects the the commands from the CommandLog
-      output += (i + 1) + ". " + FileSystem.getCommandLog().get(i) + "\n";
+      output += (i + 1) + ". " + fs.getCommandLog().get(i) + "\n";
     }
   }
 }

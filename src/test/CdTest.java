@@ -16,29 +16,62 @@ import data.FileSystem;
 import java.lang.reflect.Field;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+/**
+ * Class CdTest runs all the different test cases for Cd
+ */
 public class CdTest {
-
+    
+    /**
+    * Declare instance of FileSystem so we can access the filesystem
+    */
     private static FileSystem fs;
-    private static Cd cd;
+    /**
+    * Declare instance of Mkdir to make new directories
+    */
     private static Mkdir mkdir;
+    /**
+    * Declare instance of Echo to make new file
+    */
     private static Echo echo;
-    private static DirectoryManager pwd;
+    /**
+    * Declare instance of DirectoryManager to verify the cd operation
+    */
+    private static DirectoryManager path;
+    /**
+    * Declare instance of Cd to be tested
+    */
+    private static Cd cd;
 
+    
+    /**
+    * Declare two different instance of a String 
+    * objects called expectedCd and expectedPath 
+    */
     private static String expectedCd, expectedPath;
+
+    /**
+    * Declare two different instance of a String 
+    * objects called actualCd and actualPath 
+    */
     private static String actualCd, actualPath;
 
+    /**
+     * Sets up the test environment and initializes the instance variables
+     * 
+     * @throws Exception
+    */
     @BeforeClass
     public static void setUp() throws Exception {
+        //Get the current FileSystem
         fs = FileSystem.getFileSys();
-        cd = new Cd();
+        // Initializes a Mkdir Object
         mkdir = new Mkdir();
+        //Initializes a Echo Object
         echo = new Echo();
-        pwd = new DirectoryManager();
-
-        expectedCd = "";
-        expectedPath = "";
-        actualCd = "";
-        actualPath = "";
+        //Initializes a DirectoryManager Object
+        path = new DirectoryManager();
+        //Initializes a Cd Object
+        cd = new Cd();
 
         // Sets up the C Folder
         mkdir.MakeDirectory("users".split(" "));
@@ -58,29 +91,52 @@ public class CdTest {
         mkdir.MakeDirectory("C/Sys/IO/Mouse".split(" "));
     }
 
+    /**
+     * Destroys the FileSystem after all the testcases have run
+     * 
+     * @throws Exception
+    */
     @AfterClass
     public static void tearDown() throws Exception {
+        //Declares and initializes a Feild variable 
+        //to the fileSys variable in FileSystem
         Field feild = fs.getClass().getDeclaredField("fileSys");
+        //Allows the value of this variable in FileSystem to be accessed
         feild.setAccessible(true);
+        //Changes the value of the variable in FileSystem to null
         feild.set(null, null);
     }
 
+    /**
+     * Test A : User provides no input
+    */
     @Test
     public void testANoArgs() {
+        //Declares and initializes an empty array
         String[] emptyArr = {};
+        //Expected return from Cd
         expectedCd = "Error : No parameters provided : ";
+        //Expected current working directory
         expectedPath = "C";
+        //Actual return from Cd
         actualCd = cd.run(emptyArr, "cd ", false);
-        actualPath = pwd.getCurrentPath();
+        //Returns the current working directory
+        actualPath = path.getCurrentPath();
+        //Checks if the values are equal or not
         assertTrue(actualCd.equals(expectedCd) && actualPath.equals(expectedPath));
     }
 
     @Test
     public void testBRelativePath() {
+        //Expected return from Cd
         expectedCd = null;
+        //Expected current working directory
         expectedPath = "C/pics";
+        //Actual return from Cd
         actualCd = cd.run("pics".split(" "), "cd pics ", false);
-        actualPath = pwd.getCurrentPath();
+        //Returns the current working directory
+        actualPath = path.getCurrentPath();
+        //Checks if the values are equal or not
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
 
@@ -89,7 +145,7 @@ public class CdTest {
         expectedCd = null;
         expectedPath = "C";
         actualCd = cd.run("..".split(" "), "cd .. ", false);
-        actualPath = pwd.getCurrentPath();
+        actualPath = path.getCurrentPath();
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
 
@@ -98,7 +154,7 @@ public class CdTest {
         expectedCd = null;
         expectedPath = "C/users/desktop";
         actualCd = cd.run("users/desktop".split(" "), "cd users/desktop", false);
-        actualPath = pwd.getCurrentPath();
+        actualPath = path.getCurrentPath();
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
 
@@ -107,7 +163,7 @@ public class CdTest {
         expectedCd = null;
         expectedPath = "C";
         actualCd = cd.run("../..".split(" "), "cd ../.. ", false);
-        actualPath = pwd.getCurrentPath();
+        actualPath = path.getCurrentPath();
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
 
@@ -116,7 +172,7 @@ public class CdTest {
         expectedCd = "Error: Invalid Directory : A2";
         expectedPath = "C";
         actualCd = cd.run("A2".split(" "), "cd A2", false);
-        actualPath = pwd.getCurrentPath();
+        actualPath = path.getCurrentPath();
         assertTrue(actualCd.equals(expectedCd) && actualPath.equals(expectedPath));
     }
 
@@ -125,7 +181,7 @@ public class CdTest {
         expectedCd = null;
         expectedPath = "C/Sys/IO/keyboard";
         actualCd = cd.run("C/Sys/IO/keyboard".split(" "), "cd C/Sys/IO/keyboard", false);
-        actualPath = pwd.getCurrentPath();
+        actualPath = path.getCurrentPath();
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
 
@@ -134,7 +190,7 @@ public class CdTest {
         expectedCd = null;
         expectedPath = "C";
         actualCd = cd.run("../../../".split(" "), "cd ../../../", false);
-        actualPath = pwd.getCurrentPath();
+        actualPath = path.getCurrentPath();
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
 
@@ -143,7 +199,7 @@ public class CdTest {
         expectedCd = "Error : Multiple Parameters have been provided : C/pics C/Sys/LOL";
         expectedPath = "C";
         actualCd = cd.run("C/pics C/Sys/LOL".split(" "), "cd C/pics C/Sys/LOL", false);
-        actualPath = pwd.getCurrentPath();
+        actualPath = path.getCurrentPath();
         assertTrue(actualCd.equals(expectedCd) && actualPath.equals(expectedPath));
     }
 
