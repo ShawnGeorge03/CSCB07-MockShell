@@ -116,6 +116,9 @@ public class Mkdir extends DirectoryManager implements CommandI {
 				output += mkDirWithinCurrent(i);
 			}
 		}
+		if (output.equals("")) {
+			return null;
+		}
 		return output;
 	}
 
