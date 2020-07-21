@@ -84,7 +84,6 @@ public class Mkdir extends DirectoryManager implements CommandI {
 		
 		String output = "";
 		//Checks for Valid arguments
-			//Checks if a path was given or if the name was just iven
 		for (int i = 0; i < args.size(); i++) {
 			if (checkPath(i)) {
 				String[] currentPath = { getCurrentPath() };
@@ -106,7 +105,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 							Cd goBack = new Cd();
 							
 							goBack.run(currentPath);
-							output += error.getError("Same Directory", newArgs[0] + " already exists");
+							output += error.getError("Same Directory", newNode.getContent() + " already exists");
 							continue;
 						}
 					}
