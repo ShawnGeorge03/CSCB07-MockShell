@@ -17,9 +17,12 @@ public class Save implements CommandI{
   private FileWriter writer;
   private String filePath;
   private FileSystem filesys;
-
+  private ErrorHandler error;
+  private String output = null;
+  
   public Save(){
     this.filesys = FileSystem.getFileSys();
+    this.error = new ErrorHandler();
   }
   
   @Override
@@ -47,8 +50,8 @@ public class Save implements CommandI{
           e.printStackTrace();
       }
     }
-    else System.out.println("No file inputted");
-    return null;
+    else output = error.getError("No parameters provided", fullInput);
+    return output;
   }
   
   private String formatArguments(String[] args) {
