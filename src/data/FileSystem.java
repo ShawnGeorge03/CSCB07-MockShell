@@ -120,7 +120,7 @@ public class FileSystem {
     return stack;
   }
 
-  public static void setStack(Deque<String> stack) {
+  public void setStack(Deque<String> stack) {
     FileSystem.stack = stack;
   }
 
