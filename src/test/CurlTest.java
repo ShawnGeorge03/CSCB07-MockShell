@@ -4,8 +4,6 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.AfterClass;
 import org.junit.Test;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 
 import commands.Curl;
 import commands.FileManager;
@@ -13,7 +11,6 @@ import data.FileSystem;
 
 import java.lang.reflect.Field;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CurlTest {
 
   private static FileSystem fs;

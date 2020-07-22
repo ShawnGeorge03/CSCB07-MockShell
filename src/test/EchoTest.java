@@ -1,11 +1,9 @@
 package test;
 
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 
 import commands.Mkdir;
 import commands.Echo;
@@ -14,7 +12,6 @@ import data.FileSystem;
 
 import java.lang.reflect.Field;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EchoTest {
 
     private static FileSystem fs;
@@ -24,8 +21,8 @@ public class EchoTest {
 
     private static String expectedEcho, actualEcho, expectedCat, actualCat;
 
-    @BeforeClass
-    public static void setup() throws Exception {
+    @Before
+    public void setup() throws Exception {
         fs = FileSystem.getFileSys();
         mkdir = new Mkdir();
         echo = new Echo();
@@ -53,8 +50,8 @@ public class EchoTest {
         mkdir.MakeDirectory("C/Sys/IO/Mouse".split(" "));
     }
 
-    @AfterClass
-    public static void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         Field feild = fs.getClass().getDeclaredField("fileSys");
         feild.setAccessible(true);
         feild.set(null, null);
@@ -116,6 +113,7 @@ public class EchoTest {
     public void testHAppendRelativeFile() {
         expectedEcho = null;
         expectedCat = "Hello" + "\n" + "Bye";
+        echo.run("echo \"Hello\" > file".split(" "), "echo \"Hello\" > file", false);
         actualEcho = echo.run("echo \"Bye\" >> file".split(" "), "echo \"Bye\" >> file", false);
         actualCat = cat.run("file".split(" "), "cat file", false);
         assertTrue(actualEcho == expectedEcho && actualCat.equals(expectedCat));
@@ -125,6 +123,10 @@ public class EchoTest {
     public void testIOverwriteRelativeFile() {
         expectedEcho = null;
         expectedCat = "okay";
+        //Setup Calls
+        echo.run("echo \"Hello\" > file".split(" "), "echo \"Hello\" > file", false);
+        echo.run("echo \"Bye\" >> file".split(" "), "echo \"Bye\" >> file", false);
+        //Acutal test case
         actualEcho = echo.run("echo \"okay\" > file".split(" "), "echo \"okay\" > file", false);
         actualCat = cat.run("file".split(" "), "cat file", false);
         assertTrue(actualEcho == expectedEcho && actualCat.equals(expectedCat));
@@ -144,6 +146,10 @@ public class EchoTest {
     public void testKAppendAbsoluteFile() {
         expectedEcho = null;
         expectedCat = "KeyWASD" + "\n" + "QWERTY";
+        //Setup Call
+        echo.run("echo \"KeyWASD\" > C/Sys/IO/keyboard/keys".split(" "), 
+                "echo \"KeyWASD\" > C/Sys/IO/keyboard/keys", false);
+        //Actual test case
         actualEcho = echo.run("echo \"QWERTY\" >> C/Sys/IO/keyboard/keys".split(" "),
                 "echo \"QWERTY\" >> C/Sys/IO/keyboard/keys", false);
         actualCat = cat.run("C/Sys/IO/keyboard/keys".split(" "), "cat C/Sys/IO/keyboard/keys", false);

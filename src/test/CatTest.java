@@ -5,8 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 
 import commands.Mkdir;
 import commands.Echo;
@@ -15,7 +13,6 @@ import data.FileSystem;
 
 import java.lang.reflect.Field;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 /**
  * Class CatTest runs all the different test cases for Cat
  */

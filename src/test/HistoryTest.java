@@ -4,14 +4,11 @@ import static org.junit.Assert.*;
 import java.lang.reflect.Field;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 import org.junit.Test;
 
 import commands.History;
 import data.FileSystem;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class HistoryTest {
   
   private FileSystem fs;

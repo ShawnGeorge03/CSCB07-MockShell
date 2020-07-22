@@ -1,11 +1,9 @@
 package test;
 
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 
 import commands.Cd;
 import commands.Mkdir;
@@ -15,7 +13,6 @@ import data.FileSystem;
 
 import java.lang.reflect.Field;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 /**
  * Class CdTest runs all the different test cases for Cd
  */
@@ -60,8 +57,8 @@ public class CdTest {
      * 
      * @throws Exception
     */
-    @BeforeClass
-    public static void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         //Get the current FileSystem
         fs = FileSystem.getFileSys();
         // Initializes a Mkdir Object
@@ -96,8 +93,8 @@ public class CdTest {
      * 
      * @throws Exception
     */
-    @AfterClass
-    public static void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         //Declares and initializes a Feild variable 
         //to the fileSys variable in FileSystem
         Field feild = fs.getClass().getDeclaredField("fileSys");

@@ -3,12 +3,10 @@ package test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
+
 
 import commands.Man;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ManTest {
 
     private static Man man;

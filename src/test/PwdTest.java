@@ -1,11 +1,9 @@
 package test;
 
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 
 import commands.Cd;
 import commands.Mkdir;
@@ -14,7 +12,6 @@ import data.FileSystem;
 
 import java.lang.reflect.Field;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PwdTest {
 
     private static FileSystem fs;
@@ -26,8 +23,8 @@ public class PwdTest {
     private static String actualPath;
 
 
-    @BeforeClass
-    public static void setup() throws Exception{
+    @Before
+    public void setup() throws Exception{
         fs = FileSystem.getFileSys();
         cd = new Cd();
         mkdir = new Mkdir();
@@ -44,8 +41,8 @@ public class PwdTest {
         mkdir.MakeDirectory("C/Sys/IO/Mouse".split(" "));
     }
 
-    @AfterClass
-    public static void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         Field feild = fs.getClass().getDeclaredField("fileSys");
         feild.setAccessible(true);
         feild.set(null, null);
