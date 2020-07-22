@@ -1,0 +1,12 @@
+Class name: Cp
+Parent class: DirectoryManager
+Subclasses: N/A
+Implements: CommandI
+
+Responsibilties:
+*Copies file or directory specified by user to a directory specified by the user, can be given an absolute or relative path.
+
+Collaborators:
+*Cd
+*FileSystem
+*ErrorHandler
