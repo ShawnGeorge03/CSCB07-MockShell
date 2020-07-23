@@ -63,7 +63,6 @@ public class Ls extends DirectoryManager implements CommandI {
    */
   public String run(String[] arguments, String fullInput, boolean val) {
     this.args = new ArrayList<String>(Arrays.asList(arguments));
-    System.out.println("hello!");
     if (args.get(0).equals("-R") != true) {
     	unrecursiveMode();
     }else {

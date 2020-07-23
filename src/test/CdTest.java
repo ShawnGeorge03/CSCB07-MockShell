@@ -123,6 +123,9 @@ public class CdTest {
         assertTrue(actualCd.equals(expectedCd) && actualPath.equals(expectedPath));
     }
 
+    /**
+     * Test B : User provides a relative path
+    */
     @Test
     public void testBRelativePath() {
         //Expected return from Cd
@@ -137,66 +140,104 @@ public class CdTest {
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
 
+    /**
+     * Test C : User provides a certain pattern
+    */
     @Test
     public void testCPatternCase1() {
+        //Expected return from Cd
         expectedCd = null;
+        //Expected current working directory
         expectedPath = "C";
+        //Actual return from Cd
         actualCd = cd.run("..".split(" "), "cd .. ", false);
+        //Returns the current working directory
         actualPath = path.getCurrentPath();
+        //Checks if the values are equal or not
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
 
     @Test
     public void testDRelativeDir() {
+        //Expected return from Cd
         expectedCd = null;
+        //Expected current working directory
         expectedPath = "C/users/desktop";
+        //Actual return from Cd
         actualCd = cd.run("users/desktop".split(" "), "cd users/desktop", false);
+        //Returns the current working directory
         actualPath = path.getCurrentPath();
+        //Checks if the values are equal or not
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
 
     @Test
     public void testEPatternCase2() {
+        //Expected return from Cd
         expectedCd = null;
+        //Expected current working directory
         expectedPath = "C";
+        //Actual return from Cd
         actualCd = cd.run("../..".split(" "), "cd ../.. ", false);
+        //Returns the current working directory
         actualPath = path.getCurrentPath();
+        //Checks if the values are equal or not
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
 
     @Test
     public void testFTraverseFile() {
+        //Expected return from Cd
         expectedCd = "Error: Invalid Directory : A2";
+        //Expected current working directory
         expectedPath = "C";
+        //Actual return from Cd
         actualCd = cd.run("A2".split(" "), "cd A2", false);
+        //Returns the current working directory
         actualPath = path.getCurrentPath();
+        //Checks if the values are equal or not
         assertTrue(actualCd.equals(expectedCd) && actualPath.equals(expectedPath));
     }
 
     @Test
     public void testGAbsolutePath() {
+        //Expected return from Cd
         expectedCd = null;
+        //Expected current working directory
         expectedPath = "C/Sys/IO/keyboard";
+        //Actual return from Cd
         actualCd = cd.run("C/Sys/IO/keyboard".split(" "), "cd C/Sys/IO/keyboard", false);
+        //Returns the current working directory
         actualPath = path.getCurrentPath();
+        //Checks if the values are equal or not
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
 
     @Test
     public void testHPatternCase3() {
+        //Expected return from Cd
         expectedCd = null;
+        //Expected current working directory
         expectedPath = "C";
+        //Actual return from Cd
         actualCd = cd.run("../../../".split(" "), "cd ../../../", false);
+        //Returns the current working directory
         actualPath = path.getCurrentPath();
+        //Checks if the values are equal or not
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
 
     @Test
     public void testIMultipleArgs() {
+        //Expected return from Cd
         expectedCd = "Error : Multiple Parameters have been provided : C/pics C/Sys/LOL";
+        //Expected current working directory
         expectedPath = "C";
+        //Actual return from Cd
         actualCd = cd.run("C/pics C/Sys/LOL".split(" "), "cd C/pics C/Sys/LOL", false);
+        //Returns the current working directory
         actualPath = path.getCurrentPath();
+        //Checks if the values are equal or not
         assertTrue(actualCd.equals(expectedCd) && actualPath.equals(expectedPath));
     }
 
