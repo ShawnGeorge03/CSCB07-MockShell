@@ -42,10 +42,14 @@ public class Pop extends DirectoryManager implements CommandI {
    */
   private ErrorHandler error;
 
+   /** Declare instance of FileSystem to access the current file system */
+   public FileSystem filesys;
+
   /**
    * Constructor for Pop that initializes the ErrorHandler
    */
   public Pop() {
+    filesys = FileSystem.getFileSys();
     this.error = new ErrorHandler();
   }
 
@@ -74,11 +78,11 @@ public class Pop extends DirectoryManager implements CommandI {
    * @return String  if performed without error then will return null else, it will return error
    */
   public String pop() {
-    FileSystem.getStack().pop();
-    if (FileSystem.getStack().size() == 0) {
+    filesys.getStack().pop();
+    if (filesys.getStack().size() == 0) {
       return "Stack is empty";
     }
-    String[] path = {FileSystem.getStack().peek()};
+    String[] path = {filesys.getStack().peek()};
     Cd newWorkingDirectory = new Cd();
     newWorkingDirectory.run(path);
     return null;

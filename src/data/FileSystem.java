@@ -116,7 +116,7 @@ public class FileSystem {
     return CommandLog;
   }
 
-  public static Deque<String> getStack() {
+  public Deque<String> getStack() {
     return stack;
   }
 

@@ -43,10 +43,14 @@ public class Push extends DirectoryManager implements CommandI {
    */
   private ErrorHandler errorManager;
 
+  /** Declare instance of FileSystem to access the current file system */
+  public FileSystem filesys;
+
   /**
    * Constructor for Push that initializes the ErrorHandler object
    */
   public Push() {
+    filesys = FileSystem.getFileSys();
     this.errorManager = new ErrorHandler();
   }
 
@@ -61,15 +65,15 @@ public class Push extends DirectoryManager implements CommandI {
    */
   public String run(String[] args, String fullInput, boolean val) {
     Cd goBack = new Cd();
-    String[] root = {FileSystem.getFileSys().getRoot().getName()};
+    String[] root = {FileSystem.getFileSys().getRoot().getName() };
 
     if (args.length != 1) {
       return errorManager.getError("Invalid Argument",
           Integer.toString(args.length) + " arguments, expecting 1 argument");
     }
 
-    if (FileSystem.getStack().isEmpty()) {
-      FileSystem.getStack().push(getCurrentPath());
+    if (filesys.getStack().isEmpty()) {
+      filesys.getStack().push(getCurrentPath());
     }
 
     if (goBack.run(args)) {
@@ -80,7 +84,7 @@ public class Push extends DirectoryManager implements CommandI {
     }
 
 
-    FileSystem.getStack().push(args[0]);
+    filesys.getStack().push(args[0]);
     Cd newWorkingDirectory = new Cd();
     newWorkingDirectory.run(args);
 
