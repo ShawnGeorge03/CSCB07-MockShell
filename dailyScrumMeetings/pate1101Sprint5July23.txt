@@ -1,0 +1,16 @@
+a) What did I work on in the last three days? 
+	- Created and added a LoadCRC Card
+	- Researched and tested different implementations for Load command using different builtin Java libraries
+	- Implemented function that updates/uploads the FileSystem from a .json file
+	- Implemented function that updates/uploads the command log from a .json file
+	- Added basic error checking in Save and Load
+	
+b) What do I plan to work in the next three days?
+	- Test multiple scenarios for save and load
+	- Work with Shawn to incorporate redirection for more classes
+	- Restructure Echo, EchoAppend, and EchoOverwrite
+	- Add testing for save and load class
+	- Update CRC Cards for the restructuring of Echo and handling the redirection
+	
+c) Am I blocked on anything?  
+	- No
