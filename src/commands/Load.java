@@ -18,11 +18,20 @@ public class Load implements CommandI{
   private FileSystem filesys;
   
   public Load(){
-    //this.filesys = new FileSystem();
+    this.filesys = FileSystem.getFileSys();
     this.error = new ErrorHandler();
     this.output = null;
   }
   
+  /*
+   * Things to work on:
+   *    - disable part of load
+   *        - if not the first valid command inputted is not load then user cannot use load anymore
+   *    - Error Checking
+   *    - JavaDoc
+   *    - Test cases
+  */
+
   @Override
   public String run(String[] args, String fullInput, boolean val) {
     

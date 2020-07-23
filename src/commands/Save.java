@@ -11,6 +11,8 @@ import data.*;
  *      - if they input a .txt then give an error
  *      - if they don't give any file formet then add .json at the end
  *  - check code for any bugs/error checking 
+ *  - JavaDocs
+ *  - TestCases
 */
 public class Save implements CommandI{
 
