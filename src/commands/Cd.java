@@ -78,7 +78,7 @@ public class Cd extends DirectoryManager implements CommandI {
 		String[] originalArgs = args;
 		args = args[0].split("/");
 		// If the change of directory was unsuccessful, then an error msg is returned
-		if (!run_Main(args, originalArgs)) {
+		if (!runMain(args, originalArgs)) {
 			String errorOutput = error.getError("Invalid Directory",
 					fullInput.substring(fullInput.indexOf("cd") + 2).trim());
 			return errorOutput;
@@ -145,7 +145,7 @@ public class Cd extends DirectoryManager implements CommandI {
 	 * @return true if the argument was processed and the change of directory was
 	 *         successful
 	 */
-	public boolean run_Main(String[] arguments, String[] originalArgs) {
+	public boolean runMain(String[] arguments, String[] originalArgs) {
 		// Initializing variables
 		String[] splitArgs = arguments;
 		// Changing to root
