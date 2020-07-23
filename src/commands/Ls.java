@@ -30,7 +30,6 @@
 package commands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import data.FileSystem;
 import data.Node;
 
@@ -62,12 +61,17 @@ public class Ls extends DirectoryManager implements CommandI {
    * @return null always
    */
   public String run(String[] arguments, String fullInput, boolean val) {
-    this.args = new ArrayList<String>(Arrays.asList(arguments));
-    if (args.get(0).equals("-R") != true) {
-    	unrecursiveMode();
-    }else {
-    	recursiveMode();
-    }
+	//this.args = new ArrayList<String>(Arrays.asList(arguments));
+	// if (args.isEmpty()){
+	// 	return "hi";
+	// }
+
+    // if (args.get(0).equals("-R") != true) {
+    // 	unrecursiveMode();
+    // }else {
+    // 	recursiveMode();
+	// }
+	System.out.println("hi");
     return "hi";
  }
 
