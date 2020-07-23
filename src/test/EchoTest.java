@@ -39,15 +39,15 @@ public class EchoTest {
         mkdir.MakeDirectory("Sys".split(" "));
 
         // Sets up the users Folder
-        mkdir.MakeDirectory("C/users/desktop".split(" "));
+        mkdir.MakeDirectory("/users/desktop".split(" "));
 
         // Sets up the Sys Folder
         mkdir.MakeDirectory("Sys/IO".split(" "));
         mkdir.MakeDirectory("Sys/LOL".split(" "));
 
         // Sets up the IO Folder
-        mkdir.MakeDirectory("C/Sys/IO/keyboard".split(" "));
-        mkdir.MakeDirectory("C/Sys/IO/Mouse".split(" "));
+        mkdir.MakeDirectory("/Sys/IO/keyboard".split(" "));
+        mkdir.MakeDirectory("/Sys/IO/Mouse".split(" "));
     }
 
     @After
@@ -136,9 +136,9 @@ public class EchoTest {
     public void testJWriteToAbsoluteFile() {
         expectedEcho = null;
         expectedCat = "KeyWASD";
-        actualEcho = echo.run("echo \"KeyWASD\" > C/Sys/IO/keyboard/keys".split(" "),
-                "echo \"KeyWASD\" > C/Sys/IO/keyboard/keys", false);
-        actualCat = cat.run("C/Sys/IO/keyboard/keys".split(" "), "cat C/Sys/IO/keyboard/keys", false);
+        actualEcho = echo.run("echo \"KeyWASD\" > /Sys/IO/keyboard/keys".split(" "),
+                "echo \"KeyWASD\" > /Sys/IO/keyboard/keys", false);
+        actualCat = cat.run("/Sys/IO/keyboard/keys".split(" "), "cat /Sys/IO/keyboard/keys", false);
         assertTrue(actualEcho == expectedEcho && actualCat.equals(expectedCat));
     }
 
@@ -147,12 +147,12 @@ public class EchoTest {
         expectedEcho = null;
         expectedCat = "KeyWASD" + "\n" + "QWERTY";
         //Setup Call
-        echo.run("echo \"KeyWASD\" > C/Sys/IO/keyboard/keys".split(" "), 
-                "echo \"KeyWASD\" > C/Sys/IO/keyboard/keys", false);
+        echo.run("echo \"KeyWASD\" > /Sys/IO/keyboard/keys".split(" "), 
+                "echo \"KeyWASD\" > /Sys/IO/keyboard/keys", false);
         //Actual test case
-        actualEcho = echo.run("echo \"QWERTY\" >> C/Sys/IO/keyboard/keys".split(" "),
-                "echo \"QWERTY\" >> C/Sys/IO/keyboard/keys", false);
-        actualCat = cat.run("C/Sys/IO/keyboard/keys".split(" "), "cat C/Sys/IO/keyboard/keys", false);
+        actualEcho = echo.run("echo \"QWERTY\" >> /Sys/IO/keyboard/keys".split(" "),
+                "echo \"QWERTY\" >> /Sys/IO/keyboard/keys", false);
+        actualCat = cat.run("/Sys/IO/keyboard/keys".split(" "), "cat /Sys/IO/keyboard/keys", false);
         assertTrue(actualEcho == expectedEcho && actualCat.equals(expectedCat));
     }
 
@@ -160,9 +160,9 @@ public class EchoTest {
     public void testLOverwriteRelativeFile() {
         expectedEcho = null;
         expectedCat = "RGB == ways more      F    P   S";
-        actualEcho = echo.run("echo \"RGB == ways more      F    P   S\" > C/Sys/IO/keyboard/keys".split(" "),
-                "echo \"RGB == ways more      F    P   S\" > C/Sys/IO/keyboard/keys", false);
-        actualCat = cat.run("C/Sys/IO/keyboard/keys".split(" "), "cat C/Sys/IO/keyboard/keys", false);
+        actualEcho = echo.run("echo \"RGB == ways more      F    P   S\" > /Sys/IO/keyboard/keys".split(" "),
+                "echo \"RGB == ways more      F    P   S\" > /Sys/IO/keyboard/keys", false);
+        actualCat = cat.run("/Sys/IO/keyboard/keys".split(" "), "cat /Sys/IO/keyboard/keys", false);
         assertTrue(actualEcho == expectedEcho && actualCat.equals(expectedCat));
     }
 

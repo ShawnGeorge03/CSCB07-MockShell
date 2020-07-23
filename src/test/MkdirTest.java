@@ -111,7 +111,7 @@ public class MkdirTest {
   public void testHMultipleArgsRelativePaths(){
     expected = null;
     actual = mkdir.run("Business A2".split(" "), "mkdir Business A2", false);
-    collectContent("C");
+    collectContent("/");
     assertTrue(allContent.equals(Arrays.asList("Business A2".split(" ")))  && actual == expected);
   }
 

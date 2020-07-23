@@ -30,7 +30,6 @@
 package commands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import data.FileSystem;
 import data.Node;
