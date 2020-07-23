@@ -1,0 +1,12 @@
+Class name: Load
+Parent class: N/A
+Subclasses: N/A
+Implements: CommandI
+
+Responsibilties:
+*Load a FileSystem and saved session given a .json file
+*If Load is not the first command inputted by the user than the user cannot use Load
+
+Collaborators:
+*FileSystem
+*ErrorHandler
