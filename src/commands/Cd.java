@@ -67,7 +67,6 @@ public class Cd extends DirectoryManager implements CommandI {
 	 * @return any error messages if there are any
 	 */
 	public String run(String[] args, String fullInput, boolean val) {
-		System.out.println(Arrays.toString(args));
 		if (args.length == 0) {
 			errorOutput = error.getError("No parameters provided", "");
 			return errorOutput;
@@ -76,8 +75,10 @@ public class Cd extends DirectoryManager implements CommandI {
 					fullInput.substring(fullInput.indexOf("cd") + 2).trim());
 			return errorOutput;
 		}
+		String[] originalArgs = args;
+		args = args[0].split("/");
 		// If the change of directory was unsuccessful, then an error msg is returned
-		if (!run(args)) {
+		if (!run(args, originalArgs)) {
 			String errorOutput = error.getError("Invalid Directory",
 					fullInput.substring(fullInput.indexOf("cd") + 2).trim());
 			return errorOutput;
@@ -91,9 +92,12 @@ public class Cd extends DirectoryManager implements CommandI {
 	 * 
 	 * @return true if argument matches pattern, false otherwise
 	 */
-	public boolean isBackwards(String[] splitArgs) {
-		String cur = splitArgs.toString();
+	public boolean isBackwards(String[] originalArgs) {
+		String cur = Arrays.toString(originalArgs);
+		cur = cur.substring(1, cur.length()-1);
+		System.out.println(cur);
 		if (Pattern.matches("(../)+", cur) || (Pattern.matches("(../..)+", cur))) {
+			System.out.println("hello");
 			return true;
 		}
 		return false;
@@ -121,7 +125,7 @@ public class Cd extends DirectoryManager implements CommandI {
 		// If there are more arguments, it will create a relative path depending on the
 		// first element
 		// being a root or not
-		if (splitArgs[0].equals(" ")) {
+		if (splitArgs[0].equals("")) {
 			successfulPath = this.makePathFromRoot(splitArgs);
 		} else {
 			successfulPath = this.makeRelativePath(splitArgs);
@@ -141,17 +145,16 @@ public class Cd extends DirectoryManager implements CommandI {
 	 * @return true if the argument was processed and the change of directory was
 	 *         successful
 	 */
-	public boolean run(String[] arguments) {
+	public boolean run(String[] arguments, String[] originalArgs) {
 		// Initializing variables
-		System.out.println(arguments.toString());
 		String[] splitArgs = arguments;
 		// Changing to root
-		if (splitArgs[0].equals(this.filesys.getRoot().getName()) && arguments.length == 1) {
+		if (splitArgs.length == 0) {
 			this.filesys.assignCurrent(this.filesys.getRoot());
 			return true;
 		}
 
-		if (this.isBackwards(splitArgs)) {
+		if (this.isBackwards(originalArgs)) {
 			// If it matches the pattern described in isBackwards() JavaDoc, it will go back
 			// up n
 			// directories where n is the amount of ".."
