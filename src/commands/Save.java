@@ -6,7 +6,6 @@ import data.*;
 
 /*
  * Things to Work on:
- *  - if user does not put in an absolute path
  *  - if user does not include a .json at the end
  *      - if they input a .txt then give an error
  *      - if they don't give any file formet then add .json at the end
@@ -32,6 +31,10 @@ public class Save implements CommandI{
   public String run(String[] args, String fullInput, boolean val) {
     if(args.length > 0) {
       filePath = formatArguments(args);
+      if(!filePath.substring(filePath.length()-4, filePath.length()).equals(".json")) {
+        System.out.println("The final file is not a .json file type");
+        return null;
+      }
       System.out.println(filePath);
       try {
         writer = new FileWriter(filePath); 

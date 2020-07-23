@@ -25,8 +25,6 @@ public class Load implements CommandI{
   
   /*
    * Things to work on:
-   *    - disable part of load
-   *        - if not the first valid command inputted is not load then user cannot use load anymore
    *    - Error Checking
    *    - JavaDoc
    *    - Test cases
@@ -34,8 +32,8 @@ public class Load implements CommandI{
 
   @Override
   public String run(String[] args, String fullInput, boolean val) {
-    
-    if(args[0].length() > 0) {
+    System.out.println(args[0]);
+    if(args[0].length() > 0 && checkCommandLog()) {
       filePath = formatArguments(args);
       try {
         fileReader = new FileReader(filePath);
@@ -54,7 +52,7 @@ public class Load implements CommandI{
                 line = reader.readLine();
                 //System.out.println(nodeInformation[i]);
               }
-              //createNode(nodeInformation);
+              createNode(nodeInformation);
               line = reader.readLine();
             }
           }
@@ -79,9 +77,17 @@ public class Load implements CommandI{
         e.printStackTrace();
       }
     }
-    else output = error.getError("No parameters provided", fullInput);
+    else{
+      if(checkCommandLog()) output = error.getError("No parameters provided", fullInput);
+      else System.out.println("Error (load was not the first command inputted)");
+    }
     
     return output;
+  }
+  
+  private boolean checkCommandLog() {
+    if(this.filesys.getCommandLog().size() == 1) return true;
+    return false;
   }
   
   private void createNode(String[] nodeInformation) {
