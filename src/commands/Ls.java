@@ -63,8 +63,13 @@ public class Ls extends DirectoryManager implements CommandI {
    */
   public String run(String[] arguments, String fullInput, boolean val) {
 	this.args = new ArrayList<String>(Arrays.asList(arguments));
-	 if (args.isEmpty()){
+	if (args.size() == 0){
+		return unrecursiveMode();
+	}
+	 if (!args.get(0).equals("-r")){
 		 return unrecursiveMode();
+	 } else{
+		 return recursiveMode();
 	 }
 
     // if (args.get(0).equals("-R") != true) {
@@ -72,7 +77,6 @@ public class Ls extends DirectoryManager implements CommandI {
     // }else {
     // 	recursiveMode();
 	// }
-    return "hi";
  }
 
 
@@ -109,9 +113,31 @@ public String unrecursiveMode() {
 
 
 	public String recursiveMode() {
-		String output = "";
-		for (int i = 1; i < args.size(); i++) {
-			System.out.println(args.get(i));
+		Cd traverse = new Cd();
+		String[] currentPath = {getCurrentPath()};
+		if (args.size() == 1){
+			listDirectory(filesys.getRoot());
+		}else{
+			for (int i = 1; i < args.size(); i++){
+				String[] path = {args.get(i)};
+				if (traverse.run(path)){
+					listDirectory(filesys.getCurrent());
+				}
+				traverse.run(currentPath);
+			}
+		}
+		return null;
+	}
+
+	public String listDirectory(Node root){
+		if (!root.isDir()){
+			return null;
+		}
+		for (int i = 0; i < root.getList().size(); i++){
+			System.out.println(root.getList().get(i).getName());
+		}
+		for (int i = 0; i < root.getList().size(); i++){
+			listDirectory(root.getList().get(i));
 		}
 		return null;
 	}
