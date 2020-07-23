@@ -41,33 +41,10 @@ public class Load implements CommandI{
         String line = reader.readLine();
 
         while(line != null) {
-          if(line.equals("NODES")) {
-            line = reader.readLine();
-            line = reader.readLine();
-            while(!line.equals("}")) {
-              //System.out.println("New Node");
-              String[] nodeInformation = new String[4];
-              for(int i = 0; i < nodeInformation.length; i++) {
-                nodeInformation[i] = line;
-                line = reader.readLine();
-                //System.out.println(nodeInformation[i]);
-              }
-              createNode(nodeInformation);
-              line = reader.readLine();
-            }
-          }
+          if(line.equals("NODES")) uploadNodes(line);
           else if(line.equals("COMMAND LOG")) {
-            line = reader.readLine();
-            ArrayList<String> commandList = new ArrayList<String>();
-            line = reader.readLine().trim().replaceAll("\"", "");
-            while(!line.equals("}")) {
-              //filesys.getCommandLog().add(line);
-              commandList.add(line);
-              //System.out.println(line);
-              line = reader.readLine().trim().replaceAll("\"", "");
-            }
+            uploadCommandLog(line);
           }
-          //System.out.println(line);
           line = reader.readLine();
         }
 
@@ -90,6 +67,37 @@ public class Load implements CommandI{
     return false;
   }
   
+  private void uploadNodes(String line) {
+    try {
+      line = reader.readLine();
+      line = reader.readLine();
+      while(!line.equals("}")) {
+        String[] nodeInformation = new String[4];
+        for(int i = 0; i < nodeInformation.length; i++) {
+          nodeInformation[i] = line;
+          line = reader.readLine();
+        }
+        createNode(nodeInformation);
+        line = reader.readLine();
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+  
+  private void uploadCommandLog(String line) {
+    try {
+      line = reader.readLine();
+      line = reader.readLine().trim().replaceAll("\"", "");
+      while(!line.equals("}")) {
+        filesys.getCommandLog().add(line);
+        line = reader.readLine().trim().replaceAll("\"", "");
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+  
   private void createNode(String[] nodeInformation) {
     String[] parsedNodeInformation = new String[4];
     for(int i = 0; i < nodeInformation.length; i++) {
@@ -100,10 +108,30 @@ public class Load implements CommandI{
       Node newNode = new Node();
       newNode.setName(parsedNodeInformation[0]);
       newNode.setDir(Boolean.valueOf(parsedNodeInformation[1]));
-      if(parsedNodeInformation[2].equals("null")) newNode.setParent(null);
-      newNode.setContent(parsedNodeInformation[0]);
-      
+      newNode.setContent(parsedNodeInformation[3]);
+      if(parsedNodeInformation[2].equals(this.filesys.getCurrent().getName()))
+        this.filesys.addToDirectory(newNode);
+      else{
+        addNodeToFileSystem(newNode, parsedNodeInformation[2]);
+      }
+    }
+  }
+  
+  private void addNodeToFileSystem(Node newNode, String parentName) {
+    this.filesys.assignCurrent(this.filesys.getRoot());
+    traverseFileSystem(this.filesys.getCurrent(), parentName, newNode);
+  }
+  
+  private void traverseFileSystem(Node current, String desiredParentName, Node newNode) {
+    if(current.getName().equals(desiredParentName)) {
+      newNode.setParent(current);
       this.filesys.addToDirectory(newNode);
+    }
+    else {
+      for(int i = 0; i < current.getList().size(); i++) {
+        this.filesys.assignCurrent(current.getList().get(i));
+        traverseFileSystem(this.filesys.getCurrent(), desiredParentName, newNode);
+      }
     }
   }
   
