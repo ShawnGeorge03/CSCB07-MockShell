@@ -85,7 +85,7 @@ public class Cat extends FileManager implements CommandI {
     // Runs through all the filePaths and stores the output for each case
     for (int i = 0; i < filePaths.length; i++) {
       // If the file path is an absolute path
-      if (filePaths[i].startsWith("C/")) {
+      if (filePaths[i].startsWith(filesys.getRoot().getName())) {
         // Calls the following method to return a reference to that specific Node
         file = findFileGivenAbsolute(filePaths[i]);
         // If the file path is a relative path
