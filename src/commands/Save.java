@@ -27,6 +27,14 @@ public class Save implements CommandI{
     this.output = null;
   }
   
+  /*
+   * Things to work on:
+   *    - Error Checking
+   *        - check if a fileName is valid
+   *    - JavaDoc
+   *    - Test cases
+  */
+  
   @Override
   public String run(String[] args, String fullInput, boolean val) {
     if(args.length > 0) {
@@ -35,7 +43,7 @@ public class Save implements CommandI{
         System.out.println("The final file is not a .json file type");
         return null;
       }
-      System.out.println(filePath);
+      //System.out.println(filePath);
       try {
         writer = new FileWriter(filePath); 
         
@@ -46,9 +54,7 @@ public class Save implements CommandI{
         writer.write("\n\nFILESYSTEM\n{\n");
         storeFileSystem(writer);
         writer.write("}");
-        
-        //writer.write("If this doesn't work then I'll be sad");
-     
+             
         writer.write("\n\nCOMMAND LOG\n{\n");
         storeCommandHistoryToFile(writer);
         writer.write("}");

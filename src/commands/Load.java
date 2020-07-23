@@ -32,7 +32,7 @@ public class Load implements CommandI{
 
   @Override
   public String run(String[] args, String fullInput, boolean val) {
-    System.out.println(args[0]);
+    
     if(args[0].length() > 0 && checkCommandLog()) {
       filePath = formatArguments(args);
       try {
