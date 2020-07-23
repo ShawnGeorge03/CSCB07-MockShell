@@ -30,6 +30,8 @@
 package commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import data.FileSystem;
 import data.Node;
 
@@ -84,7 +86,7 @@ public class DirectoryManager {
 
 		path.clear();
 
-		return output.substring(0, output.length() - 1);
+		return output.substring(1, output.length() - 1);
 	}
 
 	/**
@@ -112,13 +114,12 @@ public class DirectoryManager {
 	 */
 	public boolean makePathFromRoot(String[] pathArr) {
 		Node currNode = filesys.getRoot();
-		System.out.println("in root");
 		// Loop through pathArr which is array of all directories in the path and change
 		// directory to
 		// the
 		// last one (if its a valid path)
 		for (int i = 0; i < pathArr.length; i++) {
-			if (pathArr[i].equals(filesys.getRoot().getName())) {
+			if (pathArr[i].equals("")) {
 				continue;
 			}
 			int indexOfDir = checkDirExists(currNode.getList(), pathArr[i]);
@@ -129,7 +130,7 @@ public class DirectoryManager {
 					System.out.println(error.getError("Invalid Directory", pathArr[i]));
 				}
 			} else {
-				System.out.println(error.getError("Directory Not Found", pathArr.toString()));
+				System.out.println(error.getError("Directory Not Found", pathArr[i]));
 				return false;
 			}
 		}
@@ -154,7 +155,7 @@ public class DirectoryManager {
 				if (currNode.getList().get(indexOfDir).isDir()) {
 					currNode = currNode.getList().get(indexOfDir);
 				} else {
-					System.out.println(error.getError("Invalid Directory", pathArr.toString()));
+					System.out.println(error.getError("Invalid Directory", pathArr[i]));
 					return false;
 				}
 			} else {
