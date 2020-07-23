@@ -93,7 +93,6 @@ public class Cd extends DirectoryManager implements CommandI {
 	public boolean isBackwards(String[] originalArgs) {
 		String cur = Arrays.toString(originalArgs);
 		cur = cur.substring(1, cur.length()-1);
-		System.out.println(cur);
 		if (Pattern.matches("(../)+", cur) || (Pattern.matches("(../..)+", cur))) {
 			System.out.println("hello");
 			return true;
