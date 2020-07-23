@@ -18,11 +18,12 @@ public class Save implements CommandI{
   private String filePath;
   private FileSystem filesys;
   private ErrorHandler error;
-  private String output = null;
+  private String output;
   
   public Save(){
     this.filesys = FileSystem.getFileSys();
     this.error = new ErrorHandler();
+    this.output = null;
   }
   
   @Override
@@ -32,14 +33,16 @@ public class Save implements CommandI{
       System.out.println(filePath);
       try {
         writer = new FileWriter(filePath); 
-        writer.write("FILESYSTEM\n{\n");
-        storeFileSystem(writer);
-        writer.write("}");
-        //writer.write("If this doesn't work then I'll be sad");
         
-        writer.write("\n\nNODES\n{\n");
+        writer.write("NODES\n{\n");
         storeNodeInformation(writer);
         writer.write("}");
+        
+        writer.write("\n\nFILESYSTEM\n{\n");
+        storeFileSystem(writer);
+        writer.write("}");
+        
+        //writer.write("If this doesn't work then I'll be sad");
      
         writer.write("\n\nCOMMAND LOG\n{\n");
         storeCommandHistoryToFile(writer);
