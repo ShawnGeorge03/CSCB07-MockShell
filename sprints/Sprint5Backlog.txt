@@ -1,0 +1,66 @@
+//Sprint 4 Backlog.  
+July 24 to Aug 2
+
+User Stories from Product Backlog that we will address in this sprint:
+a) Revise and Update CRC Cards
+b) Make changes to the current code to fit 2A requirements
+c) As a user, I should be able list all files in a directory 
+   which can be no path or relative or absolute path. If a      
+   special flag is provided then it lists all the subdirectories 
+   of the given directory
+d) As a user I should be able to remove a directory from the   
+   File System given either an absolute or relative path
+e) As a user I should be able to move any file or directory to a
+   new directory with in the filesystem, the file and directory 
+   location can be relative or absolute paths. The file or      
+   directory that is to be moved must be removed from their    
+   original location.  
+f) As a user I should be able to copy any file or directory to a 
+   new directory with in the filesystem, the file and directory 
+   location can be relative or absolute paths. The file or      
+   directory that is to be moved should still exist in their     
+   original location.
+g) As a user I should be able to save my current session of the  
+   Shell to my real filesystem. This file should contain the  
+   entire state of the program before the user exits 
+h) As a user I should be able to load up my previous session    
+   from a file that exists on my real file system. It should
+   restore the program to the previous session before the user       
+   exited the program 
+i) As a user I should be to search with in a path for either a  
+   file or directory with the name that exactly match the      
+   expression provided. The location for the search can be      
+   relative or absolute path.
+j) As a user I should be able to see a visualization of the     
+   current filesystem as a tree structure starting from the root
+   directory. It must print all subdirectories of directories
+k) As a user I should be able to get documentation for supported commands
+l) As a user I should be able to receive a copy of the output   
+    from commands that output to the screen to be redirected to  
+    an OUTFILE 
+
+Specific tasks to be accomplished:
+a-01. (CRC Cards) Make changes to filesystem
+a-02. 
+b-01. (PushTest) Create and add JUnit testcases for Push
+b-02. (PopTest) Create and add JUnit testcases for Pop
+b-03. (LsTest) Create and add JUnit testcases for currnet version of Ls
+b-04.
+c-01. (Ls) Modify existing ls class to check for flag (-R)
+c-02. (LS) Implement function to list subdirectories and contents in Ls
+d-01. (RmTest) Create and add JUnit testcases for Rm
+e-01. (Mv) Handle Files
+e-02. (MvTest) Create and add JUnit testcases for Mv
+f-01. (Cp) Handle Files
+f-02. (CpTest) Create and add JUnit testcases for Cp
+g-01. (Save) Add error handling for different situations
+g-02. (SaveTest) Create and add JUnit testcases for Save
+h-01. (Load) Add error handling for different situations
+h-02. (LoadTest) Create and add JUnit testcases for Load
+i-01. (Find) Add error handling for different situations 
+i-02. (FindTest) Create and add JUnit testcases for Find
+i-01. (Tree) Loop through directory in find desired files
+i-02. (Tree) Separate all paths given in find's arguments
+i-03  (TreeTest) Create and add JUnit testscases for tree
+k-01. 
+l-01. 

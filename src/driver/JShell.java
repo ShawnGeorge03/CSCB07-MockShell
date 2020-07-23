@@ -47,7 +47,6 @@ public class JShell {
     //For running TestCases.java set to true
     boolean testing = false;
 
-
     if (testing) {
       TestCases tester = new TestCases();
       tester.runTestCases();
