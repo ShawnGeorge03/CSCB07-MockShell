@@ -75,10 +75,8 @@ public class Cd extends DirectoryManager implements CommandI {
 					fullInput.substring(fullInput.indexOf("cd") + 2).trim());
 			return errorOutput;
 		}
-		String[] originalArgs = args;
-		args = args[0].split("/");
 		// If the change of directory was unsuccessful, then an error msg is returned
-		if (!runMain(args, originalArgs)) {
+		if (!run(args)) {
 			String errorOutput = error.getError("Invalid Directory",
 					fullInput.substring(fullInput.indexOf("cd") + 2).trim());
 			return errorOutput;
@@ -145,16 +143,16 @@ public class Cd extends DirectoryManager implements CommandI {
 	 * @return true if the argument was processed and the change of directory was
 	 *         successful
 	 */
-	public boolean runMain(String[] arguments, String[] originalArgs) {
+	public boolean run(String[] arguments) {
 		// Initializing variables
-		String[] splitArgs = arguments;
+		String[] splitArgs = arguments[0].split("/");
 		// Changing to root
 		if (splitArgs.length == 0) {
 			this.filesys.assignCurrent(this.filesys.getRoot());
 			return true;
 		}
 
-		if (this.isBackwards(originalArgs)) {
+		if (this.isBackwards(arguments)) {
 			// If it matches the pattern described in isBackwards() JavaDoc, it will go back
 			// up n
 			// directories where n is the amount of ".."
