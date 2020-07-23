@@ -33,12 +33,12 @@ public class PwdTest {
         expectedPath = "";
         actualPath = "";
 
-        mkdir.MakeDirectory("C/users".split(" "));
-        mkdir.MakeDirectory("C/users/desktop".split(" "));
-        mkdir.MakeDirectory("C/Sys".split(" "));
-        mkdir.MakeDirectory("C/Sys/IO".split(" "));
-        mkdir.MakeDirectory("C/Sys/IO/keyboard".split(" "));
-        mkdir.MakeDirectory("C/Sys/IO/Mouse".split(" "));
+        mkdir.MakeDirectory("/users".split(" "));
+        mkdir.MakeDirectory("/users/desktop".split(" "));
+        mkdir.MakeDirectory("/Sys".split(" "));
+        mkdir.MakeDirectory("/Sys/IO".split(" "));
+        mkdir.MakeDirectory("/Sys/IO/keyboard".split(" "));
+        mkdir.MakeDirectory("/Sys/IO/Mouse".split(" "));
     }
 
     @After
@@ -51,7 +51,7 @@ public class PwdTest {
     @Test
     public void testAInitialPath(){
         String[] emptyArr = {};
-        expectedPath = "C";
+        expectedPath = "/";
         actualPath = pwd.run(emptyArr, "pwd", false);
         assertEquals(expectedPath, actualPath);
     }
@@ -60,7 +60,7 @@ public class PwdTest {
     @Test
     public void testBChangeDirectoryRelative(){
         String[] emptyArr = {};
-        expectedPath = "C/users";
+        expectedPath = "/users";
         cd.run(expectedPath.split(" "), "cd " + expectedPath, false);
         actualPath = pwd.run(emptyArr, "pwd", false);
         assertEquals(expectedPath, actualPath);
@@ -69,7 +69,7 @@ public class PwdTest {
     @Test
     public void testCChangeDirectoryAbsolute(){
         String[] emptyArr = {};
-        expectedPath = "C/Sys/IO/keyboard";
+        expectedPath = "/Sys/IO/keyboard";
         cd.run(expectedPath.split(" "), "cd " + expectedPath, false);
         actualPath = pwd.run(emptyArr, "pwd", false);
         assertEquals(expectedPath, actualPath);
@@ -78,7 +78,7 @@ public class PwdTest {
     @Test
     public void testDChangeToRoot(){
         String[] emptyArr = {};
-        expectedPath = "C";
+        expectedPath = "/";
         cd.run(expectedPath.split(" "), "cd " + expectedPath, false);
         actualPath = pwd.run(emptyArr, "pwd", false);
         assertEquals(expectedPath, actualPath);
@@ -86,7 +86,7 @@ public class PwdTest {
 
     @Test
     public void testEMultipleArgs(){
-        String[] argsArr = {"C/Sys/IO", "C/users"};
+        String[] argsArr = {"/Sys/IO", "/users"};
         expectedPath = "Error: Invalid Argument : pwd doesn't take any arguments";
         actualPath = pwd.run(argsArr, "pwd", false);
         assertEquals(expectedPath, actualPath);

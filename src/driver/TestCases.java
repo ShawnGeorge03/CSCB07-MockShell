@@ -126,14 +126,14 @@ public class TestCases {
         mkdir.MakeDirectory("users".split(" "));
         mkdir.MakeDirectory("pics".split(" "));
         mkdir.MakeDirectory("Sys".split(" "));
-        echo.run("Sys".split(" "), "echo \"Wow what a project\" > A2", false);
+        echo.run("/".split(" "), "echo \"Wow what a project\" > A2", false);
     
         //Sets up the users Folder
-        mkdir.MakeDirectory("C/users/desktop".split(" "));
+        mkdir.MakeDirectory("/users/desktop".split(" "));
     
         //Sets up the desktop Folder
-        echo.run("C/users/desktop".split(" "), "echo \"Hello TA\" > C/users/desktop/CSCB07", false);
-        echo.run("C/users/desktop".split(" "), "echo \"2+2=5\" > C/users/desktop/Hwk", false);
+        echo.run("/users/desktop".split(" "), "echo \"Hello TA\" > C/users/desktop/CSCB07", false);
+        echo.run("/users/desktop".split(" "), "echo \"2+2=5\" > C/users/desktop/Hwk", false);
     
         //Sets up the pics Folder
         echo.run("pics".split(" "), "echo \"this is a picturefile indeed\" > pics/picfile",false);
@@ -144,23 +144,23 @@ public class TestCases {
         mkdir.MakeDirectory("Sys/LOL".split(" "));
     
         //Sets up the IO Folder
-        mkdir.MakeDirectory("C/Sys/IO/keyboard".split(" "));
-        mkdir.MakeDirectory("C/Sys/IO/Mouse".split(" "));
+        mkdir.MakeDirectory("/Sys/IO/keyboard".split(" "));
+        mkdir.MakeDirectory("/Sys/IO/Mouse".split(" "));
     
         //Sets up the keyboard Folder
-        echo.run("C/Sys/IO/keyboard".split(" "), "echo \"QWERTY\" > C/Sys/IO/keyboard/keys", false);
-        echo.run("C/Sys/IO/keyboard".split(" "), "echo \"RGB == ways more      F    P   S\" > C/Sys/IO/keyboard/RGB",false);
+        echo.run("/Sys/IO/keyboard".split(" "), "echo \"QWERTY\" > C/Sys/IO/keyboard/keys", false);
+        echo.run("/Sys/IO/keyboard".split(" "), "echo \"RGB == ways more      F    P   S\" > C/Sys/IO/keyboard/RGB",false);
     
         //Sets up the Mouse Folder
-        echo.run("C/Sys/IO/Mouse".split(" "), "echo \"Mouse is in Mouse Folder\" > C/Sys/IO/Mouse/Presses", false);
+        echo.run("/Sys/IO/Mouse".split(" "), "echo \"Mouse is in Mouse Folder\" > C/Sys/IO/Mouse/Presses", false);
     
     //Setups the  History
     fs.getCommandLog().add("mkdir users");
     fs.getCommandLog().add("mkdir pics");
-     fs.getCommandLog().add("mkdir Sys");
-     fs.getCommandLog().add("echo \"Wow what a project\" > A2");
-     fs.getCommandLog().add("cd C/users");
-     fs.getCommandLog().add("mkdir desktop");
+    fs.getCommandLog().add("mkdir Sys");
+    fs.getCommandLog().add("echo \"Wow what a project\" > A2");
+    fs.getCommandLog().add("cd C/users");
+    fs.getCommandLog().add("mkdir desktop");
   }
 
   /**

@@ -74,18 +74,18 @@ public class CdTest {
         mkdir.MakeDirectory("users".split(" "));
         mkdir.MakeDirectory("pics".split(" "));
         mkdir.MakeDirectory("Sys".split(" "));
-        echo.run("Sys".split(" "), "echo \"Wow what a project\" > A2", false);
+        echo.run("/".split(" "), "echo \"Wow what a project\" > A2", false);
 
         // Sets up the users Folder
-        mkdir.MakeDirectory("C/users/desktop".split(" "));
+        mkdir.MakeDirectory("/users/desktop".split(" "));
 
         // Sets up the Sys Folder
         mkdir.MakeDirectory("Sys/IO".split(" "));
         mkdir.MakeDirectory("Sys/LOL".split(" "));
 
         // Sets up the IO Folder
-        mkdir.MakeDirectory("C/Sys/IO/keyboard".split(" "));
-        mkdir.MakeDirectory("C/Sys/IO/Mouse".split(" "));
+        mkdir.MakeDirectory("/Sys/IO/keyboard".split(" "));
+        mkdir.MakeDirectory("/Sys/IO/Mouse".split(" "));
     }
 
     /**
@@ -114,7 +114,7 @@ public class CdTest {
         //Expected return from Cd
         expectedCd = "Error : No parameters provided : ";
         //Expected current working directory
-        expectedPath = "C";
+        expectedPath = "/";
         //Actual return from Cd
         actualCd = cd.run(emptyArr, "cd ", false);
         //Returns the current working directory
@@ -131,7 +131,7 @@ public class CdTest {
         //Expected return from Cd
         expectedCd = null;
         //Expected current working directory
-        expectedPath = "C/pics";
+        expectedPath = "/pics";
         //Actual return from Cd
         actualCd = cd.run("pics".split(" "), "cd pics ", false);
         //Returns the current working directory
@@ -148,7 +148,8 @@ public class CdTest {
         //Expected return from Cd
         expectedCd = null;
         //Expected current working directory
-        expectedPath = "C";
+        expectedPath = "/";
+        cd.run("pics".split(" "), "cd pics ", false);
         //Actual return from Cd
         actualCd = cd.run("..".split(" "), "cd .. ", false);
         //Returns the current working directory
@@ -162,7 +163,7 @@ public class CdTest {
         //Expected return from Cd
         expectedCd = null;
         //Expected current working directory
-        expectedPath = "C/users/desktop";
+        expectedPath = "/users/desktop";
         //Actual return from Cd
         actualCd = cd.run("users/desktop".split(" "), "cd users/desktop", false);
         //Returns the current working directory
@@ -176,7 +177,8 @@ public class CdTest {
         //Expected return from Cd
         expectedCd = null;
         //Expected current working directory
-        expectedPath = "C";
+        expectedPath = "/";
+        cd.run("users/desktop".split(" "), "cd users/desktop", false);
         //Actual return from Cd
         actualCd = cd.run("../..".split(" "), "cd ../.. ", false);
         //Returns the current working directory
@@ -190,7 +192,7 @@ public class CdTest {
         //Expected return from Cd
         expectedCd = "Error: Invalid Directory : A2";
         //Expected current working directory
-        expectedPath = "C";
+        expectedPath = "/";
         //Actual return from Cd
         actualCd = cd.run("A2".split(" "), "cd A2", false);
         //Returns the current working directory
@@ -204,9 +206,9 @@ public class CdTest {
         //Expected return from Cd
         expectedCd = null;
         //Expected current working directory
-        expectedPath = "C/Sys/IO/keyboard";
+        expectedPath = "/Sys/IO/keyboard";
         //Actual return from Cd
-        actualCd = cd.run("C/Sys/IO/keyboard".split(" "), "cd C/Sys/IO/keyboard", false);
+        actualCd = cd.run("/Sys/IO/keyboard".split(" "), "cd /Sys/IO/keyboard", false);
         //Returns the current working directory
         actualPath = path.getCurrentPath();
         //Checks if the values are equal or not
@@ -218,7 +220,8 @@ public class CdTest {
         //Expected return from Cd
         expectedCd = null;
         //Expected current working directory
-        expectedPath = "C";
+        expectedPath = "/";
+        cd.run("/Sys/IO/keyboard".split(" "), "cd /Sys/IO/keyboard", false);
         //Actual return from Cd
         actualCd = cd.run("../../../".split(" "), "cd ../../../", false);
         //Returns the current working directory
@@ -230,11 +233,11 @@ public class CdTest {
     @Test
     public void testIMultipleArgs() {
         //Expected return from Cd
-        expectedCd = "Error : Multiple Parameters have been provided : C/pics C/Sys/LOL";
+        expectedCd = "Error : Multiple Parameters have been provided : /pics /Sys/LOL";
         //Expected current working directory
-        expectedPath = "C";
+        expectedPath = "/";
         //Actual return from Cd
-        actualCd = cd.run("C/pics C/Sys/LOL".split(" "), "cd C/pics C/Sys/LOL", false);
+        actualCd = cd.run("/pics /Sys/LOL".split(" "), "cd /pics /Sys/LOL", false);
         //Returns the current working directory
         actualPath = path.getCurrentPath();
         //Checks if the values are equal or not
