@@ -88,6 +88,9 @@ public class Mkdir extends DirectoryManager implements CommandI {
 			if (checkPath(i)) {
 				String[] currentPath = { getCurrentPath() };
 				String[] newArgs = { args.get(i).substring(0, args.get(i).lastIndexOf('/')) };
+				if (newArgs[0].equals("")){
+					newArgs[0] = "/";
+				}
 				
 				//Checks if directory name is valid
 				if (!isValidDirectoryName(args.get(i).substring(args.get(i).lastIndexOf('/') + 1))) {
