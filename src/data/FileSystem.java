@@ -65,7 +65,7 @@ public class FileSystem {
     stack = new ArrayDeque<String>();
     root.setDir(true);
     root.setContent(null);
-    root.setName("C");
+    root.setName("/");
     root.isRoot = true;
     root.setParent(null);
     current = root;
