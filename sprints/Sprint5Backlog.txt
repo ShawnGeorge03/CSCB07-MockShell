@@ -40,27 +40,58 @@ l) As a user I should be able to receive a copy of the output
     an OUTFILE 
 
 Specific tasks to be accomplished:
-a-01. (CRC Cards) Make changes to filesystem
-a-02. 
-b-01. (PushTest) Create and add JUnit testcases for Push
-b-02. (PopTest) Create and add JUnit testcases for Pop
-b-03. (LsTest) Create and add JUnit testcases for currnet version of Ls
-b-04.
-c-01. (Ls) Modify existing ls class to check for flag (-R)
-c-02. (LS) Implement function to list subdirectories and contents in Ls
-d-01. (RmTest) Create and add JUnit testcases for Rm
-e-01. (Mv) Handle Files
-e-02. (MvTest) Create and add JUnit testcases for Mv
-f-01. (Cp) Handle Files
-f-02. (CpTest) Create and add JUnit testcases for Cp
-g-01. (Save) Add error handling for different situations
-g-02. (SaveTest) Create and add JUnit testcases for Save
-h-01. (Load) Add error handling for different situations
-h-02. (LoadTest) Create and add JUnit testcases for Load
-i-01. (Find) Add error handling for different situations 
-i-02. (FindTest) Create and add JUnit testcases for Find
-i-01. (Tree) Loop through directory in find desired files
-i-02. (Tree) Separate all paths given in find's arguments
-i-03  (TreeTest) Create and add JUnit testscases for tree
-k-01. 
-l-01. 
+a-01. (CRC Cards) Make changes to filesystem to reflect new responsibilities                        -> Shawn
+a-02. (CRC Cards) Make changes to Echo to reflect new responsibilities                              -> Shawn 
+a-03. (CRC Cards) Make changes to EchoOverwrite to reflect new responsibilities                     -> Abhay
+a-04. (CRC Cards) Make changes to EchoAppend to reflect new responsibilities                        -> Abhay
+a-05. (CRC Cards) Revise the other CRC Cards for its responsibilities, collaborators and such       -> Everyone
+b-01. (PushTest) Create and add JUnit testcases for Push                                            -> Keshavaa
+b-02. (PopTest) Create and add JUnit testcases for Pop                                              -> Keshavaa
+b-03. (LsTest) Create and add JUnit testcases for currnet version of Ls                             -> Keshavaa
+c-01. (Ls) Modify existing ls class to check for flag (-R)                                          -> Keshavaa
+c-02. (LS) Implement function to list subdirectories and contents in Ls                             -> Keshavaa
+d-01. (RmTest) Create and add JUnit testcases for Rm                                                -> Keshavaa
+e-01. (Mv) Handle Files                                                                             -> Keshavaa
+e-02. (MvTest) Create and add JUnit testcases for Mv                                                -> Keshavaa
+f-01. (Cp) Handle Files                                                                             -> Keshavaa
+f-02. (CpTest) Create and add JUnit testcases for Cp                                                -> Keshavaa
+g-01. (Save) Add error handling for different situations                                            -> Abhay
+g-02. (SaveTest) Create and add JUnit testcases for Save                                            -> Abhay
+h-01. (Load) Add error handling for different situations                                            -> Abhay
+h-02. (LoadTest) Create and add JUnit testcases for Load                                            -> Abhay
+i-01. (Find) Add error handling for different situations                                            -> Tirth
+i-02. (FindTest) Create and add JUnit testcases for Find                                            -> Tirth
+i-01. (Tree) Loop through directory in find desired files                                           -> Tirth
+i-02. (Tree) Separate all paths given in find's arguments                                           -> Tirth
+i-03  (TreeTest) Create and add JUnit testscases for tree                                           -> Tirth
+k-01. (Man) Add documentation for rm                                                                -> Shawn
+k-02. (Man) Change documentation for mkdir for new parameter                                        -> Shawn
+k-03. (Man) Change documentation for cd for root directory                                          -> Shawn
+k-04. (Man) Change documentation for ls for special flag and redirection                            -> Shawn
+k-05. (Man) Change documentation for pwd for redirection                                            -> Shawn
+k-06. (Man) Add documentation for mv                                                                -> Shawn 
+k-07. (Man) Add documentation for cp                                                                -> Shawn 
+k-08. (Man) Add documentation for cat for multiple files                                            -> Shawn 
+k-09. (Man) Add documentation for curl                                                              -> Shawn 
+k-10. (Man) Chanege documentation for echo and and add redirection                                  -> Shawn  
+k-11. (Man) Add documentation for save                                                              -> Shawn
+k-12. (Man) Add documentation for load                                                              -> Shawn 
+k-13. (Man) Add documentation for find                                                              -> Shawn  
+k-14. (Man) Add documentation for tree                                                              -> Shawn 
+l-01. (FileSystem) Add appendFile() and overwriteFile() methods to FileSystem                       -> Abhay   
+l-02. (Echo) Chnage how the append and overwite works here to use redirection instead               -> Shawn
+
+
+These tasks are assigned as follows:
+
+User: Abhay
+Tasks: 
+
+User: Tirth Patel
+Tasks: 
+
+User: Keshavaa
+Tasks: 
+
+User: Shawn Santhoshgeorge
+Tasks: 
