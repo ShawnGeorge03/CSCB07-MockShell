@@ -71,21 +71,21 @@ public class CdTest {
         cd = new Cd();
 
         // Sets up the C Folder
-        mkdir.MakeDirectory("users".split(" "));
-        mkdir.MakeDirectory("pics".split(" "));
-        mkdir.MakeDirectory("Sys".split(" "));
-        echo.run("/".split(" "), "echo \"Wow what a project\" > A2", false);
+        mkdir.MakeDirectory("users".split(" "), fs);
+        mkdir.MakeDirectory("pics".split(" "), fs);
+        mkdir.MakeDirectory("Sys".split(" "), fs);
+        echo.run(fs, "/".split(" "), "echo \"Wow what a project\" > A2", false);
 
         // Sets up the users Folder
-        mkdir.MakeDirectory("/users/desktop".split(" "));
+        mkdir.MakeDirectory("/users/desktop".split(" "), fs);
 
         // Sets up the Sys Folder
-        mkdir.MakeDirectory("Sys/IO".split(" "));
-        mkdir.MakeDirectory("Sys/LOL".split(" "));
+        mkdir.MakeDirectory("Sys/IO".split(" "), fs);
+        mkdir.MakeDirectory("Sys/LOL".split(" "), fs);
 
         // Sets up the IO Folder
-        mkdir.MakeDirectory("/Sys/IO/keyboard".split(" "));
-        mkdir.MakeDirectory("/Sys/IO/Mouse".split(" "));
+        mkdir.MakeDirectory("/Sys/IO/keyboard".split(" "), fs);
+        mkdir.MakeDirectory("/Sys/IO/Mouse".split(" "), fs);
     }
 
     /**
@@ -116,9 +116,9 @@ public class CdTest {
         //Expected current working directory
         expectedPath = "/";
         //Actual return from Cd
-        actualCd = cd.run(emptyArr, "cd ", false);
+        actualCd = cd.run(fs, emptyArr, "cd ", false);
         //Returns the current working directory
-        actualPath = path.getCurrentPath();
+        actualPath = path.getCurrentPath(fs);
         //Checks if the values are equal or not
         assertTrue(actualCd.equals(expectedCd) && actualPath.equals(expectedPath));
     }
@@ -133,9 +133,9 @@ public class CdTest {
         //Expected current working directory
         expectedPath = "/pics";
         //Actual return from Cd
-        actualCd = cd.run("pics".split(" "), "cd pics ", false);
+        actualCd = cd.run(fs, "pics".split(" "), "cd pics ", false);
         //Returns the current working directory
-        actualPath = path.getCurrentPath();
+        actualPath = path.getCurrentPath(fs);
         //Checks if the values are equal or not
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
@@ -149,11 +149,11 @@ public class CdTest {
         expectedCd = null;
         //Expected current working directory
         expectedPath = "/";
-        cd.run("pics".split(" "), "cd pics ", false);
+        cd.run(fs, "pics".split(" "), "cd pics ", false);
         //Actual return from Cd
-        actualCd = cd.run("..".split(" "), "cd .. ", false);
+        actualCd = cd.run(fs, "..".split(" "), "cd .. ", false);
         //Returns the current working directory
-        actualPath = path.getCurrentPath();
+        actualPath = path.getCurrentPath(fs);
         //Checks if the values are equal or not
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
@@ -165,9 +165,9 @@ public class CdTest {
         //Expected current working directory
         expectedPath = "/users/desktop";
         //Actual return from Cd
-        actualCd = cd.run("users/desktop".split(" "), "cd users/desktop", false);
+        actualCd = cd.run(fs,"users/desktop".split(" "), "cd users/desktop", false);
         //Returns the current working directory
-        actualPath = path.getCurrentPath();
+        actualPath = path.getCurrentPath(fs);
         //Checks if the values are equal or not
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
@@ -178,11 +178,11 @@ public class CdTest {
         expectedCd = null;
         //Expected current working directory
         expectedPath = "/";
-        cd.run("users/desktop".split(" "), "cd users/desktop", false);
+        cd.run(fs,"users/desktop".split(" "), "cd users/desktop", false);
         //Actual return from Cd
-        actualCd = cd.run("../..".split(" "), "cd ../.. ", false);
+        actualCd = cd.run(fs,"../..".split(" "), "cd ../.. ", false);
         //Returns the current working directory
-        actualPath = path.getCurrentPath();
+        actualPath = path.getCurrentPath(fs);
         //Checks if the values are equal or not
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
@@ -194,9 +194,9 @@ public class CdTest {
         //Expected current working directory
         expectedPath = "/";
         //Actual return from Cd
-        actualCd = cd.run("A2".split(" "), "cd A2", false);
+        actualCd = cd.run(fs,"A2".split(" "), "cd A2", false);
         //Returns the current working directory
-        actualPath = path.getCurrentPath();
+        actualPath = path.getCurrentPath(fs);
         //Checks if the values are equal or not
         assertTrue(actualCd.equals(expectedCd) && actualPath.equals(expectedPath));
     }
@@ -208,9 +208,9 @@ public class CdTest {
         //Expected current working directory
         expectedPath = "/Sys/IO/keyboard";
         //Actual return from Cd
-        actualCd = cd.run("/Sys/IO/keyboard".split(" "), "cd /Sys/IO/keyboard", false);
+        actualCd = cd.run(fs,"/Sys/IO/keyboard".split(" "), "cd /Sys/IO/keyboard", false);
         //Returns the current working directory
-        actualPath = path.getCurrentPath();
+        actualPath = path.getCurrentPath(fs);
         //Checks if the values are equal or not
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
@@ -221,11 +221,11 @@ public class CdTest {
         expectedCd = null;
         //Expected current working directory
         expectedPath = "/";
-        cd.run("/Sys/IO/keyboard".split(" "), "cd /Sys/IO/keyboard", false);
+        cd.run(fs,"/Sys/IO/keyboard".split(" "), "cd /Sys/IO/keyboard", false);
         //Actual return from Cd
-        actualCd = cd.run("../../../".split(" "), "cd ../../../", false);
+        actualCd = cd.run(fs,"../../../".split(" "), "cd ../../../", false);
         //Returns the current working directory
-        actualPath = path.getCurrentPath();
+        actualPath = path.getCurrentPath(fs);
         //Checks if the values are equal or not
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
@@ -237,9 +237,9 @@ public class CdTest {
         //Expected current working directory
         expectedPath = "/";
         //Actual return from Cd
-        actualCd = cd.run("/pics /Sys/LOL".split(" "), "cd /pics /Sys/LOL", false);
+        actualCd = cd.run(fs,"/pics /Sys/LOL".split(" "), "cd /pics /Sys/LOL", false);
         //Returns the current working directory
-        actualPath = path.getCurrentPath();
+        actualPath = path.getCurrentPath(fs);
         //Checks if the values are equal or not
         assertTrue(actualCd.equals(expectedCd) && actualPath.equals(expectedPath));
     }

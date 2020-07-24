@@ -42,17 +42,17 @@ public class MkdirTest {
   public void collectContent(String path){
     allContent.clear();
     Cd cd = new Cd();
-    cd.run(path.split(" "), "cd " + path, false);
+    cd.run(fs,path.split(" "), "cd " + path, false);
     for (int i = 0; i < fs.getCurrent().getList().size(); i++) 
     allContent.add(fs.getCurrent().getList().get(i).getName());
-    cd.run("/".split(" "), "cd /", false);
+    cd.run(fs,"/".split(" "), "cd /", false);
   }
 
   @Test
   public void testANoPath() {
     String[] testNoArg = {};
     expected = "Error: Invalid Argument : Expected at least 1 argument";
-    actual = mkdir.run(testNoArg, "mkdir", false);
+    actual = mkdir.run(fs,testNoArg, "mkdir", false);
     collectContent("/");
     assertTrue(allContent.isEmpty() && actual.equals(expected));
   }
@@ -60,7 +60,7 @@ public class MkdirTest {
   @Test
   public void testBInvalidName(){
     expected = "Error: Invalid Directory : ... is not a valid directory name";
-    actual = mkdir.run("...".split(" "), "mkdir ..." , false); 
+    actual = mkdir.run(fs,"...".split(" "), "mkdir ..." , false); 
     collectContent("/");
     assertTrue(allContent.isEmpty() && actual.equals(expected));
   }
@@ -68,7 +68,7 @@ public class MkdirTest {
   @Test
   public void testCInvalidPath(){
     expected = "Error: Invalid Directory : /hello is not a valid directory";
-    actual = mkdir.run("/hello/hi".split(" "), "mkdir /hello/hi" , false); 
+    actual = mkdir.run(fs,"/hello/hi".split(" "), "mkdir /hello/hi" , false); 
     collectContent("/");
     assertTrue(allContent.isEmpty() && actual.equals(expected));
   }
@@ -76,7 +76,7 @@ public class MkdirTest {
   @Test
   public void testDValidAbsolutePath() {
     expected = null;
-    actual = mkdir.run("/desktop".split(" "), "mkdir /desktop" , false);
+    actual = mkdir.run(fs,"/desktop".split(" "), "mkdir /desktop" , false);
     collectContent("/");
     assertTrue(allContent.equals(Arrays.asList("desktop".split(" ")))  && actual == expected);
   }
@@ -84,7 +84,7 @@ public class MkdirTest {
   @Test
   public void testEValidRelativePath() {
     expected = null;
-    actual = mkdir.run("users".split(" "), "mkdir users" , false);
+    actual = mkdir.run(fs,"users".split(" "), "mkdir users" , false);
     collectContent("/");
     assertTrue(allContent.equals(Arrays.asList("users".split(" ")))  && actual == expected);
   }
@@ -92,8 +92,8 @@ public class MkdirTest {
   @Test
   public void testFRepeatedPath(){
     expected = "Error: Same Directory with that name already exists! : LOL already exists";
-    mkdir.run("/LOL".split(" "), "mkdir /LOL" , false);
-    actual = mkdir.run("/LOL".split(" "), "mkdir /LOL" , false); 
+    mkdir.run(fs,"/LOL".split(" "), "mkdir /LOL" , false);
+    actual = mkdir.run(fs,"/LOL".split(" "), "mkdir /LOL" , false); 
     collectContent("/");
     assertTrue(allContent.equals(Arrays.asList("LOL".split(" ")))  && actual.equals(expected));
   }
@@ -101,8 +101,8 @@ public class MkdirTest {
   @Test
   public void testGRelativeFromDirPath(){
     expected = null;
-    mkdir.run("desktop".split(" "), "mkdir desktop" , false);
-    actual = mkdir.run("desktop/project".split(" "), "mkdir desktop/project" , false); 
+    mkdir.run(fs,"desktop".split(" "), "mkdir desktop" , false);
+    actual = mkdir.run(fs,"desktop/project".split(" "), "mkdir desktop/project" , false); 
     collectContent("desktop");
     assertTrue(allContent.equals(Arrays.asList("project".split(" ")))  && actual == expected);
   }
@@ -110,7 +110,7 @@ public class MkdirTest {
   @Test
   public void testHMultipleArgsRelativePaths(){
     expected = null;
-    actual = mkdir.run("Business A2".split(" "), "mkdir Business A2", false);
+    actual = mkdir.run(fs,"Business A2".split(" "), "mkdir Business A2", false);
     collectContent("/");
     assertTrue(allContent.equals(Arrays.asList("Business A2".split(" ")))  && actual == expected);
   }
@@ -118,7 +118,7 @@ public class MkdirTest {
   @Test
   public void testIAbsolutePaths(){
     expected = null;
-    actual = mkdir.run("/A3 /A3/do".split(" "), "mkdir /A3 /A3/do", false);
+    actual = mkdir.run(fs,"/A3 /A3/do".split(" "), "mkdir /A3 /A3/do", false);
     collectContent("A3");
     assertTrue(allContent.equals(Arrays.asList("do".split(" ")))  && actual == expected);
   }
@@ -126,7 +126,7 @@ public class MkdirTest {
   @Test
   public void testJMultipleArgsOneDoesNotExist(){
     expected = "Error: Invalid Directory : /lol is not a valid directory";
-    actual = mkdir.run("/lol/F anotherFile".split(" "), "mkdir /lol/F anotherFile", false);
+    actual = mkdir.run(fs,"/lol/F anotherFile".split(" "), "mkdir /lol/F anotherFile", false);
     collectContent("/");
     assertTrue(allContent.equals(Arrays.asList("anotherFile".split(" ")))  && actual.equals(expected));
   }

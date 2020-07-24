@@ -37,7 +37,7 @@ public class HistoryTest {
   public void testANoArgs() {
     fs.getCommandLog().add("history");
     String[] testCase1history = {};
-    actual = history.run(testCase1history, "history", false);
+    actual = history.run(fs,testCase1history, "history", false);
     expected = "1. mkdir users\n" + "2. mkdir pics\n" + "3. mkdir Sys\n"
         + "4. echo \"Wow what a project\" > A2\n" + "5. cd C/users\n"
         + "6. mkdir desktop\n" + "7. history";
@@ -48,7 +48,7 @@ public class HistoryTest {
   public void testBLargeInteger() {
     fs.getCommandLog().add("history");
     fs.getCommandLog().add("history 100");
-    actual = history.run("100".split(" "), "history 100", false);
+    actual = history.run(fs,"100".split(" "), "history 100", false);
     expected = "1. mkdir users\n" + "2. mkdir pics\n" + "3. mkdir Sys\n"
         + "4. echo \"Wow what a project\" > A2\n" + "5. cd C/users\n"
         + "6. mkdir desktop\n" + "7. history\n" + "8. history 100";
@@ -60,7 +60,7 @@ public class HistoryTest {
     fs.getCommandLog().add("history");
     fs.getCommandLog().add("history 100");
     fs.getCommandLog().add("history 5");
-    actual = history.run("5".split(" "), "history 5", false);
+    actual = history.run(fs,"5".split(" "), "history 5", false);
     expected = "5. cd C/users\n" + "6. mkdir desktop\n"
         + "7. history\n" + "8. history 100\n" + "9. history 5";
     assertEquals(expected,actual);
@@ -72,7 +72,7 @@ public class HistoryTest {
     fs.getCommandLog().add("history 100");
     fs.getCommandLog().add("history 5");
     fs.getCommandLog().add("history -3");
-    actual = history.run("-3".split(" "), "history -3", false);
+    actual = history.run(fs,"-3".split(" "), "history -3", false);
     expected = "Error: Invalid Argument : -3 is not either a number or "
         + "positive or an integer";
     assertEquals(expected,actual);
@@ -86,7 +86,7 @@ public class HistoryTest {
     fs.getCommandLog().add("history 5");
     fs.getCommandLog().add("history -3");
     fs.getCommandLog().add("history 1.0");
-    actual = history.run("1.0".split(" "), "history -3", false);
+    actual = history.run(fs,"1.0".split(" "), "history -3", false);
     expected = "Error: Invalid Argument : 1.0 is not either a number or "
         + "positive or an integer";
     assertEquals(expected,actual);
@@ -100,7 +100,7 @@ public class HistoryTest {
     fs.getCommandLog().add("history -3");
     fs.getCommandLog().add("history 1.0");
     fs.getCommandLog().add("history hello");
-    actual = history.run("hello".split(" "), "history hello", false);
+    actual = history.run(fs,"hello".split(" "), "history hello", false);
     expected = "Error: Invalid Argument : hello is not either a number or "
         + "positive or an integer";
     assertEquals(expected,actual);
@@ -115,7 +115,7 @@ public class HistoryTest {
     fs.getCommandLog().add("history 1.0");
     fs.getCommandLog().add("history hello");
     fs.getCommandLog().add("history 1 3 5");
-    actual = history.run("1 3 5".split(" "), "history hello", false);
+    actual = history.run(fs,"1 3 5".split(" "), "history hello", false);
     expected = "Error : Multiple Parameters have been provided : 1 3 5 , "
         + "either one or no input";
     assertEquals(expected,actual);

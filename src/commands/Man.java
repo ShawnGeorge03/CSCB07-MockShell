@@ -190,9 +190,10 @@ public class Man implements CommandI {
         + "\n\n\tFilename can be given in the form of an absolute" + "\n\tpath or relative path");
 
     // Adds a key named man and adds its manual
-    manMap.put("man CMD",
-        "Command: man" + "\nProvides documentation on all commands within THIS Java Shell"
-            + "\nProvides information such as arguments and function.");
+    manMap.put("man",
+        "Command: man CMD" + "\nProvides documentation on all commands within THIS Java Shell"
+            + "\nProvides information such as arguments and function."
+            +"\n\n\tParameter: None");
 
     // Adds a key named exit and adds its manual
     manMap.put("exit", "Command : exit" + "\n\n\tCloses the current session and leaves the Shell"

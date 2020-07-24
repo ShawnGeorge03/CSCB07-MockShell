@@ -29,7 +29,6 @@
 // *********************************************************
 package commands;
 
-import data.FileSystem;
 import data.FileSystemI;
 import data.Node;
 
@@ -37,11 +36,6 @@ import data.Node;
  * Class Cat views the contents of requested file
  */
 public class Cat extends FileManager implements CommandI {
-
-  /**
-   * Declare instance variable of FileSystem to access the filesystem
-   */
-  FileSystem filesys;
 
   /**
    * Declare instance variable of String to contain the output that Cat may return
@@ -72,7 +66,7 @@ public class Cat extends FileManager implements CommandI {
       // Initializing the String object output after each time the method is called
       output = "";
       // Calls the readFile function to return what is in the file
-      readFile(args, filesys);
+      readFile(args, fs);
     }
     // Returns the output for the arguments
     return output;

@@ -1,3 +1,4 @@
+
 package test;
 
 import static org.junit.Assert.*;
@@ -43,7 +44,7 @@ public class CurlTest {
   public void testANoArg() {
     String[] testCase1Curl = {};
     expected = "Error : No parameters provided : []";
-    actual = curl.run(testCase1Curl, website, false);
+    actual = curl.run(fs,testCase1Curl, website, false);
     assertEquals(expected, actual);
   }
 
@@ -51,7 +52,7 @@ public class CurlTest {
   public void testBMalformedArg() {
     website = "raw.githubusercontent.com/jjangsta/GamseeAI/master/README.md";
     expected = "Parameter given is invalid " + website;
-    actual = curl.run(website.split(" "), website, false);
+    actual = curl.run(fs,website.split(" "), website, false);
     assertEquals(expected, actual);
   }
 
@@ -59,7 +60,7 @@ public class CurlTest {
   public void testCFileNotFoundArg() {
     website = "https://raw.githubusercontent.com/" + "jjangsta/GamseeAI/master/LOL.md";
     expected = "URL provided does not contain a file " + website;
-    actual = curl.run(website.split(" "), website, false);
+    actual = curl.run(fs,website.split(" "), website, false);
     assertEquals(expected, actual);
   }
 
@@ -67,7 +68,7 @@ public class CurlTest {
   public void testDNoFileNameArg() {
     website = "http://www.cs.utoronto.ca/~trebla/CSCB09-2020-Summer/";
     expected = "URL provided does not contain a file " + website;
-    actual = curl.run(website.split(" "), website, false);
+    actual = curl.run(fs,website.split(" "), website, false);
     assertEquals(expected, actual);
   }
 
@@ -75,7 +76,7 @@ public class CurlTest {
   public void testEFailConnectArg() {
     website = "https://markus.utsc.utoronto.ca/svn/cscb07s20/" + "group_0096/Assignment2/sprints/readMeSprints.txt";
     expected = "Connection could not be made to " + website;
-    actual = curl.run(website.split(" "), website, false);
+    actual = curl.run(fs,website.split(" "), website, false);
     assertEquals(expected, actual);
   }
 
@@ -83,16 +84,16 @@ public class CurlTest {
   public void testFReadHTML() {
     website = "https://raw.githubusercontent.com/ShawnGeorge03/Learn-HTML-CSS/master/Lesson%201/lesson1.html";
     expected = " <h1>Hello World</h1>\n";
-    curl.run(website.split(" "), website, false);
-    assertEquals(expected, file.findFileGivenRelative("lesson1").getContent());
+    curl.run(fs,website.split(" "), website, false);
+    assertEquals(expected, file.findFileGivenRelative("lesson1",fs).getContent());
   }
 
   @Test
   public void testGReadTXT() {
     website = "https://raw.githubusercontent.com/ShawnGeorge03/Learn-HTML-CSS" + "/master/Lesson%201/Lesson1.txt";
     expected = " Write your name on the Browser \n";
-    curl.run(website.split(" "), website, false);
-    assertEquals(expected, file.findFileGivenRelative("Lesson1").getContent());
+    curl.run(fs,website.split(" "), website, false);
+    assertEquals(expected, file.findFileGivenRelative("Lesson1", fs).getContent());
   }
 
   @Test
@@ -102,7 +103,7 @@ public class CurlTest {
     expected = "Error : Multiple Parameters have been provided : "
         + "[https://raw.githubusercontent.com/ShawnGeorge03/Learn-HTML-CSS/master/README.md, "
         + "https://raw.githubusercontent.com/ShawnGeorge03/Learn-HTML-CSS/master/Lesson%201/Lesson1.txt]";
-    actual = curl.run(website.trim().split(" "), website, false);
+    actual = curl.run(fs, website.trim().split(" "), website, false);
     assertEquals(expected, actual);
   }
 
