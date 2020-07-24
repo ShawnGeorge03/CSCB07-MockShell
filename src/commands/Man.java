@@ -188,7 +188,7 @@ public class Man implements CommandI {
         + "\n\n\tFilename can be given in the form of an absolute" + "\n\tpath or relative path");
 
     // Adds a key named man and adds its manual
-    manMap.put("man",
+    manMap.put("man CMD",
         "Command: man" + "\nProvides documentation on all commands within THIS Java Shell"
             + "\nProvides information such as arguments and function.");
 
@@ -196,6 +196,7 @@ public class Man implements CommandI {
     manMap.put("exit", "Command : exit" + "\n\n\tCloses the current session and leaves the Shell"
         + "\n\n\tParameter : None");
 
+    // Adds a key named rm and adds its manual
     manMap.put("rm", 
         "Command: rm DIR"  + "\n\tRemoves the give DIR from the file system"
         +"\n\n\tParameter : DIR can be either absolute or relative path"
@@ -208,13 +209,16 @@ public class Man implements CommandI {
         + "\n\n\tSample Use Case : rm /user/user1/desktop"
         + "\n\tRemoves the directory desktop which is in the user1 directory" 
         + "\n\twhich is in user which is the root of file system");
-
+        
+    // Adds a key named mv and adds its manual
     manMap.put("mv", 
         "Command: mv OLDPATH NEWPATH");
-   
+
+    // Adds a key named cp and adds its manual        
     manMap.put("cp", 
         "Command: cp OLDPATH NEWPATH");
-    
+
+    // Adds a key named curl and adds its manual
     manMap.put("curl", 
         "Command: curl URL" 
         + "\n\n\tRetrives the content of the a file at the URL and adds it to the current working directory"
@@ -223,28 +227,51 @@ public class Man implements CommandI {
         + "\n\n\tSample Use Case : curl http://www.cs.utoronto.ca/~trebla//CSCB09-2020-Summer/course-info.html"
         + "\n\tCreates a course-info file in the current directory and stores the content of the file from the URL");
     
+     // Adds a key named save and adds its manual
     manMap.put("save", 
         "Command: save FileName" 
         + "Save the current session of the JShell and stores it to a FileName on the users actual file system"
         + "/n/n/tParameter : FileName can be relative or absolute paths"
         + "/n/tParameter : There can only be one FileName");
    
+    // Adds a key named load and adds its manual
     manMap.put("load",  
         "Command: load FileName" 
         + "Loads up a previous session of the JShell and sets up the JShell to that state"
         + "/n/n/tParameter : FileName can be relative or absolute paths"
         + "/n/tParameter : There can only be one FileName");
     
+    // Adds a key named find and adds its manual
     manMap.put("find", 
-        "Command: find PATH -type[f|d] -name expression"
+        "Command: find PATH -type[f|d] -name EXPRESSION"
+        +"\n\tSearches the give PATH for a file/directory called EXPRESSION"
         +"\n\n\tParameter : PATH can be either absolute or relative path"
         + "\n\tParameter : It can be one PATH or multiple PATH"
         + "\n\tParameter : PATH must be a possible path the exist in the File System" 
         + "\n\tParameter : PATH cannot be a file path"
         + "\n\tParamerter : If type is f then it is a file"
-        + "\n\tParamerter : If type is d then it is a directory");
-    
+        + "\n\tParamerter : If type is d then it is a directory"
+        + "\n\tParameter : The EXPRESSION must be surrounded by quotes"
+        + "\n\n\tSample Use Case: find /users/desktop -type f -name \"A2\""
+        + "\n\tSearches the desktop directory for a file named A2"
+        + "\n\n\tSample Use Case: find / -type d -name \"resources\""
+        + "\n\tSearches the root directory for directories named resources");
+
+    // Adds a key named tree and adds its manual
     manMap.put("tree", 
-        "Command: tree" );    
+        "Command: tree"
+        + "\n\tDisplays the entire file system as a tree"
+        + "\n\n\tParameter : None"
+        + "\n\tIf any of these parameter are not meet an error will be outputed respectively"
+        + "\n\n\tSample Use Case : tree"
+        + "\n\n  \t\t\\"
+        + "\n\n\tSince there is no other directories in the file \n\tsystem it prints out the root directory only"
+        + "\n\n\tSample Use Case : tree"
+        + "\n\n    \t\t\\\n\t\t users\n\t\t resources"
+        + "\n\n\tThe root directory has two sub \n\tdirectories and so it prints them out"
+        + "\n\n\tSample Use Case : tree"
+        + "\n\n   \t\t\\\n\t\t users\n\t\t\t\b\buser1\n\t\t\t   desktop\n\t\t resources"
+        + "\n\n\tIt prints out all the sub directories in \n\tthe file system one directory at a time"
+        );    
   }
 }
