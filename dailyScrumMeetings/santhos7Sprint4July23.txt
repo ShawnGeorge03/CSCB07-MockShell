@@ -1,0 +1,19 @@
+a) What did I work on in the last three days? 
+	- Finished JUnit testcases for the new changes of mkdir
+	- Finished JUnit testcases for cd
+	- Finished JUnit testcases for pwd
+	- Finished JUnit testcases for cat
+	- Finished JUnit testcases for echo
+	- Finished JUnit testcases for man
+    - Brainstormed with the team on Sprint 5
+
+
+b) What do I plan to work in the next three days?
+	- Figure out how to implement redirection for certain commands
+	- Work on commenting the all the test files
+    - Work on writing the manual for all new commands as of 2B requirements
+
+c) Am I blocked on anything?  
+	- None
+
+

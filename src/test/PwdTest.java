@@ -33,12 +33,12 @@ public class PwdTest {
         expectedPath = "";
         actualPath = "";
 
-        mkdir.MakeDirectory("users".split(" "));
-        mkdir.MakeDirectory("users/desktop".split(" "));
-        mkdir.MakeDirectory("Sys".split(" "));
-        mkdir.MakeDirectory("Sys/IO".split(" "));
-        mkdir.MakeDirectory("Sys/IO/keyboard".split(" "));
-        mkdir.MakeDirectory("Sys/IO/Mouse".split(" "));
+        mkdir.MakeDirectory("/users".split(" "));
+        mkdir.MakeDirectory("/users/desktop".split(" "));
+        mkdir.MakeDirectory("/Sys".split(" "));
+        mkdir.MakeDirectory("/Sys/IO".split(" "));
+        mkdir.MakeDirectory("/Sys/IO/keyboard".split(" "));
+        mkdir.MakeDirectory("/Sys/IO/Mouse".split(" "));
     }
 
     @After
@@ -72,7 +72,6 @@ public class PwdTest {
         expectedPath = "/Sys/IO/keyboard";
         cd.run(expectedPath.split(" "), "cd " + expectedPath, false);
         actualPath = pwd.run(emptyArr, "pwd", false);
-        System.out.println(actualPath);
         assertEquals(expectedPath, actualPath);
     }
 

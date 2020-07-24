@@ -94,7 +94,6 @@ public class Cd extends DirectoryManager implements CommandI {
 		String cur = Arrays.toString(originalArgs);
 		cur = cur.substring(1, cur.length()-1);
 		if (Pattern.matches("(../)+", cur) || (Pattern.matches("(../..)+", cur))) {
-			System.out.println("hello");
 			return true;
 		}
 		return false;

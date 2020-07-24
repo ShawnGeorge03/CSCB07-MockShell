@@ -196,7 +196,6 @@ public class CatTest {
         actual = cat.run("/users/desktop/Hwk /Sys/LOL /Sys/IO/keyboard/RGB".split(" "), 
                 "cat /users/desktop/Hwk /Sys/LOL /Sys/IO/keyboard/RGB", false);
         //Checks if the values are equal or not
-        System.out.println(actual);
         assertEquals(expected, actual);
     }
 
