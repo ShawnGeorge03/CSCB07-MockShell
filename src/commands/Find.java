@@ -2,6 +2,7 @@ package commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import data.Node;
 
 class Find extends DirectoryManager implements CommandI {
   
@@ -47,7 +48,8 @@ class Find extends DirectoryManager implements CommandI {
         checkList(x, args[0], args[3]);
       }
     }
-    
+    System.out.println(paths);
+    System.out.println(arguments);
     return null;
   }
   
@@ -78,7 +80,7 @@ class Find extends DirectoryManager implements CommandI {
   
   public static void main(String[] args) {
     Find f = new Find();
-    String[] g = null;
+    String[] g = {"/users/desktop", "/users/pics", "-type", "f", "lmao"};
     f.run(g, "/users/desktop /users/pics -type f 'lmao'", false);
     
   }
