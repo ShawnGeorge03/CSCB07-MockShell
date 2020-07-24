@@ -66,7 +66,7 @@ public class Ls extends DirectoryManager implements CommandI {
 	if (args.size() == 0){
 		return unrecursiveMode();
 	}
-	 if (!args.get(0).equals("-r")){
+	 if (!args.get(0).equals("-R")){
 		 return unrecursiveMode();
 	 } else{
 		 return recursiveMode();
@@ -94,7 +94,7 @@ public String unrecursiveMode() {
 	        Cd traverse = new Cd();
 	        if (traverse.run(path)) {
 	          Node current = FileSystem.getFileSys().getCurrent();
-	          System.out.println("Path: " + path[0]);
+	          System.out.println("Path: " + getCurrentPath());
 	          for (int j = 0; j < current.getList().size(); j++) {
 	            System.out.println(current.getList().get(j).getName());
 	          }
@@ -126,6 +126,7 @@ public String unrecursiveMode() {
 				traverse.run(currentPath);
 			}
 		}
+		traverse.run(currentPath);
 		return null;
 	}
 
@@ -133,9 +134,12 @@ public String unrecursiveMode() {
 		if (!root.isDir()){
 			return null;
 		}
+		filesys.assignCurrent(root);
+		System.out.println("Path: " + getCurrentPath());
 		for (int i = 0; i < root.getList().size(); i++){
 			System.out.println(root.getList().get(i).getName());
 		}
+		System.out.println();
 		for (int i = 0; i < root.getList().size(); i++){
 			listDirectory(root.getList().get(i));
 		}
