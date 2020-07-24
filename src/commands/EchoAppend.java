@@ -29,6 +29,7 @@
 // *********************************************************
 package commands;
 
+import data.FileSystemI;
 import data.Node;
 
 /**
@@ -42,26 +43,26 @@ public class EchoAppend extends Echo {
    * @param fileContents  the contents the user wishes to append
    * @param fileName  the name of requested file
    */
-  public void execute(String fileContents, String fileName) {
+  public void execute(String fileContents, String fileName, FileSystemI filesys) {
     // Parses the user inputted path
     String[] givenPath = fileName.split("/");
     // If given only the file (relative path)
     if (givenPath.length == 1) {
-      executeRelativePath(fileContents, fileName);
+      executeRelativePath(fileContents, fileName, filesys);
     }
     // If given absolute path
     else {
-      executeAbsolutePath(fileContents, fileName, givenPath);
+      executeAbsolutePath(fileContents, fileName, givenPath, filesys);
     }
 
   }
 
-  private void executeRelativePath(String fileContents, String fileName) {
+  private void executeRelativePath(String fileContents, String fileName, FileSystemI filesys) {
     // Check if valid fileName
     if (isValidFileName(fileName)) {
       // If already exists
-      if (findFileGivenRelative(fileName) != null) {
-        Node file = findFileGivenRelative(fileName);
+      if (findFileGivenRelative(fileName, filesys) != null) {
+        Node file = findFileGivenRelative(fileName, filesys);
         file.setContent(file.getContent() + "\n" + fileContents);
       } else {
         // Create new file and add to FileSystem
@@ -78,27 +79,27 @@ public class EchoAppend extends Echo {
   }
 
   private void executeAbsolutePath(String fileContents, String fileName,
-      String[] givenPath) {
+      String[] givenPath, FileSystemI filesys) {
     // Check if fileName is valid
     if (isValidFileName(givenPath[givenPath.length - 1])) {
       // If already exists
-      if (findFileGivenAbsolute(fileName) != null) {
-        Node file = findFileGivenAbsolute(fileName);
+      if (findFileGivenAbsolute(fileName, filesys) != null) {
+        Node file = findFileGivenAbsolute(fileName, filesys);
         file.setContent(file.getContent() + "\n" + fileContents);
       } else {
         // Create new file and add to the FileSystem
-        Node currentNode = this.filesys.getCurrent();
+        Node currentNode = filesys.getCurrent();
         String desiredPath = fileName;
         desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
-        Node parent = findFolderGivenAbsolute(desiredPath);
-        this.filesys.assignCurrent(parent);
+        Node parent = findFolderGivenAbsolute(desiredPath, filesys);
+        filesys.assignCurrent(parent);
         Node newFile = new Node();
         newFile.setDir(false);
         newFile.setContent(fileContents);
         newFile.setName(givenPath[givenPath.length - 1]);
         newFile.setParent(parent);
         filesys.addToDirectory(newFile);
-        this.filesys.assignCurrent(currentNode);
+        filesys.assignCurrent(currentNode);
       }
     } else
       System.out.println(this.getErrorHandler().getError("Invalid File",

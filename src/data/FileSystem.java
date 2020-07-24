@@ -124,4 +124,22 @@ public class FileSystem implements FileSystemI{
     FileSystem.stack = stack;
   }
 
+  @Override
+  public Node createFile() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public String fileAppend(String content, String file) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public String fileOverwrite(String content, String file) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }

@@ -3,7 +3,7 @@ package commands;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import data.FileSystem;
+import data.FileSystemI;
 import data.Node;
 
 public class Rm extends DirectoryManager implements CommandI{
@@ -22,24 +22,24 @@ public class Rm extends DirectoryManager implements CommandI{
 	}
 	
 	
-	public String run(String[] arguments, String actualInput, boolean val) {
+	public String run(FileSystemI filesys, String[] arguments, String actualInput, boolean val) {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
 		if (args.size() != 1) {
 			return error.getError("Invalid Argument", "Expecting 1 Argument only!");
 		}
 		
 		if (args.get(0).contains("/")) {
-			String[] currentPath = {getCurrentPath()};
+			String[] currentPath = {getCurrentPath(filesys)};
 			String dirToRemove = args.get(0).substring(args.get(0).lastIndexOf("/") + 1);
 			String[] dirAbove = {args.get(0).substring(0, args.get(0).lastIndexOf("/"))};
 			Cd traverseFileSystem = new Cd();
 			
-			if (traverseFileSystem.run(dirAbove)) {
-				Node current = FileSystem.getFileSys().getCurrent();
+			if (traverseFileSystem.run(dirAbove, filesys)) {
+				Node current = filesys.getCurrent();
 				for (int i = 0; i < current.getList().size(); i++) {
 					if (current.getList().get(i).getName().equals(dirToRemove)) {
-						FileSystem.getFileSys().removeFromDirectory(i);
-						traverseFileSystem.run(currentPath);
+						filesys.removeFromDirectory(i);
+						traverseFileSystem.run(currentPath, filesys);
 						return null;
 					}
 				}
@@ -49,11 +49,11 @@ public class Rm extends DirectoryManager implements CommandI{
 			}
 		}else {
 			String dirToRemove = args.get(0);
-			Node current = FileSystem.getFileSys().getCurrent();
+			Node current = filesys.getCurrent();
 			
 			for (int i = 0; i < current.getList().size(); i++) {
 				if (current.getList().get(i).getName().equals(dirToRemove)) {
-					FileSystem.getFileSys().removeFromDirectory(i);
+					filesys.removeFromDirectory(i);
 					return null;
 				}
 			}

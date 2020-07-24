@@ -2,6 +2,8 @@ package commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import data.FileSystemI;
 import data.Node;
 
 
@@ -33,7 +35,7 @@ class Find extends DirectoryManager implements CommandI {
   }
 
   @Override
-  public String run(String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     ArrayList<String> paths = new ArrayList<String>();
     ArrayList<String> arguments = new ArrayList<String>(Arrays.asList(args));
     args = fullInput.split(" ");
@@ -46,7 +48,7 @@ class Find extends DirectoryManager implements CommandI {
     
     if (isValid(args)) {
       for (String x : paths) {
-        checkList(x, args[0], args[3]);
+        checkList(filesys, x, args[0], args[3]);
       }
     }
     System.out.println(paths);
@@ -54,11 +56,11 @@ class Find extends DirectoryManager implements CommandI {
     return null;
   }
   
-  public void checkList(String path, String expression, String type) {
-    String currPath = this.getCurrentPath();
+  public void checkList(FileSystemI filesys, String path, String expression, String type) {
+    String currPath = this.getCurrentPath(filesys);
     String[] splitPath = path.split("/");
     Cd newPath = new Cd();
-    if (newPath.run(splitPath, path, true) != null){
+    if (newPath.run(filesys, splitPath, path, true) != null){
       ArrayList<Node> toCheck = filesys.getCurrent().getList();
       for (int i = 0; i < toCheck.size(); i++) {
         if (type.equals("d")) {
@@ -79,12 +81,11 @@ class Find extends DirectoryManager implements CommandI {
   }
   
   
-  public static void main(String[] args) {
-    Find f = new Find();
-    String[] g = {"/users/desktop", "/users/pics", "-type", "f", "lmao"};
-    f.run(g, "/users/desktop /users/pics -type f 'lmao'", false);
-    
-  }
+  //public static void main(String[] args) {
+  //  Find f = new Find();
+  //  String[] g = {"/users/desktop", "/users/pics", "-type", "f", "lmao"};
+  //  f.run(g, "/users/desktop /users/pics -type f 'lmao'", false);
+  //  }
 
   
 }

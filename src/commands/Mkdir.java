@@ -32,7 +32,7 @@ package commands;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import data.FileSystem;
+import data.FileSystemI;
 import data.Node;
 
 /**
@@ -64,8 +64,8 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 *                   JShell
 	 * @return String  null always
 	 */
-	public String run(String[] args, String fullInput, boolean val) {
-		return MakeDirectory(args);
+	public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+		return MakeDirectory(args, filesys);
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * @param arguments  The string array of all arguments provided
 	 * @return String  An error message, else null
 	 */
-	public String MakeDirectory(String[] arguments) {
+	public String MakeDirectory(String[] arguments, FileSystemI filesys) {
 		
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
 		
@@ -86,7 +86,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 		//Checks for Valid arguments
 		for (int i = 0; i < args.size(); i++) {
 			if (checkPath(i)) {
-				String[] currentPath = { getCurrentPath() };
+				String[] currentPath = {getCurrentPath(filesys)};
 				String[] newArgs = { args.get(i).substring(0, args.get(i).lastIndexOf('/')) };
 				if (newArgs[0].equals("")){
 					newArgs[0] = "/";
@@ -101,14 +101,14 @@ public class Mkdir extends DirectoryManager implements CommandI {
 				
 				//Cd's into path given, checks if filename is valid for that directory, and creates it
 				Cd newpath = new Cd();
-				if (newpath.run(newArgs)) {
+				if (newpath.run(newArgs, filesys)) {
 					Node newNode = getDirNode(i);
 					boolean isValidDir = true;
-					for (int j = 0; j < FileSystem.getFileSys().getCurrent().getList().size(); j++) {
-						if (FileSystem.getFileSys().getCurrent().getList().get(j).getName().equals(newNode.getName())) {
+					for (int j = 0; j < filesys.getCurrent().getList().size(); j++) {
+						if (filesys.getCurrent().getList().get(j).getName().equals(newNode.getName())) {
 							Cd goBack = new Cd();
 							
-							goBack.run(currentPath);
+							goBack.run(currentPath, filesys);
 							output += error.getError("Same Directory", newNode.getName() + " already exists");
 							isValidDir = false;
 							continue;
@@ -119,14 +119,14 @@ public class Mkdir extends DirectoryManager implements CommandI {
 						continue;
 					}
 					
-					FileSystem.getFileSys().addToDirectory(newNode);
+					filesys.addToDirectory(newNode);
 				} else {
 					output += error.getError("Invalid Directory", newArgs[0] + " is not a valid directory");
 					
 				}
-				newpath.run(currentPath);
+				newpath.run(currentPath, filesys);
 			} else {
-				output += mkDirWithinCurrent(i);
+				output += mkDirWithinCurrent(i, filesys);
 			}
 		}
 		if (output.equals("")) {
@@ -150,7 +150,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * 
 	 * @return String  A string if there is an error in adding the node, else null
 	 */
-	private String mkDirWithinCurrent(int i) {
+	private String mkDirWithinCurrent(int i, FileSystemI filesys) {
 		if (!isValidDirectoryName(args.get(i))) {
 			return error.getError("Invalid Directory", args.get(i) + " is not a valid directory name");
 		}
@@ -160,8 +160,8 @@ public class Mkdir extends DirectoryManager implements CommandI {
 		newNode.setDir(true);
 		newNode.setName(args.get(i));
 
-		for (int j = 0; j < FileSystem.getFileSys().getCurrent().getList().size(); j++) {
-			if (FileSystem.getFileSys().getCurrent().getList().get(j).getName().equals(newNode.getName())) {
+		for (int j = 0; j < filesys.getCurrent().getList().size(); j++) {
+			if (filesys.getCurrent().getList().get(j).getName().equals(newNode.getName())) {
 				return error.getError("Same Directory", newNode.getName() + " already exists");
 			}
 		}

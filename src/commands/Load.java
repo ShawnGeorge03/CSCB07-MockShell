@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import data.FileSystem;
+import data.FileSystemI;
 import data.Node;
 
 public class Load implements CommandI{
@@ -14,10 +14,8 @@ public class Load implements CommandI{
   private String filePath;
   private String output;
   private ErrorHandler error;
-  private FileSystem filesys;
   
   public Load(){
-    this.filesys = FileSystem.getFileSys();
     this.error = new ErrorHandler();
     this.output = null;
   }
@@ -30,9 +28,9 @@ public class Load implements CommandI{
   */
 
   @Override
-  public String run(String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     
-    if(args[0].length() > 0 && checkCommandLog()) {
+    if(args[0].length() > 0 && checkCommandLog(filesys)) {
       filePath = formatArguments(args);
       try {
         fileReader = new FileReader(filePath);
@@ -40,9 +38,9 @@ public class Load implements CommandI{
         String line = reader.readLine();
 
         while(line != null) {
-          if(line.equals("NODES")) uploadNodes(line);
+          if(line.equals("NODES")) uploadNodes(line, filesys);
           else if(line.equals("COMMAND LOG")) {
-            uploadCommandLog(line);
+            uploadCommandLog(line, filesys);
           }
           line = reader.readLine();
         }
@@ -54,19 +52,19 @@ public class Load implements CommandI{
       }
     }
     else{
-      if(checkCommandLog()) output = error.getError("No parameters provided", fullInput);
+      if(checkCommandLog(filesys)) output = error.getError("No parameters provided", fullInput);
       else System.out.println("Error (load was not the first command inputted)");
     }
     
     return output;
   }
   
-  private boolean checkCommandLog() {
-    if(this.filesys.getCommandLog().size() == 1) return true;
+  private boolean checkCommandLog(FileSystemI filesys) {
+    if(filesys.getCommandLog().size() == 1) return true;
     return false;
   }
   
-  private void uploadNodes(String line) {
+  private void uploadNodes(String line, FileSystemI filesys) {
     try {
       line = reader.readLine();
       line = reader.readLine();
@@ -76,7 +74,7 @@ public class Load implements CommandI{
           nodeInformation[i] = line;
           line = reader.readLine();
         }
-        createNode(nodeInformation);
+        createNode(nodeInformation, filesys);
         line = reader.readLine();
       }
     } catch (IOException e) {
@@ -84,7 +82,7 @@ public class Load implements CommandI{
     }
   }
   
-  private void uploadCommandLog(String line) {
+  private void uploadCommandLog(String line, FileSystemI filesys) {
     try {
       line = reader.readLine();
       line = reader.readLine().trim().replaceAll("\"", "");
@@ -97,7 +95,7 @@ public class Load implements CommandI{
     }
   }
   
-  private void createNode(String[] nodeInformation) {
+  private void createNode(String[] nodeInformation, FileSystemI filesys) {
     String[] parsedNodeInformation = new String[4];
     for(int i = 0; i < nodeInformation.length; i++) {
       String parseInfo = nodeInformation[i].replaceAll("\"", "").trim();
@@ -108,28 +106,28 @@ public class Load implements CommandI{
       newNode.setName(parsedNodeInformation[0]);
       newNode.setDir(Boolean.valueOf(parsedNodeInformation[1]));
       newNode.setContent(parsedNodeInformation[3]);
-      if(parsedNodeInformation[2].equals(this.filesys.getCurrent().getName()))
-        this.filesys.addToDirectory(newNode);
+      if(parsedNodeInformation[2].equals(filesys.getCurrent().getName()))
+        filesys.addToDirectory(newNode);
       else{
-        addNodeToFileSystem(newNode, parsedNodeInformation[2]);
+        addNodeToFileSystem(newNode, parsedNodeInformation[2], filesys);
       }
     }
   }
   
-  private void addNodeToFileSystem(Node newNode, String parentName) {
-    this.filesys.assignCurrent(this.filesys.getRoot());
-    traverseFileSystem(this.filesys.getCurrent(), parentName, newNode);
+  private void addNodeToFileSystem(Node newNode, String parentName, FileSystemI filesys) {
+    filesys.assignCurrent(filesys.getRoot());
+    traverseFileSystem(filesys.getCurrent(), parentName, newNode,filesys);
   }
   
-  private void traverseFileSystem(Node current, String desiredParentName, Node newNode) {
+  private void traverseFileSystem(Node current, String desiredParentName, Node newNode, FileSystemI filesys) {
     if(current.getName().equals(desiredParentName)) {
       newNode.setParent(current);
-      this.filesys.addToDirectory(newNode);
+      filesys.addToDirectory(newNode);
     }
     else {
       for(int i = 0; i < current.getList().size(); i++) {
-        this.filesys.assignCurrent(current.getList().get(i));
-        traverseFileSystem(this.filesys.getCurrent(), desiredParentName, newNode);
+        filesys.assignCurrent(current.getList().get(i));
+        traverseFileSystem(filesys.getCurrent(), desiredParentName, newNode, filesys);
       }
     }
   }

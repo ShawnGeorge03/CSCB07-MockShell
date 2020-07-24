@@ -29,7 +29,7 @@
 // *********************************************************
 package commands;
 
-import data.FileSystem;
+import data.FileSystemI;
 
 /**
  * Class Push is responsible forSaves the current working directory to 
@@ -43,14 +43,10 @@ public class Push extends DirectoryManager implements CommandI {
    */
   private ErrorHandler errorManager;
 
-  /** Declare instance of FileSystem to access the current file system */
-  public FileSystem filesys;
-
   /**
    * Constructor for Push that initializes the ErrorHandler object
    */
   public Push() {
-    filesys = FileSystem.getFileSys();
     this.errorManager = new ErrorHandler();
   }
 
@@ -63,9 +59,9 @@ public class Push extends DirectoryManager implements CommandI {
    * 
    * @return String  An error message if any error, else null
    */
-  public String run(String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     Cd goBack = new Cd();
-    String[] root = {FileSystem.getFileSys().getRoot().getName() };
+    String[] root = {filesys.getRoot().getName() };
 
     if (args.length != 1) {
       return errorManager.getError("Invalid Argument",
@@ -73,11 +69,11 @@ public class Push extends DirectoryManager implements CommandI {
     }
 
     if (filesys.getStack().isEmpty()) {
-      filesys.getStack().push(getCurrentPath());
+      filesys.getStack().push(getCurrentPath(filesys));
     }
 
-    if (goBack.run(args)) {
-      goBack.run(root);
+    if (goBack.run(args, filesys)) {
+      goBack.run(root, filesys);
     } else {
       return errorManager.getError("Invalid Directory",
           args[0] + " is not a valid directory");
@@ -86,7 +82,7 @@ public class Push extends DirectoryManager implements CommandI {
 
     filesys.getStack().push(args[0]);
     Cd newWorkingDirectory = new Cd();
-    newWorkingDirectory.run(args);
+    newWorkingDirectory.run(args, filesys);
 
     return null;
   }

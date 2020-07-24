@@ -58,36 +58,36 @@ public class CatTest {
         cat = new Cat();
 
         // Sets up the C Folder
-        mkdir.MakeDirectory("users".split(" "));
-        mkdir.MakeDirectory("pics".split(" "));
-        mkdir.MakeDirectory("Sys".split(" "));
-        echo.run("/".split(" "), "echo \"Wow what a project\" > A2", false);
+        mkdir.MakeDirectory("users".split(" "), fs);
+        mkdir.MakeDirectory("pics".split(" "), fs);
+        mkdir.MakeDirectory("Sys".split(" "), fs);
+        echo.run(fs, "/".split(" "), "echo \"Wow what a project\" > A2", false);
 
         // Sets up the users Folder
-        mkdir.MakeDirectory("/users/desktop".split(" "));
+        mkdir.MakeDirectory("/users/desktop".split(" ") ,fs);
 
         // Sets up the desktop Folder
-        echo.run("/users/desktop".split(" "), "echo \"Hello TA\" > /users/desktop/CSCB07", false);
-        echo.run("/users/desktop".split(" "), "echo \"2+2=5\" > /users/desktop/Hwk", false);
+        echo.run(fs, "/users/desktop".split(" "), "echo \"Hello TA\" > /users/desktop/CSCB07", false);
+        echo.run(fs, "/users/desktop".split(" "), "echo \"2+2=5\" > /users/desktop/Hwk", false);
 
         // Sets up the pics Folder
-        echo.run("pics".split(" "), "echo \"this is a picturefile indeed\" > pics/picfile", false);
-        echo.run("pics".split(" "), "echo \"Hello TA from the pics Folder\" > pics/CSCB07", false);
+        echo.run(fs, "pics".split(" "), "echo \"this is a picturefile indeed\" > pics/picfile", false);
+        echo.run(fs, "pics".split(" "), "echo \"Hello TA from the pics Folder\" > pics/CSCB07", false);
 
         // Sets up the Sys Folder
-        mkdir.MakeDirectory("Sys/IO".split(" "));
-        mkdir.MakeDirectory("Sys/LOL".split(" "));
+        mkdir.MakeDirectory("Sys/IO".split(" "), fs);
+        mkdir.MakeDirectory("Sys/LOL".split(" "), fs);
 
         // Sets up the IO Folder
-        mkdir.MakeDirectory("/Sys/IO/keyboard".split(" "));
-        mkdir.MakeDirectory("/Sys/IO/Mouse".split(" "));
+        mkdir.MakeDirectory("/Sys/IO/keyboard".split(" "), fs);
+        mkdir.MakeDirectory("/Sys/IO/Mouse".split(" "), fs);
 
         // Sets up the keyboard Folder
-        echo.run("/Sys/IO/keyboard".split(" "), "echo \"QWERTY\" > /Sys/IO/keyboard/keys", false);
-        echo.run("/Sys/IO/keyboard".split(" "), "echo \"RGB == ways more      F    P   S\" > /Sys/IO/keyboard/RGB",false);
+        echo.run(fs, "/Sys/IO/keyboard".split(" "), "echo \"QWERTY\" > /Sys/IO/keyboard/keys", false);
+        echo.run(fs, "/Sys/IO/keyboard".split(" "), "echo \"RGB == ways more      F    P   S\" > /Sys/IO/keyboard/RGB",false);
 
         // Sets up the Mouse Folder
-        echo.run("/Sys/IO/Mouse".split(" "), "echo \"Mouse is in Mouse Folder\" > /Sys/IO/Mouse/Presses", false);
+        echo.run(fs, "/Sys/IO/Mouse".split(" "), "echo \"Mouse is in Mouse Folder\" > /Sys/IO/Mouse/Presses", false);
     }
 
     /**
@@ -116,7 +116,7 @@ public class CatTest {
         //Expected return from Cat
         expected = "Error : No parameters provided : ";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(emptyArr, "cat ", false);
+        actual = cat.run(fs, emptyArr, "cat ", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -129,7 +129,7 @@ public class CatTest {
         //Expected return from Cat
         expected = "Error: File Not Found : /pics/picflex";
         //Actual return from Cat after the operation has been run
-        actual = cat.run("/pics/picflex".split(" "), "cat /pics/picflex", false);
+        actual = cat.run(fs, "/pics/picflex".split(" "), "cat /pics/picflex", false);
          //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -141,7 +141,7 @@ public class CatTest {
         //Expected return from Cat
         expected = "this is a picturefile indeed";
         //Actual return from Cat after the operation has been run
-        actual = cat.run("/pics/picfile".split(" "), "cat /pics/picfile", false);
+        actual = cat.run(fs, "/pics/picfile".split(" "), "cat /pics/picfile", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -154,7 +154,7 @@ public class CatTest {
         //Expected return from Cat
         expected = "Error: File Not Found : A0";
         //Actual return from Cat after the operation has been run
-        actual = cat.run("A0".split(" "), "cat A0", false);
+        actual = cat.run(fs, "A0".split(" "), "cat A0", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -166,7 +166,7 @@ public class CatTest {
         //Expected return from Cat
         expected = "Wow what a project";
         //Actual return from Cat after the operation has been run
-        actual = cat.run("A2".split(" "), "cat A2", false);
+        actual = cat.run(fs, "A2".split(" "), "cat A2", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -179,7 +179,7 @@ public class CatTest {
         //Expected return from Cat    
         expected = "Hello TA" + "\n" + "\n" + "\n" + "Wow what a project";
         //Actual return from Cat after the operation has been run
-        actual = cat.run("/users/desktop/CSCB07 A2".split(" "), "cat /users/desktop/CSCB07 A2", false);
+        actual = cat.run(fs, "/users/desktop/CSCB07 A2".split(" "), "cat /users/desktop/CSCB07 A2", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -193,7 +193,7 @@ public class CatTest {
         expected =  "2+2=5" + "\n" + "\n" + "\n" + "Error: File Not Found : /Sys/LOL"
                 + "\n" + "\n" + "\n" + "RGB == ways more      F    P   S";
         //Actual return from Cat after the operation has been run
-        actual = cat.run("/users/desktop/Hwk /Sys/LOL /Sys/IO/keyboard/RGB".split(" "), 
+        actual = cat.run(fs, "/users/desktop/Hwk /Sys/LOL /Sys/IO/keyboard/RGB".split(" "), 
                 "cat /users/desktop/Hwk /Sys/LOL /Sys/IO/keyboard/RGB", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);

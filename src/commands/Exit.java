@@ -29,6 +29,8 @@
 // *********************************************************
 package commands;
 
+import data.FileSystemI;
+
 /**
  * Class Exit handles exiting the JShell
  */
@@ -42,7 +44,7 @@ public class Exit implements CommandI {
    * @return null no matter what
    */
   @Override
-  public String run(String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     //Exits the session of the Shell
     System.exit(0);
     return null;

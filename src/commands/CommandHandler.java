@@ -33,6 +33,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import data.FileSystem;
+
 /**
  * Class CommandHandler is responsible for creating instances of the requested command and running
  * them
@@ -40,6 +42,8 @@ import java.util.HashMap;
  * Note : Part of this code was taken from Lab6 src.lab6_project.executionOfProgram.java file
  */
 public class CommandHandler {
+
+  private FileSystem fs;
 
   /**
    * Declare instance variable of String array to hold the command and its arguments
@@ -67,6 +71,7 @@ public class CommandHandler {
    * commandMap with commands
    */
   public CommandHandler() {
+    fs = FileSystem.getFileSys();
     // Initializes a ErrorHandler Object
     errorManager = new ErrorHandler();
     // Creates a HashMap Object called commandMap
@@ -179,7 +184,7 @@ public class CommandHandler {
               (CommandI) Class.forName(className).getDeclaredConstructor().newInstance();
 
           // Calls the run command in that respective class and collects the output
-          output = commandObj.run(args, fullInput, speakMode);
+          output = commandObj.run(fs, args, fullInput, speakMode);
 
         } catch (InstantiationException e) {
           e.printStackTrace();

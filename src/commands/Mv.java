@@ -3,6 +3,7 @@ package commands;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import data.FileSystemI;
 import data.Node;
 
 public class Mv extends DirectoryManager implements CommandI{
@@ -20,7 +21,7 @@ public class Mv extends DirectoryManager implements CommandI{
 		error = new ErrorHandler();
 	}
 	
-	public String run(String[] arguments, String actualInput, boolean val) {
+	public String run(FileSystemI filesys, String[] arguments, String actualInput, boolean val) {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
 		
 		if (args.size() != 2) {
@@ -32,7 +33,7 @@ public class Mv extends DirectoryManager implements CommandI{
 		}
 		
 		Cd traverse = new Cd();
-		String[] currentPath = {getCurrentPath()};
+		String[] currentPath = {getCurrentPath(filesys)};
 		String[] pathFrom = {args.get(0)};
 		String[] pathTo = {args.get(1)};
 		int toRemove = -1;
@@ -40,7 +41,7 @@ public class Mv extends DirectoryManager implements CommandI{
 		Node parentToMove;
 		Node toMove;
 		
-		if (traverse.run(pathFrom)) {
+		if (traverse.run(pathFrom, filesys)) {
 			toMove = filesys.getCurrent();
 			parentToMove = toMove.getParent();
 			
@@ -50,12 +51,12 @@ public class Mv extends DirectoryManager implements CommandI{
 				}
 			}
 
-			traverse.run(currentPath);
+			traverse.run(currentPath, filesys);
 		}else {
 			return error.getError("Invalid Directory", pathFrom[0] + " does not exist!");
 		}
 		
-		if (traverse.run(pathTo)) {
+		if (traverse.run(pathTo, filesys)) {
 			filesys.addToDirectory(toMove);
 		}else {
 			return error.getError("Invalid Directory", pathTo[0] + " does not exist!");
@@ -63,7 +64,7 @@ public class Mv extends DirectoryManager implements CommandI{
 		
 		filesys.assignCurrent(parentToMove);
 		filesys.removeFromDirectory(toRemove);
-		traverse.run(currentPath);
+		traverse.run(currentPath, filesys);
 		
 		return null;
 	}

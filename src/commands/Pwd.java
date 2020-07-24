@@ -29,8 +29,11 @@
 // *********************************************************
 package commands;
 
+import data.FileSystemI;
+
 /**
- * Class Pwd is responsible for providing the absolute path of the current working directory
+ * Class Pwd is responsible for providing the absolute path of the current
+ * working directory
  */
 public class Pwd extends DirectoryManager implements CommandI {
 
@@ -56,7 +59,7 @@ public class Pwd extends DirectoryManager implements CommandI {
    * @param val  stores a boolean value
    * @return String holding the absolute path to the current working directory, or an error message
    */
-  public String run(String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     // If the user provides any input for the following function
     if (args.length != 0) {
       // Returns an Invalid arguments error
@@ -64,7 +67,7 @@ public class Pwd extends DirectoryManager implements CommandI {
           "pwd doesn't take any arguments");
     }
     // Returns the current working directory the user is in
-    return this.getCurrentPath();
+    return this.getCurrentPath(filesys);
   }
 
 

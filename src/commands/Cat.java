@@ -30,6 +30,7 @@
 package commands;
 
 import data.FileSystem;
+import data.FileSystemI;
 import data.Node;
 
 /**
@@ -51,8 +52,6 @@ public class Cat extends FileManager implements CommandI {
    * Constructor for Cat that initializes instance variables
    */
   public Cat() {
-    // Get the current FileSystem
-    this.filesys = FileSystem.getFileSys();
     // Initializing the String object output
     this.output = "";
   }
@@ -65,7 +64,7 @@ public class Cat extends FileManager implements CommandI {
    * @param val  stores a boolean value
    * @return the contents of file
    */
-  public String run(String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
     if (args.length == 0) {
       // Returns an error of No parameters provided
       return getErrorHandler().getError("No parameters provided", "");
@@ -73,13 +72,13 @@ public class Cat extends FileManager implements CommandI {
       // Initializing the String object output after each time the method is called
       output = "";
       // Calls the readFile function to return what is in the file
-      readFile(args);
+      readFile(args, filesys);
     }
     // Returns the output for the arguments
     return output;
   }
 
-  private void readFile(String[] filePaths) {
+  private void readFile(String[] filePaths, FileSystemI filesys) {
     // Declares and initialized a Node to null
     Node file = null;
     // Runs through all the filePaths and stores the output for each case
@@ -87,11 +86,11 @@ public class Cat extends FileManager implements CommandI {
       // If the file path is an absolute path
       if (filePaths[i].startsWith(filesys.getRoot().getName())) {
         // Calls the following method to return a reference to that specific Node
-        file = findFileGivenAbsolute(filePaths[i]);
+        file = findFileGivenAbsolute(filePaths[i], filesys);
         // If the file path is a relative path
       } else {
         // Calls the following method to return a reference to that specific Node
-        file = findFileGivenRelative(filePaths[i]);
+        file = findFileGivenRelative(filePaths[i], filesys);
       }
 
       // If the file does exist

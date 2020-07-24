@@ -17,12 +17,10 @@ public class Save implements CommandI{
 
   private FileWriter writer;
   private String filePath;
-  private FileSystem filesys;
   private ErrorHandler error;
   private String output;
   
   public Save(){
-    this.filesys = FileSystem.getFileSys();
     this.error = new ErrorHandler();
     this.output = null;
   }
@@ -36,7 +34,7 @@ public class Save implements CommandI{
   */
   
   @Override
-  public String run(String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     if(args.length > 0) {
       filePath = formatArguments(args);
       if(!filePath.substring(filePath.length()-4, filePath.length()).equals(".json")) {
@@ -48,15 +46,15 @@ public class Save implements CommandI{
         writer = new FileWriter(filePath); 
         
         writer.write("NODES\n{\n");
-        storeNodeInformation(writer);
+        storeNodeInformation(writer, filesys);
         writer.write("}");
         
         writer.write("\n\nFILESYSTEM\n{\n");
-        storeFileSystem(writer);
+        storeFileSystem(writer, filesys);
         writer.write("}");
              
         writer.write("\n\nCOMMAND LOG\n{\n");
-        storeCommandHistoryToFile(writer);
+        storeCommandHistoryToFile(writer, filesys);
         writer.write("}");
         
         writer.close();
@@ -74,12 +72,12 @@ public class Save implements CommandI{
     return args[0];
   }
   
-  private void storeFileSystem(FileWriter writer) {
+  private void storeFileSystem(FileWriter writer, FileSystemI filesys) {
     Node root = filesys.getRoot();
     traverseFileSystem(root, writer, 1, 1);
   }
   
-  private void storeNodeInformation(FileWriter writer){
+  private void storeNodeInformation(FileWriter writer, FileSystemI filesys){
     Node root = filesys.getRoot();
     traverseFileSystem(root, writer, 1, 2);
   }
@@ -120,7 +118,7 @@ public class Save implements CommandI{
     }
   }
   
-  private void storeCommandHistoryToFile(FileWriter writer) {
+  private void storeCommandHistoryToFile(FileWriter writer, FileSystemI filesys) {
     for(int i = 0; i < filesys.getCommandLog().size(); i++) {
       try {
         writer.write("\t\"" + filesys.getCommandLog().get(i) + "\"\n");

@@ -30,14 +30,14 @@
 package commands;
 
 import java.util.Arrays;
-import data.FileSystem;
+
+import data.FileSystemI;
 
 /**
  * Class history keeps track of all inputs given to JShell
  */
 public class History implements CommandI {
 
-  private FileSystem fs;
   /**
    * Declare instance variable of ErrorHandler to handle error messages
    */
@@ -51,7 +51,6 @@ public class History implements CommandI {
    * Constructor for History that initializes instance variables
    */
   public History() {
-    this.fs = FileSystem.getFileSys();
     // Initializes a ErrorHandler Object
     this.error = new ErrorHandler();
     // Initializes a String object called output
@@ -66,11 +65,11 @@ public class History implements CommandI {
    * @param val  stores a boolean value
    * @return the error message if there is any or the actual history
    */
-  public String run(String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
     // If the user provides no arguments
     if (args.length == 0) {
       // Calls the following methods to print the entire history
-      printLastXCommands(fs.getCommandLog().size());
+      printLastXCommands(fs, fs.getCommandLog().size());
       // If the user provided 1 argument
     } else if (args.length == 1) {
       // Created and initialized an integer
@@ -92,7 +91,7 @@ public class History implements CommandI {
       if (numeric && number >= 0 && number % 1 == 0) {
         // Calls the following method to get the history to a certain number of
         // commands the user inputed
-        printLastXCommands(number);
+        printLastXCommands(fs, number);
       } else {
         // Sets an error of Invalid Argument to be returned to the user
         output = error.getError("Invalid Argument",
@@ -114,7 +113,7 @@ public class History implements CommandI {
     return output.trim();
   }
 
-  private void printLastXCommands(int x) {
+  private void printLastXCommands(FileSystemI fs, int x) {
     // Reads and stores the commands from the CommandLod in FileSystem
     for (int i = fs.getCommandLog().size() - x; i < fs.getCommandLog().size() ; i++) {
       // If the counter is a negative number

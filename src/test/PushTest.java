@@ -5,11 +5,8 @@ import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 
-import commands.Cd;
 import commands.Mkdir;
 import commands.Push;
-import commands.Echo;
-import commands.DirectoryManager;
 import data.FileSystem;
 
 import java.lang.reflect.Field;

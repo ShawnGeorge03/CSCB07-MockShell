@@ -31,7 +31,7 @@ package commands;
 
 import java.util.Arrays;
 import java.util.ArrayList;
-import data.FileSystem;
+import data.FileSystemI;
 import data.Node;
 
 /**
@@ -61,15 +61,15 @@ public class Ls extends DirectoryManager implements CommandI {
    * @param fullInput  the string that contains the raw input that the user provides to JShell
    * @return null always
    */
-  public String run(String[] arguments, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String[] arguments, String fullInput, boolean val) {
 	this.args = new ArrayList<String>(Arrays.asList(arguments));
 	if (args.size() == 0){
-		return unrecursiveMode();
+		return unrecursiveMode(filesys);
 	}
 	 if (!args.get(0).equals("-R")){
-		 return unrecursiveMode();
+		 return unrecursiveMode(filesys);
 	 } else{
-		 return recursiveMode();
+		 return recursiveMode(filesys);
 	 }
 
     // if (args.get(0).equals("-R") != true) {
@@ -80,7 +80,7 @@ public class Ls extends DirectoryManager implements CommandI {
  }
 
 
-public String unrecursiveMode() {
+public String unrecursiveMode(FileSystemI filesys) {
 	if (args.size() == 0) {
 	      Node curr = filesys.getCurrent();
 	      for (int i = 0; i < curr.getList().size(); i++) {
@@ -89,12 +89,12 @@ public String unrecursiveMode() {
 	    } else {
 	      for (int i = 0; i < args.size(); i++) {
 	        String[] path = {args.get(i)};
-	        String[] currentPath = {getCurrentPath()};
+	        String[] currentPath = {getCurrentPath(filesys)};
 
 	        Cd traverse = new Cd();
-	        if (traverse.run(path)) {
-	          Node current = FileSystem.getFileSys().getCurrent();
-	          System.out.println("Path: " + getCurrentPath());
+	        if (traverse.run(path, filesys)) {
+	          Node current = filesys.getCurrent();
+	          System.out.println("Path: " + getCurrentPath(filesys));
 	          for (int j = 0; j < current.getList().size(); j++) {
 	            System.out.println(current.getList().get(j).getName());
 	          }
@@ -104,7 +104,7 @@ public String unrecursiveMode() {
 	        }
 
 	        Cd goBack = new Cd();
-	        goBack.run(currentPath);
+	        goBack.run(currentPath, filesys);
 	        System.out.println();
 	      }
 	    }
@@ -112,36 +112,36 @@ public String unrecursiveMode() {
 	}
 
 
-	public String recursiveMode() {
+	public String recursiveMode(FileSystemI filesys) {
 		Cd traverse = new Cd();
-		String[] currentPath = {getCurrentPath()};
+		String[] currentPath = {getCurrentPath(filesys)};
 		if (args.size() == 1){
-			listDirectory(filesys.getRoot());
+			listDirectory(filesys.getRoot(), filesys);
 		}else{
 			for (int i = 1; i < args.size(); i++){
 				String[] path = {args.get(i)};
-				if (traverse.run(path)){
-					listDirectory(filesys.getCurrent());
+				if (traverse.run(path, filesys)){
+					listDirectory(filesys.getCurrent(), filesys);
 				}
-				traverse.run(currentPath);
+				traverse.run(currentPath, filesys);
 			}
 		}
-		traverse.run(currentPath);
+		traverse.run(currentPath, filesys);
 		return null;
 	}
 
-	public String listDirectory(Node root){
+	public String listDirectory(Node root, FileSystemI filesys){
 		if (!root.isDir()){
 			return null;
 		}
 		filesys.assignCurrent(root);
-		System.out.println("Path: " + getCurrentPath());
+		System.out.println("Path: " + getCurrentPath(filesys));
 		for (int i = 0; i < root.getList().size(); i++){
 			System.out.println(root.getList().get(i).getName());
 		}
 		System.out.println();
 		for (int i = 0; i < root.getList().size(); i++){
-			listDirectory(root.getList().get(i));
+			listDirectory(root.getList().get(i), filesys);
 		}
 		return null;
 	}

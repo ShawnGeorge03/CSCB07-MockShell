@@ -33,6 +33,8 @@ import java.util.Arrays;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
+import data.FileSystemI;
+
 /**
  * Class TextSpeech is responsible for converting given text to audio
  * Note : Parts of this class was built from 
@@ -102,7 +104,7 @@ public class Speak implements CommandI {
    * @param val  tells if the it should enter speakMode or not
    * @return any error messages if there are any or null
    */
-  public String run(String[] args, String actualInput, boolean val) {
+  public String run(FileSystemI filesys, String[] args, String actualInput, boolean val) {
 
     // Converts a String array containing user words to a single String sentence
     text = Arrays.toString(args);

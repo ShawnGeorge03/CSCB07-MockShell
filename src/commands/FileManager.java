@@ -29,7 +29,7 @@
 // *********************************************************
 package commands;
 
-import data.FileSystem;
+import data.FileSystemI;
 import data.Node;
 
 /**
@@ -38,8 +38,6 @@ import data.Node;
  */
 public class FileManager {
 
-  /** Declare instance of FileSystem to access the current file system */
-  public FileSystem filesys;
 
   /** Declare instance of ErrorHandler to handle any errors */
   protected ErrorHandler errorManager;
@@ -48,8 +46,6 @@ public class FileManager {
    * Constructor for FileManager that initializes the ErrorHandler object and FileSystem object
    */
   public FileManager() {
-    //Get the current FileSystem
-    filesys = FileSystem.getFileSys();
     //Initializes the ErrorHandler object
     errorManager = new ErrorHandler();
   }
@@ -65,7 +61,7 @@ public class FileManager {
    * @param fileName  String that stores the relative path of the file we wish to search for
    * @return Node will return the node that holds the file or will return null if not found
    */
-  public Node findFileGivenRelative(String fileName) {
+  public Node findFileGivenRelative(String fileName, FileSystemI filesys) {
     //Grabs current folder/directory
     Node current = filesys.getCurrent();
     //Splits the fileName to get the individual folder paths
@@ -119,9 +115,9 @@ public class FileManager {
    * 
    * @return String returns the full absolute path of the current working directory
    */
-  public String getCurrentPath() {
+  public String getCurrentPath(FileSystemI filesys) {
     //Grabs the current directory
-    Node current = this.filesys.getCurrent();
+    Node current = filesys.getCurrent();
     //Grabs the parent of the current directory
     Node parent = current.getParent();
 
@@ -147,7 +143,7 @@ public class FileManager {
    * @param absolutePath  String that stores the relative path of the folder we wish to search for
    * @return Node will return the node that holds the folder or will return null if not found
    */
-  public Node findFolderGivenAbsolute(String absolutePath) {
+  public Node findFolderGivenAbsolute(String absolutePath, FileSystemI filesys) {
     //Grabs root directory
     Node current = filesys.getRoot();
     //Splits the absolutePath into the individual folders
@@ -174,7 +170,7 @@ public class FileManager {
    * @param absolutePath  String that stores the absolute path of the file we wish to search for
    * @return Node will return the node that holds the file or will return null if not found
    */
-  public Node findFileGivenAbsolute(String absolutePath) {
+  public Node findFileGivenAbsolute(String absolutePath, FileSystemI filesys) {
     //Grabs root node
     Node current = filesys.getRoot();
     //Splits the absolutePath into the individual folders

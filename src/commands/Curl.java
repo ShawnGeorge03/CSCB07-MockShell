@@ -40,6 +40,8 @@ import java.net.URLConnection;
 
 import java.util.Arrays;
 
+import data.FileSystemI;
+
 /**
  * Class Curl returns a file from the given URL and adds it to 
  * the current working directory. 
@@ -77,7 +79,7 @@ public class Curl implements CommandI {
    * @param val  a boolean value
    * @return any error messages if there are any or null
    */
-  public String run(String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
 
     //Declare instance of URL to handle the user input
     URL site;
@@ -121,7 +123,7 @@ public class Curl implements CommandI {
         reader.close();
              
         //Stores the text to a file with a certain fileName on the current directory 
-        echo.run(text.split(" "), "echo \" " + text + "\" > " + fileName, false);
+        echo.run(filesys, text.split(" "), "echo \" " + text + "\" > " + fileName, false);
 
       //If the user provides any Malformed URL
       } catch (MalformedURLException e) {

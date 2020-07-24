@@ -31,7 +31,7 @@ package commands;
 
 import java.util.ArrayList;
 
-import data.FileSystem;
+import data.FileSystemI;
 import data.Node;
 
 /**
@@ -41,10 +41,7 @@ import data.Node;
 public class DirectoryManager {
 
   ArrayList<String> path = new ArrayList<String>();
-  /**
-   * Declare instance of FileSystem to access filesystem
-   */
-  FileSystem filesys = null;
+
   /**
    * Declare instance of ErrorHandler to handle error messages
    */
@@ -54,7 +51,7 @@ public class DirectoryManager {
    * Constructor for DirectoryManager which initializes filesystem
    */
   public DirectoryManager() {
-    filesys = FileSystem.getFileSys();
+
   }
 
   /**
@@ -62,16 +59,16 @@ public class DirectoryManager {
    * 
    * @return the path to the current directory
    */
-  public String getCurrentPath() {
+  public String getCurrentPath(FileSystemI filesys) {
     String output = "";
     Node current = filesys.getCurrent();
 
-    if (current.equals(this.filesys.getRoot())) {
-      return this.filesys.getRoot().getName();
+    if (current.equals(filesys.getRoot())) {
+      return filesys.getRoot().getName();
     }
 
     path.add(current.getName());
-    while (current != this.filesys.getRoot()) {
+    while (current != filesys.getRoot()) {
       current = current.getParent();
       path.add(current.getName());
     }
@@ -109,7 +106,7 @@ public class DirectoryManager {
    * @param path the path that the user is requesting
    * @return true if path was made successfully, false otherwise
    */
-  public boolean makePathFromRoot(String[] pathArr) {
+  public boolean makePathFromRoot(String[] pathArr, FileSystemI filesys) {
     Node currNode = filesys.getRoot();
     // Loop through pathArr which is array of all directories in the path and change
     // directory to
@@ -146,7 +143,7 @@ public class DirectoryManager {
    * @param path the path that the user is requesting
    * @return true if path was made successfully, false otherwise
    */
-  public boolean makeRelativePath(String[] pathArr) {
+  public boolean makeRelativePath(String[] pathArr, FileSystemI filesys) {
     Node currNode = filesys.getCurrent();
     // Loop through pathArr which is array of all directories in the path and change
     // directory to

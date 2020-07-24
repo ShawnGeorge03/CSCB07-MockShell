@@ -29,7 +29,7 @@
 // *********************************************************
 package commands;
 
-import data.FileSystem;
+import data.FileSystemI;
 
 /**
  * Class Cd is responsible for changing directories within the FileSystem
@@ -37,11 +37,7 @@ import data.FileSystem;
 public class Cd extends DirectoryManager implements CommandI {
 
   boolean successfulPath = false;
-  String errorOutput;
-  /**
-   * Declare instance of FileSystem so we can access the filesystem
-   */
-  FileSystem filesys;
+
   /**
    * Declare instance of ErrorHandler to handle error messages
    */
@@ -51,9 +47,7 @@ public class Cd extends DirectoryManager implements CommandI {
    * Constructor for class Cd which initalizes instance variables
    */
   public Cd() {
-    filesys = FileSystem.getFileSys();
     error = new ErrorHandler();
-
   }
 
   /**
@@ -64,52 +58,20 @@ public class Cd extends DirectoryManager implements CommandI {
    * @param fullInput the full line of input that the user gives into JShell
    * @return any error messages if there are any
    */
-  public String run(String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     if (args.length == 0) {
-      errorOutput = error.getError("No parameters provided", "");
-      return errorOutput;
-    } else if (args.length > 1) {
-      String errorOutput = error.getError("Mulptile parameters provided",
+      return error.getError("No parameters provided", "");
+   } else if (args.length > 1) {
+      return error.getError("Mulptile parameters provided", 
           fullInput.substring(fullInput.indexOf("cd") + 2).trim());
-      return errorOutput;
     }
+
     // If the change of directory was unsuccessful, then an error msg is returned
-    if (!run(args)) {
-      String errorOutput = error.getError("Invalid Directory",
+    if (!run(args, filesys)) {
+     return error.getError("Invalid Directory",
           fullInput.substring(fullInput.indexOf("cd") + 2).trim());
-      return errorOutput;
     }
     return null;
-  }
-
-  private boolean run_1_arg(String argument, String[] splitArgs) {
-    // Processes change of directory with all the one argument options
-    if (argument.equals("..")) {
-      // Traverse one directory up
-      if (filesys.getCurrent().getName().equals(this.filesys.getRoot().getName())) {
-        return true;
-      }
-      filesys.assignCurrent(this.filesys.getCurrent().getParent());
-      return true;
-    } else if (argument.equals(".")) {
-      return true;
-    } else {
-      // Relative path to requested dir
-      successfulPath = this.makeRelativePath(splitArgs);
-    }
-    return successfulPath;
-  }
-
-  private boolean run_more_args(String[] splitArgs) {
-    // If there are more arguments, it will create a relative path depending on the
-    // first element
-    // being a root or not
-    if (splitArgs[0].equals("")) {
-      successfulPath = this.makePathFromRoot(splitArgs);
-    } else {
-      successfulPath = this.makeRelativePath(splitArgs);
-    }
-    return successfulPath;
   }
 
   /**
@@ -122,19 +84,50 @@ public class Cd extends DirectoryManager implements CommandI {
    * @param arguments the array of arguments provided by user
    * @return true if the argument was processed and the change of directory was successful
    */
-  public boolean run(String[] arguments) {
+  public boolean run(String[] arguments, FileSystemI filesys) {
     // Initializing variables
     String[] splitArgs = arguments[0].split("/");
     // Changing to root
     if (splitArgs.length == 0 && arguments[0].length() == 1) {
-      this.filesys.assignCurrent(this.filesys.getRoot());
+      filesys.assignCurrent(filesys.getRoot());
       return true;
     }
     if (splitArgs.length == 1) {
-      successfulPath = run_1_arg(splitArgs[0], splitArgs);
+      successfulPath = run_1_arg(splitArgs[0], splitArgs, filesys);
     } else if (splitArgs.length > 1) {
-      successfulPath = run_more_args(splitArgs);
+      successfulPath = run_more_args(splitArgs, filesys);
     }
     return successfulPath;
   }
+
+  private boolean run_1_arg(String argument, String[] splitArgs, FileSystemI filesys) {
+    // Processes change of directory with all the one argument options
+    if (argument.equals("..")) {
+      // Traverse one directory up
+      if (filesys.getCurrent().getName().equals(filesys.getRoot().getName())) {
+        return true;
+      }
+      filesys.assignCurrent(filesys.getCurrent().getParent());
+      return true;
+    } else if (argument.equals(".")) {
+      return true;
+    } else {
+      // Relative path to requested dir
+      successfulPath = this.makeRelativePath(splitArgs, filesys);
+    }
+    return successfulPath;
+  }
+
+  private boolean run_more_args(String[] splitArgs, FileSystemI filesys) {
+    // If there are more arguments, it will create a relative path depending on the
+    // first element
+    // being a root or not
+    if (splitArgs[0].equals("")) {
+      successfulPath = this.makePathFromRoot(splitArgs, filesys);
+    } else {
+      successfulPath = this.makeRelativePath(splitArgs, filesys);
+    }
+    return successfulPath;
+  }
+
 }

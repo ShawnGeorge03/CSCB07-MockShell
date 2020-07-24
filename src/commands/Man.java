@@ -31,6 +31,8 @@ package commands;
 
 import java.util.Hashtable;
 
+import data.FileSystemI;
+
 /**
  * Class man provides documentation for requested command
  */
@@ -64,7 +66,7 @@ public class Man implements CommandI {
    * @param val  stores a boolean value
    * @return the documentation of the requested commands
    */
-  public String run(String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
 
     // If the user provides no command name or more than one command name or a
     // command name that is not supported

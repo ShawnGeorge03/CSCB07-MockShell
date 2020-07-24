@@ -29,7 +29,7 @@
 // *********************************************************
 package commands;
 
-import data.FileSystem;
+import data.FileSystemI;
 
 /**
  * Class Pop is responsible for popping the top most directory 
@@ -42,14 +42,10 @@ public class Pop extends DirectoryManager implements CommandI {
    */
   private ErrorHandler error;
 
-   /** Declare instance of FileSystem to access the current file system */
-   public FileSystem filesys;
-
   /**
    * Constructor for Pop that initializes the ErrorHandler
    */
   public Pop() {
-    filesys = FileSystem.getFileSys();
     this.error = new ErrorHandler();
   }
 
@@ -63,12 +59,12 @@ public class Pop extends DirectoryManager implements CommandI {
    * @param val  A boolean for speak mode
    * @return String  An error message, else null
    */
-  public String run(String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     if (args.length != 0) {
       return error.getError("Invalid Argument", "No arguments should be given");
     }
 
-    String output = pop();
+    String output = pop(filesys);
     return output;
   }
 
@@ -77,14 +73,14 @@ public class Pop extends DirectoryManager implements CommandI {
    * 
    * @return String  if performed without error then will return null else, it will return error
    */
-  public String pop() {
+  public String pop(FileSystemI filesys) {
     filesys.getStack().pop();
     if (filesys.getStack().size() == 0) {
       return "Stack is empty";
     }
     String[] path = {filesys.getStack().peek()};
     Cd newWorkingDirectory = new Cd();
-    newWorkingDirectory.run(path);
+    newWorkingDirectory.run(path, filesys);
     return null;
   }
 }

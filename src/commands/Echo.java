@@ -29,9 +29,11 @@
 // *********************************************************
 package commands;
 
+import data.FileSystemI;
+
 /**
- * Class Echo is responsible for printing to the shell and redirecting the input to perform the
- * appropriate task
+ * Class Echo is responsible for printing to the shell and redirecting the input
+ * to perform the appropriate task
  */
 public class Echo extends FileManager implements CommandI {
 
@@ -51,7 +53,7 @@ public class Echo extends FileManager implements CommandI {
    * @param args  the String array of arguments provided by user (split from a whitespace)
    * @return String will either be null if there were no errors or an appropriate error message
    */
-  public String run(String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     // If no arguments were inputted
     if (args.length == 0) {
       return getErrorHandler().getError("No parameters provided", "");
@@ -62,7 +64,7 @@ public class Echo extends FileManager implements CommandI {
     // Parses the args array and assigns it to argument
     argument = fixArgument(slicedInput);
     // Execute the needed task
-    execute(slicedInput, fullInput);
+    execute(slicedInput, fullInput, filesys);
     // Return the output
     return output;
   }
@@ -104,12 +106,12 @@ public class Echo extends FileManager implements CommandI {
   }
 
   private void executeOverwrite(String fileContents, String fileName,
-      String fullInput) {
+      String fullInput, FileSystemI filesys) {
     // Create the EchoOverwrite object
     if(fileName.length() > 0) {
       EchoOverwrite overwriteExe = new EchoOverwrite();
       // Execute the overwriting command
-      overwriteExe.execute(fileContents, fileName);
+      overwriteExe.execute(fileContents, fileName, filesys);
       output = null;
     }
     else {
@@ -120,13 +122,13 @@ public class Echo extends FileManager implements CommandI {
   }
 
   private void executeAppend(String fileContents, String fileName,
-      String fullInput) {
+      String fullInput, FileSystemI filesys) {
     //System.out.println("Reached Append");
     if(fileName.length() > 0) {
       // Create the EchoAppend object
       EchoAppend appendExe = new EchoAppend();
       // Execute the overwriting command
-      appendExe.execute(fileContents, fileName);
+      appendExe.execute(fileContents, fileName, filesys);
       output = null;
     }
     else {
@@ -136,7 +138,7 @@ public class Echo extends FileManager implements CommandI {
     return;
   }
 
-  private void execute(String[] args, String fullInput) {
+  private void execute(String[] args, String fullInput, FileSystemI filesys) {
     String fileContents = "";
     // Checks for quotations in the input
     if (hasQuotations(fullInput)) {
@@ -155,12 +157,12 @@ public class Echo extends FileManager implements CommandI {
         printToConsole(args);
       // Overwrite case
       else if (numArrows == 1) {
-        executeOverwrite(fileContents, fileName, fullInput);
+        executeOverwrite(fileContents, fileName, fullInput, filesys);
         return;
       }
       // Append case
       else if (numArrows == 2) {
-        executeAppend(fileContents, fileName, fullInput);
+        executeAppend(fileContents, fileName, fullInput, filesys);
         return;
       } else
         // Error handling for arguments
