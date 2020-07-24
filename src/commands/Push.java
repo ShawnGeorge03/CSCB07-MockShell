@@ -80,7 +80,7 @@ public class Push extends DirectoryManager implements CommandI {
       goBack.run(root);
     } else {
       return errorManager.getError("Invalid Directory",
-          args[0] + "is not a valid directory");
+          args[0] + " is not a valid directory");
     }
 
 
