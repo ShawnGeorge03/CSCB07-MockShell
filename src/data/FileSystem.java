@@ -36,7 +36,7 @@ import java.util.Deque;
 /**
  * Class FileSystem hosts the data structure required to contain all directory and file nodes
  */
-public class FileSystem {
+public class FileSystem implements FileSystemI{
 
   /**
    * Declare instance variable FileSystem which is yet to be intialized
