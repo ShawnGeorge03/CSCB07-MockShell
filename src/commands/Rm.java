@@ -29,7 +29,7 @@ public class Rm extends DirectoryManager implements CommandI{
 		}
 		
 		if (args.get(0).contains("/")) {
-			String[] currentPath = {getCurrentPath(filesys)};
+			String[] currentPath = {filesys.getCurrentPath()};
 			String dirToRemove = args.get(0).substring(args.get(0).lastIndexOf("/") + 1);
 			String[] dirAbove = {args.get(0).substring(0, args.get(0).lastIndexOf("/"))};
 			Cd traverseFileSystem = new Cd();

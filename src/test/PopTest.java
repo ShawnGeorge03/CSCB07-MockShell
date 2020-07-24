@@ -5,12 +5,9 @@ import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 
-import commands.Cd;
 import commands.Mkdir;
 import commands.Pop;
 import commands.Push;
-import commands.Echo;
-import commands.DirectoryManager;
 import data.FileSystem;
 
 import java.lang.reflect.Field;
@@ -26,7 +23,6 @@ public class PopTest {
 
     private static Pop pop;
 
-    private static DirectoryManager dirManager;
 
     private static String[] input = {};
 
@@ -37,7 +33,6 @@ public class PopTest {
         mkdir = new Mkdir();
         push = new Push();
         pop = new Pop();
-        dirManager = new DirectoryManager();
         
         // Sets up the C Folder
         mkdir.MakeDirectory("users".split(" "), fs);
@@ -58,7 +53,7 @@ public class PopTest {
         String[] path = {"users/desktop"};
         push.run(fs, path, "pushd users/desktop", false);
 
-        path[0] = "//Sys/IO/keyboard";
+        path[0] = "/Sys/IO/keyboard";
         push.run(fs, path, "pushd /Sys/IO/keyboard", false);
     }
 
@@ -81,8 +76,8 @@ public class PopTest {
     @Test
     public void testAAbsolutePath(){
         pop.run(fs, input, "popd", false);
-        String expected = "//Sys/IO/keyboard";
-        String actual = dirManager.getCurrentPath(fs);
+        String expected = "/Sys/IO/keyboard";
+        String actual = fs.getCurrentPath();
         assertEquals(expected, actual);
     }
 

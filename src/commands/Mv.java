@@ -33,7 +33,7 @@ public class Mv extends DirectoryManager implements CommandI{
 		}
 		
 		Cd traverse = new Cd();
-		String[] currentPath = {getCurrentPath(filesys)};
+		String[] currentPath = {filesys.getCurrentPath()};
 		String[] pathFrom = {args.get(0)};
 		String[] pathTo = {args.get(1)};
 		int toRemove = -1;

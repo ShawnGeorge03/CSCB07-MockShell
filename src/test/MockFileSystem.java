@@ -114,5 +114,11 @@ public class MockFileSystem implements FileSystemI {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public String getCurrentPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
 }

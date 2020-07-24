@@ -33,7 +33,7 @@ public class Cp extends DirectoryManager implements CommandI{
 		}
 		
 		Cd traverse = new Cd();
-		String[] currentPath = {getCurrentPath(filesys)};
+		String[] currentPath = {filesys.getCurrentPath()};
 		String[] pathFrom = {args.get(0)};
 		String[] pathTo = {args.get(1)};
 		Node parentToMove;

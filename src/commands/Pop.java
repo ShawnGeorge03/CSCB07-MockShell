@@ -74,11 +74,11 @@ public class Pop extends DirectoryManager implements CommandI {
    * @return String  if performed without error then will return null else, it will return error
    */
   public String pop(FileSystemI filesys) {
-    filesys.getStack().pop();
     if (filesys.getStack().size() == 0) {
       return "Stack is empty";
     }
-    String[] path = {filesys.getStack().peek()};
+
+    String[] path = {filesys.getStack().pop()};
     Cd newWorkingDirectory = new Cd();
     newWorkingDirectory.run(path, filesys);
     return null;

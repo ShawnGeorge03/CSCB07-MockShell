@@ -57,7 +57,7 @@ class Find extends DirectoryManager implements CommandI {
   }
   
   public void checkList(FileSystemI filesys, String path, String expression, String type) {
-    String currPath = this.getCurrentPath(filesys);
+    String currPath = filesys.getCurrentPath();
     String[] splitPath = path.split("/");
     Cd newPath = new Cd();
     if (newPath.run(filesys, splitPath, path, true) != null){

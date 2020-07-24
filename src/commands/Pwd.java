@@ -67,7 +67,7 @@ public class Pwd extends DirectoryManager implements CommandI {
           "pwd doesn't take any arguments");
     }
     // Returns the current working directory the user is in
-    return this.getCurrentPath(filesys);
+    return filesys.getCurrentPath();
   }
 
 

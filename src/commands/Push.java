@@ -69,7 +69,7 @@ public class Push extends DirectoryManager implements CommandI {
     }
 
     if (filesys.getStack().isEmpty()) {
-      filesys.getStack().push(getCurrentPath(filesys));
+      filesys.getStack().push(filesys.getCurrentPath());
     }
 
     if (goBack.run(args, filesys)) {
@@ -80,7 +80,7 @@ public class Push extends DirectoryManager implements CommandI {
     }
     Cd newWorkingDirectory = new Cd();
     newWorkingDirectory.run(args, filesys);
-    filesys.getStack().push(getCurrentPath(filesys));
+    filesys.getStack().push(filesys.getCurrentPath());
     
 
     return null;

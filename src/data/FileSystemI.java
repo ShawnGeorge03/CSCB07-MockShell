@@ -12,6 +12,9 @@ public interface FileSystemI {
     public void addToDirectory(Node newNode);
     public void removeFromDirectory(int i);
 
+    //Current Path
+    public String getCurrentPath();
+
     //Command Log -> history operations
     public ArrayList<String> getCommandLog();
 

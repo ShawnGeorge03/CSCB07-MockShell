@@ -86,7 +86,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 		//Checks for Valid arguments
 		for (int i = 0; i < args.size(); i++) {
 			if (checkPath(i)) {
-				String[] currentPath = {getCurrentPath(filesys)};
+				String[] currentPath = {filesys.getCurrentPath()};
 				String[] newArgs = { args.get(i).substring(0, args.get(i).lastIndexOf('/')) };
 				if (newArgs[0].equals("")){
 					newArgs[0] = "/";

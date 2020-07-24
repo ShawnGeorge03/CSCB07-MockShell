@@ -35,12 +35,10 @@ import data.FileSystemI;
 import data.Node;
 
 /**
- * Class DirectoryManager which provides helper methods for other directory-related commands such as
- * getting the current path and creating new paths
+ * Class DirectoryManager which provides helper methods for other directory-related commands creating new paths
  */
 public class DirectoryManager {
 
-  ArrayList<String> path = new ArrayList<String>();
 
   /**
    * Declare instance of ErrorHandler to handle error messages
@@ -54,36 +52,7 @@ public class DirectoryManager {
 
   }
 
-  /**
-   * Finds the current path within the FileSystem
-   * 
-   * @return the path to the current directory
-   */
-  public String getCurrentPath(FileSystemI filesys) {
-    String output = "";
-    Node current = filesys.getCurrent();
-
-    if (current.equals(filesys.getRoot())) {
-      return filesys.getRoot().getName();
-    }
-
-    path.add(current.getName());
-    while (current != filesys.getRoot()) {
-      current = current.getParent();
-      path.add(current.getName());
-    }
-
-    int pathLength = path.size();
-    while (pathLength > 0) {
-      output = output.concat(path.get(pathLength - 1) + "/");
-      pathLength--;
-    }
-
-    path.clear();
-
-    return output.substring(1, output.length() - 1);
-  }
-
+  
   /**
    * Checks if requested directory exists in the ArrayList of nodes in the current node
    * 

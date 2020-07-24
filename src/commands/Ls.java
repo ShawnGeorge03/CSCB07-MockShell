@@ -89,12 +89,12 @@ public String unrecursiveMode(FileSystemI filesys) {
 	    } else {
 	      for (int i = 0; i < args.size(); i++) {
 	        String[] path = {args.get(i)};
-	        String[] currentPath = {getCurrentPath(filesys)};
+	        String[] currentPath = {filesys.getCurrentPath()};
 
 	        Cd traverse = new Cd();
 	        if (traverse.run(path, filesys)) {
 	          Node current = filesys.getCurrent();
-	          System.out.println("Path: " + getCurrentPath(filesys));
+	          System.out.println("Path: " + filesys.getCurrentPath());
 	          for (int j = 0; j < current.getList().size(); j++) {
 	            System.out.println(current.getList().get(j).getName());
 	          }
@@ -114,7 +114,7 @@ public String unrecursiveMode(FileSystemI filesys) {
 
 	public String recursiveMode(FileSystemI filesys) {
 		Cd traverse = new Cd();
-		String[] currentPath = {getCurrentPath(filesys)};
+		String[] currentPath = {filesys.getCurrentPath()};
 		if (args.size() == 1){
 			listDirectory(filesys.getRoot(), filesys);
 		}else{
@@ -135,7 +135,7 @@ public String unrecursiveMode(FileSystemI filesys) {
 			return null;
 		}
 		filesys.assignCurrent(root);
-		System.out.println("Path: " + getCurrentPath(filesys));
+		System.out.println("Path: " + filesys.getCurrentPath());
 		for (int i = 0; i < root.getList().size(); i++){
 			System.out.println(root.getList().get(i).getName());
 		}
