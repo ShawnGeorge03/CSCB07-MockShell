@@ -78,11 +78,10 @@ public class Push extends DirectoryManager implements CommandI {
       return errorManager.getError("Invalid Directory",
           args[0] + " is not a valid directory");
     }
-
-
-    filesys.getStack().push(args[0]);
     Cd newWorkingDirectory = new Cd();
     newWorkingDirectory.run(args, filesys);
+    filesys.getStack().push(getCurrentPath(filesys));
+    
 
     return null;
   }

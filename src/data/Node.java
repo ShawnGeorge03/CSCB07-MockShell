@@ -51,6 +51,10 @@ public class Node {
     return name;
   }
 
+  public void setRoot(){
+    isRoot = true;
+  }
+
   public void setName(String name) {
     this.name = name;
   }
