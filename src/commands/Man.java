@@ -100,17 +100,38 @@ public class Man implements CommandI {
 
     // Adds a key named mkdir and adds its manual
     manMap.put("mkdir",
-        "Command: mkdir" + "\nCreates a new directory in the current working directory"
-            + "\nYou can specify a relative or absolute path where you would "
-            + "like the new directory to be created");
-
+        "Command : mkdir DIR" + "\n\tCreates one or more directory for a given set of DIR(s)"
+        + "\n\n\tParameter : DIR can be either absolute or relative path"
+        + "\n\tParameter : It can take a list of DIR or at least on DIR"
+        + "\n\tParameter : DIR must contain a unique file name and must not contain the following " 
+        + "\n\t\tInvalid Chars : /, ., , !, @, #, $, %, ^, &, *, (, ), {, }, ~, |, <, >, ?"
+        + "\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
+        + "\n\n\tSample Use Case : $ mkdir user"
+        + "\n\tCreates a directory called user with in the current working directory -> Relative DIR"
+        + "\n\n\tSample Use Case : $ mkdir /user/user1"
+        + "\n\tCreates a directory called user1 inside of user -> Absolute DIR"
+        + "\n\n\tSample Use Case : $ mkdir /user/user1/desktop resources resources/driver"
+        + "\n\tCreates a desktop folder in user1 and a resources folder in the" 
+        + "\n\tcurrent directory and a driver folder in resources -> List of DIR");
+        
     // Adds a key named cd and adds its manual
     manMap.put("cd",
-        "Command: cd" + "\nChanges directory to the requested directory"
-            + "\nAccepts relative or absolute path" + "\nArgument '..' will go up one directory"
-            + "\nArgument '.' does nothing" + "\nArgument '/' goes to root"
-            + "\nArgument with pattern ../ or ../.. will go up n directories where n is the "
-            + "number of '..' pairs");
+        "Command: cd DIR" + "\n\tChanges the current working directory to DIR"
+        + "\n\n\tParameter : DIR can be either absolute or relative path"
+        + "\n\tParameter : It has to be only on DIR"
+        + "\n\tParameter : DIR must be a possible path the exist in the File System"
+        + "\n\tParameter : DIR cannot be a file path"  
+        + "\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
+        + "\n\n\tSpecial Charaters for DIR:"
+        + "\n\tIf DIR is . then it stays at the current working directory"
+        + "\n\tIf DIR is .. then it moves back one directory from the current working directory" 
+        + "\n\tIf DIR is \\ then it sets the current working directory to the root of the File System"
+        + "\n\tIf DIR is ../ or ../.. or some combination of those then it will go back n pairs of directories"
+        + "\n\n\tSample Use Case : cd /" + "\n\tSets the current working directory to /"
+        + "\n\tSample Use Case : cd user" + "\n\tSets the current working directory to the /user"
+        + "\n\tSample Use Case : cd user1/desktop" + "\n\tSets the current working directory to the /user/user1/desktop"
+        + "\n\tSample Use Case : cd ../../.." + "\n\tSets the current working directory to the /"
+        );
 
     // Adds a key named ls and adds its manual
     manMap.put("ls",
@@ -174,7 +195,56 @@ public class Man implements CommandI {
     // Adds a key named exit and adds its manual
     manMap.put("exit", "Command : exit" + "\n\n\tCloses the current session and leaves the Shell"
         + "\n\n\tParameter : None");
+
+    manMap.put("rm", 
+        "Command: rm DIR"  + "\n\tRemoves the give DIR from the file system"
+        +"\n\n\tParameter : DIR can be either absolute or relative path"
+        + "\n\tParameter : It has to be only on DIR"
+        + "\n\tParameter : DIR must be a possible path the exist in the File System" 
+        + "\n\tParameter : DIR cannot be a file path" 
+        + "\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
+        + "\n\n\tSample Use Case : rm resources"
+        + "\n\tRemoves the directory resources with in the current working directory" 
+        + "\n\n\tSample Use Case : rm /user/user1/desktop"
+        + "\n\tRemoves the directory desktop which is in the user1 directory" 
+        + "\n\twhich is in user which is the root of file system");
+
+    manMap.put("mv", 
+        "Command: mv OLDPATH NEWPATH");
+   
+    manMap.put("cp", 
+        "Command: cp OLDPATH NEWPATH");
+    
+    manMap.put("curl", 
+        "Command: curl URL" 
+        + "\n\n\tRetrives the content of the a file at the URL and adds it to the current working directory"
+        + "\n\n\tParameter : URL must be a valid link and should have the file name in the URL"
+        + "\n\tParameter : It has to be only one URL"
+        + "\n\n\tSample Use Case : curl http://www.cs.utoronto.ca/~trebla//CSCB09-2020-Summer/course-info.html"
+        + "\n\tCreates a course-info file in the current directory and stores the content of the file from the URL");
+    
+    manMap.put("save", 
+        "Command: save FileName" 
+        + "Save the current session of the JShell and stores it to a FileName on the users actual file system"
+        + "/n/n/tParameter : FileName can be relative or absolute paths"
+        + "/n/tParameter : There can only be one FileName");
+   
+    manMap.put("load",  
+        "Command: load FileName" 
+        + "Loads up a previous session of the JShell and sets up the JShell to that state"
+        + "/n/n/tParameter : FileName can be relative or absolute paths"
+        + "/n/tParameter : There can only be one FileName");
+    
+    manMap.put("find", 
+        "Command: find PATH -type[f|d] -name expression"
+        +"\n\n\tParameter : PATH can be either absolute or relative path"
+        + "\n\tParameter : It can be one PATH or multiple PATH"
+        + "\n\tParameter : PATH must be a possible path the exist in the File System" 
+        + "\n\tParameter : PATH cannot be a file path"
+        + "\n\tParamerter : If type is f then it is a file"
+        + "\n\tParamerter : If type is d then it is a directory");
+    
+    manMap.put("tree", 
+        "Command: tree" );    
   }
-
-
 }
