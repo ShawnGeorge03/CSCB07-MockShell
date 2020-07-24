@@ -1,0 +1,11 @@
+a) What did I work on in the last three days? 
+-Fixed bugs in Cd and DirectoryManager from 2a
+-Still working on Find
+-
+	
+b) What do I plan to work in the next three days?
+-Finish up Find
+-Start Tree
+	
+c) Am I blocked on anything?  
+-No
