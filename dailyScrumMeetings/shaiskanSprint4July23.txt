@@ -1,0 +1,19 @@
+a) What did I work on in the last three days? 
+	- Started basic working of Ls -R implementation
+	- Fixed mkdir to work with the new root name
+	- Fixed any test cases that were failing due to new root names
+	- Helped fix Cd to fit current code implementations
+	- Fixed Rm, Cp and Mv to work with files and directories
+	
+b) What do I plan to work in the next three days?
+	- Write test cases for new commands
+	- Write test cases for existing commands to test additional feautures
+	- Work on cleaning up all code to be readable and fit style guidelines
+	- Finish ls -R implementation
+	- Test previous test cases used to make part a on current shell
+	
+c) Am I blocked on anything?  
+	- The root name needed to be changed, which Tirth took a long time to do
+	- Cd was not working after, and Tirth fixed it but changed how it was implemented, it took time fix it back to work with current implementation
+	- Some external library had been added to the code that made it impossible to build on my computer, took 2 days to fix that.
+
