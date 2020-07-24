@@ -47,7 +47,9 @@ a-04. (CRC Cards) Make changes to EchoAppend to reflect new responsibilities
 a-05. (CRC Cards) Revise the other CRC Cards for its responsibilities, collaborators and such       
 b-01. (PushTest) Create and add JUnit testcases for Push                                           
 b-02. (PopTest) Create and add JUnit testcases for Pop                   
-b-03. (LsTest) Create and add JUnit testcases for Ls                            
+b-03. (LsTest) Create and add JUnit testcases for Ls    
+b-04. (MockFileSystem) Create a mock file system for testing purposes     
+b-05. (FileSystemI) Create a filesystem interface class                    
 c-01. (Ls) Modify existing ls class to check for flag (-R)                                 
 c-02. (Ls) Implement function to list subdirectories and contents in Ls                             
 d-01. (RmTest) Create and add JUnit testcases for Rm                                                
@@ -82,17 +84,16 @@ k-15. (Man) Improve documentation for any vauge manuals for any commands
 l-01. (FileSystem) Add appendFile() and overwriteFile() methods to FileSystem            
 l-02. (Echo) Chnage how the append and overwite works here to use redirection instead               
 
-
 These tasks are assigned as follows:
 
 User: Abhay
-Tasks: a-03, a-04, g-01, g-02, h-01, h-02, l-01
+Tasks: a-03, a-04, g-01, g-02, h-01, h-02, l-01, b-04, b-05
 
 User: Tirth Patel
-Tasks: a-05, i-01, i-02, j-01, j-02, j-03
+Tasks: a-05, i-01, i-02, j-01, j-02, j-03, b-04, b-05
 
 User: Keshavaa
-Tasks: a-05, b-01, b-02, b-03, c-01, c-02, d-01, e-01, e-02, f-01, f-02
+Tasks: a-05, b-01, b-02, b-03, c-01, c-02, d-01, e-01, e-02, f-01, f-02, b-04, b-05
 
 User: Shawn Santhoshgeorge
-Tasks: a-01, a-02, a-05, k-01, k-02, k-03, k-04, k-05, k-06, k-07, k-08, k-09, k-10, k-11, k-12, k-13, k-14, k-15, l-02
+Tasks: a-01, a-02, a-05, k-01, k-02, k-03, k-04, k-05, k-06, k-07, k-08, k-09, k-10, k-11, k-12, k-13, k-14, k-15, l-02, b-04
