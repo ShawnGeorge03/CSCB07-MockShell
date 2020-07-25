@@ -81,4 +81,43 @@ public class PopTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void testBRelativePath(){
+        pop.run(fs, input, "popd", false);
+        pop.run(fs, input, "popd", false);
+        String expected = "/users/desktop";
+        String actual = fs.getCurrentPath();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testCLastPop(){
+        pop.run(fs, input, "popd", false);
+        pop.run(fs, input, "popd", false);
+        pop.run(fs, input, "popd", false);
+
+        String expected = "/";;
+        String actual = fs.getCurrentPath();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testDEmptyStack(){
+        pop.run(fs, input, "popd", false);
+        pop.run(fs, input, "popd", false);
+        pop.run(fs, input, "popd", false);
+       
+        String expected = "Stack is empty";;
+        String actual =  pop.run(fs, input, "popd", false);
+        assertEquals(expected, actual);
+    }
+
+    @Test 
+    public void testEArguments(){
+        String input[] = {"unrequired args"};
+        String actual = pop.run(fs, input, "popd unrequired args", false);
+        String expected = "Error: Invalid Argument : No arguments should be given";
+        assertEquals(expected, actual);
+    }
+
 }
