@@ -211,12 +211,35 @@ public class FileSystem implements FileSystemI{
 
   @Override
   public void fileAppend(String content, String file) {
-
+    Node fileNode = findFile(file, true);
+    if(fileNode != null){
+      fileNode.setContent(fileNode.getContent()+"\n"+content);
+    }
+    else{
+      String fileName = file.split("/")[file.split("/").length-1];
+      if(fileName.contains(".")) 
+        fileName = fileName.substring(0, fileName.indexOf("."));
+      fileNode = new Node.Builder(false, fileName)
+                         .setContent(content)
+                         .build();
+      addToDirectory(fileNode);
+    }
   }
 
   @Override
   public void fileOverwrite(String content, String file) {
-
+    Node fileNode = findFile(file, true);
+    if(fileNode != null){
+      fileNode.setContent(content);
+    }
+    else{
+      String fileName = file.split("/")[file.split("/").length-1];
+      if(fileName.contains(".")) 
+        fileName = fileName.substring(0, fileName.indexOf("."));
+      fileNode = new Node.Builder(false, fileName)
+                         .setContent(content)
+                         .build();
+      addToDirectory(fileNode);
+    }
   }
-
 }
