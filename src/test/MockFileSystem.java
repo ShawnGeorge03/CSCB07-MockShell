@@ -86,7 +86,7 @@ public class MockFileSystem implements FileSystemI {
     }
 
     @Override
-    public Node findFile(String filePath) {
+    public Node findFile(String filePath, boolean fileIsFolderNode) {
         // TODO Auto-generated method stub
         return null;
     }

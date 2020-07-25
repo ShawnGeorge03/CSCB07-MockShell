@@ -81,7 +81,7 @@ public class Cat implements CommandI {
     Node file = null;
     // Runs through all the filePaths and stores the output for each case
     for (int i = 0; i < filePaths.length; i++) {
-      file = filesys.findFile(filePaths[i]);
+      file = filesys.findFile(filePaths[i], false);
       // If the file does exist
       if (file.getContent() != null) {
         // Collect and append the text to the String object output

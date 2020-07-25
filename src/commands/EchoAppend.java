@@ -61,8 +61,8 @@ public class EchoAppend extends Echo {
     // Check if valid fileName
     if (filesys.isValidName(fileName)) {
       // If already exists
-      if (filesys.findFile(fileName).getContent() != null) {
-        Node file = filesys.findFile(fileName);
+      if (filesys.findFile(fileName, false).getContent() != null) {
+        Node file = filesys.findFile(fileName, false);
         file.setContent(file.getContent() + "\n" + fileContents);
       } else {
         // Create new file and add to FileSystem
@@ -83,15 +83,15 @@ public class EchoAppend extends Echo {
     // Check if fileName is valid
     if (filesys.isValidName(givenPath[givenPath.length - 1])) {
       // If already exists
-      if (filesys.findFile(fileName).getContent()  != null) {
-        Node file = filesys.findFile(fileName);
+      if (filesys.findFile(fileName, false).getContent()  != null) {
+        Node file = filesys.findFile(fileName, false);
         file.setContent(file.getContent() + "\n" + fileContents);
       } else {
         // Create new file and add to the FileSystem
         Node currentNode = filesys.getCurrent();
         String desiredPath = fileName;
         desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
-        Node parent = filesys.findFile(desiredPath);
+        Node parent = filesys.findFile(desiredPath,true);
         filesys.assignCurrent(parent);
         Node newFile = new Node.Builder(false,givenPath[givenPath.length - 1])
                                .setRoot(false)

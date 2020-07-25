@@ -153,7 +153,7 @@ public class CurlTest {
     //Actual return from Curl after the operation is complete
     curl.run(fs, website.split(" "), website, false);
     //Checks if the values are equal or not
-    assertEquals(expected, fs.findFile("lesson1").getContent());
+    assertEquals(expected, fs.findFile("lesson1", false).getContent());
   }
 
   /**
@@ -168,7 +168,7 @@ public class CurlTest {
     //Actual return from Curl after the operation is complete
     curl.run(fs, website.split(" "), website, false);
     //Checks if the values are equal or not
-    assertEquals(expected, fs.findFile("Lesson1").getContent());
+    assertEquals(expected, fs.findFile("Lesson1", false).getContent());
   }
 
   /**

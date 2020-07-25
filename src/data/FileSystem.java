@@ -176,14 +176,13 @@ public class FileSystem implements FileSystemI{
   }
 
   @Override
-  public Node findFile(String filePath) {
+  public Node findFile(String filePath, boolean fileIsFolderNode) {
     String absolutePath = filePath;
 
     //If the given path is a relative path then make it a absolute path
     if(!filePath.startsWith("/")){
       absolutePath = (getCurrentPath() + "/" + filePath).substring(1);
     }
-    
     //Grabs root directory
     Node current = getRoot();
     //Splits the absolutePath into the individual folders
@@ -195,8 +194,15 @@ public class FileSystem implements FileSystemI{
       for (int j = 0; j < current.getList().size(); j++) {
         //If the folder matches the one we need then return it
         if (current.getList().get(j).getName().equals(directories[i])) {
-          current = current.getList().get(j);
-          break;
+          if((i+1) == directories.length){
+            if(fileIsFolderNode == current.getList().get(j).getisDir()){
+              current = current.getList().get(j);
+              return current;
+            }
+          }
+          else{
+            current = current.getList().get(j);
+          }
         }
       }
     }
