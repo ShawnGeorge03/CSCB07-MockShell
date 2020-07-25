@@ -81,7 +81,7 @@ public class Node {
 
   public void setDir(boolean isDir) {
     this.isDir = isDir;
-  }
+  } 
 
   public String getContent() {
     return content;

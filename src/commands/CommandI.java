@@ -47,6 +47,6 @@ interface CommandI {
   * @param val  stores a boolean value
   * @return any error message or valid output for user input
   */  
-  public String run(FileSystemI fs, String args[], String fullInput, boolean val);
+  public String run(FileSystemI fs, String args[], String fullInput, boolean val) ;
 
 }

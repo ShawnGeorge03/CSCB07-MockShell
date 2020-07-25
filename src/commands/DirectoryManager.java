@@ -138,24 +138,4 @@ public class DirectoryManager {
     filesys.assignCurrent(currNode);
     return true;
   }
-
-  /**
-   * Method that checks if the file name that the user inputted is a valid file name. If the file
-   * name contains illegal characters then this method returns false. If the file name does not
-   * contain any illegal characters then it returns true.
-   * 
-   * @param fileName String that stores the file name that the user inputted
-   * @return boolean false if file name contains illegal characters, otherwise returns true
-   */
-  public boolean isValidDirectoryName(String fileName) {
-    String[] invalidChars = {"/", ".", "\\s+", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")",
-        "{", "}", "~", "|", "<", ">", "?"};
-    for (int i = 0; i < invalidChars.length; i++) {
-      if (fileName.contains(invalidChars[i])) {
-        return false;
-      }
-    }
-    return true;
-  }
-
 }

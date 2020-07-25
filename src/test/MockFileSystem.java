@@ -45,49 +45,41 @@ public class MockFileSystem implements FileSystemI {
 
     @Override
     public Node getRoot() {
-        // TODO Auto-generated method stub
         return root;
     }
 
     @Override
     public Node getCurrent() {
-        // TODO Auto-generated method stub
         return current;
     }
 
     @Override
     public String getContent(Node file) {
-        // TODO Auto-generated method stub
         return file.getContent();
     }
 
     @Override
     public void assignCurrent(Node currentDirectory) {
-        // TODO Auto-generated method stub
         current = currentDirectory;
     }
 
     @Override
     public void addToDirectory(Node newNode) {
-        // TODO Auto-generated method stub
         current.getList().add(newNode);
     }
 
     @Override
     public void removeFromDirectory(int i) {
-        // TODO Auto-generated method stub
         current.getList().remove(i);
     }
 
     @Override
     public ArrayList<String> getCommandLog() {
-        // TODO Auto-generated method stub
         return CommandLog;
     }
 
     @Override
     public Deque<String> getStack() {
-        // TODO Auto-generated method stub
         return stack;
     }
 
@@ -98,19 +90,7 @@ public class MockFileSystem implements FileSystemI {
     }
 
     @Override
-    public Node createFile() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public String fileAppend(String content, String file) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public String fileOverwrite(String content, String file) {
+    public Node findFile(String filePath) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -120,5 +100,31 @@ public class MockFileSystem implements FileSystemI {
         // TODO Auto-generated method stub
         return null;
     }
+
+    
+    @Override
+    public boolean isValidName(String fileName) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public Node createFile(String content, String fileName, String filePath) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void fileAppend(String content, String file) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void fileOverwrite(String content, String file) {
+        // TODO Auto-generated method stub
+
+    }
+
     
 }

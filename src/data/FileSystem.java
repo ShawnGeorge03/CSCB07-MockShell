@@ -59,7 +59,6 @@ public class FileSystem implements FileSystemI{
 
   private ArrayList<String> path;
 
-
   /**
    * Constructor for FileSystem to set root default values
    */
@@ -84,10 +83,8 @@ public class FileSystem implements FileSystemI{
   public static FileSystem getFileSys() {
     if (fileSys == null) {
       fileSys = new FileSystem();
-      return fileSys;
-    } else {
-      return fileSys;
     }
+    return fileSys;
   }
 
   // Trivial methods below that require no JavaDoc
@@ -128,8 +125,27 @@ public class FileSystem implements FileSystemI{
     FileSystem.stack = stack;
   }
 
+    /**
+   * Method that checks if the file name that the user inputted is a valid file name. If the file name
+   * contains illegal characters then this method returns false. If the file name does not contain any
+   * illegal characters then it returns true.
+   * 
+   * @param fileName  String that stores the file name that the user inputted
+   * @return boolean false if file name contains illegal characters, otherwise returns true
+   */
+  public boolean isValidName(String fileName) {
+    String[] invalidChars = {"/", ".", "\\s+", "!", "@", "#", "$", "%", "^",
+        "&", "*", "(", ")", "{", "}", "~", "|", "<", ">", "?"};
+    for (int i = 0; i < invalidChars.length; i++) {
+      if (fileName.contains(invalidChars[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   /**
-   * Finds the current path within the FileSystem
+   * Finds the current working directory
    * 
    * @return the path to the current directory
    */
@@ -158,23 +174,47 @@ public class FileSystem implements FileSystemI{
     return output.substring(1, output.length() - 1);
   }
 
-
   @Override
-  public Node createFile() {
-    // TODO Auto-generated method stub
-    return null;
+  public Node createFile(String fileContents, String fileName, String filePath) {
+    return current;
   }
 
   @Override
-  public String fileAppend(String content, String file) {
-    // TODO Auto-generated method stub
-    return null;
+  public Node findFile(String filePath) {
+    String absolutePath = filePath;
+
+    //If the given path is a relative path then make it a absolute path
+    if(!filePath.startsWith("/")){
+      absolutePath = (getCurrentPath() + "/" + filePath).substring(1);
+    }
+    
+    //Grabs root directory
+    Node current = getRoot();
+    //Splits the absolutePath into the individual folders
+    String[] directories = absolutePath.split("/");
+
+    //Loops through the directories array
+    for (int i = 1; i < directories.length; i++) {
+      //Loops through the ArrayList of directories
+      for (int j = 0; j < current.getList().size(); j++) {
+        //If the folder matches the one we need then return it
+        if (current.getList().get(j).getName().equals(directories[i])) {
+          current = current.getList().get(j);
+          break;
+        }
+      }
+    }
+    return current;  
   }
 
   @Override
-  public String fileOverwrite(String content, String file) {
-    // TODO Auto-generated method stub
-    return null;
+  public void fileAppend(String content, String file) {
+
+  }
+
+  @Override
+  public void fileOverwrite(String content, String file) {
+
   }
 
 }

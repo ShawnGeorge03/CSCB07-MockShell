@@ -11,13 +11,27 @@ import commands.Cat;
 import data.FileSystem;
 
 import java.lang.reflect.Field;
-
+/**
+ * Class EchoTest runs all the different cases for Echo
+ */
 public class EchoTest {
 
+    /**
+     * Declares instance of FileSystem so we can acess the filesystem
+     */
     private static FileSystem fs;
+    /**
+     * Declare instance of Mkdir to make new directories
+     */
     private static Mkdir mkdir;
-    private static Echo echo;
+    /**
+     * Declare instance of Cat to read a file for changes
+     */
     private static Cat cat;
+    /**
+     * Declares instance of Echo to be tested
+     */
+    private static Echo echo;
 
     private static String expectedEcho, actualEcho, expectedCat, actualCat;
 

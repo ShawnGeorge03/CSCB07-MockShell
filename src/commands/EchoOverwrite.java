@@ -59,10 +59,10 @@ public class EchoOverwrite extends Echo {
 
   private void executeRelativePath(String fileContents, String fileName, FileSystemI filesys) {
     // Check if valid fileName
-    if (isValidFileName(fileName)) {
+    if (filesys.isValidName(fileName)) {
       // If already exists
-      if (findFileGivenRelative(fileName, filesys) != null) {
-        Node file = findFileGivenRelative(fileName, filesys);
+      if (filesys.findFile(fileName).getContent() != null) {
+        Node file = filesys.findFile(fileName);
         file.setContent(fileContents);
       } else {
         // Create new file and add to FileSystem
@@ -81,17 +81,17 @@ public class EchoOverwrite extends Echo {
   private void executeAbsolutePath(String fileContents, String fileName,
       String[] givenPath, FileSystemI filesys) {
     //Check if fileName is valid
-    if (isValidFileName(givenPath[givenPath.length - 1])) {
+    if (filesys.isValidName(givenPath[givenPath.length - 1])) {
    // If already exists
-      if (findFileGivenAbsolute(fileName,filesys) != null) {
-        Node file = findFileGivenAbsolute(fileName, filesys);
+      if (filesys.findFile(fileName).getContent() != null) {
+        Node file = filesys.findFile(fileName);
         file.setContent(fileContents);
       } else {
         //Create new file and add to the FileSystem
         Node currentNode = filesys.getCurrent();
-        String desiredPath = getCurrentPath(filesys) + fileName;
+        String desiredPath = filesys.getCurrentPath() + "/" + fileName;
         desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
-        Node parent = findFolderGivenAbsolute(desiredPath, filesys);
+        Node parent = filesys.findFile(desiredPath);
         filesys.assignCurrent(parent);
         Node newFile = new Node();
         newFile.setDir(false);

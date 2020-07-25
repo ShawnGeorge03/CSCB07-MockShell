@@ -35,12 +35,15 @@ import data.Node;
 /**
  * Class Cat views the contents of requested file
  */
-public class Cat extends FileManager implements CommandI {
+public class Cat implements CommandI {
 
   /**
    * Declare instance variable of String to contain the output that Cat may return
    */
   String output;
+
+  private ErrorHandler errorManager;
+
 
   /**
    * Constructor for Cat that initializes instance variables
@@ -48,6 +51,7 @@ public class Cat extends FileManager implements CommandI {
   public Cat() {
     // Initializing the String object output
     this.output = "";
+    this.errorManager = new ErrorHandler();
   }
 
   /**
@@ -61,7 +65,7 @@ public class Cat extends FileManager implements CommandI {
   public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
     if (args.length == 0) {
       // Returns an error of No parameters provided
-      return getErrorHandler().getError("No parameters provided", "");
+      return errorManager.getError("No parameters provided", "");
     } else {
       // Initializing the String object output after each time the method is called
       output = "";
@@ -77,24 +81,16 @@ public class Cat extends FileManager implements CommandI {
     Node file = null;
     // Runs through all the filePaths and stores the output for each case
     for (int i = 0; i < filePaths.length; i++) {
-      // If the file path is an absolute path
-      if (filePaths[i].startsWith(filesys.getRoot().getName())) {
-        // Calls the following method to return a reference to that specific Node
-        file = findFileGivenAbsolute(filePaths[i], filesys);
-        // If the file path is a relative path
-      } else {
-        // Calls the following method to return a reference to that specific Node
-        file = findFileGivenRelative(filePaths[i], filesys);
-      }
-
+      file = filesys.findFile(filePaths[i]);
+      System.out.println(file);
       // If the file does exist
-      if (file != null) {
+      if (file.getContent() != null) {
         // Collect and append the text to the String object output
         output += filesys.getContent(file);
         // If the file does not exist
       } else {
         // Collect and append the error of File Not Found
-        output += getErrorHandler().getError("File Not Found", filePaths[i]);
+        output += errorManager.getError("File Not Found", filePaths[i]);
       }
 
       // If it is not one file or it is the last file in the filePaths

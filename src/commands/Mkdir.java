@@ -93,7 +93,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 				}
 				
 				//Checks if directory name is valid
-				if (!isValidDirectoryName(args.get(i).substring(args.get(i).lastIndexOf('/') + 1))) {
+				if (!filesys.isValidName(args.get(i).substring(args.get(i).lastIndexOf('/') + 1))) {
 					output += error.getError("Invalid Directory",
 							args.get(i).substring(args.get(i).lastIndexOf('/') + 1) + " is not a valid directory name");
 					continue;
@@ -151,7 +151,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * @return String  A string if there is an error in adding the node, else null
 	 */
 	private String mkDirWithinCurrent(int i, FileSystemI filesys) {
-		if (!isValidDirectoryName(args.get(i))) {
+		if (!filesys.isValidName(args.get(i))) {
 			return error.getError("Invalid Directory", args.get(i) + " is not a valid directory name");
 		}
 

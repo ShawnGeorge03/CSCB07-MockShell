@@ -12,7 +12,7 @@ public interface FileSystemI {
     public void addToDirectory(Node newNode);
     public void removeFromDirectory(int i);
 
-    //Current Path
+    //Current Path -> pwd operations
     public String getCurrentPath();
 
     //Command Log -> history operations
@@ -22,10 +22,12 @@ public interface FileSystemI {
     public Deque<String> getStack();
     public void setStack(Deque<String> stack);
 
-    //Redirection
-    public Node createFile();
-    public String fileAppend(String content, String file);
-    public String fileOverwrite(String content, String file);
+    //Redirection and other File operations
+    public boolean isValidName(String fileName);
+    public Node findFile(String filePath); 
+    public Node createFile(String content, String fileName, String filePath);
+    public void fileAppend(String content, String file);
+    public void fileOverwrite(String content, String file);
 
     
 }
