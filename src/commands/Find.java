@@ -10,25 +10,31 @@ import data.Node;
 public class Find extends DirectoryManager implements CommandI {
   
   ErrorHandler error;
+  String output = null;
   
   public Find() {
     error = new ErrorHandler();
   }
   
   public boolean isValid(ArrayList<String> args) {
-    if (args.size() != 4) {
+    if (args.size() == 0) {
+      output = error.getError("No parameters provided", "Find");
       return false;
     }
     else if (!(args.get(0).equals("-type"))) {
+      output = error.getError("Invalid Argument", args.get(0));
       return false;
     }
     else if (!(args.get(1).equals("f") || args.get(1).equals("d"))) {
+      output = error.getError("Invalid Argument", args.get(1));
       return false;
     }
     else if (!(args.get(2).equals("-name"))) {
+      output = error.getError("Invalid Argument", args.get(2));
       return false;
     }
     else if (args.get(3).equals(null)) {
+      output = error.getError("Invalid Argument", args.get(3));
       return false;
     }
     else {
@@ -40,7 +46,6 @@ public class Find extends DirectoryManager implements CommandI {
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     ArrayList<String> paths = new ArrayList<String>();
     ArrayList<String> arguments = new ArrayList<String>(Arrays.asList(args));
-    String output = null;
     for (int i = 0; i < args.length; i++) {
       paths.add(args[i]);
       if (i < args.length && args[i+1].equals("-type")) {
