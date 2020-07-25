@@ -107,7 +107,7 @@ public class Save implements CommandI{
   private void addNodeInformationToFile(Node current, FileWriter writer, int depth) {
     try {
       writer.write("\t\"name\" : \"" + current.getName() + "\"\n");
-      writer.write("\t\"isDir\" : \"" + current.isDir() + "\"\n");
+      writer.write("\t\"isDir\" : \"" + current.getisDir() + "\"\n");
       if(current.getParent() != null)
         writer.write("\t\"parent\" : \"" + current.getParent().getName() + "\"\n");
       else

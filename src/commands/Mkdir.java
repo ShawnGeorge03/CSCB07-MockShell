@@ -155,10 +155,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 			return error.getError("Invalid Directory", args.get(i) + " is not a valid directory name");
 		}
 
-		Node newNode = new Node();
-		newNode.setContent(null);
-		newNode.setDir(true);
-		newNode.setName(args.get(i));
+		Node newNode = new Node.Builder(true, args.get(i)).build();
 
 		for (int j = 0; j < filesys.getCurrent().getList().size(); j++) {
 			if (filesys.getCurrent().getList().get(j).getName().equals(newNode.getName())) {
@@ -176,11 +173,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * @return Node  The new node to be added
 	 */
 	private Node getDirNode(int i) {
-		Node newNode = new Node();
-		newNode.setContent(null);
-		newNode.setDir(true);
-		newNode.setName(args.get(i).substring(args.get(i).lastIndexOf('/') + 1));
-		return newNode;
+		return new Node.Builder(true, args.get(i).substring(args.get(i).lastIndexOf('/') + 1)).build();
 	}
 
 }

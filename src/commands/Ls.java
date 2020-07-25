@@ -131,7 +131,7 @@ public String unrecursiveMode(FileSystemI filesys) {
 	}
 
 	public String listDirectory(Node root, FileSystemI filesys){
-		if (!root.isDir()){
+		if (!root.getisDir()){
 			return null;
 		}
 		filesys.assignCurrent(root);

@@ -66,11 +66,11 @@ public class EchoOverwrite extends Echo {
         file.setContent(fileContents);
       } else {
         // Create new file and add to FileSystem
-        Node newFile = new Node();
-        newFile.setDir(false);
-        newFile.setContent(fileContents);
-        newFile.setName(fileName);
-        newFile.setParent(filesys.getCurrent());
+        Node newFile = new Node.Builder(false,fileName)
+        .setRoot(false)
+        .setParent(filesys.getCurrent())  
+        .setContent(fileContents)                
+        .build();
         filesys.addToDirectory(newFile);
       }
     } else
@@ -93,11 +93,11 @@ public class EchoOverwrite extends Echo {
         desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
         Node parent = filesys.findFile(desiredPath);
         filesys.assignCurrent(parent);
-        Node newFile = new Node();
-        newFile.setDir(false);
-        newFile.setContent(fileContents);
-        newFile.setName(givenPath[givenPath.length - 1]);
-        newFile.setParent(parent);
+        Node newFile = new Node.Builder(false,givenPath[givenPath.length - 1])
+                               .setRoot(false)
+                               .setParent(parent)  
+                               .setContent(fileContents)                
+                               .build();
         filesys.addToDirectory(newFile);
         filesys.assignCurrent(currentNode);
       }

@@ -102,10 +102,9 @@ public class Load implements CommandI{
       parsedNodeInformation[i] = parseInfo.split(":")[1].trim();
     }
     if(!parsedNodeInformation[0].equals(filesys.getRoot().getName())) {
-      Node newNode = new Node();
-      newNode.setName(parsedNodeInformation[0]);
-      newNode.setDir(Boolean.valueOf(parsedNodeInformation[1]));
-      newNode.setContent(parsedNodeInformation[3]);
+      Node newNode = new Node.Builder(Boolean.valueOf(parsedNodeInformation[1]), parsedNodeInformation[0])
+                             .setContent(parsedNodeInformation[3])
+                             .build();
       if(parsedNodeInformation[2].equals(filesys.getCurrent().getName()))
         filesys.addToDirectory(newNode);
       else{

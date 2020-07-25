@@ -92,7 +92,7 @@ public class DirectoryManager {
       }
       int indexOfDir = checkDirExists(currNode.getList(), pathArr[i]);
       if (indexOfDir != -1) {
-        if (currNode.getList().get(indexOfDir).isDir()) {
+        if (currNode.getList().get(indexOfDir).getisDir()) {
           currNode = currNode.getList().get(indexOfDir);
         } else {
 
@@ -126,7 +126,7 @@ public class DirectoryManager {
       }
       int indexOfDir = checkDirExists(currNode.getList(), pathArr[i]);
       if (indexOfDir != -1) {
-        if (currNode.getList().get(indexOfDir).isDir()) {
+        if (currNode.getList().get(indexOfDir).getisDir()) {
           currNode = currNode.getList().get(indexOfDir);
         } else {
           return false;

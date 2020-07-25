@@ -26,17 +26,13 @@ public class MockFileSystem implements FileSystemI {
     /**
      * Initialize current and root nodes
      */
-    Node root = new Node();
-    Node current = new Node();
+    Node root;
+    Node current;
 
     private MockFileSystem(String type){
         CommandLog = new ArrayList<String>();
         stack = new ArrayDeque<String>();
-        root.setDir(true);
-        root.setContent(null);
-        root.setName("/");
-        root.setRoot();
-        root.setParent(null);
+        root = new Node.Builder(true, "/").setRoot(true).setParent(null).build();
         current = root;
         if (type.equals("MOCKENV")){
             
@@ -86,7 +82,7 @@ public class MockFileSystem implements FileSystemI {
     @Override
     public void setStack(Deque<String> stack) {
         // TODO Auto-generated method stub
-        this.stack = stack;
+        MockFileSystem.stack = stack;
     }
 
     @Override

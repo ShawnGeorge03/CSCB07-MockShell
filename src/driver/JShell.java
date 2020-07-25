@@ -43,10 +43,6 @@ public class JShell {
    * @param args
    */
   public static void main(String[] args) {
-
-    //For running TestCases.java set to true
-    boolean testing = false;
-
       Checker parser = new Checker();
       FileSystem fs = FileSystem.getFileSys();
       Scanner sc = new Scanner(System.in);
@@ -60,6 +56,5 @@ public class JShell {
         parser.parseInput(input);
       }
       sc.close();
-
   }
 }

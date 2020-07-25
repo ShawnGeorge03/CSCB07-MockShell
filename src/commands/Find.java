@@ -64,12 +64,12 @@ class Find extends DirectoryManager implements CommandI {
       ArrayList<Node> toCheck = filesys.getCurrent().getList();
       for (int i = 0; i < toCheck.size(); i++) {
         if (type.equals("d")) {
-          if (toCheck.get(i).isDir() && toCheck.get(i).getName().equals(expression)) {
+          if (toCheck.get(i).getisDir() && toCheck.get(i).getName().equals(expression)) {
             System.out.println(toCheck.get(i).getName());
           }
         }
         else if (type.equals("f")) {
-          if (!toCheck.get(i).isDir() && toCheck.get(i).getName().equals(expression)) {
+          if (!toCheck.get(i).getisDir() && toCheck.get(i).getName().equals(expression)) {
             System.out.println(toCheck.get(i).getName());
           }
         }

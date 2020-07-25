@@ -54,8 +54,8 @@ public class FileSystem implements FileSystemI{
   /**
    * Initialize current and root nodes
    */
-  Node root = new Node();
-  Node current = new Node();
+  Node root;
+  Node current;
 
   private ArrayList<String> path;
 
@@ -66,11 +66,7 @@ public class FileSystem implements FileSystemI{
     CommandLog = new ArrayList<String>();
     stack = new ArrayDeque<String>();
     path = new ArrayList<String>();
-    root.setDir(true);
-    root.setContent(null);
-    root.setName("/");
-    root.isRoot = true;
-    root.setParent(null);
+    root = new Node.Builder(true, "/").setRoot(true).setParent(null).build();
     current = root;
   }
 
@@ -97,7 +93,7 @@ public class FileSystem implements FileSystemI{
   }
 
   public String getContent(Node file) {
-    return file.content;
+    return file.getContent();
   }
 
   public void assignCurrent(Node currentDirectory) {
