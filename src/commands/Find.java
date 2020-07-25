@@ -7,7 +7,7 @@ import data.FileSystemI;
 import data.Node;
 
 
-class Find extends DirectoryManager implements CommandI {
+public class Find extends DirectoryManager implements CommandI {
   
   ErrorHandler error;
   
@@ -69,12 +69,12 @@ class Find extends DirectoryManager implements CommandI {
       for (int i = 0; i < toCheck.size(); i++) {
         if (type.equals("d")) {
           if (toCheck.get(i).getisDir() && toCheck.get(i).getName().equals(expression)) {
-            System.out.println("Requested Directory: " + toCheck.get(i).getName());
+            System.out.println(toCheck.get(i).getName());
           }
         }
         else if (type.equals("f")) {
           if (!toCheck.get(i).getisDir() && toCheck.get(i).getName().equals(expression)) {
-            System.out.println("Requested File: " + toCheck.get(i).getName());
+            System.out.println(toCheck.get(i).getName());
           }
         }
       }
