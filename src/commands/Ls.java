@@ -72,19 +72,16 @@ public class Ls extends DirectoryManager implements CommandI {
 		 return recursiveMode(filesys);
 	 }
 
-    // if (args.get(0).equals("-R") != true) {
-    // 	unrecursiveMode();
-    // }else {
-    // 	recursiveMode();
-	// }
  }
 
 
 public String unrecursiveMode(FileSystemI filesys) {
+	String output = "";
 	if (args.size() == 0) {
 	      Node curr = filesys.getCurrent();
 	      for (int i = 0; i < curr.getList().size(); i++) {
-	        System.out.println(curr.getList().get(i).getName());
+			output += curr.getList().get(i).getName() + '\n';
+	        //System.out.println(curr.getList().get(i).getName());
 	      }
 	    } else {
 	      for (int i = 0; i < args.size(); i++) {
@@ -93,10 +90,12 @@ public String unrecursiveMode(FileSystemI filesys) {
 
 	        Cd traverse = new Cd();
 	        if (traverse.run(path, filesys)) {
-	          Node current = filesys.getCurrent();
-	          System.out.println("Path: " + filesys.getCurrentPath());
+			  Node current = filesys.getCurrent(); 
+			  output += "Path: " + filesys.getCurrentPath() + '\n';
+	          //System.out.println("Path: " + filesys.getCurrentPath());
 	          for (int j = 0; j < current.getList().size(); j++) {
-	            System.out.println(current.getList().get(j).getName());
+				output += current.getList().get(j).getName() + '\n';
+	            //System.out.println(current.getList().get(j).getName());
 	          }
 	        } else {
 	          return error.getError("Invalid Directory",
@@ -104,45 +103,49 @@ public String unrecursiveMode(FileSystemI filesys) {
 	        }
 
 	        Cd goBack = new Cd();
-	        goBack.run(currentPath, filesys);
-	        System.out.println();
+			goBack.run(currentPath, filesys);
+			output += '\n';
+	        //System.out.println();
 	      }
 	    }
-	    return null;
+	    return output;
 	}
 
 
 	public String recursiveMode(FileSystemI filesys) {
+		String output = "";
 		Cd traverse = new Cd();
 		String[] currentPath = {filesys.getCurrentPath()};
 		if (args.size() == 1){
-			listDirectory(filesys.getRoot(), filesys);
+			output = listDirectory(filesys.getRoot(), filesys, output);
 		}else{
 			for (int i = 1; i < args.size(); i++){
 				String[] path = {args.get(i)};
 				if (traverse.run(path, filesys)){
-					listDirectory(filesys.getCurrent(), filesys);
+					output = listDirectory(filesys.getCurrent(), filesys, output);
 				}
 				traverse.run(currentPath, filesys);
 			}
 		}
 		traverse.run(currentPath, filesys);
-		return null;
+		return output;
 	}
 
-	public String listDirectory(Node root, FileSystemI filesys){
+	public String listDirectory(Node root, FileSystemI filesys, String output){
 		if (!root.getisDir()){
-			return null;
+			return output;
 		}
 		filesys.assignCurrent(root);
-		System.out.println("Path: " + filesys.getCurrentPath());
+		//System.out.println("Path: " + filesys.getCurrentPath());
+		output += "Path: " + filesys.getCurrentPath() + '\n';
 		for (int i = 0; i < root.getList().size(); i++){
-			System.out.println(root.getList().get(i).getName());
+			//System.out.println(root.getList().get(i).getName());
+			output += root.getList().get(i).getName() + '\n';
 		}
-		System.out.println();
+		output += "\n";
 		for (int i = 0; i < root.getList().size(); i++){
-			listDirectory(root.getList().get(i), filesys);
+			output = listDirectory(root.getList().get(i), filesys, output);
 		}
-		return null;
+		return output;
 	}
 }
