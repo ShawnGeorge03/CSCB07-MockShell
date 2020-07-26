@@ -76,7 +76,7 @@ public class Ls extends DirectoryManager implements CommandI {
 
 
 public String unrecursiveMode(FileSystemI filesys) {
-	String output = "";
+	String output = null;
 	if (args.size() == 0) {
 	      Node curr = filesys.getCurrent();
 	      for (int i = 0; i < curr.getList().size(); i++) {
@@ -113,7 +113,7 @@ public String unrecursiveMode(FileSystemI filesys) {
 
 
 	public String recursiveMode(FileSystemI filesys) {
-		String output = "";
+		String output = null;
 		Cd traverse = new Cd();
 		String[] currentPath = {filesys.getCurrentPath()};
 		if (args.size() == 1){
