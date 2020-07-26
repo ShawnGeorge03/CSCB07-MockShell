@@ -35,8 +35,36 @@ public class MockFileSystem implements FileSystemI {
         root = new Node.Builder(true, "/").setRoot(true).setParent(null).build();
         current = root;
         if (type.equals("MOCKENV")){
-            
+            Node users = new Node.Builder(true, "users").setParent(root).build();
+            Node documents = new Node.Builder(true, "documents").setParent(root).build();
+            Node downloads = new Node.Builder(true, "downloads").setParent(root).build();
+
+            Node user1 = new Node.Builder(true, "skeshavaa").setParent(users).build();
+            users.getList().add(user1);
+            Node user2 = new Node.Builder(true, "guest").setParent(users).build();
+            users.getList().add(user2);
+
+            Node doc1 = new Node.Builder(false, "txtone").setParent(documents).setContent("this is a document").build();
+            documents.getList().add(doc1);
+            Node doc2 = new Node.Builder(false, "txttwo").setParent(documents).setContent("this is a document 2").build();
+            documents.getList().add(doc2);
+
+            Node homework = new Node.Builder(true, "homework").setParent(downloads).build();
+            downloads.getList().add(homework);
+            Node games = new Node.Builder(true, "Games").setParent(downloads).build();
+            downloads.getList().add(games);
         }
+    }
+
+    public FileSystemI getMockFileSys(String type){
+        if (type.equals("EMPTYSYS")){
+            emptySys = new MockFileSystem("EMPTYSYS");
+            return emptySys;
+        }else if (type.equals("MOCKENV")){
+            configuredSys = new MockFileSystem("MOCKENV");
+            return configuredSys;
+        }
+        return null;
     }
 
     @Override
