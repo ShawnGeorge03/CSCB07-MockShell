@@ -315,5 +315,7 @@ public class CommandHandler {
         commandMap.put("save", "commands.Save");
         // Adds a key named load and adds its path
         commandMap.put("load", "commands.Load");
+        // Adds a key named tree and adds its path
+        commandMap.put("tree", "commands.Tree");
     }
 }
