@@ -2,6 +2,8 @@ package commands;
 
 import data.FileSystemI;
 import data.Node;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Tree implements CommandI {
 
@@ -13,27 +15,35 @@ public class Tree implements CommandI {
 
 	@Override
 	public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
-		int depth = 0;
+		int depth = 1;
+		System.out.println(fs.getRoot().getName());
 		traverse(depth, fs, fs.getRoot());
+		System.out.println("");
 		return null;
 	}
 
 	public void traverse(int depth, FileSystemI f, Node currDir) {
-		if (currDir.getisDir()) {
-			printDir(currDir, depth);
-		}
 		if (currDir.getList() != null) {
+			if (currDir.getisDir()) {
+				printDir(currDir, depth, f);
+			}
+
 			for (int i = 0; i < currDir.getList().size(); i++) {
 				traverse(depth + 1, f, currDir.getList().get(i));
 			}
 		}
 	}
 
-	public void printDir(Node dirToPrint, int depth) {
-		System.out.println("\t");
+	public void printDir(Node dirToPrint, int depth, FileSystemI f) {
 		if (dirToPrint.getList() != null) {
+
 			for (int i = 0; i < dirToPrint.getList().size(); i++) {
-				System.out.println(dirToPrint.getList().get(i));
+				for (int j = 0; j < depth; j++) {
+					System.out.print(" "); //change to \t later!
+				}
+				System.out.println(dirToPrint.getList().get(i).getName());
+				traverse(depth, f, dirToPrint.getList().get(i));
+
 			}
 		}
 	}
