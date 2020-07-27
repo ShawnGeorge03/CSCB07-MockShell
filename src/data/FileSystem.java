@@ -128,7 +128,7 @@ public class FileSystem implements FileSystemI{
    */
   public boolean isValidName(String fileName) {
     String[] invalidChars = {"/", ".", "\\s+", "!", "@", "#", "$", "%", "^",
-        "&", "*", "(", ")", "{", "}", "~", "|", "<", ">", "?"};
+        "&", "*", "(", ")", "{", "}", "~", "|", "<", ">", "?", "'", "[", "]"};
     for (int i = 0; i < invalidChars.length; i++) {
       if (fileName.contains(invalidChars[i])) {
         return false;

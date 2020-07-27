@@ -37,10 +37,19 @@ public class Save implements CommandI{
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     if(args.length > 0) {
       filePath = formatArguments(args);
-      if(!filePath.substring(filePath.length()-5, filePath.length()).equals(".json")) {
-        System.out.println("The final file is not a .json file type");
-        return null;
+      if(!checkFileName(filePath, filesys)) {
+        System.out.println("Check");
+        output = error.getError("Invalid File", filePath);
+        return output;
       }
+      if(filePath.contains(".")){
+        if(!filePath.substring(filePath.length()-5, filePath.length()).equals(".json")) {
+          System.out.println("JSON");
+          output = error.getError("Invalid File", filePath);
+          return output;
+        }
+      }
+      else filePath += ".json";
       //System.out.println(filePath);
       try {
         writer = new FileWriter(filePath); 
@@ -58,14 +67,23 @@ public class Save implements CommandI{
         writer.write("}");
         
         writer.close();
-      } catch(IOException e) {
-          e.printStackTrace();
+      } catch(IOException e) { //could not find file
+        output = "Error: Invalid Path : " + args[0];
       }
     }
     else output = error.getError("No parameters provided", fullInput);
     return output;
   }
   
+  private boolean checkFileName(String filePath, FileSystemI filesys){
+    String fileName = "";
+    if(filePath.contains("\\")) filePath.substring(filePath.lastIndexOf("\\"), filePath.length());
+    else fileName = filePath;
+    if(filesys.isValidName(fileName)) return true;
+    System.out.println("reached");
+    return false;
+  }
+
   private String formatArguments(String[] args) {
     if(args[0].contains("/")) return args[0].replace("/", "\\\\");
     if(args[0].contains("\\")) return args[0].replace("\\", "\\\\");
