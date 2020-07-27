@@ -63,7 +63,7 @@ public class ErrorHandler {
         "Error: Same Directory with that name already exists!");
     errorMap.put("Missing Quotes", "Error : Missing Quotes");
     errorMap.put("Malformed Input", "Error : Malformed Input");
-    errorMap.put("Mulptile parameters provided",
+    errorMap.put("Multiple parameters provided",
         "Error : Multiple Parameters have been provided");
     errorMap.put("No parameters provided", "Error : No parameters provided");
     errorMap.put("Redirection Not allowed", "Error : Redirection Error");
