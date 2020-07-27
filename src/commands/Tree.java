@@ -42,7 +42,6 @@ public class Tree implements CommandI {
 					System.out.print(" "); //change to \t later!
 				}
 				System.out.println(dirToPrint.getList().get(i).getName());
-				traverse(depth, f, dirToPrint.getList().get(i));
 
 			}
 		}
