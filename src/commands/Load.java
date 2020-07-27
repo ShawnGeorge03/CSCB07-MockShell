@@ -22,21 +22,20 @@ public class Load implements CommandI{
   
   /*
    * Things to work on:
-   *    - Error Checking
    *    - JavaDoc
    *    - Test cases
   */
 
   @Override
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-    
     if(args[0].length() > 0 && checkCommandLog(filesys)) {
       filePath = formatArguments(args);
+      validateFileName(filesys, fullInput);
+      if(output != null) return output;
       try {
         fileReader = new FileReader(filePath);
         reader = new BufferedReader(fileReader);
         String line = reader.readLine();
-
         while(line != null) {
           if(line.equals("NODES")) uploadNodes(line, filesys);
           else if(line.equals("COMMAND LOG")) {
@@ -44,23 +43,40 @@ public class Load implements CommandI{
           }
           line = reader.readLine();
         }
-
       } catch (FileNotFoundException e) { //from trying to find file path 
-        e.printStackTrace();
+        output = "Error: Invalid Path : " + args[0];
       } catch (IOException e) { // from reading a line
         e.printStackTrace();
       }
     }
     else{
-      if(checkCommandLog(filesys)) output = error.getError("No parameters provided", fullInput);
-      else System.out.println("Error (load was not the first command inputted)");
+      if(!checkCommandLog(filesys)) output = "Error: load was not the first command inputted";
+      output = error.getError("No parameters provided", fullInput);
     }
-    
     return output;
   }
   
+  private void validateFileName(FileSystemI filesys, String fullInput){
+    if(!checkFileName(filePath, filesys)) {
+      output = error.getError("Invalid File", fullInput);
+    }
+    if(filePath.contains(".")){
+      if(!filePath.substring(filePath.length()-5, filePath.length()).equals(".json")) {
+        output = error.getError("Invalid File", fullInput);
+      }
+    }
+  }
+
   private boolean checkCommandLog(FileSystemI filesys) {
     if(filesys.getCommandLog().size() == 1) return true;
+    return false;
+  }
+
+  private boolean checkFileName(String filePath, FileSystemI filesys){
+    String fileName = "";
+    if(filePath.contains("\\")) filePath.substring(filePath.lastIndexOf("\\"), filePath.length());
+    else fileName = filePath;
+    if(filesys.isValidName(fileName)) return true;
     return false;
   }
   

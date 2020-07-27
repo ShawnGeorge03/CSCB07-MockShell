@@ -27,8 +27,6 @@ public class Save implements CommandI{
   
   /*
    * Things to work on:
-   *    - Error Checking
-   *        - check if a fileName is valid
    *    - JavaDoc
    *    - Test cases
   */
@@ -37,7 +35,7 @@ public class Save implements CommandI{
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     if(args.length > 0) {
       filePath = formatArguments(args);
-      validateFileName(filesys);
+      validateFileName(filesys, fullInput);
       if(output != null) return output;
       try {
         writer = new FileWriter(filePath); 
@@ -63,13 +61,13 @@ public class Save implements CommandI{
     return output;
   }
   
-  private void validateFileName(FileSystemI filesys){
+  private void validateFileName(FileSystemI filesys, String fullInput){
     if(!checkFileName(filePath, filesys)) {
-      output = error.getError("Invalid File", filePath);
+      output = error.getError("Invalid File", fullInput);
     }
     if(filePath.contains(".")){
       if(!filePath.substring(filePath.length()-5, filePath.length()).equals(".json")) {
-        output = error.getError("Invalid File", filePath);
+        output = error.getError("Invalid File", fullInput);
       }
     }
     else filePath += ".json";
