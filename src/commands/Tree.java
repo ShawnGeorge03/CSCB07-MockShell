@@ -15,7 +15,6 @@ public class Tree implements CommandI {
 	public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
 		int depth = 0;
 		traverse(depth, fs, fs.getRoot());
-
 		return null;
 	}
 
