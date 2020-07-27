@@ -174,7 +174,7 @@ public class FileSystem implements FileSystemI{
 
   @Override
   public Node findFile(String filePath, boolean fileIsFolderNode) {
-    String absolutePath = filePath;
+    String absolutePath = filePath.trim();
 
     //If the given path is a relative path then make it a absolute path
     if(!filePath.startsWith("/")){
@@ -187,7 +187,6 @@ public class FileSystem implements FileSystemI{
 
     //Loops through the directories array
     for (int i = 1; i < directories.length; i++) {
-      //System.out.println(directories[i]);
       //Loops through the ArrayList of directories
       for (int j = 0; j < current.getList().size(); j++) {
         //If the folder matches the one we need then return it
@@ -209,39 +208,58 @@ public class FileSystem implements FileSystemI{
 
   @Override
   public void fileAppend(String content, String file) {
-    Node fileNode = findFile(file, true);
+    Node fileNode = findFile(file, false);
     if(fileNode != null){
       fileNode.setContent(fileNode.getContent()+"\n"+content);
     }else{
       String fileName = file.split("/")[file.split("/").length-1];
       if(fileName.contains(".")) 
         fileName = fileName.substring(0, fileName.indexOf("."));
+      
+      Node currentNode = getCurrent();
+      String desiredPath = fileName;
+      if(!file.startsWith("/")){
+        desiredPath = (getCurrentPath() + "/" + file).substring(1);
+      }
+      desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
+      Node parent;
+      if(desiredPath.equals("")) parent = getRoot();
+      else parent = findFile(desiredPath,true); 
+      assignCurrent(parent);
       fileNode = new Node.Builder(false, fileName)
                          .setContent(content)
                          .build();
-      //System.out.println(fileNode);
-      fileSys.addToDirectory(fileNode);
+      addToDirectory(fileNode);
+      assignCurrent(currentNode);
     }
   }
 
   @Override
   public void fileOverwrite(String content, String file) {
-    Node fileNode = findFile(file, true);
+    Node fileNode = findFile(file, false);
     if(fileNode != null){
-      //System.out.println("Found File");
       fileNode.setContent(content);
     }
     else{
-      //System.out.println(file.split("/")[file.split("/").length-1]);
       String fileName = file.split("/")[file.split("/").length-1];
       if(fileName.contains(".")) 
         fileName = fileName.substring(0, fileName.indexOf("."));
-      System.out.println(fileName);
-      fileNode = new Node.Builder(false, fileName)
-                         .setContent(content)
-                         .build();
-      //System.out.println(fileNode);
-      fileSys.addToDirectory(fileNode);
+      
+        Node currentNode = getCurrent();
+        String desiredPath = fileName;
+        if(!file.startsWith("/")){
+          desiredPath = (getCurrentPath() + "/" + file).substring(1);
+        }
+        desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
+        Node parent;
+        if(desiredPath.equals("")) parent = getRoot();
+        else parent = findFile(desiredPath,true); 
+        assignCurrent(parent);
+        fileNode = new Node.Builder(false, fileName)
+                           .setContent(content)
+                           .build();
+        addToDirectory(fileNode);
+        assignCurrent(currentNode);
     }
   }
 

@@ -37,13 +37,9 @@ import data.FileSystemI;
  */
 public class Echo extends FileManager implements CommandI {
 
-  /** Declare instance variable of String to hold the arguments */
-  private String argument;
-  private int numArrows;
-
   /** Declare instance variable of String to hold the output that will be returned */
   String output = "";
-
+  String properArgument = "";
   /**
    * Main run method that checks if the user had inputted any arguments to the command. It splices the
    * input so that it can send parsed data to the appropriate implementation of echo. Calls the
@@ -55,122 +51,27 @@ public class Echo extends FileManager implements CommandI {
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     // If no arguments were inputted
-    if (args.length == 0) {
+    if(args.length == 0) {
       return getErrorHandler().getError("No parameters provided", "");
     }
-    // Slices the input from whitespaces
-    String[] slicedInput = fullInput.split(" ");
-
-    // Parses the args array and assigns it to argument
-    argument = fixArgument(slicedInput);
-    // Execute the needed task
-    execute(slicedInput, fullInput, filesys);
-    // Return the output
+    for(int i = 0; i < args.length; i++){
+      properArgument += args[i] + " ";
+    }
+    properArgument = properArgument.trim();
+    if(hasQuotations(properArgument)) {
+      output = properArgument.substring(1, properArgument.length()-1);
+    } else
+      // Missing quotations in user input
+      output = this.getErrorHandler().getError("Missing Quotes", args[0]);
     return output;
   }
 
   private boolean hasQuotations(String fullInput) {
-    if (fullInput.contains("\"")) {
-      int num = fullInput.length() - fullInput.replaceAll("\"", "").length();
-      if (num % 2 == 0)
+    if(fullInput.contains("\"")) {
+      if(fullInput.startsWith("\"") && fullInput.endsWith("\"")){
         return true;
+      }
     }
     return false;
-  }
-
-  private int countArrows(String parsedInput) {
-    return parsedInput.length() - parsedInput.replaceAll(">", "").length();
-  }
-
-  private String fixArgument(String[] splicedInput) {
-    String args = "";
-    // Loops through the args array and appends everything to argument
-    for (int i = 1; i < splicedInput.length; i++) {
-      args += splicedInput[i] + " ";
-    }
-    // Returns the parsed argument with the last whitespace removed
-    return args.substring(0, args.length() - 1);
-  }
-
-  /**
-   * Method that is responsible for printing the required arguments to the shell/console.
-   * 
-   * @param  args the string array of arguments
-   */
-  public void printToConsole(String[] args) {
-    for (int i = 1; i < args.length; i++) {
-      output += args[i] + " ";
-    }
-
-    output = output.substring(0, output.length() - 1).replaceAll("\"", "");
-  }
-
-  private void executeOverwrite(String fileContents, String fileName,
-      String fullInput, FileSystemI filesys) {
-    // Create the EchoOverwrite object
-    if(fileName.length() > 0) {
-      EchoOverwrite overwriteExe = new EchoOverwrite();
-      // Execute the overwriting command
-      overwriteExe.execute(fileContents, fileName, filesys);
-      output = null;
-    }
-    else {
-      //Throw an error
-      output = this.getErrorHandler().getError("Invalid File", fullInput);
-    }
-    return;
-  }
-
-  private void executeAppend(String fileContents, String fileName,
-      String fullInput, FileSystemI filesys) {
-    //System.out.println("Reached Append");
-    if(fileName.length() > 0) {
-      // Create the EchoAppend object
-      EchoAppend appendExe = new EchoAppend();
-      // Execute the overwriting command
-      appendExe.execute(fileContents, fileName, filesys);
-      output = null;
-    }
-    else {
-      //Throw an error
-      output = this.getErrorHandler().getError("Invalid File", fullInput);
-    }
-    return;
-  }
-
-  private void execute(String[] args, String fullInput, FileSystemI filesys) {
-    String fileContents = "";
-    // Checks for quotations in the input
-    if (hasQuotations(fullInput)) {
-      // Grabs the new file contents and file name
-      fileContents = fullInput.substring(fullInput.indexOf("\"") + 1,
-          fullInput.lastIndexOf("\""));
-      String fileName =
-          argument.substring(argument.lastIndexOf(">") + 1, argument.length());
-      //System.out.println(fullInput);
-      fileName = fileName.replaceAll("^\\s+", "");
-      // Gets number of arrows to distinguish between append and overwrite
-      numArrows = countArrows(fullInput
-          .substring(fullInput.lastIndexOf("\"") + 1, fullInput.length()));
-      // Simple print to shell case
-      if (numArrows == 0 && args.length > 1)
-        printToConsole(args);
-      // Overwrite case
-      else if (numArrows == 1) {
-        executeOverwrite(fileContents, fileName, fullInput, filesys);
-        return;
-      }
-      // Append case
-      else if (numArrows == 2) {
-        executeAppend(fileContents, fileName, fullInput, filesys);
-        return;
-      } else
-        // Error handling for arguments
-        output = this.getErrorHandler().getError("Invalid Argument", fullInput);
-      return;
-    } else
-      // Missing quotations in user input
-      output = this.getErrorHandler().getError("Missing Quotes", fullInput);
-    return;
   }
 }

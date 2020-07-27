@@ -58,7 +58,7 @@ public class Save implements CommandI{
         writer.write("}");
         
         writer.close();
-      } catch (Exception e) {
+      } catch(IOException e) {
           e.printStackTrace();
       }
     }
