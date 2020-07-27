@@ -83,7 +83,7 @@ public class Cat implements CommandI {
     for (int i = 0; i < filePaths.length; i++) {
       file = filesys.findFile(filePaths[i], false);
       // If the file does exist
-      if (file.getContent() != null) {
+      if (file != null) {
         // Collect and append the text to the String object output
         output += filesys.getContent(file);
         // If the file does not exist

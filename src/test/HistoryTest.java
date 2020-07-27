@@ -7,18 +7,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import commands.History;
-import data.FileSystem;
 
 public class HistoryTest {
   
-  private FileSystem fs;
+  private MockFileSystem fs;
   private History history;
   private String expected;
   private String actual;
 
   @Before
   public void setUp() throws Exception {    
-    fs = FileSystem.getFileSys();
+    fs = MockFileSystem.getMockFileSys("EMPTYSYS");
     history = new History();
     
     this.expected = "";
@@ -123,7 +122,7 @@ public class HistoryTest {
   
   @After
   public void tearDown() throws Exception {
-    Field feild = fs.getClass().getDeclaredField("fileSys");
+    Field feild = fs.getClass().getDeclaredField("emptySys");
     feild.setAccessible(true);
     feild.set(null, null);
   }

@@ -57,18 +57,11 @@ public class Curl implements CommandI {
   private ErrorHandler errorManager;
 
   /**
-   * Declare instance of Echo to add the file from URL to current directory
-   */
-  private Echo echo;
-  
-  /**
    * Constructor for class Curl which initalizes instance variables
    */
   public Curl() {
     // Initializes an Errorhandler Object
     this.errorManager = new ErrorHandler();
-    // Initializes an Echo Object
-    this.echo = new Echo();
   }
 
   /**
@@ -123,9 +116,6 @@ public class Curl implements CommandI {
         reader.close();
         
         filesys.fileOverwrite(text, fileName);
-
-        //Stores the text to a file with a certain fileName on the current directory 
-        //echo.run(filesys, text.split(" "), "echo \" " + text + "\" > " + fileName, false);
 
       //If the user provides any Malformed URL
       } catch (MalformedURLException e) {

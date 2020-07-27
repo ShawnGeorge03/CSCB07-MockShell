@@ -2,8 +2,8 @@
 package test;
 
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 
 import commands.Curl;
@@ -37,8 +37,8 @@ public class CurlTest {
    * 
    * @throws Exception
    */
-  @BeforeClass
-  public static void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     // Get the current FileSystem
     fs = FileSystem.getFileSys();
     // Initializes a Curl Object
@@ -50,8 +50,8 @@ public class CurlTest {
    * 
    * @throws Exception
    */
-  @AfterClass
-  public static void tearDown() throws Exception {
+  @After
+  public void tearDown() throws Exception {
     // Declares and initializes a Feild variable
     // to the fileSys variable in FileSystem
     Field feild = fs.getClass().getDeclaredField("fileSys");

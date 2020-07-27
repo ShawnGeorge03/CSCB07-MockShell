@@ -9,11 +9,10 @@ import data.Node;
 
 public class MockFileSystem implements FileSystemI {
 
-        /**
-     * Declare instance variable FileSystem which is yet to be intialized
-     */
-    static MockFileSystem emptySys = null;
-    static MockFileSystem configuredSys = null;
+    /**
+    * Declare instance variable FileSystem which is yet to be intialized
+    */
+    static MockFileSystem filesys = null;
     /**
      * Declare instance variable of ArrayList to contain the logs of all inputs given to JShell
      */
@@ -61,13 +60,11 @@ public class MockFileSystem implements FileSystemI {
 
     public static MockFileSystem getMockFileSys(String type){
         if (type.equals("EMPTYSYS")){
-            emptySys = new MockFileSystem("EMPTYSYS");
-            return emptySys;
+            filesys = new MockFileSystem("EMPTYSYS");
         }else if (type.equals("MOCKENV")){
-            configuredSys = new MockFileSystem("MOCKENV");
-            return configuredSys;
+            filesys = new MockFileSystem("MOCKENV");
         }
-        return null;
+        return filesys;
     }
 
     @Override
@@ -143,8 +140,8 @@ public class MockFileSystem implements FileSystemI {
 
     @Override
     public boolean checkRepeat(String name){
-      for (int i = 0; i < fileSys.getFileSys().getCurrent().getList().size(); i++){
-        if (fileSys.getFileSys().getCurrent().getList().get(i).getName().equals(name)){
+      for (int i = 0; i < getCurrent().getList().size(); i++){
+        if (getCurrent().getList().get(i).getName().equals(name)){
           return false;
         }
       }

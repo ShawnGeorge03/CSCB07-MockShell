@@ -61,7 +61,7 @@ public class EchoAppend extends Echo {
     // Check if valid fileName
     if (filesys.isValidName(fileName)) {
       // If already exists
-      if (filesys.findFile(fileName, false).getContent() != null) {
+      if (filesys.findFile(fileName, false) != null) {
         Node file = filesys.findFile(fileName, false);
         file.setContent(file.getContent() + "\n" + fileContents);
       } else {
@@ -83,7 +83,7 @@ public class EchoAppend extends Echo {
     // Check if fileName is valid
     if (filesys.isValidName(givenPath[givenPath.length - 1])) {
       // If already exists
-      if (filesys.findFile(fileName, false).getContent()  != null) {
+      if (filesys.findFile(fileName, false) != null) {
         Node file = filesys.findFile(fileName, false);
         file.setContent(file.getContent() + "\n" + fileContents);
       } else {
