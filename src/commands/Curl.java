@@ -121,9 +121,11 @@ public class Curl implements CommandI {
         info.close();
         //Closes the InputStreamReader
         reader.close();
-             
+        
+        filesys.fileOverwrite(text, fileName);
+
         //Stores the text to a file with a certain fileName on the current directory 
-        echo.run(filesys, text.split(" "), "echo \" " + text + "\" > " + fileName, false);
+        //echo.run(filesys, text.split(" "), "echo \" " + text + "\" > " + fileName, false);
 
       //If the user provides any Malformed URL
       } catch (MalformedURLException e) {

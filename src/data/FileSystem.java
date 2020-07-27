@@ -187,6 +187,7 @@ public class FileSystem implements FileSystemI{
 
     //Loops through the directories array
     for (int i = 1; i < directories.length; i++) {
+      //System.out.println(directories[i]);
       //Loops through the ArrayList of directories
       for (int j = 0; j < current.getList().size(); j++) {
         //If the folder matches the one we need then return it
@@ -203,7 +204,7 @@ public class FileSystem implements FileSystemI{
         }
       }
     }
-    return current;  
+    return null;  
   }
 
   @Override
@@ -218,7 +219,8 @@ public class FileSystem implements FileSystemI{
       fileNode = new Node.Builder(false, fileName)
                          .setContent(content)
                          .build();
-      addToDirectory(fileNode);
+      //System.out.println(fileNode);
+      fileSys.addToDirectory(fileNode);
     }
   }
 
@@ -226,16 +228,20 @@ public class FileSystem implements FileSystemI{
   public void fileOverwrite(String content, String file) {
     Node fileNode = findFile(file, true);
     if(fileNode != null){
+      //System.out.println("Found File");
       fileNode.setContent(content);
     }
     else{
+      //System.out.println(file.split("/")[file.split("/").length-1]);
       String fileName = file.split("/")[file.split("/").length-1];
       if(fileName.contains(".")) 
         fileName = fileName.substring(0, fileName.indexOf("."));
+      System.out.println(fileName);
       fileNode = new Node.Builder(false, fileName)
                          .setContent(content)
                          .build();
-      addToDirectory(fileNode);
+      //System.out.println(fileNode);
+      fileSys.addToDirectory(fileNode);
     }
   }
 }

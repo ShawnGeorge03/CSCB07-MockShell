@@ -149,7 +149,7 @@ public class CurlTest {
     website = "https://raw.githubusercontent.com/ShawnGeorge03/"+
     "Learn-HTML-CSS/master/Lesson%201/lesson1.html";
     //Expected return from Curl
-    expected = " <h1>Hello World</h1>\n";
+    expected = "<h1>Hello World</h1>\n";
     //Actual return from Curl after the operation is complete
     curl.run(fs, website.split(" "), website, false);
     //Checks if the values are equal or not
@@ -164,7 +164,7 @@ public class CurlTest {
     //User provides a valid URL with a text file to be read 
     website = "https://raw.githubusercontent.com/ShawnGeorge03/Learn-HTML-CSS" + 
     "/master/Lesson%201/Lesson1.txt";
-    expected = " Write your name on the Browser \n";
+    expected = "Write your name on the Browser \n";
     //Actual return from Curl after the operation is complete
     curl.run(fs, website.split(" "), website, false);
     //Checks if the values are equal or not

@@ -37,7 +37,7 @@ public class Save implements CommandI{
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     if(args.length > 0) {
       filePath = formatArguments(args);
-      if(!filePath.substring(filePath.length()-4, filePath.length()).equals(".json")) {
+      if(!filePath.substring(filePath.length()-5, filePath.length()).equals(".json")) {
         System.out.println("The final file is not a .json file type");
         return null;
       }
