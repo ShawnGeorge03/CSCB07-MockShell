@@ -31,7 +31,8 @@ public class Find extends DirectoryManager implements CommandI {
 		} else if (!(args.get(2).equals("-name"))) {
 			output = error.getError("Invalid Argument", args.get(2));
 			return false;
-		} else if (args.get(3).equals(null)) {
+		} else if (args.get(3).equals(null) || (args.get(3).charAt(0)) != ('"') && 
+				(args.get(3).charAt((args.get(3).length()-1)) != ('"'))) {
 			output = error.getError("Invalid Argument", args.get(3));
 			return false;
 		} else {
