@@ -1,0 +1,17 @@
+a) What did I work on in the last three days? 
+	- Make changes to filesystem to reflect new responsibilities
+	- Make changes to Echo to reflect new responsibilities
+	- Implemented the Builder Design Pattern for the Node Class
+	- Add documentation for various commands
+		-> rm, curl, save, load, find, tree, exit, man
+	-
+
+b) What do I plan to work in the next three days?
+	- Finish written comments for some of the test cases
+	- Implement the MockFilesystem to all the testcases
+	- Work on testing Redirection and fixing any issue
+
+c) Am I blocked on anything?  
+	- The appending and overwriting methods in FileSystem does not seem to work
+
+
