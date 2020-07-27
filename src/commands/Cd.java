@@ -30,6 +30,7 @@
 package commands;
 
 import data.FileSystemI;
+import driver.JShell;
 
 /**
  * Class Cd is responsible for changing directories within the FileSystem
@@ -54,8 +55,10 @@ public class Cd extends DirectoryManager implements CommandI {
    * Starting run method which checks if arguments were given, then passes it to another run method
    * which processes the command
    * 
+   * @param filesys the filesystem interface we are using to access the filesystem
    * @param args the string array of arguments
-   * @param fullInput the full line of input that the user gives into JShell
+   * @param fullInput the full line of input that the user gives into jshell
+   * @param val the boolean we are using
    * @return any error messages if there are any
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
