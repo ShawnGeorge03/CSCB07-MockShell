@@ -27,6 +27,6 @@ public interface FileSystemI {
     public Node createFile(String content, String fileName, String filePath);
     public void fileAppend(String content, String file);
     public void fileOverwrite(String content, String file);
-
+    public boolean checkRepeat(String name);
     
 }

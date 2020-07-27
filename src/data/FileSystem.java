@@ -244,4 +244,14 @@ public class FileSystem implements FileSystemI{
       fileSys.addToDirectory(fileNode);
     }
   }
+
+  @Override
+  public boolean checkRepeat(String name){
+    for (int i = 0; i < fileSys.getFileSys().getCurrent().getList().size(); i++){
+      if (fileSys.getFileSys().getCurrent().getList().get(i).getName().equals(name)){
+        return false;
+      }
+    }
+    return true;
+  }
 }

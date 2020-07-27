@@ -12,8 +12,8 @@ public class MockFileSystem implements FileSystemI {
         /**
      * Declare instance variable FileSystem which is yet to be intialized
      */
-    static FileSystemI emptySys = null;
-    static FileSystemI configuredSys = null;
+    static MockFileSystem emptySys = null;
+    static MockFileSystem configuredSys = null;
     /**
      * Declare instance variable of ArrayList to contain the logs of all inputs given to JShell
      */
@@ -36,8 +36,11 @@ public class MockFileSystem implements FileSystemI {
         current = root;
         if (type.equals("MOCKENV")){
             Node users = new Node.Builder(true, "users").setParent(root).build();
+            root.getList().add(users);
             Node documents = new Node.Builder(true, "documents").setParent(root).build();
+            root.getList().add(documents);
             Node downloads = new Node.Builder(true, "downloads").setParent(root).build();
+            root.getList().add(downloads);
 
             Node user1 = new Node.Builder(true, "skeshavaa").setParent(users).build();
             users.getList().add(user1);
@@ -56,7 +59,7 @@ public class MockFileSystem implements FileSystemI {
         }
     }
 
-    public FileSystemI getMockFileSys(String type){
+    public static MockFileSystem getMockFileSys(String type){
         if (type.equals("EMPTYSYS")){
             emptySys = new MockFileSystem("EMPTYSYS");
             return emptySys;
@@ -138,5 +141,13 @@ public class MockFileSystem implements FileSystemI {
         return;
     }
 
-    
+    @Override
+    public boolean checkRepeat(String name){
+      for (int i = 0; i < fileSys.getFileSys().getCurrent().getList().size(); i++){
+        if (fileSys.getFileSys().getCurrent().getList().get(i).getName().equals(name)){
+          return false;
+        }
+      }
+      return true;
+    }
 }
