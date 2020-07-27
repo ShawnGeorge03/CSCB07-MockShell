@@ -116,10 +116,7 @@ public class FileSystem implements FileSystemI{
   public Deque<String> getStack() {
     return stack;
   }
-
-  public void setStack(Deque<String> stack) {
-    FileSystem.stack = stack;
-  }
+  
 
     /**
    * Method that checks if the file name that the user inputted is a valid file name. If the file name
@@ -214,8 +211,7 @@ public class FileSystem implements FileSystemI{
     Node fileNode = findFile(file, true);
     if(fileNode != null){
       fileNode.setContent(fileNode.getContent()+"\n"+content);
-    }
-    else{
+    }else{
       String fileName = file.split("/")[file.split("/").length-1];
       if(fileName.contains(".")) 
         fileName = fileName.substring(0, fileName.indexOf("."));

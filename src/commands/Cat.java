@@ -40,7 +40,7 @@ public class Cat implements CommandI {
   /**
    * Declare instance variable of String to contain the output that Cat may return
    */
-  String output;
+  private String output;
 
   private ErrorHandler errorManager;
 

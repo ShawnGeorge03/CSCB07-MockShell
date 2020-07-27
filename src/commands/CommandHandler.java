@@ -141,7 +141,8 @@ public class CommandHandler {
             if (Arrays.asList(parsedInput.split(" ")).contains(">")
                     || Arrays.asList(parsedInput.split(" ")).contains(">>")) {
                 // Returns the respective error
-                outputResult("Error : Redirection Error : This command does not support ");
+                outputResult(errorManager.getError("Redirection Not allowed", 
+                                                command + " does not support redirection"));
                 return;
             }
         }
@@ -177,7 +178,7 @@ public class CommandHandler {
             // Collects the file name
             fileName = params[params.length - 1];
             // Collects the parameters for the command
-            params = Arrays.copyOfRange(params, 0, Arrays.asList(params).indexOf(">"));
+            params = Arrays.copyOfRange(params, 1, Arrays.asList(params).indexOf(">"));
             // If the user used the single arrow >> which sets redirection to append a file
         } else if (Arrays.asList(params).contains(">>")) {
             // Sets the boolean value to true
@@ -185,7 +186,7 @@ public class CommandHandler {
             // Collects the file name
             fileName = params[params.length - 1];
             // Collects the parameters for the command
-            params = Arrays.copyOfRange(params, 0, Arrays.asList(params).indexOf(">>"));
+            params = Arrays.copyOfRange(params, 1, Arrays.asList(params).indexOf(">>"));
             // If the user is not using > or >> or it is not placed properly in the text
         } else {
             // If the user uses > or >> but not properly spaced
@@ -255,7 +256,7 @@ public class CommandHandler {
         if (result != null) {
             // If the return was some sort of an Error prints the error out
             if (result.startsWith("Error")) {
-                System.out.println(result);
+                System.out.println(result.trim());
                 // If the user want to overwrite a file with this new result
             } else if (overwriteMode) {
                 fs.fileOverwrite(result, fileName);
@@ -268,7 +269,7 @@ public class CommandHandler {
                 appendMode = false;
                 // If the user chooses not to redirect the results to a file
             } else {
-                System.out.println(result);
+                System.out.println(result.trim());
             }
         }
     }

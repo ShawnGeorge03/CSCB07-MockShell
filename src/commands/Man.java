@@ -191,22 +191,43 @@ public class Man implements CommandI {
 
     // Adds a key named man and adds its manual
     manMap.put("man",
-        "Command: man CMD" + "\nProvides documentation on all commands within THIS Java Shell"
-            + "\nProvides information such as arguments and function."
-            +"\n\n\tParameter: None");
+        "Command: man CMD" 
+        + "\n\tProvides documentation on all commands within THIS Java Shell"
+        + "\n\tProvides information such as arguments and function."
+        + "\n\n\tREDIRECTION : This command allows the output to be redirected "
+        + "\n\tto the a file instead of the console"
+        +"\n\n\tParameter: Requires one supported CMD"
+        + "\n\n\tIf any or multiple of these parameter are not meet an \n\terror will be outputed respectively"
+        + "\n\n\tREDIRECTION : This command does not allow the output"
+        + "\n\tto be redirected to a file instead of the console "
+        + "\n\tif there is any output for the command"
+        + "\n\n\tSample Use Case : man man "
+        + "\n\tThis would output the the mannual for man"
+        + "\n\n\tSample Use Case: man man > mannul"
+        + "\n\tThe file named mannul gets overwritten with the mannual for man");
 
     // Adds a key named exit and adds its manual
-    manMap.put("exit", "Command : exit" + "\n\n\tCloses the current session and leaves the Shell"
-        + "\n\n\tParameter : None");
+    manMap.put("exit", 
+        "Command : exit" 
+        + "\n\tCloses the current session and leaves the Shell"
+        + "\n\n\tParameter : None"
+        + "\n\n\tIf any or multiple of these parameter are not meet an "
+        + "\n\terror will be outputed respectively"
+        + "\n\n\tREDIRECTION : This command does not allow the output"
+        + "\n\tto be redirected to a file instead of the console "
+        + "\n\tif there is any output for the command");
 
     // Adds a key named rm and adds its manual
     manMap.put("rm", 
-        "Command: rm DIR"  + "\n\tRemoves the give DIR from the file system"
+        "Command: rm DIR"  
+        + "\n\tRemoves the give DIR from the file system"
         +"\n\n\tParameter : DIR can be either absolute or relative path"
         + "\n\tParameter : It has to be only on DIR"
-        + "\n\tParameter : DIR must be a possible path the exist in the File System" 
+        + "\n\tParameter : DIR must be a possible path the exist in the file System" 
         + "\n\tParameter : DIR cannot be a file path" 
-        + "\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
+        + "\n\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
+        + "\n\n\tREDIRECTION : This command does not allow the output"
+        + "\n\tto be redirected to the a file instead of the console"
         + "\n\n\tSample Use Case : rm resources"
         + "\n\tRemoves the directory resources with in the current working directory" 
         + "\n\n\tSample Use Case : rm /user/user1/desktop"
@@ -224,25 +245,35 @@ public class Man implements CommandI {
     // Adds a key named curl and adds its manual
     manMap.put("curl", 
         "Command: curl URL" 
-        + "\n\n\tRetrives the content of the a file at the URL and adds it to the current working directory"
+        + "\n\tRetrives the content of the a file at the URL and adds it to the current working directory"
         + "\n\n\tParameter : URL must be a valid link and should have the file name in the URL"
         + "\n\tParameter : It has to be only one URL"
+        + "\n\n\tREDIRECTION : This command does not allow the output"
+        + "\n\tto be redirected to the a file instead of the console"
         + "\n\n\tSample Use Case : curl http://www.cs.utoronto.ca/~trebla//CSCB09-2020-Summer/course-info.html"
         + "\n\tCreates a course-info file in the current directory and stores the content of the file from the URL");
     
      // Adds a key named save and adds its manual
     manMap.put("save", 
-        "Command: save FileName" 
-        + "Save the current session of the JShell and stores it to a FileName on the users actual file system"
-        + "/n/n/tParameter : FileName can be relative or absolute paths"
-        + "/n/tParameter : There can only be one FileName");
+        "Command: save FILE" 
+        + "\n\tSave the current session of the JShell and stores it to a "
+        + "\n\tFILE on the users actual file system"
+        + "\n\n\tParameter : FILE can be relative or absolute path"
+        + "\n\tParameter : There can only be one FILE"
+        + "\n\n\tREDIRECTION : This command does not allow the output"
+        + "\n\tto be redirected to a file instead of the console "
+        + "\n\tif there is any output for the command");
    
     // Adds a key named load and adds its manual
     manMap.put("load",  
-        "Command: load FileName" 
-        + "Loads up a previous session of the JShell and sets up the JShell to that state"
-        + "/n/n/tParameter : FileName can be relative or absolute paths"
-        + "/n/tParameter : There can only be one FileName");
+        "Command: load FILE" 
+        + "\n\tLoads up a previous session of the JShell "
+        + "\n\tand sets up the JShell to that state"
+        + "\n\n\tParameter : FILE can be relative or absolute path"
+        + "\n\tParameter : There can only be one FILE"
+        + "\n\n\tREDIRECTION : This command does not allow the output"
+        + "\n\tto be redirected to a file instead of the console "
+        + "\n\tif there is any output for the command");
     
     // Adds a key named find and adds its manual
     manMap.put("find", 
@@ -255,6 +286,9 @@ public class Man implements CommandI {
         + "\n\tParamerter : If type is f then it is a file"
         + "\n\tParamerter : If type is d then it is a directory"
         + "\n\tParameter : The EXPRESSION must be surrounded by quotes"
+        + "\n\n\tREDIRECTION : This command allows for the output"
+        + "\n\tto be redirected to a file instead of the console "
+        + "\n\tif there is any output for the command"
         + "\n\n\tSample Use Case: find /users/desktop -type f -name \"A2\""
         + "\n\tSearches the desktop directory for a file named A2"
         + "\n\n\tSample Use Case: find / -type d -name \"resources\""
@@ -266,6 +300,9 @@ public class Man implements CommandI {
         + "\n\tDisplays the entire file system as a tree"
         + "\n\n\tParameter : None"
         + "\n\tIf any of these parameter are not meet an error will be outputed respectively"
+        + "\n\n\tREDIRECTION : This command allows for the output"
+        + "\n\tto be redirected to a file instead of the console "
+        + "\n\tif there is any output for the command"
         + "\n\n\tSample Use Case : tree"
         + "\n\n  \t\t\\"
         + "\n\n\tSince there is no other directories in the file \n\tsystem it prints out the root directory only"

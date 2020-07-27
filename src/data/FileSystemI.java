@@ -20,7 +20,6 @@ public interface FileSystemI {
 
     //Directory Stack -> pushd, popd operations
     public Deque<String> getStack();
-    public void setStack(Deque<String> stack);
 
     //Redirection and other File operations
     public boolean isValidName(String fileName);

@@ -108,46 +108,34 @@ public class MockFileSystem implements FileSystemI {
     }
 
     @Override
-    public void setStack(Deque<String> stack) {
-        // TODO Auto-generated method stub
-        MockFileSystem.stack = stack;
-    }
-
-    @Override
     public Node findFile(String filePath, boolean fileIsFolderNode) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public String getCurrentPath() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     
     @Override
     public boolean isValidName(String fileName) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public Node createFile(String content, String fileName, String filePath) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public void fileAppend(String content, String file) {
-        // TODO Auto-generated method stub
-
+        return;
     }
 
     @Override
     public void fileOverwrite(String content, String file) {
-        // TODO Auto-generated method stub
-
+        return;
     }
 
     

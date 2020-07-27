@@ -66,6 +66,8 @@ public class ErrorHandler {
     errorMap.put("Mulptile parameters provided",
         "Error : Multiple Parameters have been provided");
     errorMap.put("No parameters provided", "Error : No parameters provided");
+    errorMap.put("Redirection Not allowed", "Error : Redirection Error");
+
   }
 
   /**
