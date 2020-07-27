@@ -4,15 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import data.*;
 
-/*
- * Things to Work on:
- *  - if user does not include a .json at the end
- *      - if they input a .txt then give an error
- *      - if they don't give any file formet then add .json at the end
- *  - check code for any bugs/error checking 
- *  - JavaDocs
- *  - TestCases
-*/
 public class Save implements CommandI{
 
   private FileWriter writer;
