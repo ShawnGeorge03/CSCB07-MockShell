@@ -1,0 +1,9 @@
+a) What did I work on in the last three days? 
+-Finished find
+-Finished tree
+	
+b) What do I plan to work in the next three days?
+-Start test cases for tree and find
+	
+c) Am I blocked on anything?  
+-No
