@@ -2,8 +2,6 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.Console;
-
 import org.junit.Before;
 import org.junit.Test;
 

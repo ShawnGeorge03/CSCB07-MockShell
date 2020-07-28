@@ -36,7 +36,7 @@ public class HistoryTest {
   @Before
   public void setUp() throws Exception {
     // Gets a specific preset FileSystem
-    fs = MockFileSystem.getMockFileSys("MOCKENV");
+    fs = MockFileSystem.getMockFileSys("EMPTYSYS");
     // Initializes a History object
     history = new History();
 
@@ -177,5 +177,32 @@ public class HistoryTest {
     expected = "Error : Multiple Parameters have been provided : 1 3 5 , " + "either one or no input";
     //Checks if the values are equal or not
     assertEquals(expected, actual);
+  }
+
+  @Test
+  public void testHRedirectionOverwrite(){
+    //Add the command to the history stack
+    fs.getCommandLog().add("history 1 > test");
+    //Actual return from History after the operation has been run
+    actual = history.run(fs, "1 > test".split(" "), "history 1 > test", false);
+    //Expected return from History
+    expected = "history 1 > test";
+    //Checks if the values are equal or not
+    assertEquals(expected, fs.findFile("test", false).getContent());
+  }
+
+  @Test
+  public void testIRedirectionAppend(){
+
+  }
+
+  @Test
+  public void testJRedirectionErrorCase1(){
+
+  }
+
+  @Test
+  public void testKRedirectionErrorCase2(){
+
   }
 }
