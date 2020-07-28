@@ -54,11 +54,6 @@ public class Echo extends FileManager implements CommandI {
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     String[] arguments =  redirect.setParams(filesys, fullInput);
     
-    /*for(int i = 0; i < arguments.length; i++){
-      System.out.println(arguments[i]);
-    }*/
-    
-    //System.out.println(redirect.outputResult(filesys, runEcho(args)));
     if(arguments != null)
       output = redirect.outputResult(filesys, runEcho(arguments));    
     else{
@@ -74,11 +69,11 @@ public class Echo extends FileManager implements CommandI {
     if(args.length == 0) {
       return getErrorHandler().getError("No parameters provided", "");
     }
+    properArgument = "";
     for(int i = 0; i < args.length; i++){
       properArgument += args[i] + " ";
     }
     properArgument = properArgument.trim();
-    System.out.println("Proper arguments : " + properArgument);
     if(hasQuotations(properArgument)) {
       output = properArgument.substring(1, properArgument.length()-1);
     } else

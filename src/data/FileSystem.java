@@ -245,7 +245,7 @@ public class FileSystem implements FileSystemI{
 
       if(isValidName(fileName)){
         Node currentNode = getCurrent();
-        String desiredPath = fileName;
+        String desiredPath = file;
         if(!file.startsWith("/")){
           desiredPath = (getCurrentPath() + "/" + file).substring(1);
         }
