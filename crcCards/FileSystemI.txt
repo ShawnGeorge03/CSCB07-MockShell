@@ -1,0 +1,10 @@
+Class name: FileSystemI
+Parent class: N/A
+Subclasses: N/A
+Implements: N/A
+
+Responsibilties:
+*Provides a common method containing certain functions/methods regarding file system actions
+
+Collaborators:
+*N/A

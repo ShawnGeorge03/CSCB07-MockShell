@@ -1,10 +1,14 @@
 Class name: FileSystem
 Parent class: N/A
 Subclasses: N/A
+Implements: FileSystemI
 
 Responsibilties:
 *Store the information about the directories for convenient access 
+*Append and Overwrite new content to a file
+*Find a file in the File System
+*Find the current working directory
+*Checks if a directory or file name is valid
 
 Collaborators:
 *Node
-
