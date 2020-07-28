@@ -36,7 +36,7 @@ public class ExitTest {
     */
     @Before
     public void setup(){
-        //Get a specific preset FileSystem
+        //Gets a specific preset FileSystem
         fs = MockFileSystem.getMockFileSys("EMPTYSYS");
         // Initializes a Exit Object
         exit = new Exit();

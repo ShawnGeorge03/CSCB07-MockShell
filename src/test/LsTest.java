@@ -5,12 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import commands.Cd;
-import commands.Echo;
 import commands.Ls;
-import commands.Mkdir;
-import data.FileSystem;
-import data.FileSystemI;
 
 public class LsTest {
 

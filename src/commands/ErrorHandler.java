@@ -59,12 +59,10 @@ public class ErrorHandler {
     errorMap.put("Invalid Directory", "Error: Invalid Directory");
     errorMap.put("File Not Found", "Error: File Not Found");
     errorMap.put("Directory Not Found", "Error: Directory Not Found");
-    errorMap.put("Same Directory",
-        "Error: Same Directory with that name already exists!");
+    errorMap.put("Same Directory", "Error: Same Directory with that name already exists!");
     errorMap.put("Missing Quotes", "Error : Missing Quotes");
     errorMap.put("Malformed Input", "Error : Malformed Input");
-    errorMap.put("Multiple parameters provided",
-        "Error : Multiple Parameters have been provided");
+    errorMap.put("Multiple parameters provided", "Error : Multiple Parameters have been provided");
     errorMap.put("No parameters provided", "Error : No parameters provided");
     errorMap.put("Redirection Not allowed", "Error : Redirection Error");
     errorMap.put("Args Provided", "Error : Arguments not required");

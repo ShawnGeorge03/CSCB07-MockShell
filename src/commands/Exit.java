@@ -29,8 +29,6 @@
 // *********************************************************
 package commands;
 
-import java.util.Arrays;
-
 import data.FileSystemI;
 
 /**
@@ -54,7 +52,8 @@ public class Exit implements CommandI {
   @Override
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
 
-    if(args.length != 0) return errorManager.getError("Args Provided", fullInput.substring(fullInput.indexOf("exit ")));
+    if(args.length != 0) 
+      return errorManager.getError("Args Provided", fullInput.substring(fullInput.indexOf("exit ")));
 
     //Exits the session of the Shell
     System.exit(0);

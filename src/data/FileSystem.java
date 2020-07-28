@@ -265,8 +265,8 @@ public class FileSystem implements FileSystemI{
 
   @Override
   public boolean checkRepeat(String name){
-    for (int i = 0; i < fileSys.getFileSys().getCurrent().getList().size(); i++){
-      if (fileSys.getFileSys().getCurrent().getList().get(i).getName().equals(name)){
+    for (int i = 0; i < getCurrent().getList().size(); i++){
+      if (getCurrent().getList().get(i).getName().equals(name)){
         return false;
       }
     }

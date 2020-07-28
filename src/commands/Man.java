@@ -61,25 +61,32 @@ public class Man implements CommandI {
   /**
    * Provides documentation depending on the command requested
    * 
+   * @param filesys the refrence to the FileSystemI object(FileSystem/MockFileSystem)
    * @param args  the string array with all arguements provided by user
    * @param fullInput  the string that contains the raw input provided by user in JShell
    * @param val  stores a boolean value
    * @return the documentation of the requested commands
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-
-    // If the user provides no command name or more than one command name or a
-    // command name that is not supported
-    if (args.length == 0 || args.length > 1 || !manMap.containsKey(args[0])) {
-
       // Collects the user input from the fullInput
       String param = fullInput.substring(fullInput.indexOf("man") + 3).trim();
 
-      // Returns an error
-      return error.getError("Invalid Argument", param + " are/is not supported command(s)");
-    }
-    // Returns the appropriate command manual from the manMap Hashtable
-    return manMap.get(args[0]);
+      //If the user provides no command to checked with
+      if(args.length == 0){
+        // Returns an error
+        return error.getError("No parameters provided", "Man requires one supported command");
+      //If the user provides more than one command
+      }else if(args.length > 1){
+        // Returns an error
+        return error.getError("Multiple parameters provided", param + ", only supported one is required");
+      //If the command is not supported by Man
+      }else if(!manMap.containsKey(args[0])){
+        // Returns an error
+        return error.getError("Invalid Command", param + " is not a supported command supported one is required");
+      }
+
+      // Returns the appropriate command manual from the manMap Hashtable
+      return manMap.get(args[0]);
   }
 
   /**
