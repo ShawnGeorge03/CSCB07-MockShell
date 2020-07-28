@@ -31,6 +31,7 @@ public class LsTest {
         String[] input = {};
         String actual = ls.run(fs, input, "ls", false);
         String expected = "A2\nusers\ndocuments\ndownloads\n";
+        System.out.println(fs.getCurrentPath());
         assertEquals(expected, actual);
     }
 
