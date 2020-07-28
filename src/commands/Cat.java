@@ -44,6 +44,7 @@ public class Cat implements CommandI {
 
   private ErrorHandler errorManager;
 
+  private RedirectionManager redirect;
 
   /**
    * Constructor for Cat that initializes instance variables
@@ -52,6 +53,7 @@ public class Cat implements CommandI {
     // Initializing the String object output
     this.output = "";
     this.errorManager = new ErrorHandler();
+    this.redirect = new RedirectionManager();
   }
 
   /**
@@ -63,6 +65,7 @@ public class Cat implements CommandI {
    * @return the contents of file
    */
   public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
+    //String[] arguments = redirect.setParams(fs, fullInput);
     if (args.length == 0) {
       // Returns an error of No parameters provided
       return errorManager.getError("No parameters provided", "");
@@ -72,6 +75,9 @@ public class Cat implements CommandI {
       // Calls the readFile function to return what is in the file
       readFile(args, fs);
     }
+
+    //if(arguments != null) output = redirect.outputResult(fs, output);
+    //System.out.println(output);
     // Returns the output for the arguments
     return output;
   }

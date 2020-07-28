@@ -77,7 +77,7 @@ public class PopTest {
     public void testAAbsolutePath(){
         pop.run(fs, input, "popd", false);
         String expected = "/Sys/IO/keyboard";
-        String actual = fs.getCurrentPath();
+        String actual = fs.getCurrentPath().substring(1);
         assertEquals(expected, actual);
     }
 
@@ -86,7 +86,7 @@ public class PopTest {
         pop.run(fs, input, "popd", false);
         pop.run(fs, input, "popd", false);
         String expected = "/users/desktop";
-        String actual = fs.getCurrentPath();
+        String actual = fs.getCurrentPath().substring(1);
         assertEquals(expected, actual);
     }
 

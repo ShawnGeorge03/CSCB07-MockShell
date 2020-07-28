@@ -79,8 +79,10 @@ public class Pwd extends DirectoryManager implements CommandI {
       return error.getError("Invalid Argument",
           "pwd doesn't take any arguments");
     }
+    String currentPath = filesys.getCurrentPath();
+    if(currentPath.startsWith("//")) currentPath = currentPath.substring(1);
     // Returns the current working directory the user is in
-    return filesys.getCurrentPath();
+    return currentPath;
   }
 
 }

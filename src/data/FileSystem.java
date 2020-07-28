@@ -142,7 +142,7 @@ public class FileSystem implements FileSystemI{
    * 
    * @return the path to the current directory
    */
-  public String getCurrentPath() {
+  /*public String getCurrentPath() {
     String output = "";
     Node current = fileSys.getCurrent();
 
@@ -165,8 +165,28 @@ public class FileSystem implements FileSystemI{
     path.clear();
 
     return output.substring(1, output.length() - 1);
-  }
+  }*/
 
+  public String getCurrentPath() { 
+    //Grabs the current directory
+    Node current = getCurrent();
+    //Grabs the parent of the current directory
+    Node parent = current.getParent();
+
+    //If we are in the root folder
+    if (parent == null)
+      return current.getName();
+    //Create the absolute path
+    String currentPath = parent.getName() + "/" + current.getName();
+    parent = parent.getParent();
+    while(parent != null) {
+      currentPath = parent.getName() + "/" + currentPath;
+      parent = parent.getParent();
+    }
+    //Return the final absolute path
+    return currentPath;
+
+  }
 
   @Override
   public Node findFile(String filePath, boolean fileIsFolderNode) {
@@ -176,6 +196,8 @@ public class FileSystem implements FileSystemI{
     if(!filePath.startsWith("/")){
       absolutePath = (getCurrentPath() + "/" + filePath).substring(1);
     }
+
+    System.out.println("Absolute: " + absolutePath);
     //Grabs root directory
     Node current = getRoot();
     //Splits the absolutePath into the individual folders
@@ -183,8 +205,10 @@ public class FileSystem implements FileSystemI{
 
     //Loops through the directories array
     for (int i = 1; i < directories.length; i++) {
+      //System.out.println("Directory : " + directories[i]);
       //Loops through the ArrayList of directories
       for (int j = 0; j < current.getList().size(); j++) {
+        //System.out.println("Current : " + current.getList().get(j).getName());
         //If the folder matches the one we need then return it
         if (current.getList().get(j).getName().equals(directories[i])) {
           if((i+1) == directories.length){
