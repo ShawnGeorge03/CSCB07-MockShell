@@ -105,8 +105,8 @@ public class History implements CommandI {
       parameter = parameter.substring(1, parameter.length() - 1).
           replace(",", "").trim();
       // Returns an error of Mulptile parameters provided
-      output = error.getError("Mulptile parameters provided",
-          parameter + " , either one or no input");
+      output = error.getError("Multiple parameters provided",
+          parameter + " , either one or no input");      
     }
 
     // Returns the valid output for the user input

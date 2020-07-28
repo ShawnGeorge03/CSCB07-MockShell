@@ -92,128 +92,124 @@ public class MockFileSystem implements FileSystemI {
         return filesys;
     }
 
-    @Override
-    public Node getRoot() {
-        return root;
+// Trivial methods below that require no JavaDoc
+public Node getRoot() {
+  return root;
+}
+
+public Node getCurrent() {
+  return current;
+}
+
+public String getContent(Node file) {
+  return file.getContent();
+}
+
+public void assignCurrent(Node currentDirectory) {
+  current = currentDirectory;
+}
+
+public void addToDirectory(Node newNode) {
+  newNode.setParent(current);
+  current.getList().add(newNode);
+}
+
+public void removeFromDirectory(int i) {
+  current.getList().remove(i);
+}
+
+public ArrayList<String> getCommandLog() {
+  return CommandLog;
+}
+
+public Deque<String> getStack() {
+  return stack;
+}
+
+
+  /**
+ * Method that checks if the file name that the user inputted is a valid file name. If the file name
+ * contains illegal characters then this method returns false. If the file name does not contain any
+ * illegal characters then it returns true.
+ * 
+ * @param fileName  String that stores the file name that the user inputted
+ * @return boolean false if file name contains illegal characters, otherwise returns true
+ */
+public boolean isValidName(String fileName) {
+  String[] invalidChars = {"/", ".", "\\s+", "!", "@", "#", "$", "%", "^",
+      "&", "*", "(", ")", "{", "}", "~", "|", "<", ">", "?", "'", "[", "]"};
+  for (int i = 0; i < invalidChars.length; i++) {
+    if (fileName.contains(invalidChars[i])) {
+      return false;
     }
+  }
+  return true;
+}
 
-    @Override
-    public Node getCurrent() {
-        return current;
-    }
+/**
+ * Finds the current working directory
+ * 
+ * @return the path to the current directory
+ */
+public String getCurrentPath() {
+  String output = "";
+  Node current = getCurrent();
 
-    @Override
-    public String getContent(Node file) {
-        return file.getContent();
-    }
+  if (current.equals(getRoot())) {
+    return getRoot().getName();
+  }
 
-    @Override
-    public void assignCurrent(Node currentDirectory) {
-        current = currentDirectory;
-    }
+  path.add(current.getName());
+  while (current != getRoot()) {
+    current = current.getParent();
+    path.add(current.getName());
+  }
 
-    @Override
-    public void addToDirectory(Node newNode) {
-        current.getList().add(newNode);
-    }
+  int pathLength = path.size();
+  while (pathLength > 0) {
+    output = output.concat(path.get(pathLength - 1) + "/");
+    pathLength--;
+  }
 
-    @Override
-    public void removeFromDirectory(int i) {
-        current.getList().remove(i);
-    }
+  path.clear();
 
-    @Override
-    public ArrayList<String> getCommandLog() {
-        return CommandLog;
-    }
+  return output.substring(1, output.length() - 1);
+}
 
-    @Override
-    public Deque<String> getStack() {
-        return stack;
-    }
 
-    @Override
-  public Node findFile(String filePath, boolean fileIsFolderNode) {
-    String absolutePath = filePath.trim();
+@Override
+public Node findFile(String filePath, boolean fileIsFolderNode) {
+  String absolutePath = filePath.trim();
 
-    //If the given path is a relative path then make it a absolute path
-    if(!filePath.startsWith("/")){
-      absolutePath = (getCurrentPath() + "/" + filePath).substring(1);
-    }
-    //Grabs root directory
-    Node current = getRoot();
-    //Splits the absolutePath into the individual folders
-    String[] directories = absolutePath.split("/");
+  //If the given path is a relative path then make it a absolute path
+  if(!filePath.startsWith("/")){
+    absolutePath = (getCurrentPath() + "/" + filePath).substring(1);
+  }
+  //Grabs root directory
+  Node current = getRoot();
+  //Splits the absolutePath into the individual folders
+  String[] directories = absolutePath.split("/");
 
-    //Loops through the directories array
-    for (int i = 1; i < directories.length; i++) {
-      //Loops through the ArrayList of directories
-      for (int j = 0; j < current.getList().size(); j++) {
-        //If the folder matches the one we need then return it
-        if (current.getList().get(j).getName().equals(directories[i])) {
-          if((i+1) == directories.length){
-            if(fileIsFolderNode == current.getList().get(j).getisDir()){
-              current = current.getList().get(j);
-              return current;
-            }
-          }
-          else{
+  //Loops through the directories array
+  for (int i = 1; i < directories.length; i++) {
+    //Loops through the ArrayList of directories
+    for (int j = 0; j < current.getList().size(); j++) {
+      //If the folder matches the one we need then return it
+      if (current.getList().get(j).getName().equals(directories[i])) {
+        if((i+1) == directories.length){
+          if(fileIsFolderNode == current.getList().get(j).getisDir()){
             current = current.getList().get(j);
+            return current;
           }
+        }
+        else{
+          current = current.getList().get(j);
         }
       }
     }
-    return null;  
   }
-
-      /**
-   * Finds the current working directory
-   * 
-   * @return the path to the current directory
-   */
-  public String getCurrentPath() {
-    String output = "";
-    Node current = getCurrent();
-
-    if (current.equals(getRoot())) {
-      return getRoot().getName();
-    }
-
-    path.add(current.getName());
-    while (current != getRoot()) {
-      current = current.getParent();
-      path.add(current.getName());
-    }
-
-    int pathLength = path.size();
-    while (pathLength > 0) {
-      output = output.concat(path.get(pathLength - 1) + "/");
-      pathLength--;
-    }
-
-    path.clear();
-
-    return output.substring(1, output.length() - 1);
-  }
-  
-  /**
-   * Method that checks if the file name that the user inputted is a valid file name. If the file name
-   * contains illegal characters then this method returns false. If the file name does not contain any
-   * illegal characters then it returns true.
-   * 
-   * @param fileName  String that stores the file name that the user inputted
-   * @return boolean false if file name contains illegal characters, otherwise returns true
-   */
-  public boolean isValidName(String fileName) {
-    String[] invalidChars = {"/", ".", "\\s+", "!", "@", "#", "$", "%", "^",
-        "&", "*", "(", ")", "{", "}", "~", "|", "<", ">", "?", "'", "[", "]"};
-    for (int i = 0; i < invalidChars.length; i++) {
-      if (fileName.contains(invalidChars[i])) {
-        return false;
-      }
-    }
-    return true;
-  }
+  return null;  
+}
 
     @Override
     public void fileAppend(String content, String file) {

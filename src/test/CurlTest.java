@@ -7,7 +7,6 @@ import org.junit.After;
 import org.junit.Test;
 
 import commands.Curl;
-import data.FileSystem;
 
 import java.lang.reflect.Field;
 
@@ -19,7 +18,7 @@ public class CurlTest {
   /**
    * Declare instance of FileSystem so we can access the filesystem
    */
-  private static FileSystem fs;
+  private static MockFileSystem fs;
   
   /**
    * Declare instance of Curl so it can be tested
@@ -40,7 +39,7 @@ public class CurlTest {
   @Before
   public void setUp() throws Exception {
     // Get the current FileSystem
-    fs = FileSystem.getFileSys();
+    fs = MockFileSystem.getMockFileSys("MOCKENV");
     // Initializes a Curl Object
     curl = new Curl();
   }
@@ -54,7 +53,7 @@ public class CurlTest {
   public void tearDown() throws Exception {
     // Declares and initializes a Feild variable
     // to the fileSys variable in FileSystem
-    Field feild = fs.getClass().getDeclaredField("fileSys");
+    Field feild = fs.getClass().getDeclaredField("filesys");
     // Allows the value of this variable in FileSystem to be accessed
     feild.setAccessible(true);
     // Changes the value of the variable in FileSystem to null

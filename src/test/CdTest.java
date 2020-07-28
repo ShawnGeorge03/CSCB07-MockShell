@@ -6,9 +6,6 @@ import org.junit.After;
 import org.junit.Test;
 
 import commands.Cd;
-import commands.Mkdir;
-import commands.Echo;
-import data.FileSystem;
 
 import java.lang.reflect.Field;
 
@@ -20,15 +17,7 @@ public class CdTest {
     /**
     * Declare instance of FileSystem so we can access the filesystem
     */
-    private static FileSystem fs;
-    /**
-    * Declare instance of Mkdir to make new directories
-    */
-    private static Mkdir mkdir;
-    /**
-    * Declare instance of Echo to make new file
-    */
-    private static Echo echo;
+    private static MockFileSystem fs;
     /**
     * Declare instance of Cd to be tested
     */
@@ -55,30 +44,9 @@ public class CdTest {
     @Before
     public void setUp() throws Exception {
         //Get the current FileSystem
-        fs = FileSystem.getFileSys();
-        // Initializes a Mkdir Object
-        mkdir = new Mkdir();
-        //Initializes a Echo Object
-        echo = new Echo();
+        fs = MockFileSystem.getMockFileSys("MOCKENV");
         //Initializes a Cd Object
         cd = new Cd();
-
-        // Sets up the C Folder
-        mkdir.MakeDirectory("users".split(" "), fs);
-        mkdir.MakeDirectory("pics".split(" "), fs);
-        mkdir.MakeDirectory("Sys".split(" "), fs);
-        echo.run(fs, "/".split(" "), "echo \"Wow what a project\" > A2", false);
-
-        // Sets up the users Folder
-        mkdir.MakeDirectory("/users/desktop".split(" "), fs);
-
-        // Sets up the Sys Folder
-        mkdir.MakeDirectory("Sys/IO".split(" "), fs);
-        mkdir.MakeDirectory("Sys/LOL".split(" "), fs);
-
-        // Sets up the IO Folder
-        mkdir.MakeDirectory("/Sys/IO/keyboard".split(" "), fs);
-        mkdir.MakeDirectory("/Sys/IO/Mouse".split(" "), fs);
     }
 
     /**
@@ -90,7 +58,7 @@ public class CdTest {
     public void tearDown() throws Exception {
         //Declares and initializes a Feild variable 
         //to the fileSys variable in FileSystem
-        Field feild = fs.getClass().getDeclaredField("fileSys");
+        Field feild = fs.getClass().getDeclaredField("filesys");
         //Allows the value of this variable in FileSystem to be accessed
         feild.setAccessible(true);
         //Changes the value of the variable in FileSystem to null
@@ -124,9 +92,9 @@ public class CdTest {
         //Expected return from Cd
         expectedCd = null;
         //Expected current working directory
-        expectedPath = "/pics";
+        expectedPath = "/users";
         //Actual return from Cd
-        actualCd = cd.run(fs, "pics".split(" "), "cd pics ", false);
+        actualCd = cd.run(fs, "users".split(" "), "cd users ", false);
         //Returns the current working directory
         actualPath = fs.getCurrentPath();
         //Checks if the values are equal or not

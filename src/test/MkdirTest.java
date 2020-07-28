@@ -10,13 +10,12 @@ import org.junit.Test;
 
 import commands.Cd;
 import commands.Mkdir;
-import data.FileSystem;
 
 import java.lang.reflect.Field;
 
 public class MkdirTest {
   
-  private static FileSystem fs;
+  private static MockFileSystem fs;
   private static Mkdir mkdir;
   
   private String expected;
@@ -26,7 +25,7 @@ public class MkdirTest {
 
   @Before
   public void setUp() throws Exception {
-    fs = FileSystem.getFileSys();
+    fs = MockFileSystem.getMockFileSys("EMPTYSYS");
     mkdir = new Mkdir();
     
     allContent = new ArrayList<String>();
@@ -34,7 +33,7 @@ public class MkdirTest {
 
   @After
   public void tearDown() throws Exception {
-      Field feild = fs.getClass().getDeclaredField("fileSys");
+      Field feild = fs.getClass().getDeclaredField("filesys");
       feild.setAccessible(true);
       feild.set(null, null);
   } 

@@ -37,6 +37,7 @@ public class CatTest {
     */
     @Before
     public void setup() throws Exception {
+        //Gets a specific preset FileSystem
         fs = MockFileSystem.getMockFileSys("MOCKENV");
         cat = new Cat();
     }
