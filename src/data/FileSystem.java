@@ -212,21 +212,23 @@ public class FileSystem implements FileSystemI{
       if(fileName.contains(".")) 
         fileName = fileName.substring(0, fileName.indexOf("."));
       
-      Node currentNode = getCurrent();
-      String desiredPath = fileName;
-      if(!file.startsWith("/")){
-        desiredPath = (getCurrentPath() + "/" + file).substring(1);
+      if(isValidName(fileName)){
+        Node currentNode = getCurrent();
+        String desiredPath = fileName;
+        if(!file.startsWith("/")){
+          desiredPath = (getCurrentPath() + "/" + file).substring(1);
+        }
+        desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
+        Node parent;
+        if(desiredPath.equals("")) parent = getRoot();
+        else parent = findFile(desiredPath,true); 
+        assignCurrent(parent);
+        fileNode = new Node.Builder(false, fileName)
+                          .setContent(content)
+                          .build();
+        addToDirectory(fileNode);
+        assignCurrent(currentNode);
       }
-      desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
-      Node parent;
-      if(desiredPath.equals("")) parent = getRoot();
-      else parent = findFile(desiredPath,true); 
-      assignCurrent(parent);
-      fileNode = new Node.Builder(false, fileName)
-                         .setContent(content)
-                         .build();
-      addToDirectory(fileNode);
-      assignCurrent(currentNode);
     }
   }
 
@@ -240,7 +242,8 @@ public class FileSystem implements FileSystemI{
       String fileName = file.split("/")[file.split("/").length-1];
       if(fileName.contains(".")) 
         fileName = fileName.substring(0, fileName.indexOf("."));
-      
+
+      if(isValidName(fileName)){
         Node currentNode = getCurrent();
         String desiredPath = fileName;
         if(!file.startsWith("/")){
@@ -256,6 +259,7 @@ public class FileSystem implements FileSystemI{
                            .build();
         addToDirectory(fileNode);
         assignCurrent(currentNode);
+      }
     }
   }
 
