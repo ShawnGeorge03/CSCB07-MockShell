@@ -2,6 +2,8 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.Console;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,7 +30,7 @@ public class LsTest {
     public void TestANoArgs(){
         String[] input = {};
         String actual = ls.run(fs, input, "ls", false);
-        String expected = "users\ndocuments\ndownloads";
+        String expected = "A2\nusers\ndocuments\ndownloads\n";
         assertEquals(expected, actual);
     }
 
@@ -36,7 +38,7 @@ public class LsTest {
     public void TestARelativePath(){
         String[] input = {"users"};
         String actual = ls.run(fs, input, "ls users", false);
-        String expected = "users\ndocuments\ndownloads";
+        String expected = "skeshavaa\nguests\n";
         assertEquals(expected, actual);
     }
     
