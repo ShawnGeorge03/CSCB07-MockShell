@@ -24,7 +24,6 @@ public interface FileSystemI {
     //Redirection and other File operations
     public boolean isValidName(String fileName);
     public Node findFile(String filePath, boolean fileIsFolderNode); 
-    public Node createFile(String content, String fileName, String filePath);
     public void fileAppend(String content, String file);
     public void fileOverwrite(String content, String file);
     public boolean checkRepeat(String name);

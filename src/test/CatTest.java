@@ -6,10 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import commands.Mkdir;
-import commands.Echo;
 import commands.Cat;
-import data.FileSystem;
 
 import java.lang.reflect.Field;
 
@@ -21,18 +18,10 @@ public class CatTest {
     /**
     * Declare instance of FileSystem so we can access the filesystem
     */
-    private static FileSystem fs;
+    private static MockFileSystem fs;
     /**
-    * Declare instance of Mkdir to make new directories
-    */
-    private static Mkdir mkdir;
-    /**
-    * Declare instance of Echo to make new file
-    */
-    private static Echo echo;
-    /**
-    * Declare instance of Cat to be tested
-    */
+     * Declares instance of Cat to be tested
+     */
     private static Cat cat;
 
     /**
@@ -48,46 +37,8 @@ public class CatTest {
     */
     @Before
     public void setup() throws Exception {
-        //Get the current FileSystem
-        fs = FileSystem.getFileSys();
-        // Initializes a Mkdir Object
-        mkdir = new Mkdir();
-        //Initializes a Echo Object
-        echo = new Echo();
-        //Initializes a Cat Object
+        fs = MockFileSystem.getMockFileSys("MOCKENV");
         cat = new Cat();
-
-        // Sets up the C Folder
-        mkdir.MakeDirectory("users".split(" "), fs);
-        mkdir.MakeDirectory("pics".split(" "), fs);
-        mkdir.MakeDirectory("Sys".split(" "), fs);
-        echo.run(fs, "/".split(" "), "echo \"Wow what a project\" > A2", false);
-
-        // Sets up the users Folder
-        mkdir.MakeDirectory("/users/desktop".split(" ") ,fs);
-
-        // Sets up the desktop Folder
-        echo.run(fs, "/users/desktop".split(" "), "echo \"Hello TA\" > /users/desktop/CSCB07", false);
-        echo.run(fs, "/users/desktop".split(" "), "echo \"2+2=5\" > /users/desktop/Hwk", false);
-
-        // Sets up the pics Folder
-        echo.run(fs, "pics".split(" "), "echo \"this is a picturefile indeed\" > pics/picfile", false);
-        echo.run(fs, "pics".split(" "), "echo \"Hello TA from the pics Folder\" > pics/CSCB07", false);
-
-        // Sets up the Sys Folder
-        mkdir.MakeDirectory("Sys/IO".split(" "), fs);
-        mkdir.MakeDirectory("Sys/LOL".split(" "), fs);
-
-        // Sets up the IO Folder
-        mkdir.MakeDirectory("/Sys/IO/keyboard".split(" "), fs);
-        mkdir.MakeDirectory("/Sys/IO/Mouse".split(" "), fs);
-
-        // Sets up the keyboard Folder
-        echo.run(fs, "/Sys/IO/keyboard".split(" "), "echo \"QWERTY\" > /Sys/IO/keyboard/keys", false);
-        echo.run(fs, "/Sys/IO/keyboard".split(" "), "echo \"RGB == ways more      F    P   S\" > /Sys/IO/keyboard/RGB",false);
-
-        // Sets up the Mouse Folder
-        echo.run(fs, "/Sys/IO/Mouse".split(" "), "echo \"Mouse is in Mouse Folder\" > /Sys/IO/Mouse/Presses", false);
     }
 
     /**
@@ -99,7 +50,7 @@ public class CatTest {
     public void tearDown() throws Exception {
         //Declares and initializes a Feild variable 
         //to the fileSys variable in FileSystem
-        Field feild = fs.getClass().getDeclaredField("fileSys");
+        Field feild = fs.getClass().getDeclaredField("filesys");
         //Allows the value of this variable in FileSystem to be accessed
         feild.setAccessible(true);
         //Changes the value of the variable in FileSystem to null
@@ -139,9 +90,9 @@ public class CatTest {
     @Test
     public void testCAbsolutePath(){
         //Expected return from Cat
-        expected = "this is a picturefile indeed";
+        expected = "this is a document";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "/pics/picfile".split(" "), "cat /pics/picfile", false);
+        actual = cat.run(fs, "/documents/txtone".split(" "), "cat /documents/txtone", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -177,9 +128,9 @@ public class CatTest {
     @Test
     public void testFMultipleFiles(){
         //Expected return from Cat    
-        expected = "Hello TA" + "\n" + "\n" + "\n" + "Wow what a project";
+        expected = "this is a document 2" + "\n" + "\n" + "\n" + "Wow what a project";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "/users/desktop/CSCB07 A2".split(" "), "cat /users/desktop/CSCB07 A2", false);
+        actual = cat.run(fs, "/documents/txttwo A2".split(" "), "cat /documents/txttwo A2", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -190,11 +141,11 @@ public class CatTest {
     @Test
     public void testGFileNotFoundCase3(){
         //Expected return from Cat
-        expected =  "2+2=5" + "\n" + "\n" + "\n" + "Error: File Not Found : /Sys/LOL"
-                + "\n" + "\n" + "\n" + "RGB == ways more      F    P   S";
+        expected =  "2+2=5" + "\n" + "\n" + "\n" + "Error: File Not Found : LOL"
+                + "\n" + "\n" + "\n" + "this is a document 2";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "/users/desktop/Hwk /Sys/LOL /Sys/IO/keyboard/RGB".split(" "), 
-                "cat /users/desktop/Hwk /Sys/LOL /Sys/IO/keyboard/RGB", false);
+        actual = cat.run(fs, "downloads/homework/HW8 LOL /documents/txttwo".split(" "), 
+                "cat downloads/homework/HW8 LOL /documents/txttwo", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }

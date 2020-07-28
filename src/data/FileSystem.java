@@ -167,10 +167,6 @@ public class FileSystem implements FileSystemI{
     return output.substring(1, output.length() - 1);
   }
 
-  @Override
-  public Node createFile(String fileContents, String fileName, String filePath) {
-    return current;
-  }
 
   @Override
   public Node findFile(String filePath, boolean fileIsFolderNode) {
