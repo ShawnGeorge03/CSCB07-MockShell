@@ -206,7 +206,7 @@ public class FileSystem implements FileSystemI{
   public void fileAppend(String content, String file) {
     Node fileNode = findFile(file, false);
     if(fileNode != null){
-      fileNode.setContent(fileNode.getContent()+"\n"+content);
+      fileNode.setContent(fileNode.getContent() + "\n" + content);
     }else{
       String fileName = file.split("/")[file.split("/").length-1];
       if(fileName.contains(".")) 

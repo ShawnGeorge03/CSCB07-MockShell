@@ -83,7 +83,7 @@ public class RedirectionManager {
         return params;
     }
 
-    private String setFileName(String[] params, String type){
+    public String setFileName(String[] params, String type){
         String[] fileName = Arrays.copyOfRange(params, Arrays.asList(params).indexOf(type) + 1, params.length);
         if(fileName.length == 0){
             return errorManager.getError("No parameters provided", "");

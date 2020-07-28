@@ -40,6 +40,8 @@ public class Echo extends FileManager implements CommandI {
   /** Declare instance variable of String to hold the output that will be returned */
   String output = "";
   String properArgument = "";
+  private RedirectionManager redirect = new RedirectionManager();
+  
   /**
    * Main run method that checks if the user had inputted any arguments to the command. It splices the
    * input so that it can send parsed data to the appropriate implementation of echo. Calls the
@@ -50,6 +52,24 @@ public class Echo extends FileManager implements CommandI {
    * @return String will either be null if there were no errors or an appropriate error message
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+    String[] arguments =  redirect.setParams(filesys, fullInput);
+    
+    /*for(int i = 0; i < arguments.length; i++){
+      System.out.println(arguments[i]);
+    }*/
+    
+    //System.out.println(redirect.outputResult(filesys, runEcho(args)));
+    if(arguments != null)
+      output = redirect.outputResult(filesys, runEcho(arguments));    
+    else{
+      String fileName = redirect.setFileName(args, args[args.length-1]);
+      output = fileName;
+    }
+
+    return output;
+  }
+
+  private String runEcho(String[] args){
     // If no arguments were inputted
     if(args.length == 0) {
       return getErrorHandler().getError("No parameters provided", "");
@@ -58,6 +78,7 @@ public class Echo extends FileManager implements CommandI {
       properArgument += args[i] + " ";
     }
     properArgument = properArgument.trim();
+    System.out.println("Proper arguments : " + properArgument);
     if(hasQuotations(properArgument)) {
       output = properArgument.substring(1, properArgument.length()-1);
     } else
