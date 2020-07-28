@@ -65,7 +65,7 @@ public class Cat implements CommandI {
    * @return the contents of file
    */
   public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
-    //String[] arguments = redirect.setParams(fs, fullInput);
+    String[] arguments = redirect.setParams(fs, fullInput);
     if (args.length == 0) {
       // Returns an error of No parameters provided
       return errorManager.getError("No parameters provided", "");
@@ -76,7 +76,7 @@ public class Cat implements CommandI {
       readFile(args, fs);
     }
 
-    //if(arguments != null) output = redirect.outputResult(fs, output);
+    if(arguments != null) output = redirect.outputResult(fs, output);
     //System.out.println(output);
     // Returns the output for the arguments
     return output;
