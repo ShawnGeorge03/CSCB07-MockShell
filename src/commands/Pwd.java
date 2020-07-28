@@ -41,6 +41,8 @@ public class Pwd extends DirectoryManager implements CommandI {
    * Declare instance of ErrorHandler to handle any errors that occur
    */
   ErrorHandler error;
+  RedirectionManager redirect;
+  String output;
 
   /**
    * Constructor for Pwd that initializes the ErrorHandler object
@@ -48,6 +50,7 @@ public class Pwd extends DirectoryManager implements CommandI {
   public Pwd() {
     // Initializes a ErrorHandler Object
     this.error = new ErrorHandler();
+    this.redirect = new RedirectionManager();
   }
 
   /**
@@ -60,6 +63,13 @@ public class Pwd extends DirectoryManager implements CommandI {
    * @return String holding the absolute path to the current working directory, or an error message
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+    String[] arguments =  redirect.setParams(filesys, fullInput);
+    if(arguments != null)
+      output = redirect.outputResult(filesys, runPwd(filesys, args));    
+    return output;
+  }
+
+  private String runPwd(FileSystemI filesys, String[] args){
     // If the user provides any input for the following function
     if (args.length != 0) {
       // Returns an Invalid arguments error
@@ -69,6 +79,5 @@ public class Pwd extends DirectoryManager implements CommandI {
     // Returns the current working directory the user is in
     return filesys.getCurrentPath();
   }
-
 
 }
