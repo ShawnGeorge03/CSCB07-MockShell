@@ -1,0 +1,16 @@
+a) What did I work on in the last three days? 
+	- Worked with Shawn to made changes to filesystem to incorporate a better redirection structure
+	- Tested the new redirection structure using the curl and echo commands
+	- Worked with Shawn to restructure echo to follow the new redirection structure
+	- Added error checking to both of the Save and Load command classes
+	- Modified the echo test cases to test the new echo structure
+	- Worked with Tirth to get a working implementation of Tree  
+
+b) What do I plan to work in the next three days?
+	- Create the test cases for save and load
+	- Work on testing redirection for the other command classes
+	- Comment the save and load classes (add javadocs)
+	- Modify the crcCards to match the new redirection structure 
+
+c) Am I blocked on anything?  
+	- The new appending/overwriting methods seem to be causing some errors/bugs to appear with the other commands
