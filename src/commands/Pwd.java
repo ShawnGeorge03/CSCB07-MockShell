@@ -64,6 +64,9 @@ public class Pwd extends DirectoryManager implements CommandI {
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     String[] arguments =  redirect.setParams(filesys, fullInput);
+    /*for(int i = 0; i < arguments.length; i++){
+      System.out.println(arguments[i]);
+    }*/
     if(arguments != null)
       output = redirect.outputResult(filesys, runPwd(filesys, arguments));    
     return output;

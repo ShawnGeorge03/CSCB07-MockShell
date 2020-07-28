@@ -88,7 +88,7 @@ public class PwdTest {
     public void testEMultipleArgs(){
         String[] argsArr = {"/Sys/IO", "/users"};
         expectedPath = "Error: Invalid Argument : pwd doesn't take any arguments";
-        actualPath = pwd.run(fs,argsArr, "pwd", false);
+        actualPath = pwd.run(fs,argsArr, "pwd /Sys/IO /users", false);
         assertEquals(expectedPath, actualPath);
     }
     
