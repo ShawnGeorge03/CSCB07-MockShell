@@ -73,7 +73,7 @@ public class Find extends DirectoryManager implements CommandI {
 		return null;
 	}
 
-	public String checkList(FileSystemI filesys, String[] path, String expression, String type) {
+	private String checkList(FileSystemI filesys, String[] path, String expression, String type) {
 		expression = expression.substring(1, expression.length() - 1);
 		String output = null;
 		String[] currPath = { filesys.getCurrentPath() };
@@ -88,7 +88,7 @@ public class Find extends DirectoryManager implements CommandI {
 		return output;
 	}
 
-	public void recursiveDirSearch(FileSystemI filesys, String[] path, String expression, String type, Cd newPath,
+	private void recursiveDirSearch(FileSystemI filesys, String[] path, String expression, String type, Cd newPath,
 			Node currNode, String currPath) {
 		
 		printMatches(filesys, expression, type);
@@ -102,7 +102,7 @@ public class Find extends DirectoryManager implements CommandI {
 		newPath.run(temp, filesys);
 	}
 
-	public void printMatches(FileSystemI filesys, String expression, String type) {
+	private void printMatches(FileSystemI filesys, String expression, String type) {
 		ArrayList<Node> toCheck = filesys.getCurrent().getList();
 		for (int i = 0; i < toCheck.size(); i++) {
 			if (type.equals("d")) {
