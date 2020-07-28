@@ -1,0 +1,18 @@
+a) What did I work on in the last three days? 
+	- Created MockFile system and implemented FileSystem interfacce
+	- Fixed bugs in Rm, Cp and Mv to work with both files and directories
+	- Finished recursive case for Ls
+	- Created test cases for Ls
+	- Created test cases for Pushd and Popd
+
+b) What do I plan to work in the next three days?
+	- Thoroughly test current commands I implemented
+	- Write test cases for Cp, Mv and Rm
+	- Clean up code in all commands to follow style guidelines
+	- Test entire shell to find bugs anywhere I can
+	- Make sure all test cases are using mockfile system.
+
+c) Am I blocked on anything?  
+	- Not currently
+
+
