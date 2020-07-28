@@ -141,7 +141,7 @@ public class HistoryTest {
     //Add the command to the history stack
     fs.getCommandLog().add("history 1.0");
     //Actual return from History after the operation has been run
-    actual = history.run(fs, "1.0".split(" "), "history -3", false);
+    actual = history.run(fs, "1.0".split(" "), "history 1.0", false);
     //Expected return from History
     expected = "Error: Invalid Argument : 1.0 is not either a number or " 
     + "positive or an integer";

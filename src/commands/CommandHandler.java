@@ -30,7 +30,6 @@
 package commands;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -46,13 +45,13 @@ import data.FileSystem;
 public class CommandHandler {
 
     /**
-    * Declare instance of FileSystem to pass the FileSystem refrence
-    */
+     * Declare instance of FileSystem to pass the FileSystem refrence
+     */
     private FileSystem fs;
 
     /**
-    * Declare instance of ErrorHandler to handle error messages
-    */
+     * Declare instance of ErrorHandler to handle error messages
+     */
     private ErrorHandler errorManager;
 
     /**
@@ -65,7 +64,7 @@ public class CommandHandler {
      * Declare instance variables of String to hold the actual command, output from
      * the operation and the file name for redirection
      */
-    private String command, output, fileName;
+    String command, output;
 
     /**
      * Declare instance variable of HashMap to hold all of the commands this program
@@ -74,16 +73,10 @@ public class CommandHandler {
     private HashMap<String, String> commandMap;
 
     /**
-     * Declares instance variable of ArrayList that holds all the commands that can
-     * handle redirection
+     * Declares instance variables of boolean to allow the class to check if it is
+     * in speak mode or which redirection mode to use
      */
-    private ArrayList<String> redirectClasses;
-
-    /**
-     * Declares instance variables of boolean to allow the class to check if it is in
-     * speak mode or which redirection mode to use
-     */
-    private boolean speakMode, appendMode, overwriteMode = false;
+    private boolean speakMode = false;
 
     /**
      * Constructor for CommandHandler which initializes the instance variables and
@@ -96,12 +89,8 @@ public class CommandHandler {
         errorManager = new ErrorHandler();
         // Creates a HashMap Object called commandMap
         commandMap = new HashMap<String, String>();
-        // Creates a ArrayList Object called redirectClasses
-        redirectClasses = new ArrayList<String>();
         // Initializes the HashMap with the keys and values
         intizializeCommandMap();
-        // Initializes the ArrayList with values
-        redirectClasses.addAll(Arrays.asList("cat", "echo", "find", "history", "ls", "man", "pwd", "tree"));
     }
 
     /**
@@ -130,23 +119,6 @@ public class CommandHandler {
             // The console enters into speak mode
             speakMode = true;
 
-        // If the given command is a redirectionalble command
-        if (redirectClasses.contains(command)) {
-            // Retrrives the arguments and sets the redirection mode and file name
-            args = setOutputPath(parsedInput);
-            // If the given command is not a redirectionalble command
-        } else {
-            // Checks if the command uses either > or >> in the parameters and returns an
-            // error if so
-            if (Arrays.asList(parsedInput.split(" ")).contains(">")
-                    || Arrays.asList(parsedInput.split(" ")).contains(">>")) {
-                // Returns the respective error
-                outputResult(errorManager.getError("Redirection Not allowed", 
-                                                command + " does not support redirection"));
-                return;
-            }
-        }
-
         // Calls the function to run the command
         run(command, args, parsedInput);
 
@@ -156,51 +128,6 @@ public class CommandHandler {
             // The console exits into speak mode
             speakMode = false;
 
-    }
-
-    /**
-     * Figures out what mode of redirection is needed for the respective command,
-     * retrives the file name and returns the proper parameters for the respective
-     * command
-     * 
-     * @param input the user input
-     * @return the parameter for the command being called
-     */
-    private String[] setOutputPath(String input) {
-        // Initializes an array containing the words of the parsedInput
-        String[] params = input.split(" ");
-
-        // If the user used the single arrow > which sets redirection to overwrite a
-        // file
-        if (Arrays.asList(params).contains(">")) {
-            // Sets the boolean value to true
-            overwriteMode = true;
-            // Collects the file name
-            fileName = params[params.length - 1];
-            // Collects the parameters for the command
-            params = Arrays.copyOfRange(params, 1, Arrays.asList(params).indexOf(">"));
-            // If the user used the single arrow >> which sets redirection to append a file
-        } else if (Arrays.asList(params).contains(">>")) {
-            // Sets the boolean value to true
-            appendMode = true;
-            // Collects the file name
-            fileName = params[params.length - 1];
-            // Collects the parameters for the command
-            params = Arrays.copyOfRange(params, 1, Arrays.asList(params).indexOf(">>"));
-            // If the user is not using > or >> or it is not placed properly in the text
-        } else {
-            // If the user uses > or >> but not properly spaced
-            if (input.contains(">") || input.contains(">>")) {
-                // Returns the respective error
-                output = errorManager.getError("Invalid Argument", "Make sure each argument has space(s) between them");
-                // If the user is not using redirection
-            } else {
-                // Returns the corrent parameters for the command
-                params = Arrays.copyOfRange(input.split(" "), 1, input.split(" ").length);
-            }
-        }
-        // Returns the parameters
-        return params;
     }
 
     /**
@@ -241,37 +168,7 @@ public class CommandHandler {
                 e.printStackTrace();
             }
         }
-        // Returns the respective output to the console
-        outputResult(output);
-    }
-
-    /**
-     * Manages the output that results from a user input
-     * 
-     * @param result the string to be outputed to the console
-     */
-
-    private void outputResult(String result) {
-        // Checks if the operation returns any input or not
-        if (result != null) {
-            // If the return was some sort of an Error prints the error out
-            if (result.startsWith("Error")) {
-                System.out.println(result.trim());
-                // If the user want to overwrite a file with this new result
-            } else if (overwriteMode) {
-                fs.fileOverwrite(result, fileName);
-                // Resets the redirection
-                overwriteMode = false;
-                // If the user want to append to the file with this new result
-            } else if (appendMode) {
-                fs.fileAppend(result, fileName);
-                // Resets the redirection
-                appendMode = false;
-                // If the user chooses not to redirect the results to a file
-            } else {
-                System.out.println(result.trim());
-            }
-        }
+        if(output != null) System.out.println(output.trim());
     }
 
     /**

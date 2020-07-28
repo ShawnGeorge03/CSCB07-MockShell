@@ -42,6 +42,12 @@ public class History implements CommandI {
    * Declare instance variable of ErrorHandler to handle error messages
    */
   private ErrorHandler error;
+
+  /**
+   * Declare instance variable of RedirectionManager to handle redirection to file
+   */
+  private RedirectionManager redirect;
+
   /**
    * Declare instance variable of String to contain the output that the command may return
    */
@@ -53,11 +59,21 @@ public class History implements CommandI {
   public History() {
     // Initializes a ErrorHandler Object
     this.error = new ErrorHandler();
+    // Initializes a RedirectionManager Object
+    this.redirect = new RedirectionManager();
     // Initializes a String object called output
     this.output = "";
   }
 
-  /**
+
+  public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
+    String[] arguments =  redirect.setParams(fs, fullInput);
+    if(arguments != null)
+      output = redirect.outputResult(fs, runHistory(arguments, fs));    
+    return output;
+  }
+
+    /**
    * Parses input and then calls print method to print history
    * 
    * @param args  the string array that contains given arguments
@@ -65,13 +81,13 @@ public class History implements CommandI {
    * @param val  stores a boolean value
    * @return the error message if there is any or the actual history
    */
-  public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
+  private String runHistory(String[] params, FileSystemI fs){
     // If the user provides no arguments
-    if (args.length == 0) {
+    if (params.length == 0) {
       // Calls the following methods to print the entire history
       printLastXCommands(fs, fs.getCommandLog().size());
       // If the user provided 1 argument
-    } else if (args.length == 1) {
+    } else if (params.length == 1) {
       // Created and initialized an integer
       int number = 0;
       // Created and initialized a boolean
@@ -80,7 +96,7 @@ public class History implements CommandI {
       // Converts the given input from the user to an integer
       try {
         // Stores the converted value if it was possible
-        number = Integer.valueOf(args[0]);
+        number = Integer.valueOf(params[0]);
         // If the user provided something other than an Integer
       } catch (NumberFormatException e) {
         // Sets the boolean to false
@@ -95,13 +111,13 @@ public class History implements CommandI {
       } else {
         // Sets an error of Invalid Argument to be returned to the user
         output = error.getError("Invalid Argument",
-            args[0] + " is not either a number or positive or an integer");
+        params[0] + " is not either a number or positive or an integer");
       }
       // If the user provided multiple arguments
-    } else if (args.length > 1) {
+    } else if (params.length > 1) {
 
       // Collects the user input from the fullInput
-      String parameter = Arrays.toString(args);
+      String parameter = Arrays.toString(params);
       parameter = parameter.substring(1, parameter.length() - 1).
           replace(",", "").trim();
       // Returns an error of Mulptile parameters provided
@@ -111,6 +127,7 @@ public class History implements CommandI {
 
     // Returns the valid output for the user input
     return output.trim();
+
   }
 
   private void printLastXCommands(FileSystemI fs, int x) {
