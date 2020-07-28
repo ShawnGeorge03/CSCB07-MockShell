@@ -153,14 +153,14 @@ public boolean isValidName(String fileName) {
  */
 public String getCurrentPath() {
   String output = "";
-    Node current = filesys.getCurrent();
+    Node current = getCurrent();
 
-    if (current.equals(filesys.getRoot())) {
-      return filesys.getRoot().getName();
+    if (current.equals(getRoot())) {
+      return getRoot().getName();
     }
 
     path.add(current.getName());
-    while (current != filesys.getRoot()) {
+    while (current != getRoot()) {
       current = current.getParent();
       path.add(current.getName());
     }
