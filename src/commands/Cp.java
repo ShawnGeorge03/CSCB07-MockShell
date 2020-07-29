@@ -57,6 +57,7 @@ public class Cp extends DirectoryManager implements CommandI{
 		Node toMove = null;
 
 		if (traverse.run(pathFrom, filesys)) {
+			pathFrom[0] = filesys.getCurrentPath();
 			parentToMove = filesys.getCurrent();
 
 			for (int i = 0; i < parentToMove.getList().size(); i++) {

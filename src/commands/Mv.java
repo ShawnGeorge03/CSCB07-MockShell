@@ -58,6 +58,7 @@ public class Mv extends DirectoryManager implements CommandI{
 		int toRemove = -1;
 
 		if (traverse.run(pathFrom, filesys)) {
+			pathFrom[0] = filesys.getCurrentPath();
 			parentToMove = filesys.getCurrent();
 
 			for (int i = 0; i < parentToMove.getList().size(); i++) {
@@ -83,7 +84,6 @@ public class Mv extends DirectoryManager implements CommandI{
 				filesys.addToDirectory(toMove);
 				traverse.run(pathFrom, filesys);
 				filesys.removeFromDirectory(toRemove);
-				System.out.println("hi");
 			}else{
 				return error.getError("Same Directory", fileName + " already exists");
 			}
