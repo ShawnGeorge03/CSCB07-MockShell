@@ -37,7 +37,54 @@ public class LsTest {
     public void TestARelativePath(){
         String[] input = {"users"};
         String actual = ls.run(fs, input, "ls users", false);
-        String expected = "skeshavaa\nguests\n";
+        String expected = "Path: //users\nskeshavaa\nguest\n\n";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void TestCAbsolutePath(){
+        String[] input = {"/documents"};
+        String actual = ls.run(fs, input, "ls /documents", false);
+        String expected = "Path: //documents\ntxtone\ntxttwo\n\n";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void TestDRecurisveMode(){
+        String[] input = {"-R"};
+        String actual = ls.run(fs, input, "ls -R", false);
+        String expected = "Path: /\nA2\nusers\ndocuments\ndownloads\n\nPath: "
+                                + "//users\nskeshavaa\nguest\n\nPath: //users/skeshavaa"
+                                + "\n\nPath: //users/guest\n\nPath: //documents\ntxtone"
+                                + "\ntxttwo\n\nPath: //downloads\nhomework\nGames\n\nPath: //downloads/homework"
+                                + "\nHW8\n\nPath: //downloads/Games\n\n";
+        System.out.println(actual);
+        System.out.println(expected);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void TestEMultiplePaths(){
+        String[] input = {"users", "documents"};
+        String actual = ls.run(fs, input, "ls users documents", false);
+        String expected = "Path: //users\nskeshavaa\nguest\n\nPath: //documents\ntxtone\ntxttwo\n\n";
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void TestFInvalidPath(){
+        String[] input = {"falsepaths"};
+        String actual = ls.run(fs, input, "ls falsepaths", false);
+        String expected = "Error: Invalid Directory : falsepaths is not a valid directory";
+        assertEquals(expected, actual);
+    }
+
+    @Test 
+    public void TestGMultiplePathsWithInvalidPath(){
+        String[] input = {"users", "falsepaths"};
+        String actual = ls.run(fs, input, "ls users falsepaths", false);
+        System.out.println(actual);
+        String expected = "Path: //users\nskeshavaa\nguest\n\nError: Invalid Directory : falsepaths is not a valid directory\n\n";
         assertEquals(expected, actual);
     }
     
