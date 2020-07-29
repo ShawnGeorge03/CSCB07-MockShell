@@ -38,6 +38,7 @@ public class MockFileSystem implements FileSystemI {
   Node downloads;
   Node homework;
   Node games;
+  Node desktop;
 
   public void setCurrent(Node newCurrent){
     this.current = newCurrent;
@@ -64,10 +65,14 @@ public class MockFileSystem implements FileSystemI {
        *      HW8 
        *    Games 
        * A2
+       * desktop
        */
 
       Node A2 = new Node.Builder(false, "A2").setParent(root).setContent("Wow what a project").build();
       root.getList().add(A2);
+
+      desktop = new Node.Builder(true, "desktop").setParent(root).build();
+      root.getList().add(desktop);
 
       users = new Node.Builder(true, "users").setParent(root).build();
       root.getList().add(users);

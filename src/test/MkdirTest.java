@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 
-import commands.Cd;
 import commands.Mkdir;
 
 import java.lang.reflect.Field;
@@ -25,7 +24,7 @@ public class MkdirTest {
 
   @Before
   public void setUp() throws Exception {
-    fs = MockFileSystem.getMockFileSys("EMPTYSYS");
+    fs = MockFileSystem.getMockFileSys("MOCKENV");
     mkdir = new Mkdir();
     
     allContent = new ArrayList<String>();
@@ -38,13 +37,18 @@ public class MkdirTest {
       feild.set(null, null);
   } 
 
-  public void collectContent(String path){
+  private void collectContent(String path){
     allContent.clear();
-    Cd cd = new Cd();
-    cd.run(fs,path.split(" "), "cd " + path, false);
+    if(!path.equals("/")){
+      for(int i = 0; i < fs.getCurrent().getList().size(); i++){
+        if(fs.getCurrent().getList().get(i).getName().equals(path)){
+          fs.setCurrent(fs.getCurrent().getList().get(i));
+          break;
+        }
+      }
+    }
     for (int i = 0; i < fs.getCurrent().getList().size(); i++) 
-    allContent.add(fs.getCurrent().getList().get(i).getName());
-    cd.run(fs,"/".split(" "), "cd /", false);
+      allContent.add(fs.getCurrent().getList().get(i).getName());
   }
 
   @Test
@@ -53,7 +57,7 @@ public class MkdirTest {
     expected = "Error: Invalid Argument : Expected at least 1 argument";
     actual = mkdir.run(fs,testNoArg, "mkdir", false);
     collectContent("/");
-    assertTrue(allContent.isEmpty() && actual.equals(expected));
+    assertTrue(actual.equals(expected));
   }
 
   @Test
@@ -61,7 +65,7 @@ public class MkdirTest {
     expected = "Error: Invalid Directory : ... is not a valid directory name";
     actual = mkdir.run(fs,"...".split(" "), "mkdir ..." , false); 
     collectContent("/");
-    assertTrue(allContent.isEmpty() && actual.equals(expected));
+    assertTrue(actual.equals(expected));
   }
 
   @Test
@@ -69,38 +73,36 @@ public class MkdirTest {
     expected = "Error: Invalid Directory : /hello is not a valid directory";
     actual = mkdir.run(fs,"/hello/hi".split(" "), "mkdir /hello/hi" , false); 
     collectContent("/");
-    assertTrue(allContent.isEmpty() && actual.equals(expected));
+    assertTrue(actual.equals(expected));
   }
   
   @Test
   public void testDValidAbsolutePath() {
     expected = null;
-    actual = mkdir.run(fs,"/desktop".split(" "), "mkdir /desktop" , false);
+    actual = mkdir.run(fs,"/System32".split(" "), "mkdir /System32" , false);
     collectContent("/");
-    assertTrue(allContent.equals(Arrays.asList("desktop".split(" ")))  && actual == expected);
+    assertTrue(allContent.contains("System32")  && actual == expected);
   }
 
   @Test
   public void testEValidRelativePath() {
     expected = null;
-    actual = mkdir.run(fs,"users".split(" "), "mkdir users" , false);
+    actual = mkdir.run(fs,"System32".split(" "), "mkdir System32" , false);
     collectContent("/");
-    assertTrue(allContent.equals(Arrays.asList("users".split(" ")))  && actual == expected);
+    assertTrue(allContent.contains("System32")  && actual == expected);
   }
   
   @Test
   public void testFRepeatedPath(){
-    expected = "Error: Same Directory with that name already exists! : LOL already exists";
-    mkdir.run(fs,"/LOL".split(" "), "mkdir /LOL" , false);
-    actual = mkdir.run(fs,"/LOL".split(" "), "mkdir /LOL" , false); 
+    expected = "Error: Same Directory with that name already exists! : users already exists";
+    actual = mkdir.run(fs,"/users".split(" "), "mkdir /users" , false); 
     collectContent("/");
-    assertTrue(allContent.equals(Arrays.asList("LOL".split(" ")))  && actual.equals(expected));
+    assertTrue(actual.equals(expected));
   }
   
   @Test
   public void testGRelativeFromDirPath(){
     expected = null;
-    mkdir.run(fs,"desktop".split(" "), "mkdir desktop" , false);
     actual = mkdir.run(fs,"desktop/project".split(" "), "mkdir desktop/project" , false); 
     collectContent("desktop");
     assertTrue(allContent.equals(Arrays.asList("project".split(" ")))  && actual == expected);
@@ -109,9 +111,9 @@ public class MkdirTest {
   @Test
   public void testHMultipleArgsRelativePaths(){
     expected = null;
-    actual = mkdir.run(fs,"Business A2".split(" "), "mkdir Business A2", false);
+    actual = mkdir.run(fs,"Business A6".split(" "), "mkdir Business A6", false);
     collectContent("/");
-    assertTrue(allContent.equals(Arrays.asList("Business A2".split(" ")))  && actual == expected);
+    assertTrue(allContent.containsAll(Arrays.asList("Business A6".split(" ")))  && actual == expected);
   }
 
   @Test
@@ -127,9 +129,20 @@ public class MkdirTest {
     expected = "Error: Invalid Directory : /lol is not a valid directory";
     actual = mkdir.run(fs,"/lol/F anotherFile".split(" "), "mkdir /lol/F anotherFile", false);
     collectContent("/");
-    assertTrue(allContent.equals(Arrays.asList("anotherFile".split(" ")))  && actual.equals(expected));
+    assertTrue(allContent.contains("anotherFile")  && actual.equals(expected));
   }
 
+      /**
+     * Test K : User uses redirection for a non redirectionable command
+     */
+    @Test
+    public void testKRedirectionError(){
+        //Expected return from Cd
+        expected = "Error : Redirection Error : mkdir does not support redirection";
+        actual = mkdir.run(fs,"hello > test".split(" "), "mkdir hello > text", false);
+        collectContent("/");
+        assertTrue(!allContent.contains("hello")  && actual.equals(expected));
+    }
   
 
 }

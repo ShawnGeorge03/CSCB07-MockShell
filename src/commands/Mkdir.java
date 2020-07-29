@@ -48,11 +48,14 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 */
 	private ErrorHandler error;
 
+	private RedirectionManager rManager;
+
 	/**
 	 * Constructor of Mkdir to initialize error
 	 */
 	public Mkdir() {
 		this.error = new ErrorHandler();
+		this.rManager = new RedirectionManager();
 	}
 
 	/**
@@ -65,6 +68,10 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * @return String  null always
 	 */
 	public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+		String output = rManager.isRedirectionableCommand(filesys, fullInput);
+		
+		if(!"true".equals(output)) return output;
+
 		return MakeDirectory(args, filesys);
 	}
 
