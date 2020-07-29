@@ -29,6 +29,7 @@
 // *********************************************************
 package commands;
 
+import java.util.Arrays;
 import java.util.Hashtable;
 
 import data.FileSystemI;
@@ -73,7 +74,16 @@ public class Man implements CommandI {
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     String[] arguments =  redirect.setParams(filesys, fullInput); 
-    if(arguments != null) output = redirect.outputResult(filesys, runMan(arguments, fullInput));
+    if(arguments != null){
+        output = redirect.outputResult(filesys, runMan(arguments, fullInput));
+    }else{
+        if (Arrays.asList(args).contains(">")) {
+            output = redirect.setFileName(args, ">");
+        } else {
+            output = redirect.setFileName(args, ">>");
+        }
+    }
+
     return output;
   }
 

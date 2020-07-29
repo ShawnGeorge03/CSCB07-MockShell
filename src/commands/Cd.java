@@ -43,11 +43,14 @@ public class Cd extends DirectoryManager implements CommandI {
    */
   ErrorHandler error;
 
+  RedirectionManager rManager;
+
   /**
    * Constructor for class Cd which initalizes instance variables
    */
   public Cd() {
     error = new ErrorHandler();
+    rManager = new RedirectionManager();
   }
 
   /**
@@ -61,10 +64,15 @@ public class Cd extends DirectoryManager implements CommandI {
    * @return any error messages if there are any
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+    String output = rManager.isRedirectionableCommand(filesys, fullInput);
+
+    if(!"true".equals(output))
+      return output;
+
     if (args.length == 0) {
       return error.getError("No parameters provided", "");
    } else if (args.length > 1) {
-      return error.getError("Mulptile parameters provided", 
+      return error.getError("Multiple parameters provided", 
           fullInput.substring(fullInput.indexOf("cd") + 2).trim());
     }
 

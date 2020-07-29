@@ -29,7 +29,7 @@ public class ManTest {
     * Declare two different instance of a String 
     * objects called expected and actual 
     */
-    private String expected, actual;
+    private String expected, actual, text;
 
     /**
      * Sets up the test environment and initializes the instance variables
@@ -39,11 +39,9 @@ public class ManTest {
     @Before
     public void setup() throws Exception{
         //Gets a specific preset FileSystem
-        fs = MockFileSystem.getMockFileSys("EMPTYSYS");
+        fs = MockFileSystem.getMockFileSys("MOCKENV");
         // Initializes a Man Object
         man = new Man();
-
-
     }
 
     
@@ -153,6 +151,73 @@ public class ManTest {
         assertEquals(expected, actual);  
     }
 
-
+    /**
+     * Test F : User redirects output to overwrite a file
+     */
+    @Test
+    public void testFOverwriteFile(){
+        //Expected return from Man
+        expected = null;
+        //Text to be in the file
+        text = "Command : exit" 
+                + "\n\tCloses the current session and leaves the Shell"
+                + "\n\n\tParameter : None"
+                + "\n\n\tIf any or multiple of these parameter are not meet an "
+                + "\n\terror will be outputed respectively"
+                + "\n\n\tREDIRECTION : This command does not allow the output"
+                 + "\n\tto be redirected to a file instead of the console "
+                + "\n\tif there is any output for the command";
+        //Actual return from Man after the operation has been run
+        actual = man.run(fs, "exit > A2".split(" "), "man exit > A2", false);
+        //Checks if the values are equal or not
+        assertTrue(expected == actual &&  text.equals(fs.findFile("A2", false).getContent()));
+    }
     
+    /**
+     * Test G : User redirects output to append to a file
+     */
+    @Test
+    public void testGAppendFile(){
+        //Expected return from Man
+        expected = null;
+        //Text to be in the file
+        text = "Wow what a project\nCommand : exit" 
+                + "\n\tCloses the current session and leaves the Shell"
+                + "\n\n\tParameter : None"
+                + "\n\n\tIf any or multiple of these parameter are not meet an "
+                + "\n\terror will be outputed respectively"
+                + "\n\n\tREDIRECTION : This command does not allow the output"
+                + "\n\tto be redirected to a file instead of the console "
+                + "\n\tif there is any output for the command";
+        //Actual return from Man after the operation has been run
+        actual = man.run(fs, "exit >> A2".split(" "), "man exit >> A2", false);
+        //Checks if the values are equal or not
+        assertTrue(expected == actual &&  text.equals(fs.findFile("A2", false).getContent()));
+    }
+
+    /**
+     * Test H : User provides no file for redirection
+     */
+    @Test
+    public void testHRedirectionErrorCase1(){
+        //Expected return from Man
+        expected = "Error : No parameters provided : ";
+        //Actual return from Man after the operation has been run
+        actual = man.run(fs, "exit >>".split(" "), "man exit >>", false);
+        //Checks if the values are equal or not
+        assertEquals(expected, actual);
+    }
+    
+    /**
+     * Test I : User provides multiple files for redirection
+     */
+    @Test
+    public void testIRedirectionErrorCase2(){
+        //Expected return from Man
+        expected = "Error : Multiple Parameters have been provided : [lol, plz, work] Only one is required";
+        //Actual return from Man after the operation has been run
+        actual = man.run(fs, "exit >> lol plz work".split(" "), "man exit >> lol plz work", false);
+        //Checks if the values are equal or not
+        assertEquals(expected, actual);
+    }
 }

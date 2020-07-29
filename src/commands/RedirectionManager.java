@@ -77,29 +77,21 @@ public class RedirectionManager {
      * @param fullInput the user input
      * @return true if command is redirectionable and false other wise
      */
-    public boolean isRedirectionableCommand(FileSystemI fs, String fullInput) {
+    public String isRedirectionableCommand(FileSystemI fs, String fullInput) {
         // Retrives the command from the user input
         String command = fullInput.split(" ")[0];
 
-        // If the given command is a redirectionalble command
-        if (redirectClasses.contains(command)) {
-            // Command is redirectionable
-            return true;
-        } else {
+        // If the given command is not a redirectionalble command
+        if (!redirectClasses.contains(command)) {
             // Checks if the command uses either > or >> in
             // the parameters and returns an error if so
             if (Arrays.asList(fullInput.split(" ")).contains(">")
                     || Arrays.asList(fullInput.split(" ")).contains(">>")) {
-                // Returns the respective error
-                outputResult(fs,
-                        errorManager.getError("Redirection Not allowed", command + " does not support redirection"));
-                // Command is not redirectionable
-                return false;
+                // Returns the respective error -> Command is not redirectionable
+                return  outputResult(fs,errorManager.getError("Redirection Not allowed", command + " does not support redirection"));
             }
         }
-
-        // If the given command is a redirectionalble command return true
-        return redirectClasses.contains(fullInput.split(" ")[0]);
+        return "true";
     }
 
     /**
