@@ -46,6 +46,9 @@ public class Man implements CommandI {
    */
   private ErrorHandler error;
 
+  private RedirectionManager redirect;
+  String output;
+
   /**
    * Constructor for Man which initializes instance variables and fills Hashtable
    */
@@ -54,6 +57,7 @@ public class Man implements CommandI {
     manMap = new Hashtable<String, String>();
     // Initializes a ErrorHandler Object
     this.error = new ErrorHandler();
+    this.redirect = new RedirectionManager();
     // Initializes the Hashtable with the keys and values
     setDictionary();
   }
@@ -68,25 +72,31 @@ public class Man implements CommandI {
    * @return the documentation of the requested commands
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-      // Collects the user input from the fullInput
-      String param = fullInput.substring(fullInput.indexOf("man") + 3).trim();
+    String[] arguments =  redirect.setParams(filesys, fullInput); 
+    if(arguments != null) output = redirect.outputResult(filesys, runMan(arguments, fullInput));
+    return output;
+  }
 
-      //If the user provides no command to checked with
-      if(args.length == 0){
-        // Returns an error
-        return error.getError("No parameters provided", "Man requires one supported command");
-      //If the user provides more than one command
-      }else if(args.length > 1){
-        // Returns an error
-        return error.getError("Multiple parameters provided", param + ", only supported one is required");
-      //If the command is not supported by Man
-      }else if(!manMap.containsKey(args[0])){
-        // Returns an error
-        return error.getError("Invalid Command", param + " is not a supported command supported one is required");
-      }
+  private String runMan(String[] args, String fullInput){
+    // Collects the user input from the fullInput
+    String param = fullInput.substring(fullInput.indexOf("man") + 3).trim();
 
-      // Returns the appropriate command manual from the manMap Hashtable
-      return manMap.get(args[0]);
+    //If the user provides no command to checked with
+    if(args.length == 0){
+      // Returns an error
+      return error.getError("No parameters provided", "Man requires one supported command");
+    //If the user provides more than one command
+    }else if(args.length > 1){
+      // Returns an error
+      return error.getError("Multiple parameters provided", param + ", only supported one is required");
+    //If the command is not supported by Man
+    }else if(!manMap.containsKey(args[0])){
+      // Returns an error
+      return error.getError("Invalid Command", param + " is not a supported command supported one is required");
+    }
+
+    // Returns the appropriate command manual from the manMap Hashtable
+    return manMap.get(args[0]);
   }
 
   /**
