@@ -160,8 +160,8 @@ public class CatTest {
         expected =  "2+2=5" + "\n" + "\n" + "\n" + "Error: File Not Found : LOL"
                 + "\n" + "\n" + "\n" + "this is a document 2";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "downloads/homework/HW8 LOL /documents/txttwo > /A2".split(" "), 
-                "cat downloads/homework/HW8 LOL /documents/txttwo > /A2", false);
+        actual = cat.run(fs, "downloads/homework/HW8 LOL /documents/txttwo > A2".split(" "), 
+                "cat downloads/homework/HW8 LOL /documents/txttwo > A2", false);
         //Checks if the values are equal or not
         assertEquals(expected, fs.findFile("A2", false).getContent());
     }

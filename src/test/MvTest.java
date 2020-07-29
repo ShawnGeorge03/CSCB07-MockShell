@@ -1,14 +1,11 @@
 package test;
 
 import commands.Mv;
-import commands.Cd;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import data.FileSystemI;
-import data.Node;
 
 public class MvTest {
     
@@ -21,12 +18,9 @@ public class MvTest {
     */
     private static Mv mv;
 
-    private static Cd cd;
-
     @Before
     public void setup(){
         mv = new Mv();
-        cd = new Cd();
         fs = MockFileSystem.getMockFileSys("MOCKENV");
     }
 

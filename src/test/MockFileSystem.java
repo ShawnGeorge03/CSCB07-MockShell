@@ -192,6 +192,8 @@ public class MockFileSystem implements FileSystemI {
   public Node findFile(String filePath, boolean fileIsFolderNode) {
     String absolutePath = filePath.trim();
 
+    if(filePath.startsWith("//")) return null;
+    
     // If the given path is a relative path then make it a absolute path
     if (!filePath.startsWith("/")  && !fileIsFolderNode) {
       absolutePath = (getCurrentPath() + "/" + filePath).substring(1);
@@ -228,9 +230,6 @@ public class MockFileSystem implements FileSystemI {
       fileNode.setContent(fileNode.getContent() + "\n" + content);
     } else {
       String fileName = file.split("/")[file.split("/").length - 1];
-      if (fileName.contains("."))
-        fileName = fileName.substring(0, fileName.indexOf("."));
-
       if (isValidName(fileName)) {
         Node currentNode = getCurrent();
         String desiredPath = fileName;
@@ -258,9 +257,6 @@ public class MockFileSystem implements FileSystemI {
       fileNode.setContent(content);
     } else {
       String fileName = file.split("/")[file.split("/").length - 1];
-      if (fileName.contains("."))
-        fileName = fileName.substring(0, fileName.indexOf("."));
-
       if (isValidName(fileName)) {
         Node currentNode = getCurrent();
         String desiredPath = file;

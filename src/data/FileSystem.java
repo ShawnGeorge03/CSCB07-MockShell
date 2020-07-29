@@ -164,12 +164,14 @@ public class FileSystem implements FileSystemI{
   public Node findFile(String filePath, boolean fileIsFolderNode) {
     String absolutePath = filePath.trim();
 
+    if(filePath.startsWith("//")) return null;
+
     //If the given path is a relative path then make it a absolute path
     if(!filePath.startsWith("/") && !fileIsFolderNode){
       absolutePath = (getCurrentPath() + "/" + filePath).substring(1);
     }
 
-    if(!absolutePath.startsWith("/")) absolutePath = "/" + absolutePath;
+    //if(!absolutePath.startsWith("/")) absolutePath = "/" + absolutePath;
     //System.out.println("Absolute: " + absolutePath);
     //Grabs root directory
     Node current = getRoot();
@@ -206,9 +208,6 @@ public class FileSystem implements FileSystemI{
       fileNode.setContent(fileNode.getContent() + "\n" + content);
     }else{
       String fileName = file.split("/")[file.split("/").length-1];
-      if(fileName.contains(".")) 
-        fileName = fileName.substring(0, fileName.indexOf("."));
-      
       if(isValidName(fileName)){
         Node currentNode = getCurrent();
         String desiredPath = fileName;
@@ -238,9 +237,6 @@ public class FileSystem implements FileSystemI{
     }
     else{
       String fileName = file.split("/")[file.split("/").length-1];
-      if(fileName.contains(".")) 
-        fileName = fileName.substring(0, fileName.indexOf("."));
-
       if(isValidName(fileName)){
         Node currentNode = getCurrent();
         String desiredPath = file;
@@ -248,10 +244,10 @@ public class FileSystem implements FileSystemI{
           desiredPath = (getCurrentPath() + "/" + file).substring(1);
         }
         desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
-        System.out.println("Desired Path : " + desiredPath);
+        //System.out.println("Desired Path : " + desiredPath);
         Node parent;
         if(desiredPath.equals("")) {
-          System.out.println("Reached");
+          //System.out.println("Reached");
           parent = getRoot();
         }
         else parent = findFile(desiredPath,true); 

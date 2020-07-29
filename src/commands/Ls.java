@@ -66,7 +66,15 @@ public class Ls extends DirectoryManager implements CommandI {
    */
   public String run(FileSystemI filesys, String[] arguments, String fullInput, boolean val) {
 	String[] parsedArgs = redirect.setParams(filesys, fullInput);
-	if(parsedArgs != null) output = redirect.outputResult(filesys, runLs(filesys, parsedArgs));
+	if(parsedArgs != null){
+		output = redirect.outputResult(filesys, runLs(filesys, parsedArgs));
+	}else{
+		if (Arrays.asList(arguments).contains(">")) {
+			output = redirect.setFileName(arguments, ">");
+		  } else {
+			output = redirect.setFileName(arguments, ">>");
+		  }
+	} 
 	return output;
  }
 

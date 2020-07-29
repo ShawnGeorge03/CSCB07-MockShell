@@ -133,8 +133,6 @@ public class RedirectionManager {
 
         // If the user provided multiple file names return the error
         if (fileName.startsWith("Error")) {
-            // Print the error to the console
-            outputResult(fs, fileName);
             // Return no parameters
             return null;
         }
@@ -183,7 +181,7 @@ public class RedirectionManager {
             return null;
             // If the return was some sort of an Error prints the error out
         } else if (result.startsWith("Error")) {
-            return result.trim();
+            return result;
             // If the user want to overwrite a file with this new result
         } else if (mode.equals("O")) {
             fs.fileOverwrite(result, fileName);
@@ -199,7 +197,7 @@ public class RedirectionManager {
             // If the user chooses not to redirect the results to a file
         } else {
             // If the user is not using redirection at all
-            return result.trim();
+            return result;
         }
     }
 }

@@ -78,8 +78,8 @@ public class PwdTest {
         String[] emptyArr = {};
         fs.setCurrent(fs.games);
         expectedPath = null;
-        actualPath = pwd.run(fs,emptyArr, "pwd > A2", false);
-        assertTrue(expectedPath == actualPath && "/downloads/Games".equals(fs.findFile("A2", false).getContent()));
+        actualPath = pwd.run(fs,emptyArr, "pwd > /A2", false);
+        assertTrue(expectedPath == actualPath && "/downloads/Games".equals(fs.findFile("/A2", false).getContent()));
     }
 
 
