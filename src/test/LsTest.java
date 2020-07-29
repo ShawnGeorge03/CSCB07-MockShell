@@ -75,7 +75,7 @@ public class LsTest {
     public void TestFInvalidPath(){
         String[] input = {"falsepaths"};
         String actual = ls.run(fs, input, "ls falsepaths", false);
-        String expected = "Error: Invalid Directory : falsepaths is not a valid directory";
+        String expected = "Error: Invalid Directory : falsepaths is not a valid directory\n\n";
         System.out.println(actual);
         assertEquals(expected, actual);
     }
