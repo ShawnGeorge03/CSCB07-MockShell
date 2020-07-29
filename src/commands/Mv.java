@@ -28,7 +28,7 @@ public class Mv extends DirectoryManager implements CommandI{
 			return error.getError("Invalid Argument", "Expected 2 arguments");
 		}
 		
-		if (args.get(0).equals("\\")){
+		if (args.get(0).equals("/")){
 			return error.getError("Invalid Directory", "Cannot move the root directory");
 		}
 		
@@ -72,6 +72,10 @@ public class Mv extends DirectoryManager implements CommandI{
 						.setRoot(false).build();
 					toRemove = i;
 				}
+			}
+
+			if (toMove == null){
+				return error.getError("Directory Not Found", fileName + " does not exist in the path you specified!");
 			}
 
 			traverse.run(currentPath, filesys);
