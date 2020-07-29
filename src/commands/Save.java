@@ -10,10 +10,12 @@ public class Save implements CommandI{
   private String filePath;
   private ErrorHandler error;
   private String output;
+  private String fileContent;
   
   public Save(){
     this.error = new ErrorHandler();
     this.output = null;
+    this.fileContent = "";
   }
   
   /*
@@ -24,6 +26,12 @@ public class Save implements CommandI{
   
   @Override
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+    output = runSave(filesys, args, fullInput);
+    if(output.startsWith("Error :")) return output;
+    return fileContent;
+  }
+  
+  private String runSave(FileSystemI filesys, String[] args, String fullInput){
     if(args.length > 0) {
       filePath = formatArguments(args);
       validateFileName(filesys, fullInput);
@@ -51,7 +59,7 @@ public class Save implements CommandI{
     else output = error.getError("No parameters provided", fullInput);
     return output;
   }
-  
+
   private void validateFileName(FileSystemI filesys, String fullInput){
     if(!checkFileName(filePath, filesys)) {
       output = error.getError("Invalid File", fullInput);
@@ -104,6 +112,7 @@ public class Save implements CommandI{
       for(int i = 0; i < depth; i++) {
         result += "\t";
       }
+      fileContent += result + "\"" + current.getName() + "\"\n";
       writer.write(result + "\"" + current.getName() + "\"\n");
     } catch (IOException e) {
       e.printStackTrace();
@@ -112,12 +121,18 @@ public class Save implements CommandI{
   
   private void addNodeInformationToFile(Node current, FileWriter writer, int depth) {
     try {
+      fileContent += "\t\"name\" : \"" + current.getName() + "\"\n";
+      fileContent += "\t\"isDir\" : \"" + current.getisDir() + "\"\n";
       writer.write("\t\"name\" : \"" + current.getName() + "\"\n");
       writer.write("\t\"isDir\" : \"" + current.getisDir() + "\"\n");
-      if(current.getParent() != null)
+      if(current.getParent() != null){
+        fileContent += "\t\"parent\" : \"" + current.getParent().getName() + "\"\n";
         writer.write("\t\"parent\" : \"" + current.getParent().getName() + "\"\n");
-      else
+      }
+      else{
+        fileContent += "\t\"parent\" : \"null\"\n";
         writer.write("\t\"parent\" : \"null\"\n");
+      }
       writer.write("\t\"content\" : \"" + current.getContent() + "\"\n\n");
     } catch (IOException e) {
       e.printStackTrace();
@@ -127,6 +142,7 @@ public class Save implements CommandI{
   private void storeCommandHistoryToFile(FileWriter writer, FileSystemI filesys) {
     for(int i = 0; i < filesys.getCommandLog().size(); i++) {
       try {
+        fileContent += "\t\"" + filesys.getCommandLog().get(i) + "\"\n";
         writer.write("\t\"" + filesys.getCommandLog().get(i) + "\"\n");
       } catch (IOException e) {
         e.printStackTrace();

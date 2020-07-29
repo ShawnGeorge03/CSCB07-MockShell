@@ -42,8 +42,12 @@ public class Echo extends FileManager implements CommandI {
   /** Declare instance variable of String to hold the output that will be returned */
   String output = "";
   String properArgument = "";
-  private RedirectionManager redirect = new RedirectionManager();
+  private RedirectionManager redirect;
   
+  public Echo(){
+    this.redirect = new RedirectionManager();
+  }
+
   /**
    * Main run method that checks if the user had inputted any arguments to the command. It splices the
    * input so that it can send parsed data to the appropriate implementation of echo. Calls the
