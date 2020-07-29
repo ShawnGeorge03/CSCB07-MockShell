@@ -46,12 +46,15 @@ public class Ls extends DirectoryManager implements CommandI {
    * Declare instance variable of ErrorHandler to handle error messages
    */
   private ErrorHandler error;
+  private RedirectionManager redirect;
+  private String output;
 
   /**
    * Constructor for Ls to initialize error
    */
   public Ls() {
-    this.error = new ErrorHandler();
+	this.error = new ErrorHandler();
+	this.redirect = new RedirectionManager();
   }
 
   /**
@@ -62,6 +65,12 @@ public class Ls extends DirectoryManager implements CommandI {
    * @return null always
    */
   public String run(FileSystemI filesys, String[] arguments, String fullInput, boolean val) {
+	String[] parsedArgs = redirect.setParams(filesys, fullInput);
+	if(parsedArgs != null) output = redirect.outputResult(filesys, runLs(filesys, parsedArgs));
+	return output;
+ }
+
+ private String runLs(FileSystemI filesys, String[] arguments){
 	this.args = new ArrayList<String>(Arrays.asList(arguments));
 	if (args.size() == 0){
 		return unrecursiveMode(filesys);
@@ -71,9 +80,7 @@ public class Ls extends DirectoryManager implements CommandI {
 	 } else{
 		 return recursiveMode(filesys);
 	 }
-
  }
-
 
 public String unrecursiveMode(FileSystemI filesys) {
 	String output = "";
