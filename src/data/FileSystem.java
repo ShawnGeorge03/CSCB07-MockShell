@@ -165,7 +165,7 @@ public class FileSystem implements FileSystemI{
     String absolutePath = filePath.trim();
 
     //If the given path is a relative path then make it a absolute path
-    if(!filePath.startsWith("/")){
+    if(!filePath.startsWith("/") && !fileIsFolderNode){
       absolutePath = (getCurrentPath() + "/" + filePath).substring(1);
     }
 
@@ -216,6 +216,7 @@ public class FileSystem implements FileSystemI{
           desiredPath = (getCurrentPath() + "/" + file).substring(1);
         }
         desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
+        
         Node parent;
         if(desiredPath.equals("")) parent = getRoot();
         else parent = findFile(desiredPath,true); 
@@ -243,12 +244,16 @@ public class FileSystem implements FileSystemI{
       if(isValidName(fileName)){
         Node currentNode = getCurrent();
         String desiredPath = file;
-        if(!file.startsWith("/")){
+        if(!desiredPath.startsWith("/")){
           desiredPath = (getCurrentPath() + "/" + file).substring(1);
         }
         desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
+        System.out.println("Desired Path : " + desiredPath);
         Node parent;
-        if(desiredPath.equals("")) parent = getRoot();
+        if(desiredPath.equals("")) {
+          System.out.println("Reached");
+          parent = getRoot();
+        }
         else parent = findFile(desiredPath,true); 
         assignCurrent(parent);
         fileNode = new Node.Builder(false, fileName)

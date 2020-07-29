@@ -193,7 +193,7 @@ public class MockFileSystem implements FileSystemI {
     String absolutePath = filePath.trim();
 
     // If the given path is a relative path then make it a absolute path
-    if (!filePath.startsWith("/")) {
+    if (!filePath.startsWith("/")  && !fileIsFolderNode) {
       absolutePath = (getCurrentPath() + "/" + filePath).substring(1);
     }
     // Grabs root directory
