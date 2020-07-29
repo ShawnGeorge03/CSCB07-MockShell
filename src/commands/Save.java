@@ -27,8 +27,11 @@ public class Save implements CommandI{
   @Override
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     output = runSave(filesys, args, fullInput);
-    if(output.startsWith("Error :")) return output;
-    return fileContent;
+    if(output != null){
+      if(output.startsWith("Error:") || output.startsWith("Error :")) return output;
+    }
+    //System.out.println(output);
+    return fileContent.trim();
   }
   
   private String runSave(FileSystemI filesys, String[] args, String fullInput){
@@ -42,11 +45,11 @@ public class Save implements CommandI{
         writer.write("NODES\n{\n");
         storeNodeInformation(writer, filesys);
         writer.write("}");
-        
+        fileContent += "\n";
         writer.write("\n\nFILESYSTEM\n{\n");
         storeFileSystem(writer, filesys);
         writer.write("}");
-             
+        fileContent += "\n";
         writer.write("\n\nCOMMAND LOG\n{\n");
         storeCommandHistoryToFile(writer, filesys);
         writer.write("}");
@@ -62,11 +65,11 @@ public class Save implements CommandI{
 
   private void validateFileName(FileSystemI filesys, String fullInput){
     if(!checkFileName(filePath, filesys)) {
-      output = error.getError("Invalid File", fullInput);
+      output = error.getError("Invalid File", filePath);
     }
     if(filePath.contains(".")){
       if(!filePath.substring(filePath.length()-5, filePath.length()).equals(".json")) {
-        output = error.getError("Invalid File", fullInput);
+        output = error.getError("Invalid File", filePath);
       }
     }
     else filePath += ".json";
