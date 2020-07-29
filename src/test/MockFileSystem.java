@@ -33,6 +33,8 @@ public class MockFileSystem implements FileSystemI {
   Node user1;
   Node user2;
   Node documents;
+  Node journal;
+  Node week1;
   Node downloads;
   Node homework;
   Node games;
@@ -80,6 +82,10 @@ public class MockFileSystem implements FileSystemI {
       documents.getList().add(doc1);
       Node doc2 = new Node.Builder(false, "txttwo").setParent(documents).setContent("this is a document 2").build();
       documents.getList().add(doc2);
+      journal = new Node.Builder(true, "journal").setParent(documents).build();
+      documents.getList().add(journal);
+      week1 = new Node.Builder(true, "week1").setParent(journal).build();
+      journal.getList().add(week1);
 
       downloads = new Node.Builder(true, "downloads").setParent(root).build();
       root.getList().add(downloads);
