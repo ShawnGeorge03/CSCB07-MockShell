@@ -57,15 +57,12 @@ public class FileSystem implements FileSystemI{
   Node root;
   Node current;
 
-  private ArrayList<String> path;
-
   /**
    * Constructor for FileSystem to set root default values
    */
   private FileSystem() {
     CommandLog = new ArrayList<String>();
     stack = new ArrayDeque<String>();
-    path = new ArrayList<String>();
     root = new Node.Builder(true, "/").setRoot(true).setParent(null).build();
     current = root;
   }
@@ -142,31 +139,6 @@ public class FileSystem implements FileSystemI{
    * 
    * @return the path to the current directory
    */
-  /*public String getCurrentPath() {
-    String output = "";
-    Node current = fileSys.getCurrent();
-
-    if (current.equals(fileSys.getRoot())) {
-      return fileSys.getRoot().getName();
-    }
-
-    path.add(current.getName());
-    while (current != fileSys.getRoot()) {
-      current = current.getParent();
-      path.add(current.getName());
-    }
-
-    int pathLength = path.size();
-    while (pathLength > 0) {
-      output = output.concat(path.get(pathLength - 1) + "/");
-      pathLength--;
-    }
-
-    path.clear();
-
-    return output.substring(1, output.length() - 1);
-  }*/
-
   public String getCurrentPath() { 
     //Grabs the current directory
     Node current = getCurrent();
@@ -185,7 +157,6 @@ public class FileSystem implements FileSystemI{
     }
     //Return the final absolute path
     return currentPath;
-
   }
 
   @Override

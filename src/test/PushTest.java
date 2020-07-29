@@ -64,7 +64,7 @@ public class PushTest {
     @Test
     public void testARelativePath() {
         String[] path = {"users/desktop"};
-        String output = push.run(fs,path, "pushd users/desktop", false);
+        push.run(fs,path, "pushd users/desktop", false);
 
         int expected = 2;
         int actual = fs.getStack().size();
@@ -74,7 +74,7 @@ public class PushTest {
     @Test
     public void testBAbsolutePath() {
         String[] path = {"//Sys/IO/keyboard"};
-        String output = push.run(fs,path, "pushd /Sys/IO/keyboard", false);
+        push.run(fs,path, "pushd /Sys/IO/keyboard", false);
 
         int expected = 2;
         int actual = fs.getStack().size();

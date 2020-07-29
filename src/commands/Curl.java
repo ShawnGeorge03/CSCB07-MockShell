@@ -84,7 +84,7 @@ public class Curl implements CommandI {
     //If the user provides more than one URL
     }else if(args.length > 1) {
       //Returns an error when more than one URL is provided
-      return errorManager.getError("Mulptile parameters provided", Arrays.toString(args));
+      return errorManager.getError("Multiple parameters provided", Arrays.toString(args));
     //If the user provides one URL
     } else {
       try {

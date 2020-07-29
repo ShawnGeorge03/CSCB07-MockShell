@@ -2,13 +2,11 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.Console;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import commands.Cd;
-import commands.Ls;
 import commands.Rm;
 
 public class RmTest {

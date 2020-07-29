@@ -49,7 +49,8 @@ public class History implements CommandI {
   private RedirectionManager redirect;
 
   /**
-   * Declare instance variable of String to contain the output that the command may return
+   * Declare instance variable of String to contain the output that the command
+   * may return
    */
   String output;
 
@@ -65,23 +66,38 @@ public class History implements CommandI {
     this.output = "";
   }
 
-
+  /**
+   * Runs the history command and figures out if redirection is required
+   * 
+   * @param fs        the refrence to the file system(FileSystem/MockFileSystem)
+   * @param args      the string array that contains given arguments
+   * @param fullInput the string that contains the raw input given to JShell
+   * @param val       stores a boolean value
+   * 
+   * @return the error message if there is any or null
+   */
   public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
-    String[] arguments =  redirect.setParams(fs, fullInput);
-    if(arguments != null)
-      output = redirect.outputResult(fs, runHistory(arguments, fs));    
+    String[] arguments = redirect.setParams(fs, fullInput);
+    if (arguments != null) {
+      output = redirect.outputResult(fs, runHistory(arguments, fs));
+    } else {
+      if (Arrays.asList(args).contains(">")) {
+        output = redirect.setFileName(args, ">");
+      } else {
+        output = redirect.setFileName(args, ">>");
+      }
+    }
     return output;
   }
 
-    /**
+  /**
    * Parses input and then calls print method to print history
    * 
-   * @param args  the string array that contains given arguments
-   * @param fullInput  the string that contains the raw input given to JShell
-   * @param val  stores a boolean value
+   * @param param  holds the x last commands
+   * @param fs     the refrence to teh file system
    * @return the error message if there is any or the actual history
    */
-  private String runHistory(String[] params, FileSystemI fs){
+  private String runHistory(String[] params, FileSystemI fs) {
     // If the user provides no arguments
     if (params.length == 0) {
       // Calls the following methods to print the entire history
@@ -110,29 +126,31 @@ public class History implements CommandI {
         printLastXCommands(fs, number);
       } else {
         // Sets an error of Invalid Argument to be returned to the user
-        output = error.getError("Invalid Argument",
-        params[0] + " is not either a number or positive or an integer");
+        output = error.getError("Invalid Argument", params[0] + " is not either a number or positive or an integer");
       }
       // If the user provided multiple arguments
     } else if (params.length > 1) {
 
       // Collects the user input from the fullInput
       String parameter = Arrays.toString(params);
-      parameter = parameter.substring(1, parameter.length() - 1).
-          replace(",", "").trim();
+      parameter = parameter.substring(1, parameter.length() - 1).replace(",", "").trim();
       // Returns an error of Mulptile parameters provided
-      output = error.getError("Multiple parameters provided",
-          parameter + " , either one or no input");      
+      output = error.getError("Multiple parameters provided", parameter + " , either one or no input");
     }
 
     // Returns the valid output for the user input
     return output.trim();
-
   }
 
+  /**
+   * Reads the command log and returns the result of x last commands
+   * 
+   * @param fs the refrence to the file system
+   * @param x number of last commands to be read
+   */
   private void printLastXCommands(FileSystemI fs, int x) {
     // Reads and stores the commands from the CommandLod in FileSystem
-    for (int i = fs.getCommandLog().size() - x; i < fs.getCommandLog().size() ; i++) {
+    for (int i = fs.getCommandLog().size() - x; i < fs.getCommandLog().size(); i++) {
       // If the counter is a negative number
       if (i < 0) {
         // Skips from reading the commandLog

@@ -36,7 +36,7 @@ public class HistoryTest {
   @Before
   public void setUp() throws Exception {
     // Gets a specific preset FileSystem
-    fs = MockFileSystem.getMockFileSys("EMPTYSYS");
+    fs = MockFileSystem.getMockFileSys("MOCKENV");
     // Initializes a History object
     history = new History();
 
@@ -179,6 +179,9 @@ public class HistoryTest {
     assertEquals(expected, actual);
   }
 
+  /**
+   * Test H : User overwrites a file with result
+   */
   @Test
   public void testHRedirectionOverwrite(){
     //Add the command to the history stack
@@ -186,23 +189,53 @@ public class HistoryTest {
     //Actual return from History after the operation has been run
     actual = history.run(fs, "1 > test".split(" "), "history 1 > test", false);
     //Expected return from History
-    expected = "history 1 > test";
+    expected = "7. history 1 > test";
     //Checks if the values are equal or not
     assertEquals(expected, fs.findFile("test", false).getContent());
   }
 
+  /**
+   * Test I : User appends the result to a file
+   */
   @Test
   public void testIRedirectionAppend(){
-
+    //Add the command to the history stack
+    fs.getCommandLog().add("history 1 >> file");
+    //Actual return from History after the operation has been run
+    actual = history.run(fs, "1 >> A2".split(" "), "history 1 >> A2", false);
+    //Expected return from History
+    expected = "Wow what a project\n7. history 1 >> file";
+    //Checks if the values are equal or not
+    assertEquals(expected, fs.findFile("A2", false).getContent());
   }
 
+  /**
+   * Test J : User does not provide a folder for redirection
+   */
   @Test
   public void testJRedirectionErrorCase1(){
-
+    //Add the command to the history stack
+    fs.getCommandLog().add("history 1 >");
+    //Actual return from History after the operation has been run
+    actual = history.run(fs, "1 >".split(" "), "history 1 >", false);
+    //Expected return from History
+    expected = "Error : No parameters provided : ";
+    //Checks if the values are equal or not
+    assertEquals(expected, actual);
   }
 
+  /**
+   * Test K : User provides multiple folders
+   */
   @Test
   public void testKRedirectionErrorCase2(){
-
+    //Add the command to the history stack
+    fs.getCommandLog().add("history 1 > lol plz work");
+    //Actual return from History after the operation has been run
+    actual = history.run(fs, "1 > lol plz work".split(" "), "history 1 > lol plz work", false);
+    //Expected return from History
+    expected = "Error : Multiple Parameters have been provided : 1 > lol plz work Only one is required";
+    //Checks if the values are equal or not
+    assertEquals(expected, actual);
   }
 }

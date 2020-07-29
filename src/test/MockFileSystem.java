@@ -38,9 +38,20 @@ public class MockFileSystem implements FileSystemI {
     current = root;
     if (type.equals("MOCKENV")) {
 
+      //Please leave as is -> Current Mock File Structure
       /**
-       * \ users skeshavaa guest documents txtone.txt txttwo.txt downloads homework
-       * HW8 Games A2.txt
+       * \ 
+       *  users 
+       *    skeshavaa 
+       *    guest 
+       *  documents 
+       *    txtone 
+       *    txttwo 
+       * downloads 
+       *    homework
+       *      HW8 
+       *    Games 
+       * A2
        */
 
       Node A2 = new Node.Builder(false, "A2").setParent(root).setContent("Wow what a project").build();
@@ -141,28 +152,23 @@ public class MockFileSystem implements FileSystemI {
    * @return the path to the current directory
    */
   public String getCurrentPath() {
-    String output = "";
+    // Grabs the current directory
     Node current = getCurrent();
+    // Grabs the parent of the current directory
+    Node parent = current.getParent();
 
-    if (current.equals(getRoot())) {
-      return getRoot().getName();
+    // If we are in the root folder
+    if (parent == null)
+      return current.getName();
+    // Create the absolute path
+    String currentPath = parent.getName() + "/" + current.getName();
+    parent = parent.getParent();
+    while (parent != null) {
+      currentPath = parent.getName() + "/" + currentPath;
+      parent = parent.getParent();
     }
-
-    path.add(current.getName());
-    while (current != getRoot()) {
-      current = current.getParent();
-      path.add(current.getName());
-    }
-
-    int pathLength = path.size();
-    while (pathLength > 0) {
-      output = output.concat(path.get(pathLength - 1) + "/");
-      pathLength--;
-    }
-
-    path.clear();
-
-    return output.substring(1, output.length() - 1);
+    // Return the final absolute path
+    return currentPath;
   }
 
   @Override
