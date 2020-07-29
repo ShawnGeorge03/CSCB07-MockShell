@@ -178,6 +178,7 @@ public class MockFileSystem implements FileSystemI {
       parent = parent.getParent();
     }
     // Return the final absolute path
+    if(currentPath.startsWith("//")) return currentPath.substring(1);
     return currentPath;
   }
 
