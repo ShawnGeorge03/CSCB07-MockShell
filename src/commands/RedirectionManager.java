@@ -168,8 +168,8 @@ public class RedirectionManager {
             // If the user provided multiple file names
         } else if (fileName.length > 1) {
             // Converts the array to String
-            String parameter = Arrays.toString(params);
-            parameter = parameter.substring(1, parameter.length() - 1).replace(",", "").trim();
+            String parameter = Arrays.toString(fileName);
+            parameter = parameter.substring(0, parameter.length()).trim();
             // Sends the error message instead of a fileName
             return errorManager.getError("Multiple parameters provided", parameter + " Only one is required");
         }

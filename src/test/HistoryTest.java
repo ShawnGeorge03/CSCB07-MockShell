@@ -234,7 +234,7 @@ public class HistoryTest {
     //Actual return from History after the operation has been run
     actual = history.run(fs, "1 > lol plz work".split(" "), "history 1 > lol plz work", false);
     //Expected return from History
-    expected = "Error : Multiple Parameters have been provided : 1 > lol plz work Only one is required";
+    expected = "Error : Multiple Parameters have been provided : [lol, plz, work] Only one is required";
     //Checks if the values are equal or not
     assertEquals(expected, actual);
   }

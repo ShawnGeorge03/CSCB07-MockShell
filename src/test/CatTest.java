@@ -151,4 +151,59 @@ public class CatTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Test H : User chooses to overwrite contents of a file with the results
+     */
+    @Test
+    public void testHRedirectionOverwrite(){
+        //Expected return from Cat
+        expected =  "2+2=5" + "\n" + "\n" + "\n" + "Error: File Not Found : LOL"
+                + "\n" + "\n" + "\n" + "this is a document 2";
+        //Actual return from Cat after the operation has been run
+        actual = cat.run(fs, "downloads/homework/HW8 LOL /documents/txttwo > /A2".split(" "), 
+                "cat downloads/homework/HW8 LOL /documents/txttwo > /A2", false);
+        //Checks if the values are equal or not
+        assertEquals(expected, fs.findFile("A2", false).getContent());
+    }
+
+    /**
+     * Test I : User chooses to append the result to the contents of a file
+     */
+    @Test  
+    public void testIRedirectionAppend(){
+        //Expected return from Cat
+        expected =  "2+2=5" + "\n" + "\n" + "\n" + "Error: File Not Found : LOL"
+                + "\n" + "\n" + "\n" + "this is a document 2";
+        //Actual return from Cat after the operation has been run
+        actual = cat.run(fs, "downloads/homework/HW8 LOL /documents/txttwo > downloads/homework/HW8".split(" "), 
+                "cat downloads/homework/HW8 LOL /documents/txttwo > downloads/homework/HW8", false);
+        //Checks if the values are equal or not
+        assertEquals(expected, fs.findFile("downloads/homework/HW8", false).getContent());
+    }
+
+    /**
+     * Test J : User provides no files for the redirection
+     */
+    @Test
+    public void testJRedirectionErrorCase1(){
+        //Expected return from Cat
+        expected = "Error : No parameters provided : ";
+        //Actual return from Cat after the operation has been run
+        actual = cat.run(fs, "args >".split(" "), "cat args >", false);
+        //Checks if the values are equal or not
+        assertEquals(expected, actual);       
+    }
+
+    /**
+     * Test K : User provides multiple files for the redirection
+     */
+    @Test
+    public void testKRedirectionErrorCase2(){
+        //Expected return from Cat
+        expected = "Error : Multiple Parameters have been provided : [LOL, zip] Only one is required";
+        //Actual return from Cat after the operation has been run
+        actual = cat.run(fs, "args > LOL zip".split(" "), "cat args >", false);
+        //Checks if the values are equal or not
+        assertEquals(expected, actual);   
+    }
 }

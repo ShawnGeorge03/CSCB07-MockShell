@@ -29,6 +29,8 @@
 // *********************************************************
 package commands;
 
+import java.util.Arrays;
+
 import data.FileSystemI;
 
 /**
@@ -57,8 +59,11 @@ public class Echo extends FileManager implements CommandI {
     if(arguments != null)
       output = redirect.outputResult(filesys, runEcho(arguments));    
     else{
-      String fileName = redirect.setFileName(args, args[args.length-1]);
-      output = fileName;
+      if (Arrays.asList(args).contains(">")) {
+        output = redirect.setFileName(args, ">");
+      } else {
+        output = redirect.setFileName(args, ">>");
+      }
     }
 
     return output;

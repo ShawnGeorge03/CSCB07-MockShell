@@ -24,13 +24,23 @@ public class MockFileSystem implements FileSystemI {
   private static Deque<String> stack;
 
   /**
-   * Initialize current and root nodes
+   * Initialize the directory nodes
    */
+
   Node root;
   Node current;
+  Node users;
+  Node user1;
+  Node user2;
+  Node documents;
+  Node downloads;
+  Node homework;
+  Node games;
 
-  private ArrayList<String> path;
-
+  public void setCurrent(Node newCurrent){
+    this.current = newCurrent;
+  }
+  
   private MockFileSystem(String type) {
     CommandLog = new ArrayList<String>();
     stack = new ArrayDeque<String>();
@@ -57,27 +67,27 @@ public class MockFileSystem implements FileSystemI {
       Node A2 = new Node.Builder(false, "A2").setParent(root).setContent("Wow what a project").build();
       root.getList().add(A2);
 
-      Node users = new Node.Builder(true, "users").setParent(root).build();
+      users = new Node.Builder(true, "users").setParent(root).build();
       root.getList().add(users);
-      Node user1 = new Node.Builder(true, "skeshavaa").setParent(users).build();
+      user1 = new Node.Builder(true, "skeshavaa").setParent(users).build();
       users.getList().add(user1);
-      Node user2 = new Node.Builder(true, "guest").setParent(users).build();
+      user2 = new Node.Builder(true, "guest").setParent(users).build();
       users.getList().add(user2);
 
-      Node documents = new Node.Builder(true, "documents").setParent(root).build();
+      documents = new Node.Builder(true, "documents").setParent(root).build();
       root.getList().add(documents);
       Node doc1 = new Node.Builder(false, "txtone").setParent(documents).setContent("this is a document").build();
       documents.getList().add(doc1);
       Node doc2 = new Node.Builder(false, "txttwo").setParent(documents).setContent("this is a document 2").build();
       documents.getList().add(doc2);
 
-      Node downloads = new Node.Builder(true, "downloads").setParent(root).build();
+      downloads = new Node.Builder(true, "downloads").setParent(root).build();
       root.getList().add(downloads);
-      Node homework = new Node.Builder(true, "homework").setParent(downloads).build();
+      homework = new Node.Builder(true, "homework").setParent(downloads).build();
       downloads.getList().add(homework);
       Node hw8 = new Node.Builder(false, "HW8").setParent(homework).setContent("2+2=5").build();
       homework.getList().add(hw8);
-      Node games = new Node.Builder(true, "Games").setParent(downloads).build();
+      games = new Node.Builder(true, "Games").setParent(downloads).build();
       downloads.getList().add(games);
     }
   }

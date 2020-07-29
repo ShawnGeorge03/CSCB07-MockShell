@@ -5,45 +5,26 @@ import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 
-import commands.Cd;
-import commands.Mkdir;
 import commands.Pwd;
-import data.FileSystem;
 
 import java.lang.reflect.Field;
 
 public class PwdTest {
 
-    private static FileSystem fs;
-    private static Cd cd;
-    private static Mkdir mkdir;
+    private static MockFileSystem fs;
     private static Pwd pwd;
 
-    private static String expectedPath;
-    private static String actualPath;
-
+    private static String expectedPath, actualPath;
 
     @Before
     public void setup() throws Exception{
-        fs = FileSystem.getFileSys();
-        cd = new Cd();
-        mkdir = new Mkdir();
+        fs = MockFileSystem.getMockFileSys("MOCKENV");
         pwd = new Pwd();
-
-        expectedPath = "";
-        actualPath = "";
-
-        mkdir.MakeDirectory("/users".split(" "),fs);
-        mkdir.MakeDirectory("/users/desktop".split(" "),fs);
-        mkdir.MakeDirectory("/Sys".split(" "),fs);
-        mkdir.MakeDirectory("/Sys/IO".split(" "),fs);
-        mkdir.MakeDirectory("/Sys/IO/keyboard".split(" "),fs);
-        mkdir.MakeDirectory("/Sys/IO/Mouse".split(" "),fs);
     }
 
     @After
     public void tearDown() throws Exception {
-        Field feild = fs.getClass().getDeclaredField("fileSys");
+        Field feild = fs.getClass().getDeclaredField("filesys");
         feild.setAccessible(true);
         feild.set(null, null);
     } 
@@ -60,8 +41,8 @@ public class PwdTest {
     @Test
     public void testBChangeDirectoryRelative(){
         String[] emptyArr = {};
+        fs.setCurrent(fs.users);
         expectedPath = "/users";
-        cd.run(fs,expectedPath.split(" "), "cd " + expectedPath, false);
         actualPath = pwd.run(fs,emptyArr, "pwd", false);
         assertEquals(expectedPath, actualPath);
     }
@@ -69,8 +50,8 @@ public class PwdTest {
     @Test
     public void testCChangeDirectoryAbsolute(){
         String[] emptyArr = {};
-        expectedPath = "/Sys/IO/keyboard";
-        cd.run(fs,expectedPath.split(" "), "cd " + expectedPath, false);
+        fs.setCurrent(fs.homework);
+        expectedPath = "/downloads/homework";
         actualPath = pwd.run(fs,emptyArr, "pwd", false);
         assertEquals(expectedPath, actualPath);
     }
@@ -78,8 +59,8 @@ public class PwdTest {
     @Test
     public void testDChangeToRoot(){
         String[] emptyArr = {};
+        fs.setCurrent(fs.root);
         expectedPath = "/";
-        cd.run(fs,expectedPath.split(" "), "cd " + expectedPath, false);
         actualPath = pwd.run(fs,emptyArr, "pwd", false);
         assertEquals(expectedPath, actualPath);
     }
@@ -91,5 +72,42 @@ public class PwdTest {
         actualPath = pwd.run(fs,argsArr, "pwd /Sys/IO /users", false);
         assertEquals(expectedPath, actualPath);
     }
+
+    @Test
+    public void testFOverwriteToFile(){
+        String[] emptyArr = {};
+        fs.setCurrent(fs.games);
+        expectedPath = null;
+        actualPath = pwd.run(fs,emptyArr, "pwd > A2", false);
+        assertTrue(expectedPath == actualPath && "/downloads/Games".equals(fs.findFile("A2", false).getContent()));
+    }
+
+
+    @Test
+    public void testGAppendToFile(){
+        String[] emptyArr = {};
+        fs.setCurrent(fs.games);
+        expectedPath = null;
+        actualPath = pwd.run(fs,emptyArr, "pwd >> /A2", false);
+        assertTrue(expectedPath == actualPath && 
+            "Wow what a project\n/downloads/Games".equals(fs.findFile("/A2", false).getContent()));
+    }
+
+    @Test
+    public void testRedirectionErrorCase1(){
+        String[] emptyArr = {};
+        expectedPath = "Error : No parameters provided : ";
+        actualPath = pwd.run(fs,emptyArr, "pwd >>", false);
+        assertEquals(expectedPath, actualPath);
+    }
+
+    @Test
+    public void testRedirectionErrorCase2(){
+        expectedPath = "Error : Multiple Parameters have been provided : [lol, plz, work] Only one is required";
+        actualPath = pwd.run(fs,">> lol plz work".split(" "), "pwd >> lol plz work", false);
+        assertEquals(expectedPath, actualPath);
+    }
+
+
     
 }
