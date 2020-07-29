@@ -169,6 +169,7 @@ public class FileSystem implements FileSystemI{
       absolutePath = (getCurrentPath() + "/" + filePath).substring(1);
     }
 
+    if(!absolutePath.startsWith("/")) absolutePath = "/" + absolutePath;
     //System.out.println("Absolute: " + absolutePath);
     //Grabs root directory
     Node current = getRoot();

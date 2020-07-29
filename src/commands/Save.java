@@ -100,11 +100,11 @@ public class Save implements CommandI{
   
   private void addNodeNameToFile(Node current, FileWriter writer, int depth) {
     try {
-      String output = "";
+      String result = "";
       for(int i = 0; i < depth; i++) {
-        output += "\t";
+        result += "\t";
       }
-      writer.write(output + "\"" + current.getName() + "\"\n");
+      writer.write(result + "\"" + current.getName() + "\"\n");
     } catch (IOException e) {
       e.printStackTrace();
     }
