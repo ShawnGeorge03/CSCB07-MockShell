@@ -25,16 +25,16 @@ public class LsTest {
     }
 
     @Test
-    public void TestANoArgs(){
+    public void testANoArgs(){
         String[] input = {};
         String actual = ls.run(fs, input, "ls", false);
-        String expected = "A2\nusers\ndocuments\ndownloads\n";
+        String expected = "A2\ndesktop\nusers\ndocuments\ndownloads\n";
         System.out.println(fs.getCurrentPath());
         assertEquals(expected, actual);
     }
 
     @Test
-    public void TestARelativePath(){
+    public void testBRelativePath(){
         String[] input = {"users"};
         String actual = ls.run(fs, input, "ls users", false);
         String expected = "Path: /users\nskeshavaa\nguest\n\n";
@@ -42,10 +42,10 @@ public class LsTest {
     }
 
     @Test
-    public void TestCAbsolutePath(){
+    public void testCAbsolutePath(){
         String[] input = {"/documents"};
         String actual = ls.run(fs, input, "ls /documents", false);
-        String expected = "Path: /documents\ntxtone\ntxttwo\n\n";
+        String expected = "Path: /documents\ntxtone\ntxttwo\njournal\n\n";
         assertEquals(expected, actual);
     }
 
@@ -53,10 +53,10 @@ public class LsTest {
     public void TestDRecurisveMode(){
         String[] input = {"-R"};
         String actual = ls.run(fs, input, "ls -R", false);
-        String expected = "Path: /\nA2\nusers\ndocuments\ndownloads\n\nPath: "
+        String expected = "Path: /\nA2\ndesktop\nusers\ndocuments\ndownloads\n\nPath: /desktop\n\nPath: "
                                 + "/users\nskeshavaa\nguest\n\nPath: /users/skeshavaa"
                                 + "\n\nPath: /users/guest\n\nPath: /documents\ntxtone"
-                                + "\ntxttwo\n\nPath: /downloads\nhomework\nGames\n\nPath: /downloads/homework"
+                                + "\ntxttwo\njournal\n\nPath: /documents/journal\nweek1\n\nPath: /documents/journal/week1\n\nPath: /downloads\nhomework\nGames\n\nPath: /downloads/homework"
                                 + "\nHW8\n\nPath: /downloads/Games\n\n";
         System.out.println(actual);
         System.out.println(expected);
@@ -67,7 +67,7 @@ public class LsTest {
     public void TestEMultiplePaths(){
         String[] input = {"users", "documents"};
         String actual = ls.run(fs, input, "ls users documents", false);
-        String expected = "Path: /users\nskeshavaa\nguest\n\nPath: /documents\ntxtone\ntxttwo\n\n";
+        String expected = "Path: /users\nskeshavaa\nguest\n\nPath: /documents\ntxtone\ntxttwo\njournal\n\n";
         assertEquals(expected, actual);
     }
 
