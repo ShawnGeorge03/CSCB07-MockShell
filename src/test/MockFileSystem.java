@@ -60,12 +60,12 @@ public class MockFileSystem implements FileSystemI {
        *  documents 
        *    txtone 
        *    txttwo 
-       * downloads 
+       *  downloads 
        *    homework
        *      HW8 
        *    Games 
-       * A2
-       * desktop
+       *  A2
+       *  desktop
        */
 
       Node A2 = new Node.Builder(false, "A2").setParent(root).setContent("Wow what a project").build();
@@ -196,59 +196,69 @@ public class MockFileSystem implements FileSystemI {
   @Override
   public Node findFile(String filePath, boolean fileIsFolderNode) {
     String absolutePath = filePath.trim();
-
+    //System.out.println("Absolute before " + absolutePath);
     if(filePath.startsWith("//")) return null;
-    
-    // If the given path is a relative path then make it a absolute path
-    if (!filePath.startsWith("/")  && !fileIsFolderNode) {
-      absolutePath = (getCurrentPath() + "/" + filePath).substring(1);
+
+    if(getCurrent().getName().equals(filePath)) return getCurrent();
+    //If the given path is a relative path then make it a absolute path
+    if(!filePath.startsWith("/")){
+      if(getCurrent() != getRoot()) absolutePath = (getCurrentPath() + "/" + filePath);
+      else absolutePath = getCurrentPath() + filePath;
     }
-    // Grabs root directory
+
+    //if(!absolutePath.startsWith("/")) absolutePath = "/" + absolutePath;
+    //System.out.println("Absolute: " + absolutePath);
+    //Grabs root directory
     Node current = getRoot();
-    // Splits the absolutePath into the individual folders
+    //Splits the absolutePath into the individual folders
     String[] directories = absolutePath.split("/");
 
-    // Loops through the directories array
+    //Loops through the directories array
     for (int i = 1; i < directories.length; i++) {
-      // Loops through the ArrayList of directories
+      //System.out.println("Directory : " + directories[i]);
+      //Loops through the ArrayList of directories
       for (int j = 0; j < current.getList().size(); j++) {
-        // If the folder matches the one we need then return it
+        //System.out.println("Current : " + current.getList().get(j).getName());
+        //If the folder matches the one we need then return it
         if (current.getList().get(j).getName().equals(directories[i])) {
-          if ((i + 1) == directories.length) {
-            if (fileIsFolderNode == current.getList().get(j).getisDir()) {
+          if((i+1) == directories.length){
+            if(fileIsFolderNode == current.getList().get(j).getisDir()){
               current = current.getList().get(j);
               return current;
             }
-          } else {
+          }
+          else{
             current = current.getList().get(j);
           }
         }
       }
     }
-    return null;
+    return null;  
   }
 
   @Override
   public void fileAppend(String content, String file) {
     Node fileNode = findFile(file, false);
-    if (fileNode != null) {
+    if(fileNode != null){
       fileNode.setContent(fileNode.getContent() + "\n" + content);
-    } else {
-      String fileName = file.split("/")[file.split("/").length - 1];
-      if (isValidName(fileName)) {
+    }else{
+      String fileName = file.split("/")[file.split("/").length-1];
+      if(isValidName(fileName)){
         Node currentNode = getCurrent();
         String desiredPath = fileName;
-        if (!file.startsWith("/")) {
-          desiredPath = (getCurrentPath() + "/" + file).substring(1);
+        if(!desiredPath.startsWith("/")){
+          if(getCurrent() != getRoot()) desiredPath = (getCurrentPath() + "/" + file);
+          else desiredPath = (getCurrentPath() + file);
         }
         desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
         Node parent;
-        if (desiredPath.equals(""))
-          parent = getRoot();
-        else
-          parent = findFile(desiredPath, true);
+        if(desiredPath.equals("")) parent = getRoot();
+        else parent =  findFile(desiredPath, true);
+        if(parent == null) System.out.println("Error parent file not found");
         assignCurrent(parent);
-        fileNode = new Node.Builder(false, fileName).setContent(content).build();
+        fileNode = new Node.Builder(false, fileName)
+                          .setContent(content)
+                          .build();
         addToDirectory(fileNode);
         assignCurrent(currentNode);
       }
@@ -258,24 +268,27 @@ public class MockFileSystem implements FileSystemI {
   @Override
   public void fileOverwrite(String content, String file) {
     Node fileNode = findFile(file, false);
-    if (fileNode != null) {
+    if(fileNode != null){
       fileNode.setContent(content);
-    } else {
-      String fileName = file.split("/")[file.split("/").length - 1];
-      if (isValidName(fileName)) {
+    }
+    else{
+      String fileName = file.split("/")[file.split("/").length-1];
+      if(isValidName(fileName)){
         Node currentNode = getCurrent();
         String desiredPath = file;
-        if (!file.startsWith("/")) {
-          desiredPath = (getCurrentPath() + "/" + file).substring(1);
+        if(!desiredPath.startsWith("/")){
+          if(getCurrent() != getRoot()) desiredPath = (getCurrentPath() + "/" + file);
+          else desiredPath = (getCurrentPath() + file);
         }
         desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
         Node parent;
-        if (desiredPath.equals(""))
-          parent = getRoot();
-        else
-          parent = findFile(desiredPath, true);
+        if(desiredPath.equals("")) parent = getRoot();
+        else parent =  findFile(desiredPath, true);
+        if(parent == null) System.out.println("Error parent file not found");
         assignCurrent(parent);
-        fileNode = new Node.Builder(false, fileName).setContent(content).build();
+        fileNode = new Node.Builder(false, fileName)
+                           .setContent(content)
+                           .build();
         addToDirectory(fileNode);
         assignCurrent(currentNode);
       }
