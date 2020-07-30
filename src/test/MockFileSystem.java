@@ -33,6 +33,8 @@ public class MockFileSystem implements FileSystemI {
   Node user1;
   Node user2;
   Node documents;
+  Node doc1;
+  Node doc2;
   Node journal;
   Node week1;
   Node downloads;
@@ -40,8 +42,6 @@ public class MockFileSystem implements FileSystemI {
   Node games;
   Node desktop;
   Node A2;
-  Node doc1;
-  Node doc2;
   Node hw8;
 
   public void setCurrent(Node newCurrent){

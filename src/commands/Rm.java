@@ -64,7 +64,7 @@ public class Rm extends DirectoryManager implements CommandI{
 
 			
 		}else{
-			return error.getError("Invalid Directory", dirToRemove[0] + " does not exist");
+			return error.getError("Invalid Directory", dirToRemove[0] + " is not a directory");
 		}
 		return null;
 	}

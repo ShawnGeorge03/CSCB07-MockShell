@@ -36,7 +36,7 @@ public class RmTest {
     public void testARelativeDir(){
         returnRm = rm.run(fs, "users".split(" "), "rm users", false);
         actual = fs.getCurrent().getList().contains(fs.users);
-        assertTrue(returnRm == null && expected == actual );
+        assertTrue(returnRm == null && expected == actual);
     }
 
     /**
@@ -46,7 +46,7 @@ public class RmTest {
     public void testBRelativeFile(){
         returnRm = rm.run(fs, "A2".split(" "), "rm A2", false);
         actual = fs.getCurrent().getList().contains(fs.A2);
-        assertTrue(returnRm == null && expected == actual );
+        assertTrue(returnRm.equals("Error: Invalid Directory : A2 is not a directory"));
     }
 
     /**
@@ -67,8 +67,9 @@ public class RmTest {
     public void testDSubdirectoryFile(){
         returnRm = rm.run(fs, "documents/txtone".split(" "), "rm documents/txtone", false);
         fs.setCurrent(fs.documents);
+        System.out.println(returnRm);
         actual = fs.getCurrent().getList().contains(fs.doc1);
-        assertTrue(returnRm == null && expected == actual );
+        assertTrue(returnRm.equals("Error: Invalid Directory : documents/txtone is not a directory") );
     }
 
     /**
@@ -90,7 +91,8 @@ public class RmTest {
         returnRm = rm.run(fs, "/documents/txtone".split(" "), "rm /documents/txtone", false);
         fs.setCurrent(fs.documents);
         actual = fs.getCurrent().getList().contains(fs.doc1);
-        assertTrue(returnRm == null && expected == actual );
+        System.out.println(returnRm);
+        assertTrue(returnRm.equals("Error: Invalid Directory : /documents/txtone is not a directory"));
     }
     
     /**
