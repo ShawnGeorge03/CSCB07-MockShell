@@ -73,7 +73,7 @@ public class CdTest {
         //Declares and initializes an empty array
         String[] emptyArr = {};
         //Expected return from Cd
-        expectedCd = "Error : No parameters provided : ";
+        expectedCd = "Error : No parameters provided";
         //Expected current working directory
         expectedPath = "/";
         //Actual return from Cd

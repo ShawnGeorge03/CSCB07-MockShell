@@ -30,6 +30,7 @@
 package commands;
 
 import data.FileSystemI;
+import errors.InvalidArgsProvidedException;
 import errors.InvalidRedirectionError;
 
 /**
@@ -66,29 +67,28 @@ public class Cd extends DirectoryManager implements CommandI {
    * @return any error messages if there are any
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-
     try {
       if (rManager.isRedirectionableCommand(filesys, fullInput));
-
-      if (args.length == 0) {
-        return error.getError("No parameters provided", "");
-      } else if (args.length > 1) {
-        return error.getError("Multiple parameters provided",
-            fullInput.substring(fullInput.indexOf("cd") + 2).trim());
-      }
-  
-      // If the change of directory was unsuccessful, then an error msg is returned
-      if (!run(args, filesys)) {
-        return error.getError("Invalid Directory", fullInput.substring(fullInput.indexOf("cd") + 2).trim());
-      }
-    } catch (InvalidRedirectionError e) {
+      checkArgs(filesys, args, fullInput);
+    } catch (InvalidRedirectionError | InvalidArgsProvidedException e) {
       return e.getLocalizedMessage();
-    }
-
- 
+    } 
     return null;
   }
 
+  private void checkArgs(FileSystemI filesys, String[] args, String fullInput) throws InvalidArgsProvidedException{
+    String paths = fullInput.substring(fullInput.indexOf("cd") + 2).trim();
+    if (args.length == 0) {
+      throw new InvalidArgsProvidedException("Error : No parameters provided");
+    } else if (args.length > 1) {
+      throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided : " + paths);
+    }
+
+    // If the change of directory was unsuccessful, then an error msg is returned
+    if (!run(args, filesys)) {
+      throw new InvalidArgsProvidedException("Error: Invalid Directory : " + paths);
+    }
+  }
   /**
    * Main run method that executes the performance of changing directories based
    * on what argument is given. If argument is ".", nothing happens If argument is
