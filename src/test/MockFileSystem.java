@@ -39,6 +39,10 @@ public class MockFileSystem implements FileSystemI {
   Node homework;
   Node games;
   Node desktop;
+  Node A2;
+  Node doc1;
+  Node doc2;
+  Node hw8;
 
   public void setCurrent(Node newCurrent){
     this.current = newCurrent;
@@ -68,7 +72,7 @@ public class MockFileSystem implements FileSystemI {
        *  desktop
        */
 
-      Node A2 = new Node.Builder(false, "A2").setParent(root).setContent("Wow what a project").build();
+      A2 = new Node.Builder(false, "A2").setParent(root).setContent("Wow what a project").build();
       root.getList().add(A2);
 
       desktop = new Node.Builder(true, "desktop").setParent(root).build();
@@ -83,9 +87,9 @@ public class MockFileSystem implements FileSystemI {
 
       documents = new Node.Builder(true, "documents").setParent(root).build();
       root.getList().add(documents);
-      Node doc1 = new Node.Builder(false, "txtone").setParent(documents).setContent("this is a document").build();
+      doc1 = new Node.Builder(false, "txtone").setParent(documents).setContent("this is a document").build();
       documents.getList().add(doc1);
-      Node doc2 = new Node.Builder(false, "txttwo").setParent(documents).setContent("this is a document 2").build();
+      doc2 = new Node.Builder(false, "txttwo").setParent(documents).setContent("this is a document 2").build();
       documents.getList().add(doc2);
       journal = new Node.Builder(true, "journal").setParent(documents).build();
       documents.getList().add(journal);
@@ -96,7 +100,7 @@ public class MockFileSystem implements FileSystemI {
       root.getList().add(downloads);
       homework = new Node.Builder(true, "homework").setParent(downloads).build();
       downloads.getList().add(homework);
-      Node hw8 = new Node.Builder(false, "HW8").setParent(homework).setContent("2+2=5").build();
+      hw8 = new Node.Builder(false, "HW8").setParent(homework).setContent("2+2=5").build();
       homework.getList().add(hw8);
       games = new Node.Builder(true, "Games").setParent(downloads).build();
       downloads.getList().add(games);
