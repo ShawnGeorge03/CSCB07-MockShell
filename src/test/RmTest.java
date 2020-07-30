@@ -1,12 +1,11 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import commands.Cd;
 import commands.Rm;
 
 public class RmTest {
@@ -15,83 +14,94 @@ public class RmTest {
     * Declare instance of FileSystem so we can access the filesystem
     */
     private static MockFileSystem fs;
+
     /**
     * Declare instance of Mkdir to make new directories
     */
     private static Rm rm;
 
-    private static Cd cd;
+    private boolean actual = false, expected = false;
+    private String returnRm;
 
     @Before
     public void setup(){
         rm = new Rm();
-        cd = new Cd();
         fs = MockFileSystem.getMockFileSys("MOCKENV");
     }
 
+    /**
+     * Test A : User removes a relative directory path
+     */
     @Test
-    public void TestARmDirectory(){
-        String[] input = {"users"};
-        rm.run(fs, input, "rm users", false);
-        boolean actual = false;
-        boolean expected = false;   
-        for (int i = 0; i < fs.getCurrent().getList().size(); i++){
-            if (fs.getCurrent().getList().get(i).getName().equals("users")){
-                actual = true;
-            }
-        }
-        assertEquals(expected, actual);
+    public void testARelativeDir(){
+        returnRm = rm.run(fs, "users".split(" "), "rm users", false);
+        actual = fs.getCurrent().getList().contains(fs.users);
+        assertTrue(returnRm == null && expected == actual );
     }
 
+    /**
+     * Test B : User removes a relative file path
+     */
     @Test
-    public void TestBRmFile(){
-        String[] input = {"A2"};
-        rm.run(fs, input, "rm A2", false);
-        boolean actual = false;
-        boolean expected = false;   
-        for (int i = 0; i < fs.getCurrent().getList().size(); i++){
-            if (fs.getCurrent().getList().get(i).getName().equals("A2")){
-                actual = true;
-            }
-        }
-        assertEquals(expected, actual);
+    public void testBRelativeFile(){
+        returnRm = rm.run(fs, "A2".split(" "), "rm A2", false);
+        actual = fs.getCurrent().getList().contains(fs.A2);
+        assertTrue(returnRm == null && expected == actual );
     }
 
+    /**
+     * Test C : User removes a relative subdirectory path
+     */
     @Test
-    public void TestCRmRelataive(){
-        String[] input = {"users/skeshavaa"};
-        String[] input2 = {"documents/txtone"};
-        String[] traverseToInput2 = {"documents"};
-        rm.run(fs, input, "rm users/skeshavaa", false);
-        rm.run(fs, input2, "rm documents/txtone", false);
-        boolean actual = false;
-        boolean expected = false;   
-        actual = cd.run(input, fs);
-        cd.run(traverseToInput2, fs);
-        if (fs.getCurrent().getList().get(0).getName().equals("txtone")){
-            actual = true;
-        }
-
-        assertEquals(expected, actual);
+    public void testCRelativeSubdirectory(){
+        returnRm = rm.run(fs, "users/skeshavaa".split(" "), "rm users/skeshavaa", false);
+        fs.setCurrent(fs.users);
+        actual = fs.getCurrent().getList().contains(fs.user1);
+        assertTrue(returnRm == null && expected == actual );
     }
 
+    /**
+     * Test D : User removes a subdirectory file path
+     */
     @Test
-    public void TestDRmAbsolute(){
-        String[] input = {"/users/skeshavaa"};
-        String[] input2 = {"/documents/txtone"};
-        String[] traverseToInput2 = {"documents"};
-        rm.run(fs, input, "rm /users/skeshavaa", false);
-        rm.run(fs, input2, "rm /documents/txtone", false);
-        boolean actual = false;
-        boolean expected = false;   
-        actual = cd.run(input, fs);
-        cd.run(traverseToInput2, fs);
-        if (fs.getCurrent().getList().get(0).getName().equals("txtone")){
-            actual = true;
-        }
-
-        assertEquals(expected, actual);
+    public void testDSubdirectoryFile(){
+        returnRm = rm.run(fs, "documents/txtone".split(" "), "rm documents/txtone", false);
+        fs.setCurrent(fs.documents);
+        actual = fs.getCurrent().getList().contains(fs.doc1);
+        assertTrue(returnRm == null && expected == actual );
     }
 
+    /**
+     * Test E : User removes an absolute directory path
+     */
+    @Test
+    public void testEAbsoluteDir(){
+        returnRm = rm.run(fs, "/users/skeshavaa".split(" "), "rm /users/skeshavaa", false);
+        fs.setCurrent(fs.users);
+        actual = fs.getCurrent().getList().contains(fs.user1);
+        assertTrue(returnRm == null && expected == actual );
+    }
+
+    /**
+     * Test F : User removes a absolute file path
+     */
+    @Test
+    public void testFAbsoluteFile(){
+        returnRm = rm.run(fs, "/documents/txtone".split(" "), "rm /documents/txtone", false);
+        fs.setCurrent(fs.documents);
+        actual = fs.getCurrent().getList().contains(fs.doc1);
+        assertTrue(returnRm == null && expected == actual );
+    }
     
+    /**
+     * Test K : User uses redirection for a non redirectionable command
+     */
+    @Test
+    public void testERedirectionError(){
+        String[] input = {"documents", ">", "text"};
+        String actual = rm.run(fs, input, "rm documents > text", false);
+        String expected = "Error : Redirection Error : rm does not support redirection";
+        assertEquals(expected, actual); 
+    }
+
 }
