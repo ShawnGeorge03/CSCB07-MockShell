@@ -15,16 +15,25 @@ public class Rm extends DirectoryManager implements CommandI{
 	/**
 	 * Declare instance variable of ErrorHandler to handle error messages
 	 */
+	String[] currentPath = {""};
+	String[] dirToRemove = {""};
+	Cd traverseFileSystem;
+	FileSystemI fs;
+
 	private ErrorHandler error;
 	private RedirectionManager rManager;
+
 	public Rm() {
 		error = new ErrorHandler();
 		rManager = new RedirectionManager();
+		traverseFileSystem = new Cd();
 	}
 	
 	
 	public String run(FileSystemI filesys, String[] arguments, String fullInput, boolean val) {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
+		fs = filesys;
+		currentPath[0] = fs.getCurrentPath();
 
 		String output = rManager.isRedirectionableCommand(filesys, fullInput);
 
@@ -33,39 +42,31 @@ public class Rm extends DirectoryManager implements CommandI{
 		if (args.size() != 1) {
 			return error.getError("Invalid Argument", "Expecting 1 Argument only!");
 		}
-		
-		if (args.get(0).contains("/")) {
-			String[] currentPath = {filesys.getCurrentPath()};
-			String dirToRemove = args.get(0).substring(args.get(0).lastIndexOf("/") + 1);
-			String[] dirAbove = {args.get(0).substring(0, args.get(0).lastIndexOf("/"))};
-			Cd traverseFileSystem = new Cd();
-			
-			if (traverseFileSystem.run(dirAbove, filesys)) {
-				Node current = filesys.getCurrent();
-				for (int i = 0; i < current.getList().size(); i++) {
-					if (current.getList().get(i).getName().equals(dirToRemove)) {
-						filesys.removeFromDirectory(i);
-						traverseFileSystem.run(currentPath, filesys);
-						return null;
-					}
-				}
-				return error.getError("Directory Not Found", dirToRemove + " was not found!");
-			}else {
-				return error.getError("Invalid Directory", dirAbove[0]  + "is not a valid path/directory");
+		if (args.get(0).equals("/")){
+			return error.getError("Invalid Directory", "Cannot remove root directory");
+		}
+
+		dirToRemove[0] = args.get(0);
+
+		if (traverseFileSystem.run(dirToRemove, fs)){
+			if (!fs.getCurrent().getisDir()){
+				return error.getError("Invalid Directory", dirToRemove[0] + " is not a directory");
 			}
-		}else {
-			String dirToRemove = args.get(0);
-			Node current = filesys.getCurrent();
-			
-			for (int i = 0; i < current.getList().size(); i++) {
-				if (current.getList().get(i).getName().equals(dirToRemove)) {
-					filesys.removeFromDirectory(i);
+			Node toRemove = fs.getCurrent();
+			fs.assignCurrent(fs.getCurrent().getParent());
+			for (int i = 0; i < fs.getCurrent().getList().size(); i++){
+				if (fs.getCurrent().getList().get(i).equals(toRemove)){
+					fs.getCurrent().getList().remove(i);
+					traverseFileSystem.run(currentPath, fs);
 					return null;
 				}
 			}
-			return error.getError("Directory Not Found", dirToRemove + " was not found!");
+
+			
+		}else{
+			return error.getError("Invalid Directory", dirToRemove[0] + " does not exist");
 		}
-		
+		return null;
 	}
 
 }
