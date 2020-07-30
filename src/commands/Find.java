@@ -9,7 +9,7 @@ import data.Node;
 public class Find extends DirectoryManager implements CommandI {
 
 	ErrorHandler error;
-	String output = null;
+	String output = "";
 
 	public Find() {
 		error = new ErrorHandler();
@@ -31,8 +31,8 @@ public class Find extends DirectoryManager implements CommandI {
 		} else if (!(args.get(2).equals("-name"))) {
 			output = error.getError("Invalid Argument", args.get(2));
 			return false;
-		} else if (args.get(3).equals(null) || (args.get(3).charAt(0)) != ('"') && 
-				(args.get(3).charAt((args.get(3).length()-1)) != ('"'))) {
+		} else if (args.get(3).equals(null)
+				|| (args.get(3).charAt(0)) != ('"') || (args.get(3).charAt((args.get(3).length() - 1)) != ('"'))) {
 			output = error.getError("Invalid Argument", args.get(3));
 			return false;
 		} else {
@@ -62,59 +62,57 @@ public class Find extends DirectoryManager implements CommandI {
 		if (isValid(arguments)) {
 			for (String x : paths) {
 				String[] pathArr = { x };
-				output = checkList(filesys, pathArr, arguments.get(3), arguments.get(1));
-				if (output != null) {
-					System.out.println(output);
-				}
+				output = output.concat(checkList(filesys, pathArr, arguments.get(3), arguments.get(1)));
 			}
-		}else {
-			return output;
 		}
-		return null;
+		return output;
 	}
 
 	private String checkList(FileSystemI filesys, String[] path, String expression, String type) {
 		expression = expression.substring(1, expression.length() - 1);
-		String output = null;
 		String[] currPath = { filesys.getCurrentPath() };
 		Cd newPath = new Cd();
 		if (newPath.run(path, filesys)) {
-			recursiveDirSearch(filesys, path, expression, type, newPath, filesys.getCurrent(),
-					filesys.getCurrentPath());
+			output = recursiveDirSearch(filesys, path, expression, type, newPath, filesys.getCurrent(),
+					filesys.getCurrentPath(), output);
 		} else {
-			output = error.getError("Directory Not Found", path[0]);
+			System.out.println(error.getError("Directory Not Found", path[0]));
 		}
 		newPath.run(currPath, filesys);
 		return output;
 	}
 
-	private void recursiveDirSearch(FileSystemI filesys, String[] path, String expression, String type, Cd newPath,
-			Node currNode, String currPath) {
-		
-		printMatches(filesys, expression, type);
+	public String recursiveDirSearch(FileSystemI filesys, String[] path, String expression, String type, Cd newPath,
+			Node currNode, String currPath, String output) {
+
+		output = printMatches(filesys, expression, type, output);
 		for (int i = 0; i < currNode.getList().size(); i++) {
 			String[] tempPath = { currNode.getList().get(i).getName() };
 			if (newPath.run(tempPath, filesys)) {
-				recursiveDirSearch(filesys, path, expression, type, newPath, filesys.getCurrent(), currPath);
+				recursiveDirSearch(filesys, path, expression, type, newPath, filesys.getCurrent(), currPath, output);
 			}
 		}
 		String[] temp = { currPath };
 		newPath.run(temp, filesys);
+		return output;
 	}
 
-	private void printMatches(FileSystemI filesys, String expression, String type) {
+	private String printMatches(FileSystemI filesys, String expression, String type, String output) {
 		ArrayList<Node> toCheck = filesys.getCurrent().getList();
 		for (int i = 0; i < toCheck.size(); i++) {
 			if (type.equals("d")) {
 				if (toCheck.get(i).getisDir() && toCheck.get(i).getName().equals(expression)) {
-					System.out.println(filesys.getCurrentPath() + " : " + toCheck.get(i).getName());
+					output = output.concat(filesys.getCurrentPath() + " : " + toCheck.get(i).getName());
+					output = output.concat("\n");
 				}
 			} else if (type.equals("f")) {
 				if (!toCheck.get(i).getisDir() && toCheck.get(i).getName().equals(expression)) {
-					System.out.println(filesys.getCurrentPath() + " : " + toCheck.get(i).getName());
+					output = output.concat(filesys.getCurrentPath() + " : " + toCheck.get(i).getName());
+					output = output.concat("\n");
 				}
 			}
 		}
+		return output;
 	}
 
 }
