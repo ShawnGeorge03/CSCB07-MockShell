@@ -56,12 +56,14 @@ public class Curl implements CommandI {
    */
   private ErrorHandler errorManager;
 
+  private RedirectionManager rManager;
   /**
    * Constructor for class Curl which initalizes instance variables
    */
   public Curl() {
     // Initializes an Errorhandler Object
     this.errorManager = new ErrorHandler();
+    this.rManager = new RedirectionManager();
   }
 
   /**
@@ -73,6 +75,10 @@ public class Curl implements CommandI {
    * @return any error messages if there are any or null
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+
+    String output = rManager.isRedirectionableCommand(filesys, fullInput);
+
+    if(!"true".equals(output)) return output;
 
     //Declare instance of URL to handle the user input
     URL site;

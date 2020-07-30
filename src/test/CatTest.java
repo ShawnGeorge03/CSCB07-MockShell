@@ -157,11 +157,10 @@ public class CatTest {
     @Test
     public void testHRedirectionOverwrite(){
         //Expected return from Cat
-        expected =  "2+2=5" + "\n" + "\n" + "\n" + "Error: File Not Found : LOL"
-                + "\n" + "\n" + "\n" + "this is a document 2";
+        expected =  "2+2=5" + "\n" + "\n" + "\n" + "this is a document 2";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "downloads/homework/HW8 LOL /documents/txttwo > A2".split(" "), 
-                "cat downloads/homework/HW8 LOL /documents/txttwo > A2", false);
+        actual = cat.run(fs, "downloads/homework/HW8 /documents/txttwo > A2".split(" "), 
+                "cat downloads/homework/HW8 /documents/txttwo > A2", false);
         //Checks if the values are equal or not
         assertEquals(expected, fs.findFile("A2", false).getContent());
     }
@@ -172,11 +171,10 @@ public class CatTest {
     @Test  
     public void testIRedirectionAppend(){
         //Expected return from Cat
-        expected =  "2+2=5" + "\n" + "\n" + "\n" + "Error: File Not Found : LOL"
-                + "\n" + "\n" + "\n" + "this is a document 2";
+        expected =  "2+2=5" + "\n" + "\n" + "\n" + "this is a document 2";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "downloads/homework/HW8 LOL /documents/txttwo > downloads/homework/HW8".split(" "), 
-                "cat downloads/homework/HW8 LOL /documents/txttwo > downloads/homework/HW8", false);
+        actual = cat.run(fs, "downloads/homework/HW8 /documents/txttwo > downloads/homework/HW8".split(" "), 
+                "cat downloads/homework/HW8 /documents/txttwo > downloads/homework/HW8", false);
         //Checks if the values are equal or not
         assertEquals(expected, fs.findFile("downloads/homework/HW8", false).getContent());
     }
@@ -205,5 +203,20 @@ public class CatTest {
         actual = cat.run(fs, "args > LOL zip".split(" "), "cat args >", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);   
+    }
+
+    /**
+     * Test L : User provides an invalid file and redirects input to file
+     */
+    @Test  
+    public void testLRedirectionErrorCase3(){
+        //Expected return from Cat
+        expected =  "2+2=5" + "\n" + "\n" + "\n" + "Error: File Not Found : LOL"
+        + "\n" + "\n" + "\n" + "this is a document 2";
+        //Actual return from Cat after the operation has been run
+        actual = cat.run(fs, "downloads/homework/HW8 LOL /documents/txttwo > downloads/homework/HW8".split(" "), 
+                "cat downloads/homework/HW8 LOL /documents/txttwo > downloads/homework/HW8", false);
+        //Checks if the values are equal or not
+        assertEquals(expected, actual);
     }
 }

@@ -70,4 +70,11 @@ public class ExitTest {
         // Checks if the values are equal or not
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testIRedirectionError(){
+      expected = "Error : Redirection Error : exit does not support redirection";
+      actual = exit.run(fs, "> LOL".trim().split(" "), "exit > LOL", false);
+      assertEquals(expected, actual);
+    }
 }

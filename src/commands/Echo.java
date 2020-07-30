@@ -37,14 +37,16 @@ import data.FileSystemI;
  * Class Echo is responsible for printing to the shell and redirecting the input
  * to perform the appropriate task
  */
-public class Echo extends FileManager implements CommandI {
+public class Echo implements CommandI {
 
   /** Declare instance variable of String to hold the output that will be returned */
   String output = "";
   String properArgument = "";
   private RedirectionManager redirect;
-  
+  private ErrorHandler errorManager;
+
   public Echo(){
+    this.errorManager = new ErrorHandler();
     this.redirect = new RedirectionManager();
   }
 
@@ -76,7 +78,7 @@ public class Echo extends FileManager implements CommandI {
   private String runEcho(String[] args){
     // If no arguments were inputted
     if(args.length == 0) {
-      return getErrorHandler().getError("No parameters provided", "");
+      return errorManager.getError("No parameters provided", "");
     }
     properArgument = "";
     for(int i = 0; i < args.length; i++){
@@ -87,7 +89,7 @@ public class Echo extends FileManager implements CommandI {
       output = properArgument.substring(1, properArgument.length()-1);
     } else
       // Missing quotations in user input
-      output = this.getErrorHandler().getError("Missing Quotes", args[0]);
+      output = errorManager.getError("Missing Quotes", args[0]);
     return output;
   }
 

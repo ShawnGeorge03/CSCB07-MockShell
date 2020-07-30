@@ -78,7 +78,7 @@ public class Cat implements CommandI {
         // Calls the readFile function to return what is in the file
         readFile(arguments, fs);
       }
-      output = redirect.outputResult(fs, output);
+      if(!output.contains("Error")) output = redirect.outputResult(fs, output);
     }else{
       if (Arrays.asList(args).contains(">")) {
         output = redirect.setFileName(args, ">");

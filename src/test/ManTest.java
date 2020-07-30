@@ -220,4 +220,19 @@ public class ManTest {
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
+
+    /**
+     * Test J : User provides a random unspported command of JShell an redirects it
+     */
+    @Test
+    public void testJRedirectionErrorCase3(){
+        //Expected return from Man
+        expected = "Error: Invalid Command : LOL is not a supported command supported one is required";
+        //Actual return from Man after the operation has been run
+        actual = man.run(fs,"LOL > text".split(" "), "man LOL > text", false);
+        //Checks if the values are equal or not
+        System.out.println(actual);
+
+        assertEquals(expected, actual);      
+    }
 }

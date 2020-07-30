@@ -43,11 +43,13 @@ public class Push extends DirectoryManager implements CommandI {
    */
   private ErrorHandler errorManager;
 
+  private Cd goBack;
   /**
    * Constructor for Push that initializes the ErrorHandler object
    */
   public Push() {
     this.errorManager = new ErrorHandler();
+    this.goBack = new Cd();
   }
 
   /**
@@ -60,7 +62,6 @@ public class Push extends DirectoryManager implements CommandI {
    * @return String  An error message if any error, else null
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-    Cd goBack = new Cd();
     String[] root = {filesys.getRoot().getName() };
 
     if (args.length != 1) {

@@ -38,8 +38,11 @@ public class Exit implements CommandI {
 
   private ErrorHandler errorManager;
 
+  private RedirectionManager rManager;
+
    public Exit(){
      errorManager = new ErrorHandler();
+     this.rManager = new RedirectionManager();
    }
 
   /**
@@ -51,6 +54,10 @@ public class Exit implements CommandI {
    */
   @Override
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+
+    String output = rManager.isRedirectionableCommand(filesys, fullInput);
+
+    if(!"true".equals(output)) return output;
 
     if(args.length != 0) 
       return errorManager.getError("Args Provided", fullInput.substring(fullInput.indexOf("exit ")));

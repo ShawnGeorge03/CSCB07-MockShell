@@ -75,7 +75,7 @@ public class Man implements CommandI {
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     String[] arguments =  redirect.setParams(filesys, fullInput); 
     if(arguments != null){
-        output = redirect.outputResult(filesys, runMan(arguments, fullInput));
+        output = redirect.outputResult(filesys, runMan(arguments));
     }else{
         if (Arrays.asList(args).contains(">")) {
             output = redirect.setFileName(args, ">");
@@ -83,14 +83,10 @@ public class Man implements CommandI {
             output = redirect.setFileName(args, ">>");
         }
     }
-
     return output;
   }
 
-  private String runMan(String[] args, String fullInput){
-    // Collects the user input from the fullInput
-    String param = fullInput.substring(fullInput.indexOf("man") + 3).trim();
-
+  private String runMan(String[] args){
     //If the user provides no command to checked with
     if(args.length == 0){
       // Returns an error
@@ -98,11 +94,11 @@ public class Man implements CommandI {
     //If the user provides more than one command
     }else if(args.length > 1){
       // Returns an error
-      return error.getError("Multiple parameters provided", param + ", only supported one is required");
+      return error.getError("Multiple parameters provided", args[0] + ", only supported one is required");
     //If the command is not supported by Man
     }else if(!manMap.containsKey(args[0])){
       // Returns an error
-      return error.getError("Invalid Command", param + " is not a supported command supported one is required");
+      return error.getError("Invalid Command", args[0] + " is not a supported command supported one is required");
     }
 
     // Returns the appropriate command manual from the manMap Hashtable
