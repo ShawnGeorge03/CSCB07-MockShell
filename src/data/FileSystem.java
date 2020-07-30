@@ -163,12 +163,14 @@ public class FileSystem implements FileSystemI{
   @Override
   public Node findFile(String filePath, boolean fileIsFolderNode) {
     String absolutePath = filePath.trim();
-
+    //System.out.println("Absolute before " + absolutePath);
     if(filePath.startsWith("//")) return null;
 
+    if(getCurrent().getName().equals(filePath)) return getCurrent();
     //If the given path is a relative path then make it a absolute path
-    if(!filePath.startsWith("/") && !fileIsFolderNode){
-      absolutePath = (getCurrentPath() + "/" + filePath).substring(1);
+    if(!filePath.startsWith("/")){
+      if(getCurrent() != getRoot()) absolutePath = (getCurrentPath() + "/" + filePath);
+      else absolutePath = getCurrentPath() + filePath;
     }
 
     //if(!absolutePath.startsWith("/")) absolutePath = "/" + absolutePath;
@@ -211,14 +213,15 @@ public class FileSystem implements FileSystemI{
       if(isValidName(fileName)){
         Node currentNode = getCurrent();
         String desiredPath = fileName;
-        if(!file.startsWith("/")){
-          desiredPath = (getCurrentPath() + "/" + file).substring(1);
+        if(!desiredPath.startsWith("/")){
+          if(getCurrent() != getRoot()) desiredPath = (getCurrentPath() + "/" + file);
+          else desiredPath = (getCurrentPath() + file);
         }
         desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
-        
         Node parent;
         if(desiredPath.equals("")) parent = getRoot();
-        else parent = findFile(desiredPath,true); 
+        else parent =  findFile(desiredPath, true);
+        if(parent == null) System.out.println("Error parent file not found");
         assignCurrent(parent);
         fileNode = new Node.Builder(false, fileName)
                           .setContent(content)
@@ -241,16 +244,14 @@ public class FileSystem implements FileSystemI{
         Node currentNode = getCurrent();
         String desiredPath = file;
         if(!desiredPath.startsWith("/")){
-          desiredPath = (getCurrentPath() + "/" + file).substring(1);
+          if(getCurrent() != getRoot()) desiredPath = (getCurrentPath() + "/" + file);
+          else desiredPath = (getCurrentPath() + file);
         }
         desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
-        //System.out.println("Desired Path : " + desiredPath);
         Node parent;
-        if(desiredPath.equals("")) {
-          //System.out.println("Reached");
-          parent = getRoot();
-        }
-        else parent = findFile(desiredPath,true); 
+        if(desiredPath.equals("")) parent = getRoot();
+        else parent =  findFile(desiredPath, true);
+        if(parent == null) System.out.println("Error parent file not found");
         assignCurrent(parent);
         fileNode = new Node.Builder(false, fileName)
                            .setContent(content)
