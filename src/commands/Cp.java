@@ -105,10 +105,10 @@ public class Cp extends DirectoryManager implements CommandI{
 						.setParent(parentToMove)
 						.setRoot(false).build();
 				}
+			}
 
-				if (toMove == null){
-					return error.getError("Directory Not Found", fileName + " does not exist in the path you specified!");
-				}
+			if (toMove == null){
+				return error.getError("Directory Not Found", fileName + " does not exist in the path you specified!");
 			}
 
 			traverse.run(currentPath, fs);

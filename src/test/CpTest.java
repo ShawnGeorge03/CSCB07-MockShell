@@ -3,6 +3,7 @@ package test;
 import commands.Mv;
 import commands.Cd;
 import commands.Cp;
+import commands.Ls;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -34,16 +35,18 @@ public class CpTest {
     @Test
     public void TestACopyRelativePath(){
         String[] input = {"users", "documents"};
-        cp.run(fs, input, "mv users documents", false);
+        System.out.println(cp.run(fs, input, "cp users documents", false));
 
         boolean check1 = false;
         boolean check2 = false;
 
         for (int i = 0; i < fs.getCurrent().getList().size(); i++){
+            System.out.println(fs.getCurrent().getList().get(i).getName());
             if (fs.getCurrent().getList().get(i).getName().equals("users")){
                 check1 = true;
             }else if (fs.getCurrent().getList().get(i).getName().equals("documents")){
                 for (int j = 0; j < fs.getCurrent().getList().get(i).getList().size(); j++){
+                    System.out.println(fs.getCurrent().getList().get(i).getList().get(j).getName());
                     if (fs.getCurrent().getList().get(i).getList().get(j).getName().equals("users")){
                         check2 = true;
                     }
