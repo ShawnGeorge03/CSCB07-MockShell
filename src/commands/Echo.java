@@ -32,6 +32,8 @@ package commands;
 import java.util.Arrays;
 
 import data.FileSystemI;
+import errors.InvalidArgsProvidedException;
+import errors.MissingQuotesException;
 
 /**
  * Class Echo is responsible for printing to the shell and redirecting the input
@@ -43,10 +45,8 @@ public class Echo implements CommandI {
   String output = "";
   String properArgument = "";
   private RedirectionManager redirect;
-  private ErrorHandler errorManager;
 
   public Echo(){
-    this.errorManager = new ErrorHandler();
     this.redirect = new RedirectionManager();
   }
 
@@ -63,8 +63,12 @@ public class Echo implements CommandI {
     String[] arguments =  redirect.setParams(filesys, fullInput);
     
     if(arguments != null)
-      output = redirect.outputResult(filesys, runEcho(arguments));    
-    else{
+      try {
+        output = redirect.outputResult(filesys, runEcho(arguments));
+      } catch (MissingQuotesException | InvalidArgsProvidedException e) {
+        return e.getLocalizedMessage();
+      }
+    else {
       if (Arrays.asList(args).contains(">")) {
         output = redirect.setFileName(args, ">");
       } else {
@@ -75,12 +79,11 @@ public class Echo implements CommandI {
     return output;
   }
 
-  private String runEcho(String[] args){
+  private String runEcho(String[] args) throws MissingQuotesException, InvalidArgsProvidedException{
     // If no arguments were inputted
     if(args.length == 0) {
-      return errorManager.getError("No parameters provided", "");
+      throw new InvalidArgsProvidedException("Error : No parameters provided");
     }
-    properArgument = "";
     for(int i = 0; i < args.length; i++){
       properArgument += args[i] + " ";
     }
@@ -89,7 +92,7 @@ public class Echo implements CommandI {
       output = properArgument.substring(1, properArgument.length()-1);
     } else
       // Missing quotations in user input
-      output = errorManager.getError("Missing Quotes", args[0]);
+      throw new MissingQuotesException("Error : Missing Quotes : " + args[0]);
     return output;
   }
 

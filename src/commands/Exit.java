@@ -30,41 +30,48 @@
 package commands;
 
 import data.FileSystemI;
+import errors.InvalidArgsProvidedException;
+import errors.InvalidRedirectionError;
 
 /**
  * Class Exit handles exiting the JShell
  */
 public class Exit implements CommandI {
 
-  private ErrorHandler errorManager;
-
   private RedirectionManager rManager;
 
-   public Exit(){
-     errorManager = new ErrorHandler();
-     this.rManager = new RedirectionManager();
-   }
+  public Exit() {
+    this.rManager = new RedirectionManager();
+  }
 
   /**
    * Ends program
    * 
-   * @param args  the string array with all arguments
-   * @param fullInput  the string that contains the raw input provided to JShell
+   * @param args      the string array with all arguments
+   * @param fullInput the string that contains the raw input provided to JShell
    * @return null no matter what
    */
   @Override
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+    try {
+      rManager.isRedirectionableCommand(filesys, fullInput);
 
-    String output = rManager.isRedirectionableCommand(filesys, fullInput);
-
-    if(!"true".equals(output)) return output;
-
-    if(args.length != 0) 
-      return errorManager.getError("Args Provided", fullInput.substring(fullInput.indexOf("exit ")));
-
-    //Exits the session of the Shell
-    System.exit(0);
+      if (checkArgs(args, fullInput)) {
+        // Exits the session of the Shell
+        System.exit(0);
+      }
+    } catch (InvalidArgsProvidedException | InvalidRedirectionError e) {
+      return e.getLocalizedMessage();
+    } 
+ 
     return null;
+  }
+
+  private boolean checkArgs(String[] args, String fullInput) throws InvalidArgsProvidedException{
+    if(args.length != 0) 
+      throw new InvalidArgsProvidedException("Error : Arguments not required : " + 
+                  fullInput.substring(fullInput.indexOf("exit ") + 4).trim());
+    return true;
   }
   
 }

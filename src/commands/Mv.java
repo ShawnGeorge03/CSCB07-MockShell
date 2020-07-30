@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 import data.FileSystemI;
 import data.Node;
+import errors.InvalidArgsProvidedException;
+import errors.InvalidRedirectionError;
 
 public class Mv extends DirectoryManager implements CommandI{
 	
@@ -41,8 +43,15 @@ public class Mv extends DirectoryManager implements CommandI{
 	public String run(FileSystemI filesys, String[] arguments, String actualInput, boolean val) {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
 		fs = filesys;
-		output = checkArgs(filesys, actualInput);
+
+		try {
+			output = checkArgs(filesys, actualInput);
+		} catch (InvalidArgsProvidedException e) {
+			return e.getLocalizedMessage();
+		}
+
 		pathTo[0] = args.get(1);
+
 		if (output != null){
 			return output;
 		}
@@ -83,19 +92,21 @@ public class Mv extends DirectoryManager implements CommandI{
 		}
 	}
 
-	public String checkArgs(FileSystemI filesys, String fullInput){
-		String output = rManager.isRedirectionableCommand(filesys, fullInput);
+	public String checkArgs(FileSystemI filesys, String fullInput) throws InvalidArgsProvidedException{
+		try {
+			rManager.isRedirectionableCommand(filesys, fullInput);
 
-		if(!"true".equals(output))
-		  return output;
+			if (args.size() != 2) {
+				throw new InvalidArgsProvidedException("Error: Invalid Argument : " + "Expected 2 arguments");
+			}
+			
+			if (args.get(0).equals("/")){
+				throw new InvalidArgsProvidedException("Error: Invalid Directory : " + "Cannot move the root directory");
+			}
+		} catch (InvalidRedirectionError e) {
+			return e.getLocalizedMessage();
+		}
 
-		if (args.size() != 2) {
-			return error.getError("Invalid Argument", "Expected 2 arguments");
-		}
-		
-		if (args.get(0).equals("/")){
-			return error.getError("Invalid Directory", "Cannot move the root directory");
-		}
 		return null;
 	}
 

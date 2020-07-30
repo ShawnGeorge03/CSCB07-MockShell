@@ -69,7 +69,7 @@ public class ManTest {
         //Declares and initializes an empty array
         String[] emptyArr = {};
         //Expected return from Man
-        expected = "Error : No parameters provided : Man requires one supported command";
+        expected = "Error : No argument(s) provided : Man requires one supported command";
         //Actual return from Man after the operation has been run
         actual = man.run(fs,emptyArr, "man ", false);
         //Checks if the values are equal or not
@@ -82,7 +82,7 @@ public class ManTest {
     @Test
     public void testBUnsupportedCommand(){
         //Expected return from Man
-        expected = "Error: Invalid Command : LOL is not a supported command supported one is required";
+        expected = "Error: Invalid Argument : LOL is not a supported command supported one is required";
         //Actual return from Man after the operation has been run
         actual = man.run(fs,"LOL".split(" "), "man LOL", false);
         //Checks if the values are equal or not
@@ -144,7 +144,7 @@ public class ManTest {
     @Test
     public void testEMultipleArgs(){
         //Expected return from Man
-        expected = "Error : Multiple Parameters have been provided : Only one supported command is required";
+        expected = "Error : Multiple Arguments have been provided : Only one supported command is required";
         //Actual return from Man after the operation has been run
         actual = man.run(fs,"speak ls".split(" "), "man speak ls", false);
         System.out.println(actual);
@@ -228,7 +228,7 @@ public class ManTest {
     @Test
     public void testJRedirectionErrorCase3(){
         //Expected return from Man
-        expected = "Error: Invalid Command : LOL is not a supported command supported one is required";
+        expected = "Error: Invalid Argument : LOL is not a supported command supported one is required";
         //Actual return from Man after the operation has been run
         actual = man.run(fs,"LOL > text".split(" "), "man LOL > text", false);
         //Checks if the values are equal or not

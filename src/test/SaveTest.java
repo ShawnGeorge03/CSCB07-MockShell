@@ -89,7 +89,7 @@ public class SaveTest {
      */
     @Test
     public void testERedirectionError(){
-        actual = save.run(fs, "input".split(" "), "save input > text", false);
+        actual = save.getFileContent(fs, "input".split(" "), "save input > text", false);
         expected = "Error : Redirection Error : save does not support redirection";
         assertEquals(expected, actual); 
     }

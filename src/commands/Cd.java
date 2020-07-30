@@ -30,6 +30,7 @@
 package commands;
 
 import data.FileSystemI;
+import errors.InvalidRedirectionError;
 
 /**
  * Class Cd is responsible for changing directories within the FileSystem
@@ -54,45 +55,51 @@ public class Cd extends DirectoryManager implements CommandI {
   }
 
   /**
-   * Starting run method which checks if arguments were given, then passes it to another run method
-   * which processes the command
+   * Starting run method which checks if arguments were given, then passes it to
+   * another run method which processes the command
    * 
-   * @param filesys the filesystem interface we are using to access the filesystem
-   * @param args the string array of arguments
+   * @param filesys   the filesystem interface we are using to access the
+   *                  filesystem
+   * @param args      the string array of arguments
    * @param fullInput the full line of input that the user gives into jshell
-   * @param val the boolean we are using
+   * @param val       the boolean we are using
    * @return any error messages if there are any
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-    String output = rManager.isRedirectionableCommand(filesys, fullInput);
 
-    if(!"true".equals(output))
-      return output;
+    try {
+      if (rManager.isRedirectionableCommand(filesys, fullInput));
 
-    if (args.length == 0) {
-      return error.getError("No parameters provided", "");
-   } else if (args.length > 1) {
-      return error.getError("Multiple parameters provided", 
-          fullInput.substring(fullInput.indexOf("cd") + 2).trim());
+      if (args.length == 0) {
+        return error.getError("No parameters provided", "");
+      } else if (args.length > 1) {
+        return error.getError("Multiple parameters provided",
+            fullInput.substring(fullInput.indexOf("cd") + 2).trim());
+      }
+  
+      // If the change of directory was unsuccessful, then an error msg is returned
+      if (!run(args, filesys)) {
+        return error.getError("Invalid Directory", fullInput.substring(fullInput.indexOf("cd") + 2).trim());
+      }
+    } catch (InvalidRedirectionError e) {
+      return e.getLocalizedMessage();
     }
 
-    // If the change of directory was unsuccessful, then an error msg is returned
-    if (!run(args, filesys)) {
-     return error.getError("Invalid Directory",
-          fullInput.substring(fullInput.indexOf("cd") + 2).trim());
-    }
+ 
     return null;
   }
 
   /**
-   * Main run method that executes the performance of changing directories based on what argument is
-   * given. If argument is ".", nothing happens If argument is "..", go up one directory If argument
-   * is "/", change the cd to root If argument is absolute path, check if the path exists, then
-   * change to that directory If argument is relative path, check if that path exists, then change
-   * to that directory
+   * Main run method that executes the performance of changing directories based
+   * on what argument is given. If argument is ".", nothing happens If argument is
+   * "..", go up one directory If argument is "/", change the cd to root If
+   * argument is absolute path, check if the path exists, then change to that
+   * directory If argument is relative path, check if that path exists, then
+   * change to that directory
    * 
    * @param arguments the array of arguments provided by user
-   * @return true if the argument was processed and the change of directory was successful
+   * @return true if the argument was processed and the change of directory was
+   *         successful
    */
   public boolean run(String[] arguments, FileSystemI filesys) {
     // Initializing variables

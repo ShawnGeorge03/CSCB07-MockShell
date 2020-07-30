@@ -64,7 +64,7 @@ public class ExitTest {
     @Test
     public void testArgs() {
         // Expected return from Exit
-        expected = "Error : Arguments not required : exit LOL LOL";
+        expected = "Error : Arguments not required : LOL LOL";
         // Actual return from Exit after the operation has been run
         actual = exit.run(fs, "LOL LOL".split(" "), "exit LOL LOL", false);
         // Checks if the values are equal or not

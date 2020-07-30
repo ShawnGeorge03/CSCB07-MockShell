@@ -34,7 +34,7 @@ public class EchoTest {
     @Test
     public void testANoArgs() {
         String[] emptyArr = {};
-        expected = "Error : No parameters provided : ";
+        expected = "Error : No parameters provided";
         actual = echo.run(fs,emptyArr, "echo ", false);
         assertEquals(expected, actual);
     }

@@ -33,6 +33,7 @@ import java.util.Arrays;
 import java.util.Hashtable;
 
 import data.FileSystemI;
+import errors.InvalidArgsProvidedException;
 
 /**
  * Class man provides documentation for requested command
@@ -42,12 +43,9 @@ public class Man implements CommandI {
    * Declare instance variable of Hashtable
    */
   Hashtable<String, String> manMap;
-  /**
-   * Declare instance variable of ErrorHandler to handle error messages
-   */
-  private ErrorHandler error;
 
   private RedirectionManager redirect;
+  
   String output;
 
   /**
@@ -57,7 +55,6 @@ public class Man implements CommandI {
     // Creates a HashTable Object called manMap
     manMap = new Hashtable<String, String>();
     // Initializes a ErrorHandler Object
-    this.error = new ErrorHandler();
     this.redirect = new RedirectionManager();
     // Initializes the Hashtable with the keys and values
     setDictionary();
@@ -75,7 +72,11 @@ public class Man implements CommandI {
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     String[] arguments =  redirect.setParams(filesys, fullInput); 
     if(arguments != null){
-        output = redirect.outputResult(filesys, runMan(arguments));
+        try {
+            output = redirect.outputResult(filesys, runMan(arguments));
+        } catch (InvalidArgsProvidedException e) {
+            return e.getLocalizedMessage();
+        }
     }else{
         if (Arrays.asList(args).contains(">")) {
             output = redirect.setFileName(args, ">");
@@ -86,19 +87,18 @@ public class Man implements CommandI {
     return output;
   }
 
-  private String runMan(String[] args){
+  private String runMan(String[] args) throws InvalidArgsProvidedException{
     //If the user provides no command to checked with
     if(args.length == 0){
-      // Returns an error
-      return error.getError("No parameters provided", "Man requires one supported command");
+        throw new InvalidArgsProvidedException("Error : No argument(s) provided : Man requires one supported command");     
     //If the user provides more than one command
     }else if(args.length > 1){
       // Returns an error
-      return error.getError("Multiple parameters provided", "Only one supported command is required");
+      throw new InvalidArgsProvidedException("Error : Multiple Arguments have been provided : Only one supported command is required");     
     //If the command is not supported by Man
     }else if(!manMap.containsKey(args[0])){
       // Returns an error
-      return error.getError("Invalid Command", args[0] + " is not a supported command supported one is required");
+      throw new InvalidArgsProvidedException("Error: Invalid Argument : "+ args[0] + " is not a supported command supported one is required");     
     }
 
     // Returns the appropriate command manual from the manMap Hashtable

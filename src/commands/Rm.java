@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import data.FileSystemI;
 import data.Node;
+import errors.InvalidRedirectionError;
 
 public class Rm extends DirectoryManager implements CommandI{
 	
@@ -35,11 +36,13 @@ public class Rm extends DirectoryManager implements CommandI{
 		fs = filesys;
 		currentPath[0] = fs.getCurrentPath();
 
-		String output = rManager.isRedirectionableCommand(filesys, fullInput);
-
-		if(!"true".equals(output)){
-			return output;
-		}else if (args.size() != 1) {
+		try {
+			rManager.isRedirectionableCommand(filesys, fullInput);
+		  } catch (InvalidRedirectionError e) {
+			return e.getLocalizedMessage();
+		  }
+		
+		  if (args.size() != 1) {
 			return error.getError("Invalid Argument", "Expecting 1 Argument only!");
 		}
 		if (args.get(0).equals("/")){

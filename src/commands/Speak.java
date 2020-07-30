@@ -34,6 +34,7 @@ import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
 import data.FileSystemI;
+import errors.InvalidRedirectionError;
 import errors.MalformedInputException;
 import errors.MissingQuotesException;
 
@@ -101,11 +102,11 @@ public class Speak implements CommandI {
    * @return any error messages if there are any or null
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-
-    String output = rManager.isRedirectionableCommand(filesys, fullInput);
-
-    if (!"true".equals(output))
-      return output;
+    try {
+      rManager.isRedirectionableCommand(filesys, fullInput);
+    } catch (InvalidRedirectionError e) {
+      return e.getLocalizedMessage();
+    }
 
     // Converts a String array containing user words to a single String sentence
     text = Arrays.toString(args);

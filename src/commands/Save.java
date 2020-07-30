@@ -3,8 +3,9 @@ package commands;
 import java.io.FileWriter;
 import java.io.IOException;
 import data.*;
+import errors.InvalidRedirectionError;
 
-public class Save implements CommandI{
+public class Save implements CommandI {
 
   private FileWriter writer;
   private RedirectionManager redirect;
@@ -12,29 +13,34 @@ public class Save implements CommandI{
   private ErrorHandler error;
   private String output;
   private String fileContent;
-  
-  public Save(){
+
+  public Save() {
     this.error = new ErrorHandler();
     this.redirect = new RedirectionManager();
     this.output = null;
     this.fileContent = "";
   }
-  
+
   /*
-   * Things to work on:
-   *    - JavaDoc
-   *    - Test cases
-  */
-  
+   * Things to work on: - JavaDoc - Test cases
+   */
+
   @Override
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-    if(args.length > 0) {
+    try {
+      redirect.isRedirectionableCommand(filesys, fullInput);
+    } catch (InvalidRedirectionError e) {
+      return e.getLocalizedMessage();
+    }
+    
+    if (args.length > 0) {
       filePath = formatArguments(args);
       validateFileName(filesys, fullInput);
-      if(output != null) return output;
+      if (output != null)
+        return output;
       try {
-        writer = new FileWriter(filePath); 
-        
+        writer = new FileWriter(filePath);
+
         writer.write("NODES\n{\n");
         storeNodeInformation(writer, filesys);
         writer.write("}");
@@ -46,20 +52,22 @@ public class Save implements CommandI{
         writer.write("\n\nCOMMAND LOG\n{\n");
         storeCommandHistoryToFile(writer, filesys);
         writer.write("}");
-        
+
         writer.close();
-      } catch(IOException e) { //could not find file
+      } catch (IOException e) { // could not find file
         output = "Error: Invalid Path : " + args[0];
       }
-    }
-    else output = error.getError("No parameters provided", fullInput);
+    } else
+      output = error.getError("No parameters provided", fullInput);
     return output;
   }
 
-  public String getFileContent(FileSystemI filesys, String[] args, String fullInput, boolean val){
-    String redirectionUsed = redirect.isRedirectionableCommand(filesys, fullInput);
-    if(!redirectionUsed.equals("true")) return redirectionUsed;
-    //System.out.println(output);
+  public String getFileContent(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+    try {
+      redirect.isRedirectionableCommand(filesys, fullInput);
+    } catch (InvalidRedirectionError e) {
+      return e.getLocalizedMessage();
+    }
     output = run(filesys, args, fullInput, false);
     if(output != null){
       if(output.startsWith("Error:") || output.startsWith("Error :")) return output;

@@ -34,6 +34,7 @@ import java.util.Arrays;
 
 import data.FileSystemI;
 import data.Node;
+import errors.InvalidRedirectionError;
 
 /**
  * Class Mkdir handles making directories anywhere in the filesystem
@@ -62,15 +63,17 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * Generic run method to call on method that does the work of creating
 	 * directories
 	 * 
-	 * @param args  the string array of all arguments
-	 * @param fullInput  the string of the entire raw input provided by user in
-	 *                   JShell
-	 * @return String  null always
+	 * @param args      the string array of all arguments
+	 * @param fullInput the string of the entire raw input provided by user in
+	 *                  JShell
+	 * @return String null always
 	 */
 	public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-		String output = rManager.isRedirectionableCommand(filesys, fullInput);
-		
-		if(!"true".equals(output)) return output;
+		try {
+			rManager.isRedirectionableCommand(filesys, fullInput);
+		} catch (InvalidRedirectionError e) {
+			return e.getLocalizedMessage();
+		}
 
 		return MakeDirectory(args, filesys);
 	}

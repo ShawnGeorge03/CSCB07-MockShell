@@ -41,22 +41,24 @@ import java.net.URLConnection;
 import java.util.Arrays;
 
 import data.FileSystemI;
+import errors.InvalidRedirectionError;
 
 /**
- * Class Curl returns a file from the given URL and adds it to 
- * the current working directory. 
+ * Class Curl returns a file from the given URL and adds it to the current
+ * working directory.
  * 
  * Note : Some parts of this code was from the following website
  * https://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html
  */
 public class Curl implements CommandI {
-  
+
   /**
    * Declare instance of ErrorHandler to handle error messages
    */
   private ErrorHandler errorManager;
 
   private RedirectionManager rManager;
+
   /**
    * Constructor for class Curl which initalizes instance variables
    */
@@ -67,18 +69,21 @@ public class Curl implements CommandI {
   }
 
   /**
-   * This function retrives the file from the URL and adds it to the current directory
+   * This function retrives the file from the URL and adds it to the current
+   * directory
    * 
-   * @param args  the string array of URL(s)
-   * @param fullInput  the full line of input that the user gives into JShell
-   * @param val  a boolean value
+   * @param args      the string array of URL(s)
+   * @param fullInput the full line of input that the user gives into JShell
+   * @param val       a boolean value
    * @return any error messages if there are any or null
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
 
-    String output = rManager.isRedirectionableCommand(filesys, fullInput);
-
-    if(!"true".equals(output)) return output;
+    try {
+      rManager.isRedirectionableCommand(filesys, fullInput);
+    } catch (InvalidRedirectionError e1) {
+      return e1.getLocalizedMessage();
+    }
 
     //Declare instance of URL to handle the user input
     URL site;

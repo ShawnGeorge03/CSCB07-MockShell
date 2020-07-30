@@ -5,9 +5,10 @@ import java.util.Arrays;
 
 import data.FileSystemI;
 import data.Node;
+import errors.InvalidRedirectionError;
 
-public class Cp extends DirectoryManager implements CommandI{
-	
+public class Cp extends DirectoryManager implements CommandI {
+
 	/**
 	 * Declare instance variable of ArrayList to hold all arguments
 	 */
@@ -21,79 +22,79 @@ public class Cp extends DirectoryManager implements CommandI{
 
 	private Cd traverse;
 
-	String[] pathFrom = {""};
+	String[] pathFrom = { "" };
 	String fileName;
-	String[] pathTo = {""};
-	String[] currentPath = {""};
+	String[] pathTo = { "" };
+	String[] currentPath = { "" };
 	Node parentToMove;
 	Node toMove = null;
 	FileSystemI fs;
 	String output;
-	
+
 	public Cp() {
 		error = new ErrorHandler();
 		rManager = new RedirectionManager();
 		traverse = new Cd();
-	
+
 	}
-	
+
 	public String run(FileSystemI filesys, String[] arguments, String actualInput, boolean val) {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
 		fs = filesys;
 		output = checkArgs(fs, actualInput);
-		if (output != null){
+		if (output != null) {
 			return output;
 		}
 		pathTo[0] = args.get(1);
-	
+
 		currentPath[0] = fs.getCurrentPath();
 
 		initPathandFile();
 
 		output = copyFile();
-		if (output != null){
+		if (output != null) {
 			return output;
 		}
 
 		output = moveFile();
-		if (output != null){
+		if (output != null) {
 			return output;
 		}
-		
+
 		traverse.run(currentPath, fs);
-		
+
 		return null;
 	}
 
-	public void initPathandFile(){
-		if (args.get(0).contains("/")){
+	public void initPathandFile() {
+		if (args.get(0).contains("/")) {
 			pathFrom[0] = args.get(0).substring(0, args.get(0).lastIndexOf("/"));
-			if (pathFrom[0].equals("")){
+			if (pathFrom[0].equals("")) {
 				pathFrom[0] = "/";
 			}
-			if (args.get(0).lastIndexOf("/") == 0){
+			if (args.get(0).lastIndexOf("/") == 0) {
 				fileName = args.get(0).substring(1, args.get(0).length());
-			}else{
+			} else {
 				fileName = args.get(0).substring(args.get(0).lastIndexOf("/") + 1, args.get(0).length());
 			}
-		}else{
+		} else {
 			pathFrom[0] = "/";
 			fileName = args.get(0);
 		}
 	}
 
-	public String checkArgs(FileSystemI filesys, String fullInput){
-		String output = rManager.isRedirectionableCommand(filesys, fullInput);
+	public String checkArgs(FileSystemI filesys, String fullInput) {
 
-		if(!"true".equals(output))
-		  return output;
-
-		if (args.size() != 2) {
-			return error.getError("Invalid Argument", "Expected 2 arguments");
-		}
-		
-		if (args.get(0).equals("/")){
-			return error.getError("Invalid Directory", "Cannot move the root directory");
+		try {
+			if (rManager.isRedirectionableCommand(filesys, fullInput))
+			
+			if (args.size() != 2) 
+				return error.getError("Invalid Argument", "Expected 2 arguments");
+			
+			if (args.get(0).equals("/"))
+				return error.getError("Invalid Directory", "Cannot move the root directory");
+		} catch (InvalidRedirectionError e) {
+			return e.getLocalizedMessage();
 		}
 		return null;
 	}

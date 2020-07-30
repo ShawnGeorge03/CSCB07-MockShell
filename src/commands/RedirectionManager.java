@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import data.FileSystemI;
+import errors.InvalidRedirectionError;
 
 /**
  * Class RedirectionManager is responsible for handling redirection of output to
@@ -77,7 +78,7 @@ public class RedirectionManager {
      * @param fullInput the user input
      * @return true if command is redirectionable and false other wise
      */
-    public String isRedirectionableCommand(FileSystemI fs, String fullInput) {
+    public boolean isRedirectionableCommand(FileSystemI fs, String fullInput) throws InvalidRedirectionError{
         // Retrives the command from the user input
         String command = fullInput.split(" ")[0];
 
@@ -88,10 +89,10 @@ public class RedirectionManager {
             if (Arrays.asList(fullInput.split(" ")).contains(">")
                     || Arrays.asList(fullInput.split(" ")).contains(">>")) {
                 // Returns the respective error -> Command is not redirectionable
-                return  outputResult(fs,errorManager.getError("Redirection Not allowed", command + " does not support redirection"));
+                throw new InvalidRedirectionError("Error : Redirection Error : " + command + " does not support redirection");
             }
         }
-        return "true";
+        return false;
     }
 
     /**
