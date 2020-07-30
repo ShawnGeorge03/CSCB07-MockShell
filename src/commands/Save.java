@@ -7,6 +7,7 @@ import data.*;
 public class Save implements CommandI{
 
   private FileWriter writer;
+  private RedirectionManager redirect;
   private String filePath;
   private ErrorHandler error;
   private String output;
@@ -14,6 +15,7 @@ public class Save implements CommandI{
   
   public Save(){
     this.error = new ErrorHandler();
+    this.redirect = new RedirectionManager();
     this.output = null;
     this.fileContent = "";
   }
@@ -26,11 +28,13 @@ public class Save implements CommandI{
   
   @Override
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+    String redirectionUsed = redirect.isRedirectionableCommand(filesys, fullInput);
+    if(!redirectionUsed.equals("true")) return redirectionUsed;
+    //System.out.println(output);
     output = runSave(filesys, args, fullInput);
     if(output != null){
       if(output.startsWith("Error:") || output.startsWith("Error :")) return output;
     }
-    //System.out.println(output);
     return fileContent.trim();
   }
   
