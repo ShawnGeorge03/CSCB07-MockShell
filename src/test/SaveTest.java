@@ -85,6 +85,16 @@ public class SaveTest {
     }
 
     /**
+     * Test E : User uses redirection for a non redirectionable command
+     */
+    @Test
+    public void testERedirectionError(){
+        actual = save.run(fs, "input".split(" "), "save input > text", false);
+        expected = "Error : Redirection Error : save does not support redirection";
+        assertEquals(expected, actual); 
+    }
+
+    /**
      * Test E : 
      */
 /*    @Test
@@ -115,4 +125,6 @@ public class SaveTest {
         System.out.println(actual);
         assertEquals(expected, actual);
     }*/
+
+
 }

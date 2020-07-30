@@ -17,7 +17,9 @@ public class Cp extends DirectoryManager implements CommandI{
 	 */
 	private ErrorHandler error;
 
-	Cd traverse;
+	private RedirectionManager rManager;
+
+	private Cd traverse;
 
 	String[] pathFrom = {""};
 	String fileName;
@@ -30,19 +32,20 @@ public class Cp extends DirectoryManager implements CommandI{
 	
 	public Cp() {
 		error = new ErrorHandler();
+		rManager = new RedirectionManager();
 		traverse = new Cd();
-		
+	
 	}
 	
 	public String run(FileSystemI filesys, String[] arguments, String actualInput, boolean val) {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
 		fs = filesys;
-		pathTo[0] = args.get(1);
-		output = checkArgs();
+		output = checkArgs(fs, actualInput);
 		if (output != null){
 			return output;
 		}
-
+		pathTo[0] = args.get(1);
+	
 		currentPath[0] = fs.getCurrentPath();
 
 		initPathandFile();
@@ -79,7 +82,12 @@ public class Cp extends DirectoryManager implements CommandI{
 		}
 	}
 
-	public String checkArgs(){
+	public String checkArgs(FileSystemI filesys, String fullInput){
+		String output = rManager.isRedirectionableCommand(filesys, fullInput);
+
+		if(!"true".equals(output))
+		  return output;
+
 		if (args.size() != 2) {
 			return error.getError("Invalid Argument", "Expected 2 arguments");
 		}

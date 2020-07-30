@@ -74,6 +74,8 @@ public class Speak implements CommandI {
   private static final String VOICEDIR =
       "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory";
 
+  private RedirectionManager rManager;
+
   private String text;
   private String userText;
 
@@ -94,6 +96,7 @@ public class Speak implements CommandI {
     this.text = "";
     // Initializes a Errorhandler Object
     this.errorManager = new ErrorHandler();
+    this.rManager = new RedirectionManager();
   }
 
   /**
@@ -104,7 +107,12 @@ public class Speak implements CommandI {
    * @param val  tells if the it should enter speakMode or not
    * @return any error messages if there are any or null
    */
-  public String run(FileSystemI filesys, String[] args, String actualInput, boolean val) {
+  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+
+    String output = rManager.isRedirectionableCommand(filesys, fullInput);
+
+    if(!"true".equals(output))
+      return output;
 
     // Converts a String array containing user words to a single String sentence
     text = Arrays.toString(args);

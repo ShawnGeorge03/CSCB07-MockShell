@@ -17,6 +17,8 @@ public class Mv extends DirectoryManager implements CommandI{
 	 */
 	private ErrorHandler error;
 
+	private RedirectionManager rManager;
+
 	Cd traverse;
 
 	String[] pathFrom = {""};
@@ -31,6 +33,7 @@ public class Mv extends DirectoryManager implements CommandI{
 	
 	public Mv() {
 		error = new ErrorHandler();
+		rManager = new RedirectionManager();
 		traverse = new Cd();
 		toRemove = -1;
 	}
@@ -38,8 +41,8 @@ public class Mv extends DirectoryManager implements CommandI{
 	public String run(FileSystemI filesys, String[] arguments, String actualInput, boolean val) {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
 		fs = filesys;
+		output = checkArgs(filesys, actualInput);
 		pathTo[0] = args.get(1);
-		output = checkArgs();
 		if (output != null){
 			return output;
 		}
@@ -80,7 +83,12 @@ public class Mv extends DirectoryManager implements CommandI{
 		}
 	}
 
-	public String checkArgs(){
+	public String checkArgs(FileSystemI filesys, String fullInput){
+		String output = rManager.isRedirectionableCommand(filesys, fullInput);
+
+		if(!"true".equals(output))
+		  return output;
+
 		if (args.size() != 2) {
 			return error.getError("Invalid Argument", "Expected 2 arguments");
 		}

@@ -96,10 +96,10 @@ public class RmTest {
     }
     
     /**
-     * Test K : User uses redirection for a non redirectionable command
+     * Test G  : User uses redirection for a non redirectionable command
      */
     @Test
-    public void testERedirectionError(){
+    public void testGRedirectionError(){
         String[] input = {"documents", ">", "text"};
         String actual = rm.run(fs, input, "rm documents > text", false);
         String expected = "Error : Redirection Error : rm does not support redirection";

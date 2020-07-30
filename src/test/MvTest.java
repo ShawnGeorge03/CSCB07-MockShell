@@ -97,4 +97,12 @@ public class MvTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void testGRedirectionError(){
+        String[] input = {"/", "documents", ">", "text"};
+        String actual = mv.run(fs, input, "mv / documents > text", false);
+        String expected = "Error : Redirection Error : mv does not support redirection";
+        assertEquals(expected, actual); 
+    }
+
 }

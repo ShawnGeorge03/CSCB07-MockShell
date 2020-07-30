@@ -37,9 +37,9 @@ public class Rm extends DirectoryManager implements CommandI{
 
 		String output = rManager.isRedirectionableCommand(filesys, fullInput);
 
-		if(!"true".equals(output)) return output;
-
-		if (args.size() != 1) {
+		if(!"true".equals(output)){
+			return output;
+		}else if (args.size() != 1) {
 			return error.getError("Invalid Argument", "Expecting 1 Argument only!");
 		}
 		if (args.get(0).equals("/")){
