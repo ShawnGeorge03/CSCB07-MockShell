@@ -28,17 +28,6 @@ public class Save implements CommandI{
   
   @Override
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-    String redirectionUsed = redirect.isRedirectionableCommand(filesys, fullInput);
-    if(!redirectionUsed.equals("true")) return redirectionUsed;
-    //System.out.println(output);
-    output = runSave(filesys, args, fullInput);
-    if(output != null){
-      if(output.startsWith("Error:") || output.startsWith("Error :")) return output;
-    }
-    return fileContent.trim();
-  }
-  
-  private String runSave(FileSystemI filesys, String[] args, String fullInput){
     if(args.length > 0) {
       filePath = formatArguments(args);
       validateFileName(filesys, fullInput);
@@ -66,6 +55,46 @@ public class Save implements CommandI{
     else output = error.getError("No parameters provided", fullInput);
     return output;
   }
+
+  public String getFileContent(FileSystemI filesys, String[] args, String fullInput, boolean val){
+    String redirectionUsed = redirect.isRedirectionableCommand(filesys, fullInput);
+    if(!redirectionUsed.equals("true")) return redirectionUsed;
+    //System.out.println(output);
+    output = run(filesys, args, fullInput, false);
+    if(output != null){
+      if(output.startsWith("Error:") || output.startsWith("Error :")) return output;
+    }
+    return fileContent.trim();
+  }
+  /*
+  private String runSave(FileSystemI filesys, String[] args, String fullInput){
+    if(args.length > 0) {
+      filePath = formatArguments(args);
+      validateFileName(filesys, fullInput);
+      if(output != null) return output;
+      try {
+        writer = new FileWriter(filePath); 
+        
+        writer.write("NODES\n{\n");
+        storeNodeInformation(writer, filesys);
+        writer.write("}");
+        fileContent += "\n";
+        writer.write("\n\nFILESYSTEM\n{\n");
+        storeFileSystem(writer, filesys);
+        writer.write("}");
+        fileContent += "\n";
+        writer.write("\n\nCOMMAND LOG\n{\n");
+        storeCommandHistoryToFile(writer, filesys);
+        writer.write("}");
+        
+        writer.close();
+      } catch(IOException e) { //could not find file
+        output = "Error: Invalid Path : " + args[0];
+      }
+    }
+    else output = error.getError("No parameters provided", fullInput);
+    return output;
+  }*/
 
   private void validateFileName(FileSystemI filesys, String fullInput){
     if(!checkFileName(filePath, filesys)) {
