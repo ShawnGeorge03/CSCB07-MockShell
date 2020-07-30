@@ -16,14 +16,20 @@ public class Rm extends DirectoryManager implements CommandI{
 	 * Declare instance variable of ErrorHandler to handle error messages
 	 */
 	private ErrorHandler error;
-	
+	private RedirectionManager rManager;
 	public Rm() {
 		error = new ErrorHandler();
+		rManager = new RedirectionManager();
 	}
 	
 	
-	public String run(FileSystemI filesys, String[] arguments, String actualInput, boolean val) {
+	public String run(FileSystemI filesys, String[] arguments, String fullInput, boolean val) {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
+
+		String output = rManager.isRedirectionableCommand(filesys, fullInput);
+
+		if(!"true".equals(output)) return output;
+
 		if (args.size() != 1) {
 			return error.getError("Invalid Argument", "Expecting 1 Argument only!");
 		}
