@@ -94,7 +94,7 @@ public class Man implements CommandI {
     //If the user provides more than one command
     }else if(args.length > 1){
       // Returns an error
-      return error.getError("Multiple parameters provided", args[0] + ", only supported one is required");
+      return error.getError("Multiple parameters provided", "Only one supported command is required");
     //If the command is not supported by Man
     }else if(!manMap.containsKey(args[0])){
       // Returns an error

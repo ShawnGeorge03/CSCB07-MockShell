@@ -34,10 +34,12 @@ import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
 import data.FileSystemI;
+import errors.MalformedInputException;
+import errors.MissingQuotesException;
 
 /**
- * Class TextSpeech is responsible for converting given text to audio
- * Note : Parts of this class was built from 
+ * Class TextSpeech is responsible for converting given text to audio Note :
+ * Parts of this class was built from
  * https://www.youtube.com/watch?v=d50sZteNC1E
  */
 
@@ -54,11 +56,6 @@ public class Speak implements CommandI {
   private VoiceManager voiceManager;
 
   /**
-   * Declare instance of ErrorHandler to handle error messages
-   */
-  private ErrorHandler errorManager;
-
-  /**
    * Declare instance of String to store the voice that is to be used
    */
   private static final String VOICENAME = "kevin16";
@@ -71,14 +68,12 @@ public class Speak implements CommandI {
   /**
    * Declare instance of String to store the voice that is to be used
    */
-  private static final String VOICEDIR =
-      "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory";
+  private static final String VOICEDIR = "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory";
 
   private RedirectionManager rManager;
 
   private String text;
   private String userText;
-
 
   /**
    * Constructor for class TextSpeech which initializes instance variables
@@ -94,24 +89,22 @@ public class Speak implements CommandI {
     this.voice.allocate();
     // Initializes the text
     this.text = "";
-    // Initializes a Errorhandler Object
-    this.errorManager = new ErrorHandler();
     this.rManager = new RedirectionManager();
   }
 
   /**
    * This function checks if the text given is valid and then converts it audio
    * 
-   * @param args  the string array of arguments
-   * @param fullInput  the full line of input that the user gives into JShell
-   * @param val  tells if the it should enter speakMode or not
+   * @param args      the string array of arguments
+   * @param fullInput the full line of input that the user gives into JShell
+   * @param val       tells if the it should enter speakMode or not
    * @return any error messages if there are any or null
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
 
     String output = rManager.isRedirectionableCommand(filesys, fullInput);
 
-    if(!"true".equals(output))
+    if (!"true".equals(output))
       return output;
 
     // Converts a String array containing user words to a single String sentence
@@ -123,9 +116,9 @@ public class Speak implements CommandI {
       // The method returns null
       return null;
     }
-    
+
     // Stores the exact user input
-    userText = text; 
+    userText = text;
 
     // If the text ends with the special keyword QUIR
     if (text.endsWith("QUIT")) {
@@ -133,6 +126,22 @@ public class Speak implements CommandI {
       text = text.substring(0, text.indexOf("QUIT")).trim();
     }
 
+    try {
+      // Converts the voice to audio
+      if(checkArgs(text, val)) 
+          voice.speak(text);
+    } catch (MissingQuotesException e) {
+      return e.getLocalizedMessage();
+    } catch (MalformedInputException e) {
+      return e.getLocalizedMessage();
+    }catch(Exception e){
+      e.printStackTrace();
+    }
+    // The method returns null
+    return null;
+  }
+
+  private boolean checkArgs(String text, boolean val) throws MissingQuotesException, MalformedInputException {
     // If we are not in speak mode
     if (!val) {
       // If the user did not use or partially used quote(s) at the beginning
@@ -144,25 +153,15 @@ public class Speak implements CommandI {
           text = text.substring(1, text.lastIndexOf("\""));
       } else {
         // Returns an error if the quotes are not used properly
-        return errorManager.getError("Missing Quotes", userText);
+        throw new MissingQuotesException("Error : Missing Quotes : " + userText);
       }
 
       // If the user used multiple quotations
       if (text.indexOf("\"") != -1) {
         // Returns an error if the quotes are not used properly
-        return errorManager.getError("Malformed Input", userText);
+        throw new MalformedInputException("Error : Malformed Input :" + userText);
       }
     }
-
-    try {
-      // Converts the voice to audio
-      voice.speak(text);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    // The method returns null
-    return null;
+    return true;
   }
-
-
 }

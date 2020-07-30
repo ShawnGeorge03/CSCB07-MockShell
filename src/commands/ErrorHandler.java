@@ -53,7 +53,6 @@ public class ErrorHandler {
 
   private void initializeErrorMap() {
     // Adds the respective error key and adds its respective erro message to the commandMap
-    errorMap.put("Invalid Command", "Error: Invalid Command");
     errorMap.put("Invalid Argument", "Error: Invalid Argument");
     errorMap.put("Invalid File", "Error: Invalid File");
     errorMap.put("Invalid Directory", "Error: Invalid Directory");

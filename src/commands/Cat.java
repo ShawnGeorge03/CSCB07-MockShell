@@ -103,7 +103,8 @@ public class Cat implements CommandI {
         // If the file does not exist
       } else {
         // Collect and append the error of File Not Found
-        output += errorManager.getError("File Not Found", filePaths[i]);
+        output = errorManager.getError("File Not Found", filePaths[i]);
+        return;
       }
 
       // If it is not one file or it is the last file in the filePaths

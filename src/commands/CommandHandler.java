@@ -34,6 +34,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import data.FileSystem;
+import errors.InvalidCommandException;
 
 /**
  * Class CommandHandler is responsible for creating instances of the requested
@@ -48,11 +49,6 @@ public class CommandHandler {
      * Declare instance of FileSystem to pass the FileSystem refrence
      */
     private FileSystem fs;
-
-    /**
-     * Declare instance of ErrorHandler to handle error messages
-     */
-    private ErrorHandler errorManager;
 
     /**
      * Declare instance variable of String array to hold the command and its
@@ -85,8 +81,6 @@ public class CommandHandler {
     public CommandHandler() {
         // Gets a refrence of the FileSystem
         fs = FileSystem.getFileSys();
-        // Initializes a ErrorHandler Object
-        errorManager = new ErrorHandler();
         // Creates a HashMap Object called commandMap
         commandMap = new HashMap<String, String>();
         // Initializes the HashMap with the keys and values
@@ -120,7 +114,12 @@ public class CommandHandler {
             speakMode = true;
 
         // Calls the function to run the command
-        run(command, args, parsedInput);
+        try {
+            run(command, args, parsedInput);
+        } catch (InvalidCommandException e) {
+            output = e.getLocalizedMessage();
+            outputToConsole();
+        }
 
         // If the command was speak and the user input ends with the special keyword
         // QUIT
@@ -137,11 +136,11 @@ public class CommandHandler {
      * @param args      the string array of arguments
      * @param fullInput the raw input that the user gave to JShell
      */
-    public void run(String command, String[] args, String fullInput) {
+    private void run(String command, String[] args, String fullInput) throws InvalidCommandException {
         // Check if the command is supported
         if (!commandMap.containsKey(command)) {
             // Sets the error as Invalid Command
-            output = errorManager.getError("Invalid Command", command + " is not supported");
+            throw new InvalidCommandException("Error: Invalid Command : " + command + " is not supported");
         } else {
             try {
                 // Gets the class path of the command that needs to ne run
@@ -168,6 +167,10 @@ public class CommandHandler {
                 e.printStackTrace();
             }
         }
+        outputToConsole();
+    }
+
+    private void outputToConsole(){
         if(output != null) System.out.println(output.trim());
     }
 

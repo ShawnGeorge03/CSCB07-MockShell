@@ -94,11 +94,6 @@ public class Echo implements CommandI {
   }
 
   private boolean hasQuotations(String fullInput) {
-    if(fullInput.contains("\"")) {
-      if(fullInput.startsWith("\"") && fullInput.endsWith("\"")){
-        return true;
-      }
-    }
-    return false;
+      return fullInput.startsWith("\"") && fullInput.endsWith("\"");
   }
 }

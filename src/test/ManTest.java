@@ -144,9 +144,10 @@ public class ManTest {
     @Test
     public void testEMultipleArgs(){
         //Expected return from Man
-        expected = "Error : Multiple Parameters have been provided : speak ls, only supported one is required";
+        expected = "Error : Multiple Parameters have been provided : Only one supported command is required";
         //Actual return from Man after the operation has been run
         actual = man.run(fs,"speak ls".split(" "), "man speak ls", false);
+        System.out.println(actual);
         //Checks if the values are equal or not
         assertEquals(expected, actual);  
     }

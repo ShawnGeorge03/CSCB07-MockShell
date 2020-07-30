@@ -24,7 +24,7 @@ public class MockFileSystem implements FileSystemI {
   private static Deque<String> stack;
 
   /**
-   * Initialize the directory nodes
+   * Initialize the directory and file nodes
    */
 
   Node root;

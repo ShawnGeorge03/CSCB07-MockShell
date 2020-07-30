@@ -142,8 +142,7 @@ public class CatTest {
     @Test
     public void testGFileNotFoundCase3(){
         //Expected return from Cat
-        expected =  "2+2=5" + "\n" + "\n" + "\n" + "Error: File Not Found : LOL"
-                + "\n" + "\n" + "\n" + "this is a document 2";
+        expected =  "Error: File Not Found : LOL";
         //Actual return from Cat after the operation has been run
         actual = cat.run(fs, "downloads/homework/HW8 LOL /documents/txttwo".split(" "), 
                 "cat downloads/homework/HW8 LOL /documents/txttwo", false);
@@ -211,8 +210,7 @@ public class CatTest {
     @Test  
     public void testLRedirectionErrorCase3(){
         //Expected return from Cat
-        expected =  "2+2=5" + "\n" + "\n" + "\n" + "Error: File Not Found : LOL"
-        + "\n" + "\n" + "\n" + "this is a document 2";
+        expected =  "Error: File Not Found : LOL";
         //Actual return from Cat after the operation has been run
         actual = cat.run(fs, "downloads/homework/HW8 LOL /documents/txttwo > downloads/homework/HW8".split(" "), 
                 "cat downloads/homework/HW8 LOL /documents/txttwo > downloads/homework/HW8", false);
