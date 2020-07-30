@@ -52,7 +52,7 @@ public class SaveTest {
     @Test
     public void testBInvalidFileName(){
         String[] testNoArg = {"!"};
-        expected = "Error: Invalid File : !";
+        expected = "Error: Invalid File : save !";
         actual = save.run(fs,testNoArg, "save !", false);
         assertEquals(expected, actual);
     }
