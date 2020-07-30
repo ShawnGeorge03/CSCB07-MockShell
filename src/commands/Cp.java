@@ -16,27 +16,53 @@ public class Cp extends DirectoryManager implements CommandI{
 	 * Declare instance variable of ErrorHandler to handle error messages
 	 */
 	private ErrorHandler error;
+
+	Cd traverse;
+
+	String[] pathFrom = {""};
+	String fileName;
+	String[] pathTo = {""};
+	String[] currentPath = {""};
+	Node parentToMove;
+	Node toMove = null;
+	FileSystemI fs;
+	String output;
 	
 	public Cp() {
 		error = new ErrorHandler();
+		traverse = new Cd();
+		
 	}
 	
 	public String run(FileSystemI filesys, String[] arguments, String actualInput, boolean val) {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
-		
-		if (args.size() != 2) {
-			return error.getError("Invalid Argument", "Expected 2 arguments");
+		fs = filesys;
+		pathTo[0] = args.get(1);
+		output = checkArgs();
+		if (output != null){
+			return output;
 		}
-		
-		if (args.get(0).equals("/")){
-			return error.getError("Invalid Directory", "Cannot move the root directory");
-		}
-		
-		Cd traverse = new Cd();
 
-		String[] currentPath = {filesys.getCurrentPath()};
-		String[] pathFrom = {""};
-		String fileName;
+		currentPath[0] = fs.getCurrentPath();
+
+		initPathandFile();
+
+		output = copyFile();
+		if (output != null){
+			return output;
+		}
+
+		output = moveFile();
+		if (output != null){
+			return output;
+		}
+		
+		traverse.run(currentPath, fs);
+		
+		return null;
+	}
+
+	public void initPathandFile(){
 		if (args.get(0).contains("/")){
 			pathFrom[0] = args.get(0).substring(0, args.get(0).lastIndexOf("/"));
 			if (pathFrom[0].equals("")){
@@ -51,14 +77,23 @@ public class Cp extends DirectoryManager implements CommandI{
 			pathFrom[0] = "/";
 			fileName = args.get(0);
 		}
-		
-		String[] pathTo = {args.get(1)};
-		Node parentToMove;
-		Node toMove = null;
+	}
 
-		if (traverse.run(pathFrom, filesys)) {
-			pathFrom[0] = filesys.getCurrentPath();
-			parentToMove = filesys.getCurrent();
+	public String checkArgs(){
+		if (args.size() != 2) {
+			return error.getError("Invalid Argument", "Expected 2 arguments");
+		}
+		
+		if (args.get(0).equals("/")){
+			return error.getError("Invalid Directory", "Cannot move the root directory");
+		}
+		return null;
+	}
+
+	public String copyFile(){
+		if (traverse.run(pathFrom, fs)) {
+			pathFrom[0] = fs.getCurrentPath();
+			parentToMove = fs.getCurrent();
 
 			for (int i = 0; i < parentToMove.getList().size(); i++) {
 				if (parentToMove.getList().get(i).getName().equals(fileName)) {
@@ -76,14 +111,17 @@ public class Cp extends DirectoryManager implements CommandI{
 				}
 			}
 
-			traverse.run(currentPath, filesys);
+			traverse.run(currentPath, fs);
 		}else {
 			return error.getError("Invalid Directory", pathFrom[0] + " does not exist!");
 		}
-		
-		if (traverse.run(pathTo, filesys)) {
-			if (filesys.checkRepeat(fileName)){
-				filesys.addToDirectory(toMove);
+		return null;
+	}
+
+	public String moveFile(){
+		if (traverse.run(pathTo, fs)) {
+			if (fs.checkRepeat(fileName)){
+				fs.addToDirectory(toMove);
 			}else{
 				return error.getError("Same Directory", fileName + " already exists");
 			}
@@ -91,11 +129,7 @@ public class Cp extends DirectoryManager implements CommandI{
 		}else {
 			return error.getError("Invalid Directory", pathTo[0] + " does not exist!");
 		}
-		
-		traverse.run(currentPath, filesys);
-		
 		return null;
 	}
-	
 
 }
