@@ -62,7 +62,7 @@ public class Find extends DirectoryManager implements CommandI {
 		if (isValid(arguments)) {
 			for (String x : paths) {
 				String[] pathArr = { x };
-				output = output.concat(checkList(filesys, pathArr, arguments.get(3), arguments.get(1)));
+				output = (checkList(filesys, pathArr, arguments.get(3), arguments.get(1)));
 			}
 		}
 		return output;
@@ -76,7 +76,8 @@ public class Find extends DirectoryManager implements CommandI {
 			output = recursiveDirSearch(filesys, path, expression, type, newPath, filesys.getCurrent(),
 					filesys.getCurrentPath(), output);
 		} else {
-			System.out.println(error.getError("Directory Not Found", path[0]));
+			output = error.getError("Directory Not Found", path[0]);
+			return output;
 		}
 		newPath.run(currPath, filesys);
 		return output;
