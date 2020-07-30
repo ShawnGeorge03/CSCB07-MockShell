@@ -69,11 +69,11 @@ public class Save implements CommandI{
 
   private void validateFileName(FileSystemI filesys, String fullInput){
     if(!checkFileName(filePath, filesys)) {
-      output = error.getError("Invalid File", filePath);
+      output = error.getError("Invalid File", fullInput);
     }
     if(filePath.contains(".")){
       if(!filePath.substring(filePath.length()-5, filePath.length()).equals(".json")) {
-        output = error.getError("Invalid File", filePath);
+        output = error.getError("Invalid File", fullInput);
       }
     }
     else filePath += ".json";
