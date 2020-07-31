@@ -15,16 +15,21 @@ public class Load implements CommandI{
   private BufferedReader reader;
   private String filePath;
   private String output;
-  private ErrorHandler error;
   
   public Load(){
-    this.error = new ErrorHandler();
     this.output = null;
   }
   
   @Override
 	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
-		return false;
+    if(arguments.length == 0){
+      throw new InvalidArgsProvidedException("Error: Invalid Argument : No arguments should be given");
+    }else if(arguments.length > 1){
+      throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided : " + String.join(" ", arguments) + " Only one is required");
+    }else if(!checkCommandLog(fs)){
+      throw new InvalidArgsProvidedException("Error: load was not the first command inputted");
+    }
+    return true;
 	}
   
   /*
@@ -35,32 +40,30 @@ public class Load implements CommandI{
 
   @Override
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-    if(args[0].length() > 0 && checkCommandLog(filesys)) {
-      filePath = formatArguments(args);
-      try {
+    try {
+      if (checkArgs(filesys, args, fullInput)) {
+        filePath = formatArguments(args);
         validateFileName(filesys, fullInput);
         fileReader = new FileReader(filePath);
         reader = new BufferedReader(fileReader);
         String line = reader.readLine();
-        while(line != null) {
-          if(line.equals("NODES")) uploadNodes(line, filesys);
-          else if(line.equals("COMMAND LOG")) {
+        while (line != null) {
+          if (line.equals("NODES"))
+            uploadNodes(line, filesys);
+          else if (line.equals("COMMAND LOG")) {
             uploadCommandLog(line, filesys);
           }
           line = reader.readLine();
         }
-      } catch (FileNotFoundException e) { 
-        return "Error: Invalid Path : " + args[0];
-      } catch (IOException e) { 
-        return "Issues with Load";
-      } catch( InvalidArgsProvidedException e){
-        e.getLocalizedMessage();
       }
+    } catch (InvalidArgsProvidedException e) {
+      return e.getLocalizedMessage();
+    } catch (FileNotFoundException e) {
+      return "Error: Invalid Path : " + args[0];
+    } catch (IOException e) {
+      return "Issues with Load";
     }
-    else{
-      if(!checkCommandLog(filesys)) output = "Error: load was not the first command inputted";
-      output = error.getError("No parameters provided", fullInput);
-    }
+    
     return output;
   }
   
