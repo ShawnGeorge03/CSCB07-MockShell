@@ -3,6 +3,7 @@ package commands;
 import java.io.FileWriter;
 import java.io.IOException;
 import data.*;
+import errors.FileException;
 import errors.InvalidArgsProvidedException;
 import errors.InvalidRedirectionError;
 
@@ -11,12 +12,10 @@ public class Save implements CommandI {
   private FileWriter writer;
   private RedirectionManager redirect;
   private String filePath;
-  private ErrorHandler error;
   private String output;
   private String fileContent;
 
   public Save() {
-    this.error = new ErrorHandler();
     this.redirect = new RedirectionManager();
     this.output = null;
     this.fileContent = "";
@@ -24,7 +23,12 @@ public class Save implements CommandI {
 
   @Override
 	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
-		return false;
+		if(arguments.length == 0){
+      throw new InvalidArgsProvidedException("Error : No parameters provided");
+    }else if(arguments.length > 1){
+      throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided : " + String.join(" ", arguments) + " Only one is required");
+    }
+    return true;
 	}
 
   /*
@@ -35,36 +39,34 @@ public class Save implements CommandI {
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     try {
       redirect.isRedirectionableCommand(filesys, fullInput);
-    } catch (InvalidRedirectionError e) {
+      if(checkArgs(filesys, args, fullInput)){
+        filePath = formatArguments(args);
+        try {
+          validateFileName(filesys, fullInput);
+          writer = new FileWriter(filePath);
+          writer.write("NODES\n{\n");
+          storeNodeInformation(writer, filesys);
+          writer.write("}");
+          fileContent += "\n";
+          writer.write("\n\nFILESYSTEM\n{\n");
+          storeFileSystem(writer, filesys);
+          writer.write("}");
+          fileContent += "\n";
+          writer.write("\n\nCOMMAND LOG\n{\n");
+          storeCommandHistoryToFile(writer, filesys);
+          writer.write("}");
+  
+          writer.close();
+        } catch(InvalidArgsProvidedException e1){
+          return e1.getLocalizedMessage();
+         // could not find file
+        }catch (IOException e1) {
+          output = "Error: Invalid Path : " + args[0];
+        }
+      }
+    } catch (InvalidArgsProvidedException e) {
       return e.getLocalizedMessage();
     }
-    
-    if (args.length > 0) {
-      filePath = formatArguments(args);
-      validateFileName(filesys, fullInput);
-      if (output != null)
-        return output;
-      try {
-        writer = new FileWriter(filePath);
-
-        writer.write("NODES\n{\n");
-        storeNodeInformation(writer, filesys);
-        writer.write("}");
-        fileContent += "\n";
-        writer.write("\n\nFILESYSTEM\n{\n");
-        storeFileSystem(writer, filesys);
-        writer.write("}");
-        fileContent += "\n";
-        writer.write("\n\nCOMMAND LOG\n{\n");
-        storeCommandHistoryToFile(writer, filesys);
-        writer.write("}");
-
-        writer.close();
-      } catch (IOException e) { // could not find file
-        output = "Error: Invalid Path : " + args[0];
-      }
-    } else
-      output = error.getError("No parameters provided", fullInput);
     return output;
   }
 
@@ -110,13 +112,13 @@ public class Save implements CommandI {
     return output;
   }*/
 
-  private void validateFileName(FileSystemI filesys, String fullInput){
+  private void validateFileName(FileSystemI filesys, String fullInput) throws FileException{
     if(!checkFileName(filePath, filesys)) {
-      output = error.getError("Invalid File", fullInput);
+      throw new FileException("Error: Invalid File : " + fullInput);
     }
     if(filePath.contains(".")){
       if(!filePath.substring(filePath.length()-5, filePath.length()).equals(".json")) {
-        output = error.getError("Invalid File", fullInput);
+        throw new FileException("Error: Invalid File : " + fullInput);
       }
     }
     else filePath += ".json";

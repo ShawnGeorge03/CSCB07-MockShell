@@ -94,7 +94,7 @@ public class MkdirTest {
   
   @Test
   public void testFRepeatedPath(){
-    expected = "Error: Same Directory with that name already exists! : users already exists";
+    expected = "Invalid Directory: users already exists in /";
     actual = mkdir.run(fs,"/users".split(" "), "mkdir /users" , false); 
     collectContent("/");
     assertTrue(actual.equals(expected));
@@ -121,6 +121,7 @@ public class MkdirTest {
     expected = null;
     actual = mkdir.run(fs,"/A3 /A3/do".split(" "), "mkdir /A3 /A3/do", false);
     collectContent("A3");
+    System.out.println(actual);
     assertTrue(allContent.equals(Arrays.asList("do".split(" ")))  && actual == expected);
   }
   
@@ -129,7 +130,7 @@ public class MkdirTest {
     expected = "Error: Invalid Directory : /lol is not a valid directory";
     actual = mkdir.run(fs,"/lol/F anotherFile".split(" "), "mkdir /lol/F anotherFile", false);
     collectContent("/");
-    assertTrue(allContent.contains("anotherFile")  && actual.equals(expected));
+    assertTrue(!allContent.contains("anotherFile")  && actual.equals(expected));
   }
 
       /**

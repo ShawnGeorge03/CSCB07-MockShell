@@ -10,11 +10,11 @@ import errors.InvalidArgsProvidedException;
 
 public class Find extends DirectoryManager implements CommandI {
 
-	ErrorHandler error;
 	String output = "";
+	RedirectionManager rManager;
 
 	public Find() {
-		error = new ErrorHandler();
+		rManager = new RedirectionManager();
 	}
 
 	@Override

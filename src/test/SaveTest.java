@@ -40,7 +40,7 @@ public class SaveTest {
     @Test
     public void testANoArgs(){
         String[] testNoArg = {};
-        expected = "Error : No parameters provided : save";
+        expected = "Error : No parameters provided";
         actual = save.getFileContent(fs,testNoArg, "save", false);
         assertEquals(expected, actual);
     }

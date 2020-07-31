@@ -45,10 +45,6 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * Declare instance variable of ArrayList to hold all arguments
 	 */
 	ArrayList<String> args;
-	/**
-	 * Declare instance variable of ErrorHandler to handle error messages
-	 */
-	private ErrorHandler error;
 
 	private RedirectionManager rManager;
 
@@ -64,7 +60,6 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * Constructor of Mkdir to initialize error
 	 */
 	public Mkdir() {
-		this.error = new ErrorHandler();
 		this.rManager = new RedirectionManager();
 		traverse = new Cd();
 	}

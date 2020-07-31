@@ -40,18 +40,12 @@ public class Cd extends DirectoryManager implements CommandI {
 
   boolean successfulPath = false;
 
-  /**
-   * Declare instance of ErrorHandler to handle error messages
-   */
-  ErrorHandler error;
-
   RedirectionManager rManager;
 
   /**
    * Constructor for class Cd which initalizes instance variables
    */
   public Cd() {
-    error = new ErrorHandler();
     rManager = new RedirectionManager();
   }
 

@@ -39,12 +39,6 @@ import data.Node;
  */
 public class DirectoryManager {
 
-
-  /**
-   * Declare instance of ErrorHandler to handle error messages
-   */
-  ErrorHandler error = new ErrorHandler();
-
   /**
    * Constructor for DirectoryManager which initializes filesystem
    */
