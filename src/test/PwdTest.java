@@ -103,7 +103,7 @@ public class PwdTest {
 
     @Test
     public void testRedirectionErrorCase2(){
-        expectedPath = "Error : Multiple Parameters have been provided : [lol, plz, work] Only one is required";
+        expectedPath = "Error : Multiple Parameters have been provided : [lol, plz, work] Only one is required for redirection";
         actualPath = pwd.run(fs,">> lol plz work".split(" "), "pwd >> lol plz work", false);
         assertEquals(expectedPath, actualPath);
     }

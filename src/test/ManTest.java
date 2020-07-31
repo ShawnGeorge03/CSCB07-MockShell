@@ -201,7 +201,7 @@ public class ManTest {
     @Test
     public void testHRedirectionErrorCase1(){
         //Expected return from Man
-        expected = "Error : No parameters provided";
+        expected = "Error : No parameters provided for redirection";
         //Actual return from Man after the operation has been run
         actual = man.run(fs, "exit >>".split(" "), "man exit >>", false);
         //Checks if the values are equal or not
@@ -214,7 +214,7 @@ public class ManTest {
     @Test
     public void testIRedirectionErrorCase2(){
         //Expected return from Man
-        expected = "Error : Multiple Parameters have been provided : [lol, plz, work] Only one is required";
+        expected = "Error : Multiple Parameters have been provided : [lol, plz, work] Only one is required for redirection";
         //Actual return from Man after the operation has been run
         actual = man.run(fs, "exit >> lol plz work".split(" "), "man exit >> lol plz work", false);
         //Checks if the values are equal or not

@@ -111,7 +111,7 @@ public class LsTest {
     public void testJRedirectionErrorCase1(){
         String[] input = {">"};
         actual = ls.run(fs, input, "ls >", false);
-        expected = "Error : No parameters provided";
+        expected = "Error : No parameters provided for redirection";
         assertEquals(expected, actual);       
     }
 
@@ -119,7 +119,7 @@ public class LsTest {
     public void testKRedirectionErrorCase2(){
         String[] input = {">", "LOL", "polo"};
         actual = ls.run(fs, input, "ls > LOL polo", false);
-        expected = "Error : Multiple Parameters have been provided : [LOL, polo] Only one is required";
+        expected = "Error : Multiple Parameters have been provided : [LOL, polo] Only one is required for redirection";
         assertEquals(expected, actual);       
     }
 

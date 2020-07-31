@@ -79,7 +79,7 @@ public class Echo implements CommandI {
   public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException { 
     if(arguments.length == 0){
       throw new InvalidArgsProvidedException("Error : No parameters provided"); 
-    }else if(String.join(" ", arguments).equals("Error : No parameters provided")){
+    }else if(String.join(" ", arguments).contains("Error : No parameters provided")){
       throw new InvalidArgsProvidedException(String.join(" ", arguments));
     }else if(String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")){
       throw new InvalidArgsProvidedException(String.join(" ", arguments));

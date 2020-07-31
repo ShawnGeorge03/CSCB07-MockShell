@@ -77,7 +77,7 @@ public class Pwd extends DirectoryManager implements CommandI {
 	}
 
   private boolean checkArgs(String[] arguments) throws InvalidArgsProvidedException { 
-    if(String.join(" ", arguments).equals("Error : No parameters provided")){
+    if(String.join(" ", arguments).contains("Error : No parameters provided")){
       throw new InvalidArgsProvidedException("Error : No parameters provided");
     }else if(String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")){
       throw new InvalidArgsProvidedException(String.join(" ", arguments));

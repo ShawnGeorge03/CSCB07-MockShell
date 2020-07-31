@@ -62,14 +62,14 @@ public class EchoTest {
 
     @Test
     public void testENoFileCase1() {
-        expected = "Error : No parameters provided";
+        expected = "Error : No parameters provided for redirection";
         actual = echo.run(fs,"echo \"Hello\" >".split(" "), "echo \"Hello\" >", false);
         assertEquals(expected, actual);
     }
     
     @Test
     public void testFNoFileCase2() {
-        expected = "Error : No parameters provided";
+        expected = "Error : No parameters provided for redirection";
         actual = echo.run(fs,"echo \"Hello\" >>".split(" "), "echo \"Hello\" >>", false);
         assertEquals(expected, actual);
     }
@@ -122,7 +122,7 @@ public class EchoTest {
 
     @Test
     public void testMRedirectionErrorCase1(){
-        expected = "Error : No parameters provided";
+        expected = "Error : No parameters provided for redirection";
         actual = echo.run(fs,"echo \"QWERTY\" >>".split(" "),
                 "echo \"QWERTY\" >>", false);
         assertEquals(expected, actual);
@@ -130,7 +130,7 @@ public class EchoTest {
 
     @Test
     public void testNRedirectionErrorCase2(){
-        expected = "Error : Multiple Parameters have been provided : [pks, loops] Only one is required";
+        expected = "Error : Multiple Parameters have been provided : [pks, loops] Only one is required for redirection";
         actual = echo.run(fs,"echo \"QWERTY\" >> pks loops".split(" "),
                 "echo \"QWERTY\" >> pks loops", false);
         assertEquals(expected, actual);

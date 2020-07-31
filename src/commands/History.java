@@ -87,7 +87,7 @@ public class History implements CommandI {
   }
 
   public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException { 
-    if(String.join(" ", arguments).equals("Error : No parameters provided")){
+    if(String.join(" ", arguments).contains("Error : No parameters provided")){
       throw new InvalidArgsProvidedException(String.join(" ", arguments));
     }else if(String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")){
       throw new InvalidArgsProvidedException(String.join(" ", arguments));

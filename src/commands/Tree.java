@@ -9,16 +9,13 @@ import errors.InvalidArgsProvidedException;
  */
 public class Tree implements CommandI {
 	
-	/**
-	 * Declare instance of errorhandler to handle error messages
-	 */
-	ErrorHandler e;
+	RedirectionManager rmManager;
 
 	/**
 	 * Constructor for Tree which initializes errorhandler object
 	 */
 	public Tree() {
-		e = new ErrorHandler();
+		rmManager = new RedirectionManager();
 	}
 
 	/**
