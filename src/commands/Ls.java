@@ -95,9 +95,7 @@ public String unrecursiveMode(FileSystemI filesys) {
 	if (args.size() == 0) {
 	      Node curr = filesys.getCurrent();
 	      for (int i = 0; i < curr.getList().size(); i++) {
-			output += curr.getList().get(i).getName() + '\n';
-	        //System.out.println(curr.getList().get(i).getName());
-	      }
+			output += curr.getList().get(i).getName() + '\n';	      }
 	    } else {
 	      for (int i = 0; i < args.size(); i++) {
 	        String[] path = {args.get(i)};
@@ -107,20 +105,17 @@ public String unrecursiveMode(FileSystemI filesys) {
 	        if (traverse.run(path, filesys)) {
 			  Node current = filesys.getCurrent(); 
 			  output += "Path: " + filesys.getCurrentPath() + '\n';
-	          //System.out.println("Path: " + filesys.getCurrentPath());
 	          for (int j = 0; j < current.getList().size(); j++) {
 				output += current.getList().get(j).getName() + '\n';
-	            //System.out.println(current.getList().get(j).getName());
 	          }
 	        } else {
-	          output += error.getError("Invalid Directory",
+	          return error.getError("Invalid Directory",
 	              args.get(i) + " is not a valid directory") + "\n";
 	        }
 
 	        Cd goBack = new Cd();
 			goBack.run(currentPath, filesys);
 			output += '\n';
-	        //System.out.println();
 	      }
 	    }
 		if (output.equals("")){
@@ -142,7 +137,7 @@ public String unrecursiveMode(FileSystemI filesys) {
 				if (traverse.run(path, filesys)){
 					output = listDirectory(filesys.getCurrent(), filesys, output);
 				}else{
-					output += error.getError("Invalid Directory",
+					return error.getError("Invalid Directory",
 	              	args.get(i) + " is not a valid directory") + "\n\n";
 				}
 				traverse.run(currentPath, filesys);
