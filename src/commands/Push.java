@@ -68,26 +68,21 @@ public class Push extends DirectoryManager implements CommandI {
    * @return String  An error message if any error, else null
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-    String[] root = {filesys.getRoot().getName() };
+    String[] current = {filesys.getCurrentPath()};
 
     if (args.length != 1) {
       return errorManager.getError("Invalid Argument",
           Integer.toString(args.length) + " arguments, expecting 1 argument");
     }
 
-    if (filesys.getStack().isEmpty()) {
-      filesys.getStack().push(filesys.getCurrentPath());
-    }
+    filesys.getStack().push(filesys.getCurrentPath());
 
     if (goBack.run(args, filesys)) {
-      goBack.run(root, filesys);
+
     } else {
       return errorManager.getError("Invalid Directory",
           args[0] + " is not a valid directory");
     }
-    Cd newWorkingDirectory = new Cd();
-    newWorkingDirectory.run(args, filesys);
-    filesys.getStack().push(filesys.getCurrentPath());
     
 
     return null;
