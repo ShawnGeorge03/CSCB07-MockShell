@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import data.FileSystemI;
+import errors.FileException;
 import errors.InvalidArgsProvidedException;
 import errors.InvalidRedirectionError;
 
@@ -148,15 +149,15 @@ public class RedirectionManager {
         // If the user provided no file name for the redirection
         if (fileName.length == 0) {
             // Sends the error message instead of a fileName
-            throw new InvalidArgsProvidedException("Error : No parameters provided");
+            throw new InvalidArgsProvidedException("Error : No parameters provided for redirection");
             // If the user provided multiple file names
         } else if (fileName.length > 1) {
             // Converts the array to String
             String parameter = Arrays.toString(fileName);
             parameter = parameter.substring(0, parameter.length()).trim();
             // Sends the error message instead of a fileName
-            throw new InvalidArgsProvidedException(
-                    "Error : Multiple Parameters have been provided : " + parameter + " Only one is required");
+            throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided : " + parameter
+                    + " Only one is required for redirection");
         }
         // If the user provided one file name then return that file name
         return fileName[0];
@@ -171,28 +172,32 @@ public class RedirectionManager {
      *         redirection
      */
     public String outputResult(FileSystemI fs, String result) {
-        // Checks if the operation returns any input or not
-        if (result == null) {
-            return null;
-            // If the return was some sort of an Error prints the error out
-        } else if (result.startsWith("Error")) {
-            return result;
-            // If the user want to overwrite a file with this new result
-        } else if (mode.equals("O")) {
-            fs.fileOverwrite(result, fileName);
-            // Resets the redirection
-            mode = "";
-            return null;
-            // If the user want to append to the file with this new result
-        } else if (mode.equals("A")) {
-            fs.fileAppend(result, fileName);
-            // Resets the redirection
-            mode = "";
-            return null;
-            // If the user chooses not to redirect the results to a file
-        } else {
-            // If the user is not using redirection at all
-            return result;
+        try {
+            // Checks if the operation returns any input or not
+            if (result == null) {
+                return null;
+                // If the return was some sort of an Error prints the error out
+            } else if (result.startsWith("Error")) {
+                return result;
+                // If the user want to overwrite a file with this new result
+            } else if (mode.equals("O")) {
+                fs.fileOverwrite(result, fileName);
+                // Resets the redirection
+                mode = "";
+                return null;
+                // If the user want to append to the file with this new result
+            } else if (mode.equals("A")) {
+                fs.fileAppend(result, fileName);
+                // Resets the redirection
+                mode = "";
+                return null;
+                // If the user chooses not to redirect the results to a file
+            } else {
+                // If the user is not using redirection at all
+                return result;
+            }
+        } catch (FileException e) {
+            return e.getLocalizedMessage();
         }
     }
 }

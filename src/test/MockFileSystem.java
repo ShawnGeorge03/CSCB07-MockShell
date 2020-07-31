@@ -6,6 +6,7 @@ import java.util.Deque;
 
 import data.FileSystemI;
 import data.Node;
+import errors.FileException;
 
 public class MockFileSystem implements FileSystemI {
 
@@ -243,7 +244,7 @@ public class MockFileSystem implements FileSystemI {
   }
 
   @Override
-  public void fileAppend(String content, String file) {
+  public void fileAppend(String content, String file) throws FileException{
     Node fileNode = findFile(file, false);
     if(fileNode != null){
       fileNode.setContent(fileNode.getContent() + "\n" + content);
@@ -267,12 +268,14 @@ public class MockFileSystem implements FileSystemI {
                           .build();
         addToDirectory(fileNode);
         assignCurrent(currentNode);
+      }else{
+        throw new FileException("Error: Invalid File : " + file +" is not a valid file name");
       }
     }
   }
 
   @Override
-  public void fileOverwrite(String content, String file) {
+  public void fileOverwrite(String content, String file) throws FileException{
     Node fileNode = findFile(file, false);
     if(fileNode != null){
       fileNode.setContent(content);
@@ -297,6 +300,8 @@ public class MockFileSystem implements FileSystemI {
                            .build();
         addToDirectory(fileNode);
         assignCurrent(currentNode);
+      }else{
+        throw new FileException("Error: Invalid File : " + file +" is not a valid file name");
       }
     }
   }

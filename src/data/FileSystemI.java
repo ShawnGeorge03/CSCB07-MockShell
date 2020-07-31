@@ -3,6 +3,8 @@ package data;
 import java.util.ArrayList;
 import java.util.Deque;
 
+import errors.FileException;
+
 public interface FileSystemI {
 
     public Node getRoot();
@@ -24,8 +26,8 @@ public interface FileSystemI {
     //Redirection and other File operations
     public boolean isValidName(String fileName);
     public Node findFile(String filePath, boolean fileIsFolderNode); 
-    public void fileAppend(String content, String file);
-    public void fileOverwrite(String content, String file);
+    public void fileAppend(String content, String file) throws FileException;
+    public void fileOverwrite(String content, String file) throws FileException;
     public boolean checkRepeat(String name);
     
 }

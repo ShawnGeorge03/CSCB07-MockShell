@@ -184,7 +184,7 @@ public class CatTest {
     @Test
     public void testJRedirectionErrorCase1(){
         //Expected return from Cat
-        expected = "Error : No parameters provided";
+        expected = "Error : No parameters provided for redirection";
         //Actual return from Cat after the operation has been run
         actual = cat.run(fs, "args >".split(" "), "cat args >", false);
         //Checks if the values are equal or not
@@ -197,7 +197,7 @@ public class CatTest {
     @Test
     public void testKRedirectionErrorCase2(){
         //Expected return from Cat
-        expected = "Error : Multiple Parameters have been provided : [LOL, zip] Only one is required";
+        expected = "Error : Multiple Parameters have been provided : [LOL, zip] Only one is required for redirection";
         //Actual return from Cat after the operation has been run
         actual = cat.run(fs, "args > LOL zip".split(" "), "cat args > LOL zip", false);
         //Checks if the values are equal or not

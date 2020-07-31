@@ -33,6 +33,8 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 
+import errors.FileException;
+
 /**
  * Class FileSystem hosts the data structure required to contain all directory and file nodes
  */
@@ -204,7 +206,7 @@ public class FileSystem implements FileSystemI{
   }
 
   @Override
-  public void fileAppend(String content, String file) {
+  public void fileAppend(String content, String file) throws FileException{
     Node fileNode = findFile(file, false);
     if(fileNode != null){
       fileNode.setContent(fileNode.getContent() + "\n" + content);
@@ -228,12 +230,14 @@ public class FileSystem implements FileSystemI{
                           .build();
         addToDirectory(fileNode);
         assignCurrent(currentNode);
+      }else{
+        throw new FileException("Error: Invalid File : " + file +" is not a valid file name");
       }
     }
   }
 
   @Override
-  public void fileOverwrite(String content, String file) {
+  public void fileOverwrite(String content, String file) throws FileException{
     Node fileNode = findFile(file, false);
     if(fileNode != null){
       fileNode.setContent(content);
@@ -258,6 +262,8 @@ public class FileSystem implements FileSystemI{
                            .build();
         addToDirectory(fileNode);
         assignCurrent(currentNode);
+      }else{
+        throw new FileException("Error: Invalid File : " + file +" is not a valid file name");
       }
     }
   }

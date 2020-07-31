@@ -41,6 +41,7 @@ import java.net.URLConnection;
 import java.util.Arrays;
 
 import data.FileSystemI;
+import errors.FileException;
 import errors.InvalidArgsProvidedException;
 
 /**
@@ -122,6 +123,8 @@ public class Curl implements CommandI {
       } catch (IOException e) {
         //Returns the appropriate error
         return "Connection could not be made to " + args[0];
+      }catch (FileException e){
+        return e.getLocalizedMessage();
       }
     }
     } catch (InvalidArgsProvidedException e1) {

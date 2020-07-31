@@ -35,7 +35,7 @@ import errors.FileException;
 import errors.InvalidArgsProvidedException;
 
 /**
- * Class Cat views the contents of requested file
+ * Class Cat views the contents of requested file(s) and is able to redirect it to a file
  */
 public class Cat implements CommandI {
 
@@ -44,7 +44,9 @@ public class Cat implements CommandI {
    */
   private String output;
 
-
+  /**
+   * Declares an instance of RedirectionManager
+   */
   private RedirectionManager redirect;
 
   /**
@@ -53,6 +55,7 @@ public class Cat implements CommandI {
   public Cat() {
     // Initializing the String object output
     this.output = "";
+    // Initializing the RedirectionManager object
     this.redirect = new RedirectionManager();
   }
 
@@ -80,14 +83,20 @@ public class Cat implements CommandI {
     } catch (InvalidArgsProvidedException e1) {
       return e1.getLocalizedMessage();
     }
-
-    if(!output.contains("Error")) 
-      output = redirect.outputResult(fs, output);
       
     // Returns the output for the arguments
-    return output;
+    return redirect.outputResult(fs, output);
   }
 
+  /**
+   * Reads the files from the given list of files, if any are invalid it 
+   * throws an exception
+   * 
+   * @param filePaths the list of file to be read
+   * @param filesys  refrence of FileSystemI object (MockFileSystem or FileSystem)
+   * 
+   * @throws FileException
+   */
   private void readFile(String[] filePaths, FileSystemI filesys) throws FileException {
     // Declares and initialized a Node to null
     Node file = null;
@@ -111,15 +120,30 @@ public class Cat implements CommandI {
     }
   }
 
-  @Override
+  /**
+   * Checks the user input for any redirection error if used and other issues from user
+   * if there are none then it return true else throws the exception
+   * 
+   * @param filePaths the list of file to be read
+   * @param arguments the list of arguments from user which may contain a redirection error
+   * @param filesys  refrence of FileSystemI object (MockFileSystem or FileSystem)
+   * 
+   * @throws InvalidArgsProvidedException
+   */
   public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+    //Collects the content of the array as one string with spaces in between elements or array 
+    String error = String.join(" ", arguments);
+    //If the user provided no input
     if(arguments.length == 0){
       throw new InvalidArgsProvidedException("Error : No parameters provided"); 
-    }else if(String.join(" ", arguments).equals("Error : No parameters provided")){
-      throw new InvalidArgsProvidedException(String.join(" ", arguments));
-    }else if(String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")){
-      throw new InvalidArgsProvidedException(String.join(" ", arguments));
+    //If the user provided no file names for redirection
+    }else if(error.contains("Error : No parameters provided")){
+      throw new InvalidArgsProvidedException(error);
+    //If the user provided multiple file names for redirection
+    }else if(error.contains("Error : Multiple Parameters have been provided")){
+      throw new InvalidArgsProvidedException(error);
     }
+    //If the user follewd the requirements for the command
     return true;
   }
 }
