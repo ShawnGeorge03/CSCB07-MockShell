@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 import data.FileSystemI;
 import data.Node;
+import errors.DirectoryException;
+import errors.InvalidArgsProvidedException;
 import errors.InvalidRedirectionError;
 
 public class Cp extends DirectoryManager implements CommandI {
@@ -13,10 +15,6 @@ public class Cp extends DirectoryManager implements CommandI {
 	 * Declare instance variable of ArrayList to hold all arguments
 	 */
 	ArrayList<String> args;
-	/**
-	 * Declare instance variable of ErrorHandler to handle error messages
-	 */
-	private ErrorHandler error;
 
 	private RedirectionManager rManager;
 
@@ -32,7 +30,6 @@ public class Cp extends DirectoryManager implements CommandI {
 	String output;
 
 	public Cp() {
-		error = new ErrorHandler();
 		rManager = new RedirectionManager();
 		traverse = new Cd();
 
@@ -41,25 +38,31 @@ public class Cp extends DirectoryManager implements CommandI {
 	public String run(FileSystemI filesys, String[] arguments, String actualInput, boolean val) {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
 		fs = filesys;
-		output = checkArgs(fs, actualInput);
-		if (output != null) {
-			return output;
-		}
+		try {
+			rManager.isRedirectionableCommand(filesys, actualInput);
+			output = checkArgs(fs, actualInput);
+		} catch (InvalidRedirectionError | 
+				 DirectoryException |
+				 InvalidArgsProvidedException e) {
+			return e.getLocalizedMessage();
+		} 
+
 		pathTo[0] = args.get(1);
-
 		currentPath[0] = fs.getCurrentPath();
-
 		initPathandFile();
 
-		output = copyFile();
-		if (output != null) {
-			return output;
+		try {
+			output = copyFile();
+		} catch (DirectoryException | InvalidArgsProvidedException e) {
+			return e.getLocalizedMessage();
 		}
 
-		output = moveFile();
-		if (output != null) {
-			return output;
+		try {
+			output = moveFile();
+		} catch (DirectoryException | InvalidArgsProvidedException e) {
+			return e.getLocalizedMessage();
 		}
+
 
 		traverse.run(currentPath, fs);
 
@@ -83,23 +86,17 @@ public class Cp extends DirectoryManager implements CommandI {
 		}
 	}
 
-	public String checkArgs(FileSystemI filesys, String fullInput) {
-
-		try {
-			if (rManager.isRedirectionableCommand(filesys, fullInput))
+	public String checkArgs(FileSystemI filesys, String fullInput) throws InvalidArgsProvidedException, DirectoryException {
+		if (args.size() != 2) 
+			throw new InvalidArgsProvidedException("Error: Invalid Argument : Expected 2 arguments");
 			
-			if (args.size() != 2) 
-				return error.getError("Invalid Argument", "Expected 2 arguments");
-			
-			if (args.get(0).equals("/"))
-				return error.getError("Invalid Directory", "Cannot move the root directory");
-		} catch (InvalidRedirectionError e) {
-			return e.getLocalizedMessage();
-		}
-		return null;
+		if (args.get(0).equals("/"))
+			throw new DirectoryException("Error: Invalid Directory : Cannot move the root directory");
+		
+			return null;
 	}
 
-	public String copyFile(){
+	public String copyFile() throws InvalidArgsProvidedException, DirectoryException {
 		if (traverse.run(pathFrom, fs)) {
 			pathFrom[0] = fs.getCurrentPath();
 			parentToMove = fs.getCurrent();
@@ -116,27 +113,27 @@ public class Cp extends DirectoryManager implements CommandI {
 				}
 			}
 
-			if (toMove == null){
-				return error.getError("Directory Not Found", fileName + " does not exist in the path you specified!");
-			}
+			if (toMove == null)
+				throw new DirectoryException("Error: Directory Not Found : " 
+									+  fileName + " does not exist in the path you specified!");
 
 			traverse.run(currentPath, fs);
 		}else {
-			return error.getError("Invalid Directory", pathFrom[0] + " does not exist!");
+			throw new InvalidArgsProvidedException("Error: Invalid Directory : " + pathFrom[0] + " does not exist!");
 		}
 		return null;
 	}
 
-	public String moveFile(){
+	public String moveFile() throws InvalidArgsProvidedException, DirectoryException {
 		if (traverse.run(pathTo, fs)) {
 			if (fs.checkRepeat(fileName)){
 				fs.addToDirectory(toMove);
 			}else{
-				return error.getError("Same Directory", fileName + " already exists");
+				throw new  DirectoryException("Error: Same Directory with that name already exists! : " +  fileName + " already exists");
 			}
 			
 		}else {
-			return error.getError("Invalid Directory", pathTo[0] + " does not exist!");
+			throw new InvalidArgsProvidedException("Error: Invalid Directory : " + pathTo[0] + " does not exist!");
 		}
 		return null;
 	}
