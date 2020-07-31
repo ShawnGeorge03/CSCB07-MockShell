@@ -68,17 +68,17 @@ public class Push extends DirectoryManager implements CommandI {
    * @return String  An error message if any error, else null
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-    String[] current = {filesys.getCurrentPath()};
+    String current = filesys.getCurrentPath();
 
     if (args.length != 1) {
       return errorManager.getError("Invalid Argument",
           Integer.toString(args.length) + " arguments, expecting 1 argument");
     }
 
-    filesys.getStack().push(filesys.getCurrentPath());
+    
 
     if (goBack.run(args, filesys)) {
-
+      filesys.getStack().push(current);
     } else {
       return errorManager.getError("Invalid Directory",
           args[0] + " is not a valid directory");
