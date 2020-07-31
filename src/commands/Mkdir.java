@@ -52,12 +52,17 @@ public class Mkdir extends DirectoryManager implements CommandI {
 
 	private RedirectionManager rManager;
 
+	private Cd traverse;
+
+	String fullinput;
+
 	/**
 	 * Constructor of Mkdir to initialize error
 	 */
 	public Mkdir() {
 		this.error = new ErrorHandler();
 		this.rManager = new RedirectionManager();
+		traverse = new Cd();
 	}
 
 	/**
@@ -71,6 +76,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 */
 	public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
 		try {
+			this.fullinput = fullinput;
 			rManager.isRedirectionableCommand(filesys, fullInput);
 			return MakeDirectory(args, filesys);
 		} catch (InvalidArgsProvidedException e) {
@@ -89,9 +95,9 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	public String MakeDirectory(String[] arguments, FileSystemI filesys) throws InvalidArgsProvidedException, DirectoryException{
 		
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
+		checkArgs(filesys, arguments, fullinput);
 		
 		if (args.size() == 0) {
-
 			return error.getError("Invalid Argument", "Expected at least 1 argument");
 		}
 		
@@ -190,8 +196,20 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	}
 
 	@Override
-	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
-		
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {	
+		for (int i = 0; i < args.size(); i++){
+			String[] newArgs = {args.get(i).substring(0, args.get(i).lastIndexOf('/')) };
+			if (newArgs[0].equals("")){
+				newArgs[0] = "/";
+			}
+			String fileName = args.get(i).substring(args.get(i).lastIndexOf('/') + 1);
+			if (!fs.isValidName(fileName)){
+				error.getError("Invalid Directory", fileName + " is not a valid directory name");
+			}
+			if (!traverse.run(newArgs, fs)){
+				error.getError("Invalid Directory", newArgs[0] + " is not a valid directory");
+			}
+		}
 		return false;
 	}
 

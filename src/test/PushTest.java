@@ -8,13 +8,14 @@ import org.junit.Test;
 import commands.Mkdir;
 import commands.Push;
 import data.FileSystem;
+import data.FileSystemI;
 
 import java.lang.reflect.Field;
 
 
 public class PushTest {
     
-    private static FileSystem fs;
+    private static FileSystemI fs;
 
     private static Mkdir mkdir;
 
@@ -22,27 +23,8 @@ public class PushTest {
 
     @Before
     public void setUp() throws Exception {
-
-        fs = FileSystem.getFileSys();
-        mkdir = new Mkdir();
+        fs = MockFileSystem.getMockFileSys("MOCKENV");
         push = new Push();
-        
-        // Sets up the C Folder
-        mkdir.MakeDirectory("users".split(" "),fs);
-        mkdir.MakeDirectory("pics".split(" "),fs);
-        mkdir.MakeDirectory("Sys".split(" "),fs);
-
-        // Sets up the users Folder
-        mkdir.MakeDirectory("/users/desktop".split(" "),fs);
-
-        // Sets up the Sys Folder
-        mkdir.MakeDirectory("Sys/IO".split(" "),fs);
-        mkdir.MakeDirectory("Sys/LOL".split(" "),fs);
-
-        // Sets up the IO Folder
-        mkdir.MakeDirectory("/Sys/IO/keyboard".split(" "),fs);
-        mkdir.MakeDirectory("/Sys/IO/Mouse".split(" "),fs);
-        
     }
 
      /**
@@ -50,34 +32,23 @@ public class PushTest {
      * 
      * @throws Exception
     */
-    @After
-    public void tearDown() throws Exception {
-        //Declares and initializes a Feild variable 
-        //to the fileSys variable in FileSystem
-        Field feild = fs.getClass().getDeclaredField("fileSys");
-        //Allows the value of this variable in FileSystem to be accessed
-        feild.setAccessible(true);
-        //Changes the value of the variable in FileSystem to null
-        feild.set(null, null);
-    }
 
     @Test
     public void testARelativePath() {
-        String[] path = {"users/desktop"};
+        String[] path = {"users/skeshavaa"};
         push.run(fs,path, "pushd users/desktop", false);
-
-        int expected = 2;
-        int actual = fs.getStack().size();
+        String expected = "/users/skeshavaa";
+        String actual = fs.getCurrentPath();
+        System.out.println(fs.getCurrentPath());
         assertEquals(expected, actual);
     }
 
     @Test
     public void testBAbsolutePath() {
-        String[] path = {"//Sys/IO/keyboard"};
-        push.run(fs,path, "pushd /Sys/IO/keyboard", false);
-
-        int expected = 2;
-        int actual = fs.getStack().size();
+        String[] path = {"/documents/journal"};
+        push.run(fs,path, "pushd /documents/journal", false);
+        String actual = fs.getCurrentPath();
+        String expected = "/documents/journal";
         assertEquals(expected, actual);
     }
 
