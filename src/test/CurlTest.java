@@ -68,7 +68,7 @@ public class CurlTest {
     //Declares and initializes an empty array
     String[] testCase1Curl = {};
     //Expected return from Curl
-    expected = "Error : No parameters provided : []";
+    expected = "Error : No parameters provided";
     //Actual return from Curl after the operation is complete
     actual = curl.run(fs, testCase1Curl, "curl "+ website, false);
     //Checks if the values are equal or not

@@ -75,6 +75,7 @@ public class Speak implements CommandI {
 
   private String text;
   private String userText;
+  private boolean val;
 
   /**
    * Constructor for class TextSpeech which initializes instance variables
@@ -102,6 +103,8 @@ public class Speak implements CommandI {
    * @return any error messages if there are any or null
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+    this.val = val;
+    
     try {
       rManager.isRedirectionableCommand(filesys, fullInput);
     } catch (InvalidRedirectionError e) {
@@ -129,7 +132,7 @@ public class Speak implements CommandI {
 
     try {
       // Converts the voice to audio
-      if(checkArgs(text, val)) 
+      if(checkArgs(text)) 
           voice.speak(text);
     } catch (MissingQuotesException | MalformedInputException e) {
       return e.getLocalizedMessage();
@@ -140,7 +143,7 @@ public class Speak implements CommandI {
     return null;
   }
 
-  private boolean checkArgs(String text, boolean val) throws MissingQuotesException, MalformedInputException {
+  private boolean checkArgs(String text) throws MissingQuotesException, MalformedInputException {
     // If we are not in speak mode
     if (!val) {
       // If the user did not use or partially used quote(s) at the beginning

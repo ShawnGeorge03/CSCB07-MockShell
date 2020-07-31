@@ -41,6 +41,7 @@ import java.net.URLConnection;
 import java.util.Arrays;
 
 import data.FileSystemI;
+import errors.InvalidArgsProvidedException;
 import errors.InvalidRedirectionError;
 
 /**
@@ -52,19 +53,12 @@ import errors.InvalidRedirectionError;
  */
 public class Curl implements CommandI {
 
-  /**
-   * Declare instance of ErrorHandler to handle error messages
-   */
-  private ErrorHandler errorManager;
-
   private RedirectionManager rManager;
 
   /**
    * Constructor for class Curl which initalizes instance variables
    */
   public Curl() {
-    // Initializes an Errorhandler Object
-    this.errorManager = new ErrorHandler();
     this.rManager = new RedirectionManager();
   }
 
@@ -79,25 +73,14 @@ public class Curl implements CommandI {
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
 
-    try {
-      rManager.isRedirectionableCommand(filesys, fullInput);
-    } catch (InvalidRedirectionError e1) {
-      return e1.getLocalizedMessage();
-    }
-
     //Declare instance of URL to handle the user input
     URL site;
 
-    //If the user provides no URL
-    if (args.length == 0) {
-      //Returns an error when no URL is provided
-      return errorManager.getError("No parameters provided", Arrays.toString(args));
-    //If the user provides more than one URL
-    }else if(args.length > 1) {
-      //Returns an error when more than one URL is provided
-      return errorManager.getError("Multiple parameters provided", Arrays.toString(args));
-    //If the user provides one URL
-    } else {
+
+    try {
+      rManager.isRedirectionableCommand(filesys, fullInput);
+      //If the user provides one URL
+    if(checkArgs(args)) {
       try {
         //Initializes a URL object
         site = new URL(args[0]);
@@ -142,8 +125,23 @@ public class Curl implements CommandI {
         return "Connection could not be made to " + args[0];
       }
     }
-
+    } catch (InvalidRedirectionError | InvalidArgsProvidedException e1) {
+      return e1.getLocalizedMessage();
+    }
+    
     //If all goes well then it returns null
     return null;
+  }
+
+  private boolean checkArgs(String[] args) throws InvalidArgsProvidedException {
+    if (args.length == 0) {
+      //Returns an error when no URL is provided
+      throw new InvalidArgsProvidedException("Error : No parameters provided"); 
+    //If the user provides more than one URL
+    }else if(args.length > 1) {
+      //Returns an error when more than one URL is provided
+      throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided : " + Arrays.toString(args));
+    }
+    return true;
   }
 }

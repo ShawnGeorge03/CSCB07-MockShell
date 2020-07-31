@@ -37,7 +37,7 @@ public class Cp extends DirectoryManager implements CommandI {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
 		try {
 			rManager.isRedirectionableCommand(filesys, actualInput);
-			output = checkArgs(filesys, actualInput);
+			checkArgs(filesys, actualInput);
 		} catch (InvalidRedirectionError | DirectoryException | InvalidArgsProvidedException e) {
 			return e.getLocalizedMessage();
 		}
@@ -80,7 +80,7 @@ public class Cp extends DirectoryManager implements CommandI {
 		}
 	}
 
-	public String checkArgs(FileSystemI filesys, String fullInput)
+	public boolean checkArgs(FileSystemI filesys, String fullInput)
 			throws InvalidArgsProvidedException, DirectoryException {
 		if (args.size() != 2)
 			throw new InvalidArgsProvidedException("Error: Invalid Argument : Expected 2 arguments");
@@ -88,7 +88,7 @@ public class Cp extends DirectoryManager implements CommandI {
 		if (args.get(0).equals("/"))
 			throw new DirectoryException("Error: Invalid Directory : Cannot move the root directory");
 
-		return null;
+		return true;
 	}
 
 	public String copyFile(FileSystemI fs) throws InvalidArgsProvidedException, DirectoryException {

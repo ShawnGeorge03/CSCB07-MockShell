@@ -76,7 +76,7 @@ public class Cd extends DirectoryManager implements CommandI {
     return null;
   }
 
-  private void checkArgs(FileSystemI filesys, String[] args, String fullInput) throws InvalidArgsProvidedException{
+  private boolean checkArgs(FileSystemI filesys, String[] args, String fullInput) throws InvalidArgsProvidedException{
     String paths = fullInput.substring(fullInput.indexOf("cd") + 2).trim();
     if (args.length == 0) {
       throw new InvalidArgsProvidedException("Error : No parameters provided");
@@ -88,6 +88,7 @@ public class Cd extends DirectoryManager implements CommandI {
     if (!run(args, filesys)) {
       throw new InvalidArgsProvidedException("Error: Invalid Directory : " + paths);
     }
+    return true;
   }
   /**
    * Main run method that executes the performance of changing directories based
