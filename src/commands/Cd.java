@@ -85,7 +85,6 @@ public class Cd extends DirectoryManager implements CommandI {
     } else if (args.length > 1) {
       throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided : " + paths);
     }
-
     // If the change of directory was unsuccessful, then an error msg is returned
     if (!run(args, filesys)) {
       throw new InvalidArgsProvidedException("Error: Invalid Directory : " + paths);

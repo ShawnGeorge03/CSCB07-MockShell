@@ -33,6 +33,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import data.FileSystemI;
 import data.Node;
+import errors.DirectoryException;
 import errors.InvalidArgsProvidedException;
 
 /**
@@ -43,10 +44,7 @@ public class Ls extends DirectoryManager implements CommandI {
 	 * Declare instance variable of ArrayList to contain all arguments
 	 */
 	ArrayList<String> args;
-	/**
-	 * Declare instance variable of ErrorHandler to handle error messages
-	 */
-	private ErrorHandler error;
+
 	private RedirectionManager redirect;
 	private String output;
 
@@ -54,7 +52,6 @@ public class Ls extends DirectoryManager implements CommandI {
 	 * Constructor for Ls to initialize error
 	 */
 	public Ls() {
-		this.error = new ErrorHandler();
 		this.redirect = new RedirectionManager();
 	}
 
@@ -68,31 +65,43 @@ public class Ls extends DirectoryManager implements CommandI {
 	 */
 	public String run(FileSystemI filesys, String[] arguments, String fullInput, boolean val) {
 		String[] parsedArgs = redirect.setParams(filesys, fullInput);
-		if (parsedArgs != null) {
-			output = redirect.outputResult(filesys, runLs(filesys, parsedArgs));
-		} else {
-			if (Arrays.asList(arguments).contains(">")) {
-				// output = redirect.setFileName(arguments, ">");
-			} else {
-				// output = redirect.setFileName(arguments, ">>");
+		try {
+			if (checkArgs(filesys, parsedArgs, fullInput)) {
+				output = redirect.outputResult(filesys, runLs(filesys, parsedArgs));
 			}
+		} catch (InvalidArgsProvidedException e) {
+			return e.getLocalizedMessage();
 		}
 		return output;
 	}
 
+	@Override
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+		if (String.join(" ", arguments).equals("Error : No parameters provided")) {
+			throw new InvalidArgsProvidedException(String.join(" ", arguments));
+		} else if (String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")) {
+			throw new InvalidArgsProvidedException(String.join(" ", arguments));
+		}
+		return true;
+	}
+
 	private String runLs(FileSystemI filesys, String[] arguments) {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
-		if (args.size() == 0) {
-			return unrecursiveMode(filesys);
-		}
-		if (!args.get(0).equals("-R")) {
-			return unrecursiveMode(filesys);
-		} else {
-			return recursiveMode(filesys);
+		try {
+			if (args.size() == 0) {
+				return unrecursiveMode(filesys);
+			}
+			if (!args.get(0).equals("-R")) {
+				return unrecursiveMode(filesys);
+			} else {
+				return recursiveMode(filesys);
+			}
+		} catch (DirectoryException e) {
+			return e.getLocalizedMessage();
 		}
 	}
 
-	public String unrecursiveMode(FileSystemI filesys) {
+	public String unrecursiveMode(FileSystemI filesys) throws DirectoryException {
 		String output = "";
 		if (args.size() == 0) {
 			Node curr = filesys.getCurrent();
@@ -112,7 +121,7 @@ public class Ls extends DirectoryManager implements CommandI {
 						output += current.getList().get(j).getName() + '\n';
 					}
 				} else {
-					return error.getError("Invalid Directory", args.get(i) + " is not a valid directory") + "\n";
+					throw new DirectoryException("Error: Invalid Directory : " + args.get(i) + " is not a valid directory\n");
 				}
 
 				Cd goBack = new Cd();
@@ -126,7 +135,7 @@ public class Ls extends DirectoryManager implements CommandI {
 		return output;
 	}
 
-	public String recursiveMode(FileSystemI filesys) {
+	public String recursiveMode(FileSystemI filesys) throws DirectoryException {
 		String output = "";
 		Cd traverse = new Cd();
 		String[] currentPath = { filesys.getCurrentPath() };
@@ -138,7 +147,7 @@ public class Ls extends DirectoryManager implements CommandI {
 				if (traverse.run(path, filesys)) {
 					output = listDirectory(filesys.getCurrent(), filesys, output);
 				} else {
-					return error.getError("Invalid Directory", args.get(i) + " is not a valid directory") + "\n\n";
+					throw new DirectoryException("Error: Invalid Directory : " + args.get(i) + " is not a valid directory\n\n");
 				}
 				traverse.run(currentPath, filesys);
 			}
@@ -155,10 +164,8 @@ public class Ls extends DirectoryManager implements CommandI {
 			return output;
 		}
 		filesys.assignCurrent(root);
-		// System.out.println("Path: " + filesys.getCurrentPath());
 		output += "Path: " + filesys.getCurrentPath() + '\n';
 		for (int i = 0; i < root.getList().size(); i++) {
-			// System.out.println(root.getList().get(i).getName());
 			output += root.getList().get(i).getName() + '\n';
 		}
 		output += "\n";
@@ -166,10 +173,5 @@ public class Ls extends DirectoryManager implements CommandI {
 			output = listDirectory(root.getList().get(i), filesys, output);
 		}
 		return output;
-	}
-
-	@Override
-	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
-		return false;
 	}
 }
