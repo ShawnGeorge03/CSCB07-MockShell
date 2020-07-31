@@ -30,6 +30,7 @@
 package commands;
 
 import data.FileSystemI;
+import errors.InvalidArgsProvidedException;
 
 /**
  * Interface CommandI is responsible for providing a common method to call any 
@@ -48,5 +49,7 @@ interface CommandI {
   * @return any error message or valid output for user input
   */  
   public String run(FileSystemI fs, String args[], String fullInput, boolean val) ;
+
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException;
 
 }

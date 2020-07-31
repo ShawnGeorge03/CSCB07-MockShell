@@ -61,10 +61,12 @@ public class Echo implements CommandI {
     String[] arguments =  redirect.setParams(filesys, fullInput);
 
     try {
-      if (checkArgs(arguments)) {
+      if (checkArgs(filesys, arguments, fullInput)) {
         try {
           output = redirect.outputResult(filesys, runEcho(arguments));
-        } catch (MissingQuotesException | InvalidArgsProvidedException e) {
+        } catch (MissingQuotesException e) {
+          return e.getLocalizedMessage();
+        }catch (InvalidArgsProvidedException e){
           return e.getLocalizedMessage();
         }
       }
@@ -74,7 +76,7 @@ public class Echo implements CommandI {
     return output;
   }
 
-  private boolean checkArgs(String[] arguments) throws InvalidArgsProvidedException { 
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException { 
     if(arguments.length == 0){
       throw new InvalidArgsProvidedException("Error : No parameters provided"); 
     }else if(String.join(" ", arguments).equals("Error : No parameters provided")){

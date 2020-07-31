@@ -33,20 +33,13 @@ public class Tree implements CommandI {
 	@Override
 	public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
 		try {
-			isValid(args);
+			checkArgs(fs, args, fullInput); 
 		} catch (InvalidArgsProvidedException e) {
 			return e.getLocalizedMessage();
 		}
 		traverse(fs.getRoot(), 0);
 		System.out.println("");
 		return null;
-	}
-	
-	private void isValid(String[] args) throws InvalidArgsProvidedException {
-		//Check if any arguments were provided
-		if (args.length != 0) {
-			throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided");
-		}
 	}
 
 	private void traverse(Node root, int depth) {
@@ -65,6 +58,15 @@ public class Tree implements CommandI {
 			traverse(root.getList().get(i), depth);
 			depth -= 1;
 		}
+	}
+
+	@Override
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+		//Check if any arguments were provided
+		if (arguments.length != 0) {
+			throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided");
+		}
+		return true;
 	}
 
 }

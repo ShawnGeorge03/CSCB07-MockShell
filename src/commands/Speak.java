@@ -132,7 +132,7 @@ public class Speak implements CommandI {
 
     try {
       // Converts the voice to audio
-      if(checkArgs(text)) 
+      if(checkArgs(filesys, args, text)) 
           voice.speak(text);
     } catch (MissingQuotesException | MalformedInputException e) {
       return e.getLocalizedMessage();
@@ -143,7 +143,7 @@ public class Speak implements CommandI {
     return null;
   }
 
-  private boolean checkArgs(String text) throws MissingQuotesException, MalformedInputException {
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String text) throws MissingQuotesException, MalformedInputException {
     // If we are not in speak mode
     if (!val) {
       // If the user did not use or partially used quote(s) at the beginning

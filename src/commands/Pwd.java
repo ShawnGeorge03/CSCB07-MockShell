@@ -71,6 +71,11 @@ public class Pwd extends DirectoryManager implements CommandI {
     return output;
   }
 
+  @Override
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+		return false;
+	}
+
   private boolean checkArgs(String[] arguments) throws InvalidArgsProvidedException { 
     if(String.join(" ", arguments).equals("Error : No parameters provided")){
       throw new InvalidArgsProvidedException("Error : No parameters provided");

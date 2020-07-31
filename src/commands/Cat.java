@@ -67,7 +67,7 @@ public class Cat implements CommandI {
   public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
     String[] arguments = redirect.setParams(fs, fullInput);
     try {
-      if (checkArgs(arguments)) {
+      if (checkArgs(fs, arguments, fullInput)) {
         // Initializing the String object output after each time the method is called
         output = "";
         // Calls the readFile function to return what is in the file
@@ -86,17 +86,6 @@ public class Cat implements CommandI {
       
     // Returns the output for the arguments
     return output;
-  }
-
-  private boolean checkArgs(String[] arguments) throws InvalidArgsProvidedException { 
-    if(arguments.length == 0){
-      throw new InvalidArgsProvidedException("Error : No parameters provided"); 
-    }else if(String.join(" ", arguments).equals("Error : No parameters provided")){
-      throw new InvalidArgsProvidedException(String.join(" ", arguments));
-    }else if(String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")){
-      throw new InvalidArgsProvidedException(String.join(" ", arguments));
-    }
-    return true;
   }
 
   private void readFile(String[] filePaths, FileSystemI filesys) throws FileException {
@@ -120,5 +109,17 @@ public class Cat implements CommandI {
         // Append multiple line breaks to the String object output
         output += "\n" + "\n" + "\n";
     }
+  }
+
+  @Override
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+    if(arguments.length == 0){
+      throw new InvalidArgsProvidedException("Error : No parameters provided"); 
+    }else if(String.join(" ", arguments).equals("Error : No parameters provided")){
+      throw new InvalidArgsProvidedException(String.join(" ", arguments));
+    }else if(String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")){
+      throw new InvalidArgsProvidedException(String.join(" ", arguments));
+    }
+    return true;
   }
 }

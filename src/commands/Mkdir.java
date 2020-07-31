@@ -36,7 +36,6 @@ import data.FileSystemI;
 import data.Node;
 import errors.DirectoryException;
 import errors.InvalidArgsProvidedException;
-import errors.InvalidRedirectionError;
 
 /**
  * Class Mkdir handles making directories anywhere in the filesystem
@@ -74,12 +73,12 @@ public class Mkdir extends DirectoryManager implements CommandI {
 		try {
 			rManager.isRedirectionableCommand(filesys, fullInput);
 			return MakeDirectory(args, filesys);
-		} catch (InvalidArgsProvidedException | 
-				InvalidRedirectionError |
-				DirectoryException e) {
+		} catch (InvalidArgsProvidedException e) {
 			return e.getLocalizedMessage();
 		}
 	}
+
+	
 
 	/**
 	 * Makes directories at locations in filesystem based on the path given
@@ -188,6 +187,12 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 */
 	private Node getDirNode(int i) {
 		return new Node.Builder(true, args.get(i).substring(args.get(i).lastIndexOf('/') + 1)).build();
+	}
+
+	@Override
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+		
+		return false;
 	}
 
 }

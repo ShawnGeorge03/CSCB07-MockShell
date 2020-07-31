@@ -344,4 +344,10 @@ public class Man implements CommandI {
         + "\n\n\tIt prints out all the sub directories in \n\tthe file system one directory at a time"
         );    
   }
+
+  @Override
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+      
+      return false;
+  }
 }

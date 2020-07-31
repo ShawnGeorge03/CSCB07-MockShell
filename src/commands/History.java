@@ -73,7 +73,7 @@ public class History implements CommandI {
   public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
     String[] arguments = redirect.setParams(fs, fullInput);
     try {
-      if (checkArgs(arguments)) {
+      if (checkArgs(fs, arguments, fullInput)) {
         try {
           output = redirect.outputResult(fs, runHistory(arguments, fs));
         } catch (InvalidArgsProvidedException e) {
@@ -86,7 +86,7 @@ public class History implements CommandI {
     return output;
   }
 
-  private boolean checkArgs(String[] arguments) throws InvalidArgsProvidedException { 
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException { 
     if(String.join(" ", arguments).equals("Error : No parameters provided")){
       throw new InvalidArgsProvidedException(String.join(" ", arguments));
     }else if(String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")){

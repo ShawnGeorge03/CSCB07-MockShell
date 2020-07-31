@@ -30,6 +30,7 @@
 package commands;
 
 import data.FileSystemI;
+import errors.InvalidArgsProvidedException;
 
 /**
  * Class Push is responsible forSaves the current working directory to 
@@ -51,6 +52,11 @@ public class Push extends DirectoryManager implements CommandI {
     this.errorManager = new ErrorHandler();
     this.goBack = new Cd();
   }
+
+  @Override
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+		return false;
+	}
 
   /**
    * Saves the current working directory to the directory stack and changes the

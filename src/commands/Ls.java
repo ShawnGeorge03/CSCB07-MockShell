@@ -33,138 +33,143 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import data.FileSystemI;
 import data.Node;
+import errors.InvalidArgsProvidedException;
 
 /**
  * Class Ls handles viewing the child nodes of requested directory
  */
 public class Ls extends DirectoryManager implements CommandI {
-  /**
-   * Declare instance variable of ArrayList to contain all arguments
-   */
-  ArrayList<String> args;
-  /**
-   * Declare instance variable of ErrorHandler to handle error messages
-   */
-  private ErrorHandler error;
-  private RedirectionManager redirect;
-  private String output;
+	/**
+	 * Declare instance variable of ArrayList to contain all arguments
+	 */
+	ArrayList<String> args;
+	/**
+	 * Declare instance variable of ErrorHandler to handle error messages
+	 */
+	private ErrorHandler error;
+	private RedirectionManager redirect;
+	private String output;
 
-  /**
-   * Constructor for Ls to initialize error
-   */
-  public Ls() {
-	this.error = new ErrorHandler();
-	this.redirect = new RedirectionManager();
-  }
-
-  /**
-   * Displays all of the given directory's child nodes
-   * 
-   * @param args  the string array that contains the arguments
-   * @param fullInput  the string that contains the raw input that the user provides to JShell
-   * @return null always
-   */
-  public String run(FileSystemI filesys, String[] arguments, String fullInput, boolean val) {
-	String[] parsedArgs = redirect.setParams(filesys, fullInput);
-	if(parsedArgs != null){
-		output = redirect.outputResult(filesys, runLs(filesys, parsedArgs));
-	}else{
-		if (Arrays.asList(arguments).contains(">")) {
-			//output = redirect.setFileName(arguments, ">");
-		  } else {
-			//output = redirect.setFileName(arguments, ">>");
-		  }
-	} 
-	return output;
- }
-
- private String runLs(FileSystemI filesys, String[] arguments){
-	this.args = new ArrayList<String>(Arrays.asList(arguments));
-	if (args.size() == 0){
-		return unrecursiveMode(filesys);
+	/**
+	 * Constructor for Ls to initialize error
+	 */
+	public Ls() {
+		this.error = new ErrorHandler();
+		this.redirect = new RedirectionManager();
 	}
-	 if (!args.get(0).equals("-R")){
-		 return unrecursiveMode(filesys);
-	 } else{
-		 return recursiveMode(filesys);
-	 }
- }
 
-public String unrecursiveMode(FileSystemI filesys) {
-	String output = "";
-	if (args.size() == 0) {
-	      Node curr = filesys.getCurrent();
-	      for (int i = 0; i < curr.getList().size(); i++) {
-			output += curr.getList().get(i).getName() + '\n';	      }
-	    } else {
-	      for (int i = 0; i < args.size(); i++) {
-	        String[] path = {args.get(i)};
-	        String[] currentPath = {filesys.getCurrentPath()};
+	/**
+	 * Displays all of the given directory's child nodes
+	 * 
+	 * @param args      the string array that contains the arguments
+	 * @param fullInput the string that contains the raw input that the user
+	 *                  provides to JShell
+	 * @return null always
+	 */
+	public String run(FileSystemI filesys, String[] arguments, String fullInput, boolean val) {
+		String[] parsedArgs = redirect.setParams(filesys, fullInput);
+		if (parsedArgs != null) {
+			output = redirect.outputResult(filesys, runLs(filesys, parsedArgs));
+		} else {
+			if (Arrays.asList(arguments).contains(">")) {
+				// output = redirect.setFileName(arguments, ">");
+			} else {
+				// output = redirect.setFileName(arguments, ">>");
+			}
+		}
+		return output;
+	}
 
-	        Cd traverse = new Cd();
-	        if (traverse.run(path, filesys)) {
-			  Node current = filesys.getCurrent(); 
-			  output += "Path: " + filesys.getCurrentPath() + '\n';
-	          for (int j = 0; j < current.getList().size(); j++) {
-				output += current.getList().get(j).getName() + '\n';
-	          }
-	        } else {
-	          return error.getError("Invalid Directory",
-	              args.get(i) + " is not a valid directory") + "\n";
-	        }
+	private String runLs(FileSystemI filesys, String[] arguments) {
+		this.args = new ArrayList<String>(Arrays.asList(arguments));
+		if (args.size() == 0) {
+			return unrecursiveMode(filesys);
+		}
+		if (!args.get(0).equals("-R")) {
+			return unrecursiveMode(filesys);
+		} else {
+			return recursiveMode(filesys);
+		}
+	}
 
-	        Cd goBack = new Cd();
-			goBack.run(currentPath, filesys);
-			output += '\n';
-	      }
-	    }
-		if (output.equals("")){
+	public String unrecursiveMode(FileSystemI filesys) {
+		String output = "";
+		if (args.size() == 0) {
+			Node curr = filesys.getCurrent();
+			for (int i = 0; i < curr.getList().size(); i++) {
+				output += curr.getList().get(i).getName() + '\n';
+			}
+		} else {
+			for (int i = 0; i < args.size(); i++) {
+				String[] path = { args.get(i) };
+				String[] currentPath = { filesys.getCurrentPath() };
+
+				Cd traverse = new Cd();
+				if (traverse.run(path, filesys)) {
+					Node current = filesys.getCurrent();
+					output += "Path: " + filesys.getCurrentPath() + '\n';
+					for (int j = 0; j < current.getList().size(); j++) {
+						output += current.getList().get(j).getName() + '\n';
+					}
+				} else {
+					return error.getError("Invalid Directory", args.get(i) + " is not a valid directory") + "\n";
+				}
+
+				Cd goBack = new Cd();
+				goBack.run(currentPath, filesys);
+				output += '\n';
+			}
+		}
+		if (output.equals("")) {
 			return null;
 		}
 		return output;
 	}
 
-
 	public String recursiveMode(FileSystemI filesys) {
 		String output = "";
 		Cd traverse = new Cd();
-		String[] currentPath = {filesys.getCurrentPath()};
-		if (args.size() == 1){
+		String[] currentPath = { filesys.getCurrentPath() };
+		if (args.size() == 1) {
 			output = listDirectory(filesys.getRoot(), filesys, output);
-		}else{
-			for (int i = 1; i < args.size(); i++){
-				String[] path = {args.get(i)};
-				if (traverse.run(path, filesys)){
+		} else {
+			for (int i = 1; i < args.size(); i++) {
+				String[] path = { args.get(i) };
+				if (traverse.run(path, filesys)) {
 					output = listDirectory(filesys.getCurrent(), filesys, output);
-				}else{
-					return error.getError("Invalid Directory",
-	              	args.get(i) + " is not a valid directory") + "\n\n";
+				} else {
+					return error.getError("Invalid Directory", args.get(i) + " is not a valid directory") + "\n\n";
 				}
 				traverse.run(currentPath, filesys);
 			}
 		}
 		traverse.run(currentPath, filesys);
-		if (output.equals("")){
+		if (output.equals("")) {
 			return null;
 		}
 		return output;
 	}
 
-	public String listDirectory(Node root, FileSystemI filesys, String output){
-		if (!root.getisDir()){
+	public String listDirectory(Node root, FileSystemI filesys, String output) {
+		if (!root.getisDir()) {
 			return output;
 		}
 		filesys.assignCurrent(root);
-		//System.out.println("Path: " + filesys.getCurrentPath());
+		// System.out.println("Path: " + filesys.getCurrentPath());
 		output += "Path: " + filesys.getCurrentPath() + '\n';
-		for (int i = 0; i < root.getList().size(); i++){
-			//System.out.println(root.getList().get(i).getName());
+		for (int i = 0; i < root.getList().size(); i++) {
+			// System.out.println(root.getList().get(i).getName());
 			output += root.getList().get(i).getName() + '\n';
 		}
 		output += "\n";
-		for (int i = 0; i < root.getList().size(); i++){
+		for (int i = 0; i < root.getList().size(); i++) {
 			output = listDirectory(root.getList().get(i), filesys, output);
 		}
 		return output;
+	}
+
+	@Override
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+		return false;
 	}
 }

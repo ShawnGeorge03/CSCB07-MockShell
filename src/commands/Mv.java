@@ -7,7 +7,6 @@ import data.FileSystemI;
 import data.Node;
 import errors.DirectoryException;
 import errors.InvalidArgsProvidedException;
-import errors.InvalidRedirectionError;
 
 public class Mv extends DirectoryManager implements CommandI {
 
@@ -40,24 +39,13 @@ public class Mv extends DirectoryManager implements CommandI {
 
 		try {
 			rManager.isRedirectionableCommand(filesys, actualInput);
-			output = checkArgs(filesys, actualInput);
-		} catch (InvalidRedirectionError | DirectoryException | InvalidArgsProvidedException e) {
-			return e.getLocalizedMessage();
-		}
-
-		pathTo[0] = args.get(1);
-		currentPath[0] = filesys.getCurrentPath();
-		initPathandFile();
-
-		try {
+			checkArgs(filesys, arguments, actualInput);
+			pathTo[0] = args.get(1);
+			currentPath[0] = filesys.getCurrentPath();
+			initPathandFile();
 			output = copyFile(filesys);
-		} catch (DirectoryException | InvalidArgsProvidedException e) {
-			return e.getLocalizedMessage();
-		}
-
-		try {
 			output = moveFile(filesys);
-		} catch (DirectoryException | InvalidArgsProvidedException e) {
+		} catch (InvalidArgsProvidedException e) {
 			return e.getLocalizedMessage();
 		}
 
@@ -83,7 +71,7 @@ public class Mv extends DirectoryManager implements CommandI {
 		}
 	}
 
-	public String checkArgs(FileSystemI filesys, String fullInput)
+	public boolean checkArgs(FileSystemI filesys, String[] arguments, String fullInput)
 			throws InvalidArgsProvidedException, DirectoryException {
 		if (args.size() != 2)
 			throw new InvalidArgsProvidedException("Error: Invalid Argument : Expected 2 arguments");
@@ -91,7 +79,7 @@ public class Mv extends DirectoryManager implements CommandI {
 		if (args.get(0).equals("/"))
 			throw new DirectoryException("Error: Invalid Directory : Cannot move the root directory");
 
-		return null;
+		return true;
 	}
 
 	public String copyFile(FileSystemI fs) throws InvalidArgsProvidedException, DirectoryException {

@@ -70,13 +70,15 @@ public class Cd extends DirectoryManager implements CommandI {
     try {
       if (rManager.isRedirectionableCommand(filesys, fullInput));
       checkArgs(filesys, args, fullInput);
-    } catch (InvalidRedirectionError | InvalidArgsProvidedException e) {
+    } catch (InvalidRedirectionError e) {
       return e.getLocalizedMessage();
-    } 
+    } catch(InvalidArgsProvidedException e){
+      return e.getLocalizedMessage();
+    }
     return null;
   }
 
-  private boolean checkArgs(FileSystemI filesys, String[] args, String fullInput) throws InvalidArgsProvidedException{
+  public boolean checkArgs(FileSystemI filesys, String[] args, String fullInput) throws InvalidArgsProvidedException{
     String paths = fullInput.substring(fullInput.indexOf("cd") + 2).trim();
     if (args.length == 0) {
       throw new InvalidArgsProvidedException("Error : No parameters provided");

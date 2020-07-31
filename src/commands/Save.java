@@ -3,6 +3,7 @@ package commands;
 import java.io.FileWriter;
 import java.io.IOException;
 import data.*;
+import errors.InvalidArgsProvidedException;
 import errors.InvalidRedirectionError;
 
 public class Save implements CommandI {
@@ -20,6 +21,11 @@ public class Save implements CommandI {
     this.output = null;
     this.fileContent = "";
   }
+
+  @Override
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+		return false;
+	}
 
   /*
    * Things to work on: - JavaDoc - Test cases

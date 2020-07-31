@@ -7,7 +7,6 @@ import data.FileSystemI;
 import data.Node;
 import errors.DirectoryException;
 import errors.InvalidArgsProvidedException;
-import errors.InvalidRedirectionError;
 
 public class Cp extends DirectoryManager implements CommandI {
 
@@ -37,24 +36,14 @@ public class Cp extends DirectoryManager implements CommandI {
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
 		try {
 			rManager.isRedirectionableCommand(filesys, actualInput);
-			checkArgs(filesys, actualInput);
-		} catch (InvalidRedirectionError | DirectoryException | InvalidArgsProvidedException e) {
-			return e.getLocalizedMessage();
-		}
-
-		pathTo[0] = args.get(1);
-		currentPath[0] = filesys.getCurrentPath();
-		initPathandFile();
-
-		try {
-			output = copyFile(filesys);
-		} catch (DirectoryException | InvalidArgsProvidedException e) {
-			return e.getLocalizedMessage();
-		}
-
-		try {
-			output = moveFile(filesys);
-		} catch (DirectoryException | InvalidArgsProvidedException e) {
+			if(checkArgs(filesys, arguments, actualInput)){
+				pathTo[0] = args.get(1);
+				currentPath[0] = filesys.getCurrentPath();
+				initPathandFile();	
+				output = copyFile(filesys);
+				output = moveFile(filesys);
+			}						
+		}catch(InvalidArgsProvidedException e){
 			return e.getLocalizedMessage();
 		}
 
@@ -80,7 +69,7 @@ public class Cp extends DirectoryManager implements CommandI {
 		}
 	}
 
-	public boolean checkArgs(FileSystemI filesys, String fullInput)
+	public boolean checkArgs(FileSystemI filesys, String[] arguments, String fullInput)
 			throws InvalidArgsProvidedException, DirectoryException {
 		if (args.size() != 2)
 			throw new InvalidArgsProvidedException("Error: Invalid Argument : Expected 2 arguments");

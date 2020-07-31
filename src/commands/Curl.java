@@ -42,7 +42,6 @@ import java.util.Arrays;
 
 import data.FileSystemI;
 import errors.InvalidArgsProvidedException;
-import errors.InvalidRedirectionError;
 
 /**
  * Class Curl returns a file from the given URL and adds it to the current
@@ -80,7 +79,7 @@ public class Curl implements CommandI {
     try {
       rManager.isRedirectionableCommand(filesys, fullInput);
       //If the user provides one URL
-    if(checkArgs(args)) {
+    if(checkArgs(filesys, args, fullInput)) {
       try {
         //Initializes a URL object
         site = new URL(args[0]);
@@ -125,7 +124,7 @@ public class Curl implements CommandI {
         return "Connection could not be made to " + args[0];
       }
     }
-    } catch (InvalidRedirectionError | InvalidArgsProvidedException e1) {
+    } catch (InvalidArgsProvidedException e1) {
       return e1.getLocalizedMessage();
     }
     
@@ -133,14 +132,15 @@ public class Curl implements CommandI {
     return null;
   }
 
-  private boolean checkArgs(String[] args) throws InvalidArgsProvidedException {
-    if (args.length == 0) {
+  @Override
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+    if (arguments.length == 0) {
       //Returns an error when no URL is provided
       throw new InvalidArgsProvidedException("Error : No parameters provided"); 
     //If the user provides more than one URL
-    }else if(args.length > 1) {
+    }else if(arguments.length > 1) {
       //Returns an error when more than one URL is provided
-      throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided : " + Arrays.toString(args));
+      throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided : " + Arrays.toString(arguments));
     }
     return true;
   }

@@ -31,7 +31,6 @@ package commands;
 
 import data.FileSystemI;
 import errors.InvalidArgsProvidedException;
-import errors.InvalidRedirectionError;
 
 /**
  * Class Exit handles exiting the JShell
@@ -56,19 +55,20 @@ public class Exit implements CommandI {
     try {
       rManager.isRedirectionableCommand(filesys, fullInput);
 
-      if (checkArgs(args, fullInput)) {
+      if (checkArgs(filesys, args, fullInput)) {
         // Exits the session of the Shell
         System.exit(0);
       }
-    } catch (InvalidArgsProvidedException | InvalidRedirectionError e) {
+    } catch (InvalidArgsProvidedException e) {
       return e.getLocalizedMessage();
     } 
  
     return null;
   }
 
-  private boolean checkArgs(String[] args, String fullInput) throws InvalidArgsProvidedException{
-    if(args.length != 0) 
+  @Override
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+    if(arguments.length != 0) 
       throw new InvalidArgsProvidedException("Error : Arguments not required : " + 
                   fullInput.substring(fullInput.indexOf("exit ") + 4).trim());
     return true;

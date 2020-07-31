@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import data.FileSystemI;
 import data.Node;
+import errors.InvalidArgsProvidedException;
 
 public class Find extends DirectoryManager implements CommandI {
 
@@ -13,6 +14,11 @@ public class Find extends DirectoryManager implements CommandI {
 
 	public Find() {
 		error = new ErrorHandler();
+	}
+
+	@Override
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+		return false;
 	}
 
 	public boolean isValid(ArrayList<String> args) {
@@ -31,8 +37,8 @@ public class Find extends DirectoryManager implements CommandI {
 		} else if (!(args.get(2).equals("-name"))) {
 			output = error.getError("Invalid Argument", args.get(2));
 			return false;
-		} else if (args.get(3).equals(null)
-				|| (args.get(3).charAt(0)) != ('"') || (args.get(3).charAt((args.get(3).length() - 1)) != ('"'))) {
+		} else if (args.get(3).equals(null) || (args.get(3).charAt(0)) != ('"')
+				|| (args.get(3).charAt((args.get(3).length() - 1)) != ('"'))) {
 			output = error.getError("Invalid Argument", args.get(3));
 			return false;
 		} else {
@@ -44,10 +50,8 @@ public class Find extends DirectoryManager implements CommandI {
 	public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
 		ArrayList<String> paths = new ArrayList<String>();
 		ArrayList<String> arguments = new ArrayList<String>(Arrays.asList(args));
-		if (arguments.size() == 0) {
-			output = error.getError("No parameters provided", "Find");
+		if (!isValid(arguments))
 			return output;
-		}
 		for (int i = 0; i < args.length; i++) {
 			paths.add(args[i]);
 			if (i < args.length - 1) {
@@ -115,5 +119,4 @@ public class Find extends DirectoryManager implements CommandI {
 		}
 		return output;
 	}
-
 }

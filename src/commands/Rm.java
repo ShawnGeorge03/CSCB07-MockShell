@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import data.FileSystemI;
 import data.Node;
+import errors.InvalidArgsProvidedException;
 import errors.InvalidRedirectionError;
 
 public class Rm extends DirectoryManager implements CommandI{
@@ -28,6 +29,11 @@ public class Rm extends DirectoryManager implements CommandI{
 		error = new ErrorHandler();
 		rManager = new RedirectionManager();
 		traverseFileSystem = new Cd();
+	}
+
+	@Override
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+		return false;
 	}
 	
 	

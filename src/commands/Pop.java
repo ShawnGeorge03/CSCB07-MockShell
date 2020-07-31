@@ -30,6 +30,7 @@
 package commands;
 
 import data.FileSystemI;
+import errors.InvalidArgsProvidedException;
 
 /**
  * Class Pop is responsible for popping the top most directory 
@@ -68,6 +69,11 @@ public class Pop extends DirectoryManager implements CommandI {
     return output;
   }
 
+  @Override
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+		return false;
+  }
+  
   /**
    * Pop takes the current stack and removes the very top of the stack
    * 

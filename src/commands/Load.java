@@ -22,6 +22,11 @@ public class Load implements CommandI{
     this.output = null;
   }
   
+  @Override
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+		return false;
+	}
+  
   /*
    * Things to work on:
    *    - JavaDoc
