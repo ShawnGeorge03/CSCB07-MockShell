@@ -55,6 +55,10 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	private Cd traverse;
 
 	//String fullinput;
+	String fileName;
+	String[] newArgs = {""};
+
+	FileSystemI fs;
 
 	/**
 	 * Constructor of Mkdir to initialize error
@@ -76,14 +80,13 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 */
 	public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
 		try {
+			fs = filesys;
 			rManager.isRedirectionableCommand(filesys, fullInput);
 			return MakeDirectory(args, filesys, fullInput);
 		} catch (InvalidArgsProvidedException e) {
 			return e.getLocalizedMessage();
 		}
 	}
-
-	
 
 	/**
 	 * Makes directories at locations in filesystem based on the path given
@@ -94,122 +97,62 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	public String MakeDirectory(String[] arguments, FileSystemI filesys, String fullinput) throws InvalidArgsProvidedException, DirectoryException{
 		
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
-		checkArgs(filesys, arguments, fullinput);
+		String[] currentPath = {fs.getCurrentPath()};
+		checkArgs(fs, arguments, fullinput);
+		checkRepitition();
 		
-		if (args.size() == 0) {
-			return error.getError("Invalid Argument", "Expected at least 1 argument");
+		for (int i = 0; i < args.size(); i++){
+			setPathAndFile(i);
+			traverse.run(fs, newArgs, "cd " + newArgs[0], false);
+			Node newNode = new Node.Builder(true, fileName).setParent(fs.getCurrent()).build();
+			fs.addToDirectory(newNode);
+			traverse.run(fs, currentPath, "cd " + currentPath[0], false);
 		}
-		
-		String output = "";
-		//Checks for Valid arguments
-		for (int i = 0; i < args.size(); i++) {
-			if (checkPath(i)) {
-				String[] currentPath = {filesys.getCurrentPath()};
-				String[] newArgs = { args.get(i).substring(0, args.get(i).lastIndexOf('/')) };
-				if (newArgs[0].equals("")){
-					newArgs[0] = "/";
-				}
-				
-				//Checks if directory name is valid
-				if (!filesys.isValidName(args.get(i).substring(args.get(i).lastIndexOf('/') + 1))) {
-					output += error.getError("Invalid Directory",
-							args.get(i).substring(args.get(i).lastIndexOf('/') + 1) + " is not a valid directory name");
-					continue;
-				}
-				
-				//Cd's into path given, checks if filename is valid for that directory, and creates it
-				Cd newpath = new Cd();
-				if (newpath.run(newArgs, filesys)) {
-					Node newNode = getDirNode(i);
-					boolean isValidDir = true;
-					for (int j = 0; j < filesys.getCurrent().getList().size(); j++) {
-						if (filesys.getCurrent().getList().get(j).getName().equals(newNode.getName())) {
-							Cd goBack = new Cd();
-							
-							goBack.run(currentPath, filesys);
-							output += error.getError("Same Directory", newNode.getName() + " already exists");
-							isValidDir = false;
-							continue;
-						}
-					}
-					
-					if (!isValidDir) {
-						continue;
-					}
-					
-					filesys.addToDirectory(newNode);
-				} else {
-					output += error.getError("Invalid Directory", newArgs[0] + " is not a valid directory");
-					
-				}
-				newpath.run(currentPath, filesys);
-			} else {
-				output += mkDirWithinCurrent(i, filesys);
-			}
-		}
-		if (output.equals("")) {
-			return null;
-		}
-		return output;
-	}
-
-
-	/**
-	 * Returns a boolean if the argument is a relative or absolute path or not
-	 * 
-	 * @return Boolean  A boolean value indicating the above
-	 */
-	private boolean checkPath(int i) {
-		return args.get(i).contains("/");
-	}
+		return null;
 	
-	/**
-	 * Makes a Node and adds it to the current working directory
-	 * 
-	 * @return String  A string if there is an error in adding the node, else null
-	 */
-	private String mkDirWithinCurrent(int i, FileSystemI filesys) {
-		if (!filesys.isValidName(args.get(i))) {
-			return error.getError("Invalid Directory", args.get(i) + " is not a valid directory name");
-		}
-
-		Node newNode = new Node.Builder(true, args.get(i)).build();
-
-		for (int j = 0; j < filesys.getCurrent().getList().size(); j++) {
-			if (filesys.getCurrent().getList().get(j).getName().equals(newNode.getName())) {
-				return error.getError("Same Directory", newNode.getName() + " already exists");
-			}
-		}
-
-		filesys.addToDirectory(newNode);
-		return "";
-	}
-	
-	/**
-	 * Creates an instance of a Node to be returned to be added into the directory
-	 * 
-	 * @return Node  The new node to be added
-	 */
-	private Node getDirNode(int i) {
-		return new Node.Builder(true, args.get(i).substring(args.get(i).lastIndexOf('/') + 1)).build();
 	}
 
 	@Override
 	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {	
+		if (args.size() == 0) {
+			throw new InvalidArgsProvidedException("Error: Invalid Argument : Expected at least 1 argument");
+		}
 		for (int i = 0; i < args.size(); i++){
-			String[] newArgs = {args.get(i).substring(0, args.get(i).lastIndexOf('/')) };
+			setPathAndFile(i);
+			if (!fs.isValidName(fileName)){
+				throw new InvalidArgsProvidedException("Error: Invalid Directory : "  + fileName + " is not a valid directory name");
+			}
+			if (!traverse.run(newArgs, fs)){
+				throw new InvalidArgsProvidedException("Error: Invalid Directory : " + newArgs[0] + " is not a valid directory");
+			}
+		}
+		return true;
+	}
+
+	public void setPathAndFile(int i){
+		if (args.get(i).contains("/")){
+			newArgs[0] = args.get(i).substring(0, args.get(i).lastIndexOf('/'));
 			if (newArgs[0].equals("")){
 				newArgs[0] = "/";
 			}
-			String fileName = args.get(i).substring(args.get(i).lastIndexOf('/') + 1);
-			if (!fs.isValidName(fileName)){
-				error.getError("Invalid Directory", fileName + " is not a valid directory name");
-			}
-			if (!traverse.run(newArgs, fs)){
-				error.getError("Invalid Directory", newArgs[0] + " is not a valid directory");
+			fileName = args.get(i).substring(args.get(i).lastIndexOf('/') + 1);
+		}else{
+			newArgs[0] = fs.getCurrentPath();
+			fileName = args.get(i);
+		}
+	}
+
+	public void checkRepitition() throws DirectoryException{ 
+		for (int i = 0; i < args.size(); i++){
+			setPathAndFile(i);
+			traverse.run(fs, newArgs, "cd " + newArgs[0], false);
+			ArrayList<Node> parentList = fs.getCurrent().getList();
+			for (int j = 0; j < parentList.size(); j++){
+				if (parentList.get(j).getName().equals(fileName) && parentList.get(j).getisDir()){
+					throw new DirectoryException("Invalid Directory: "  + fileName + " already exists in " + newArgs[0]);
+				}
 			}
 		}
-		return false;
 	}
 
 }
