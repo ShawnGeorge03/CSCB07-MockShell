@@ -29,8 +29,6 @@
 // *********************************************************
 package commands;
 
-import java.util.Arrays;
-
 import data.FileSystemI;
 import errors.InvalidArgsProvidedException;
 import errors.MissingQuotesException;
@@ -61,22 +59,30 @@ public class Echo implements CommandI {
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     String[] arguments =  redirect.setParams(filesys, fullInput);
-    
-    if(arguments != null)
-      try {
-        output = redirect.outputResult(filesys, runEcho(arguments));
-      } catch (MissingQuotesException | InvalidArgsProvidedException e) {
-        return e.getLocalizedMessage();
-      }
-    else {
-      if (Arrays.asList(args).contains(">")) {
-        output = redirect.setFileName(args, ">");
-      } else {
-        output = redirect.setFileName(args, ">>");
-      }
-    }
 
+    try {
+      if (checkArgs(arguments)) {
+        try {
+          output = redirect.outputResult(filesys, runEcho(arguments));
+        } catch (MissingQuotesException | InvalidArgsProvidedException e) {
+          return e.getLocalizedMessage();
+        }
+      }
+    } catch (InvalidArgsProvidedException e1) {
+      return e1.getLocalizedMessage();
+    }
     return output;
+  }
+
+  private boolean checkArgs(String[] arguments) throws InvalidArgsProvidedException { 
+    if(arguments.length == 0){
+      throw new InvalidArgsProvidedException("Error : No parameters provided"); 
+    }else if(String.join(" ", arguments).equals("Error : No parameters provided")){
+      throw new InvalidArgsProvidedException(String.join(" ", arguments));
+    }else if(String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")){
+      throw new InvalidArgsProvidedException(String.join(" ", arguments));
+    }
+    return true;
   }
 
   private String runEcho(String[] args) throws MissingQuotesException, InvalidArgsProvidedException{

@@ -32,16 +32,12 @@ package commands;
 import java.util.Arrays;
 
 import data.FileSystemI;
+import errors.InvalidArgsProvidedException;
 
 /**
  * Class history keeps track of all inputs given to JShell
  */
 public class History implements CommandI {
-
-  /**
-   * Declare instance variable of ErrorHandler to handle error messages
-   */
-  private ErrorHandler error;
 
   /**
    * Declare instance variable of RedirectionManager to handle redirection to file
@@ -58,8 +54,6 @@ public class History implements CommandI {
    * Constructor for History that initializes instance variables
    */
   public History() {
-    // Initializes a ErrorHandler Object
-    this.error = new ErrorHandler();
     // Initializes a RedirectionManager Object
     this.redirect = new RedirectionManager();
     // Initializes a String object called output
@@ -78,16 +72,27 @@ public class History implements CommandI {
    */
   public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
     String[] arguments = redirect.setParams(fs, fullInput);
-    if (arguments != null) {
-      output = redirect.outputResult(fs, runHistory(arguments, fs));
-    } else {
-      if (Arrays.asList(args).contains(">")) {
-        output = redirect.setFileName(args, ">");
-      } else {
-        output = redirect.setFileName(args, ">>");
+    try {
+      if (checkArgs(arguments)) {
+        try {
+          output = redirect.outputResult(fs, runHistory(arguments, fs));
+        } catch (InvalidArgsProvidedException e) {
+          return e.getLocalizedMessage();
+        }
       }
+    } catch (InvalidArgsProvidedException e1) {
+      return e1.getLocalizedMessage();
     }
     return output;
+  }
+
+  private boolean checkArgs(String[] arguments) throws InvalidArgsProvidedException { 
+    if(String.join(" ", arguments).equals("Error : No parameters provided")){
+      throw new InvalidArgsProvidedException(String.join(" ", arguments));
+    }else if(String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")){
+      throw new InvalidArgsProvidedException(String.join(" ", arguments));
+    }
+    return true;
   }
 
   /**
@@ -97,7 +102,7 @@ public class History implements CommandI {
    * @param fs     the refrence to teh file system
    * @return the error message if there is any or the actual history
    */
-  private String runHistory(String[] params, FileSystemI fs) {
+  private String runHistory(String[] params, FileSystemI fs) throws InvalidArgsProvidedException {
     // If the user provides no arguments
     if (params.length == 0) {
       // Calls the following methods to print the entire history
@@ -126,7 +131,8 @@ public class History implements CommandI {
         printLastXCommands(fs, number);
       } else {
         // Sets an error of Invalid Argument to be returned to the user
-        output = error.getError("Invalid Argument", params[0] + " is not either a number or positive or an integer");
+        throw new InvalidArgsProvidedException("Error: Invalid Argument : " 
+              + params[0] + " is not either a number or positive or an integer");
       }
       // If the user provided multiple arguments
     } else if (params.length > 1) {
@@ -135,7 +141,8 @@ public class History implements CommandI {
       String parameter = Arrays.toString(params);
       parameter = parameter.substring(1, parameter.length() - 1).replace(",", "").trim();
       // Returns an error of Mulptile parameters provided
-      output = error.getError("Multiple parameters provided", parameter + " , either one or no input");
+      throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided : " 
+      + parameter + " , either one or no input");
     }
 
     // Returns the valid output for the user input

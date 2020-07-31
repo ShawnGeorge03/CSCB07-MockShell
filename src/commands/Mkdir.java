@@ -34,6 +34,8 @@ import java.util.Arrays;
 
 import data.FileSystemI;
 import data.Node;
+import errors.DirectoryException;
+import errors.InvalidArgsProvidedException;
 import errors.InvalidRedirectionError;
 
 /**
@@ -71,11 +73,12 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
 		try {
 			rManager.isRedirectionableCommand(filesys, fullInput);
-		} catch (InvalidRedirectionError e) {
+			return MakeDirectory(args, filesys);
+		} catch (InvalidArgsProvidedException | 
+				InvalidRedirectionError |
+				DirectoryException e) {
 			return e.getLocalizedMessage();
 		}
-
-		return MakeDirectory(args, filesys);
 	}
 
 	/**
@@ -84,11 +87,12 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * @param arguments  The string array of all arguments provided
 	 * @return String  An error message, else null
 	 */
-	public String MakeDirectory(String[] arguments, FileSystemI filesys) {
+	public String MakeDirectory(String[] arguments, FileSystemI filesys) throws InvalidArgsProvidedException, DirectoryException{
 		
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
 		
 		if (args.size() == 0) {
+
 			return error.getError("Invalid Argument", "Expected at least 1 argument");
 		}
 		

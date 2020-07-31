@@ -29,7 +29,6 @@
 // *********************************************************
 package commands;
 
-import java.util.Arrays;
 import java.util.Hashtable;
 
 import data.FileSystemI;
@@ -71,20 +70,29 @@ public class Man implements CommandI {
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     String[] arguments =  redirect.setParams(filesys, fullInput); 
-    if(arguments != null){
-        try {
-            output = redirect.outputResult(filesys, runMan(arguments));
-        } catch (InvalidArgsProvidedException e) {
-            return e.getLocalizedMessage();
+
+    try {
+        if (checkArgs(arguments)) {
+            try {
+                output = redirect.outputResult(filesys, runMan(arguments));
+            } catch (InvalidArgsProvidedException e) {
+                return e.getLocalizedMessage();
+            }
         }
-    }else{
-        if (Arrays.asList(args).contains(">")) {
-            output = redirect.setFileName(args, ">");
-        } else {
-            output = redirect.setFileName(args, ">>");
-        }
+    } catch (InvalidArgsProvidedException e1) {
+        return e1.getLocalizedMessage();
     }
+
     return output;
+  }
+
+  private boolean checkArgs(String[] arguments) throws InvalidArgsProvidedException { 
+    if(String.join(" ", arguments).equals("Error : No parameters provided")){
+      throw new InvalidArgsProvidedException(String.join(" ", arguments));
+    }else if(String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")){
+      throw new InvalidArgsProvidedException(String.join(" ", arguments));
+    }
+    return true;
   }
 
   private String runMan(String[] args) throws InvalidArgsProvidedException{
@@ -100,7 +108,6 @@ public class Man implements CommandI {
       // Returns an error
       throw new InvalidArgsProvidedException("Error: Invalid Argument : "+ args[0] + " is not a supported command supported one is required");     
     }
-
     // Returns the appropriate command manual from the manMap Hashtable
     return manMap.get(args[0]);
   }

@@ -219,7 +219,7 @@ public class HistoryTest {
     //Actual return from History after the operation has been run
     actual = history.run(fs, "1 >".split(" "), "history 1 >", false);
     //Expected return from History
-    expected = "Error : No parameters provided : ";
+    expected = "Error : No parameters provided";
     //Checks if the values are equal or not
     assertEquals(expected, actual);
   }

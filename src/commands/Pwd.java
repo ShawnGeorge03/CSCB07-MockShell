@@ -29,9 +29,9 @@
 // *********************************************************
 package commands;
 
-import java.util.Arrays;
 
 import data.FileSystemI;
+import errors.InvalidArgsProvidedException;
 
 /**
  * Class Pwd is responsible for providing the absolute path of the current
@@ -39,10 +39,6 @@ import data.FileSystemI;
  */
 public class Pwd extends DirectoryManager implements CommandI {
 
-  /**
-   * Declare instance of ErrorHandler to handle any errors that occur
-   */
-  ErrorHandler error;
   RedirectionManager redirect;
   String output;
 
@@ -50,8 +46,6 @@ public class Pwd extends DirectoryManager implements CommandI {
    * Constructor for Pwd that initializes the ErrorHandler object
    */
   public Pwd() {
-    // Initializes a ErrorHandler Object
-    this.error = new ErrorHandler();
     this.redirect = new RedirectionManager();
   }
 
@@ -67,26 +61,31 @@ public class Pwd extends DirectoryManager implements CommandI {
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     String[] arguments =  redirect.setParams(filesys, fullInput);
 
-    if(arguments != null){
-      output = redirect.outputResult(filesys, runPwd(filesys, arguments));
-    }else{
-      if (Arrays.asList(args).contains(">")) {
-        output = redirect.setFileName(args, ">");
-      } else {
-        output = redirect.setFileName(args, ">>");
+    try {
+      if (checkArgs(arguments)) {
+        output = redirect.outputResult(filesys, runPwd(filesys, arguments));
       }
+    } catch (InvalidArgsProvidedException e) {
+      return e.getLocalizedMessage();
     }
-      
-      
     return output;
   }
 
-  private String runPwd(FileSystemI filesys, String[] args){
+  private boolean checkArgs(String[] arguments) throws InvalidArgsProvidedException { 
+    if(String.join(" ", arguments).equals("Error : No parameters provided")){
+      throw new InvalidArgsProvidedException("Error : No parameters provided");
+    }else if(String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")){
+      throw new InvalidArgsProvidedException(String.join(" ", arguments));
+    }
+    return true;
+  }
+
+  private String runPwd(FileSystemI filesys, String[] args) throws InvalidArgsProvidedException{
     // If the user provides any input for the following function
     if (args.length != 0) {
       // Returns an Invalid arguments error
-      return error.getError("Invalid Argument",
-          "pwd doesn't take any arguments");
+      throw new InvalidArgsProvidedException("Error: Invalid Argument : pwd doesn't take any arguments");
+
     }
     String currentPath = filesys.getCurrentPath();
     // Returns the current working directory the user is in

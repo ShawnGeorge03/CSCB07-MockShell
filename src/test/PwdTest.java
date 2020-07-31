@@ -96,7 +96,7 @@ public class PwdTest {
     @Test
     public void testRedirectionErrorCase1(){
         String[] emptyArr = {};
-        expectedPath = "Error : No parameters provided : ";
+        expectedPath = "Error : No parameters provided";
         actualPath = pwd.run(fs,emptyArr, "pwd >>", false);
         assertEquals(expectedPath, actualPath);
     }

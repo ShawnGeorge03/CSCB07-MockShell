@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import data.FileSystemI;
+import errors.InvalidArgsProvidedException;
 import errors.InvalidRedirectionError;
 
 /**
@@ -40,11 +41,6 @@ import errors.InvalidRedirectionError;
  * file
  */
 public class RedirectionManager {
-
-    /**
-     * Declare instance of ErrorHandler to handle error messages
-     */
-    private ErrorHandler errorManager;
 
     /**
      * Declares instance variable of ArrayList that holds all the commands that can
@@ -63,8 +59,6 @@ public class RedirectionManager {
      * and populates teh ArrayList with command names
      */
     public RedirectionManager() {
-        // Initializes a ErrorHandler Object
-        errorManager = new ErrorHandler();
         // Creates a ArrayList Object called redirectClasses
         redirectClasses = new ArrayList<String>();
         // Initializes the ArrayList with values
@@ -78,7 +72,7 @@ public class RedirectionManager {
      * @param fullInput the user input
      * @return true if command is redirectionable and false other wise
      */
-    public boolean isRedirectionableCommand(FileSystemI fs, String fullInput) throws InvalidRedirectionError{
+    public boolean isRedirectionableCommand(FileSystemI fs, String fullInput) throws InvalidRedirectionError {
         // Retrives the command from the user input
         String command = fullInput.split(" ")[0];
 
@@ -89,7 +83,8 @@ public class RedirectionManager {
             if (Arrays.asList(fullInput.split(" ")).contains(">")
                     || Arrays.asList(fullInput.split(" ")).contains(">>")) {
                 // Returns the respective error -> Command is not redirectionable
-                throw new InvalidRedirectionError("Error : Redirection Error : " + command + " does not support redirection");
+                throw new InvalidRedirectionError(
+                        "Error : Redirection Error : " + command + " does not support redirection");
             }
         }
         return false;
@@ -106,36 +101,34 @@ public class RedirectionManager {
         // Initializes an array containing the words of the parsedInput
         String[] params = fullInput.split(" ");
 
-        // If the user used the single arrow >> which sets redirection to overwrite a
-        // file
-        if (Arrays.asList(params).contains(">")) {
-            // Sets the redirection mode to overwrite
-            mode = "O";
-            // Collects the file name
-            fileName = setFileName(params, ">");
-            // Collects the parameters for the command
-            params = Arrays.copyOfRange(params, 1, Arrays.asList(params).indexOf(">"));
-            // If the user used the single arrow >> which sets redirection to append a file
-        } else if (Arrays.asList(params).contains(">>")) {
-            // Sets the redirection mode to append
-            mode = "A";
-            // Collects the file name
-            fileName = setFileName(params, ">>");
-            // Collects the parameters for the command
-            params = Arrays.copyOfRange(params, 1, Arrays.asList(params).indexOf(">>"));
-            // If the user did not use redirection for a redirectionable command
-        } else {
-            // Collects the parameters for the command
-            params = Arrays.copyOfRange(fullInput.split(" "), 1, fullInput.split(" ").length);
-            // Sets the fileName and mode to be empty
-            fileName = "";
-            mode = "";
-        }
-
-        // If the user provided multiple file names return the error
-        if (fileName.startsWith("Error")) {
-            // Return no parameters
-            return null;
+        try {
+            // If the user used the single arrow >> which sets redirection to overwrite a
+            // file
+            if (Arrays.asList(params).contains(">")) {
+                // Sets the redirection mode to overwrite
+                mode = "O";
+                // Collects the file name
+                fileName = setFileName(params, ">");
+                // Collects the parameters for the command
+                params = Arrays.copyOfRange(params, 1, Arrays.asList(params).indexOf(">"));
+                // If the user used the single arrow >> which sets redirection to append a file
+            } else if (Arrays.asList(params).contains(">>")) {
+                // Sets the redirection mode to append
+                mode = "A";
+                // Collects the file name
+                fileName = setFileName(params, ">>");
+                // Collects the parameters for the command
+                params = Arrays.copyOfRange(params, 1, Arrays.asList(params).indexOf(">>"));
+                // If the user did not use redirection for a redirectionable command
+            } else {
+                // Collects the parameters for the command
+                params = Arrays.copyOfRange(fullInput.split(" "), 1, fullInput.split(" ").length);
+                // Sets the fileName and mode to be empty
+                fileName = "";
+                mode = "";
+            }
+        } catch (InvalidArgsProvidedException e) {
+            return e.getLocalizedMessage().split(" ");
         }
 
         // Returns the parameters
@@ -149,20 +142,21 @@ public class RedirectionManager {
      * @param type   either append(">>") or overwrite(">")
      * @return the file name or null with the error printed on the console
      */
-    public String setFileName(String[] params, String type) {
+    public String setFileName(String[] params, String type) throws InvalidArgsProvidedException {
         // Collects all the content after the either ">" or ">>"
         String[] fileName = Arrays.copyOfRange(params, Arrays.asList(params).indexOf(type) + 1, params.length);
         // If the user provided no file name for the redirection
         if (fileName.length == 0) {
             // Sends the error message instead of a fileName
-            return errorManager.getError("No parameters provided", "");
+            throw new InvalidArgsProvidedException("Error : No parameters provided");
             // If the user provided multiple file names
         } else if (fileName.length > 1) {
             // Converts the array to String
             String parameter = Arrays.toString(fileName);
             parameter = parameter.substring(0, parameter.length()).trim();
             // Sends the error message instead of a fileName
-            return errorManager.getError("Multiple parameters provided", parameter + " Only one is required");
+            throw new InvalidArgsProvidedException(
+                    "Error : Multiple Parameters have been provided : " + parameter + " Only one is required");
         }
         // If the user provided one file name then return that file name
         return fileName[0];

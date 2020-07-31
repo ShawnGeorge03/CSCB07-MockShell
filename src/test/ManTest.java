@@ -147,7 +147,6 @@ public class ManTest {
         expected = "Error : Multiple Arguments have been provided : Only one supported command is required";
         //Actual return from Man after the operation has been run
         actual = man.run(fs,"speak ls".split(" "), "man speak ls", false);
-        System.out.println(actual);
         //Checks if the values are equal or not
         assertEquals(expected, actual);  
     }
@@ -202,7 +201,7 @@ public class ManTest {
     @Test
     public void testHRedirectionErrorCase1(){
         //Expected return from Man
-        expected = "Error : No parameters provided : ";
+        expected = "Error : No parameters provided";
         //Actual return from Man after the operation has been run
         actual = man.run(fs, "exit >>".split(" "), "man exit >>", false);
         //Checks if the values are equal or not
@@ -232,8 +231,6 @@ public class ManTest {
         //Actual return from Man after the operation has been run
         actual = man.run(fs,"LOL > text".split(" "), "man LOL > text", false);
         //Checks if the values are equal or not
-        System.out.println(actual);
-
         assertEquals(expected, actual);      
     }
 }

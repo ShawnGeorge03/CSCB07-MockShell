@@ -67,9 +67,8 @@ public class RmTest {
     public void testDSubdirectoryFile(){
         returnRm = rm.run(fs, "documents/txtone".split(" "), "rm documents/txtone", false);
         fs.setCurrent(fs.documents);
-        System.out.println(returnRm);
         actual = fs.getCurrent().getList().contains(fs.doc1);
-        assertTrue(returnRm.equals("Error: Invalid Directory : documents/txtone is not a directory") );
+        assertTrue(returnRm.equals("Error: Invalid Directory : documents/txtone is not a directory") && expected != actual);
     }
 
     /**
@@ -91,8 +90,7 @@ public class RmTest {
         returnRm = rm.run(fs, "/documents/txtone".split(" "), "rm /documents/txtone", false);
         fs.setCurrent(fs.documents);
         actual = fs.getCurrent().getList().contains(fs.doc1);
-        System.out.println(returnRm);
-        assertTrue(returnRm.equals("Error: Invalid Directory : /documents/txtone is not a directory"));
+        assertTrue(returnRm.equals("Error: Invalid Directory : /documents/txtone is not a directory") && expected != actual);
     }
     
     /**

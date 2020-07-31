@@ -29,11 +29,10 @@
 // *********************************************************
 package commands;
 
-import java.util.Arrays;
-
 import data.FileSystemI;
 import data.Node;
-import errors.FileNotFoundException;
+import errors.FileException;
+import errors.InvalidArgsProvidedException;
 
 /**
  * Class Cat views the contents of requested file
@@ -45,7 +44,6 @@ public class Cat implements CommandI {
    */
   private String output;
 
-  private ErrorHandler errorManager;
 
   private RedirectionManager redirect;
 
@@ -55,7 +53,6 @@ public class Cat implements CommandI {
   public Cat() {
     // Initializing the String object output
     this.output = "";
-    this.errorManager = new ErrorHandler();
     this.redirect = new RedirectionManager();
   }
 
@@ -69,25 +66,19 @@ public class Cat implements CommandI {
    */
   public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
     String[] arguments = redirect.setParams(fs, fullInput);
-
-    if(arguments == null){
-      if (Arrays.asList(args).contains(">")) {
-        output = redirect.setFileName(args, ">");
-      } else {
-        output = redirect.setFileName(args, ">>");
-      }
-    }else if(arguments.length == 0){
-        // Returns an error of No parameters provided
-        return errorManager.getError("No parameters provided", "");
-    }else{
+    try {
+      if (checkArgs(arguments)) {
         // Initializing the String object output after each time the method is called
         output = "";
         // Calls the readFile function to return what is in the file
         try {
           readFile(arguments, fs);
-        } catch (FileNotFoundException e) {
+        } catch (FileException e) {
           return e.getLocalizedMessage();
         }
+      }
+    } catch (InvalidArgsProvidedException e1) {
+      return e1.getLocalizedMessage();
     }
 
     if(!output.contains("Error")) 
@@ -97,7 +88,18 @@ public class Cat implements CommandI {
     return output;
   }
 
-  private void readFile(String[] filePaths, FileSystemI filesys) throws FileNotFoundException {
+  private boolean checkArgs(String[] arguments) throws InvalidArgsProvidedException { 
+    if(arguments.length == 0){
+      throw new InvalidArgsProvidedException("Error : No parameters provided"); 
+    }else if(String.join(" ", arguments).equals("Error : No parameters provided")){
+      throw new InvalidArgsProvidedException(String.join(" ", arguments));
+    }else if(String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")){
+      throw new InvalidArgsProvidedException(String.join(" ", arguments));
+    }
+    return true;
+  }
+
+  private void readFile(String[] filePaths, FileSystemI filesys) throws FileException {
     // Declares and initialized a Node to null
     Node file = null;
     // Runs through all the filePaths and stores the output for each case
@@ -110,7 +112,7 @@ public class Cat implements CommandI {
         // If the file does not exist
       } else {
         // Collect and append the error of File Not Found
-        throw new FileNotFoundException("Error: File Not Found : " + filePaths[i]);
+        throw new FileException("Error: File Not Found : " + filePaths[i]);
       }
 
       // If it is not one file or it is the last file in the filePaths

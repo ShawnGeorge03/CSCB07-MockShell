@@ -42,7 +42,6 @@ public class SaveTest {
         String[] testNoArg = {};
         expected = "Error : No parameters provided : save";
         actual = save.getFileContent(fs,testNoArg, "save", false);
-        System.out.println(actual);
         assertEquals(expected, actual);
     }
 

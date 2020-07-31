@@ -70,9 +70,9 @@ public class Ls extends DirectoryManager implements CommandI {
 		output = redirect.outputResult(filesys, runLs(filesys, parsedArgs));
 	}else{
 		if (Arrays.asList(arguments).contains(">")) {
-			output = redirect.setFileName(arguments, ">");
+			//output = redirect.setFileName(arguments, ">");
 		  } else {
-			output = redirect.setFileName(arguments, ">>");
+			//output = redirect.setFileName(arguments, ">>");
 		  }
 	} 
 	return output;

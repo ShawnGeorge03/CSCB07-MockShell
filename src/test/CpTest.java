@@ -28,8 +28,7 @@ public class CpTest {
     @Test
     public void TestACopyRelativePath(){
         String[] input = {"users", "documents"};
-        System.out.println(cp.run(fs, input, "cp users documents", false));
-
+        cp.run(fs, input, "cp users documents", false);
         boolean check1 = false;
         boolean check2 = false;
 

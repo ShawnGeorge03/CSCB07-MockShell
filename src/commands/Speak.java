@@ -131,9 +131,7 @@ public class Speak implements CommandI {
       // Converts the voice to audio
       if(checkArgs(text, val)) 
           voice.speak(text);
-    } catch (MissingQuotesException e) {
-      return e.getLocalizedMessage();
-    } catch (MalformedInputException e) {
+    } catch (MissingQuotesException | MalformedInputException e) {
       return e.getLocalizedMessage();
     }catch(Exception e){
       e.printStackTrace();

@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+
 import data.FileSystemI;
 import data.Node;
+import errors.InvalidArgsProvidedException;
 
 public class Load implements CommandI{
 
@@ -30,9 +32,8 @@ public class Load implements CommandI{
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     if(args[0].length() > 0 && checkCommandLog(filesys)) {
       filePath = formatArguments(args);
-      validateFileName(filesys, fullInput);
-      if(output != null) return output;
       try {
+        validateFileName(filesys, fullInput);
         fileReader = new FileReader(filePath);
         reader = new BufferedReader(fileReader);
         String line = reader.readLine();
@@ -43,10 +44,12 @@ public class Load implements CommandI{
           }
           line = reader.readLine();
         }
-      } catch (FileNotFoundException e) { //from trying to find file path 
-        output = "Error: Invalid Path : " + args[0];
-      } catch (IOException e) { // from reading a line
-        e.printStackTrace();
+      } catch (FileNotFoundException e) { 
+        return "Error: Invalid Path : " + args[0];
+      } catch (IOException e) { 
+        return "Issues with Load";
+      } catch( InvalidArgsProvidedException e){
+        e.getLocalizedMessage();
       }
     }
     else{
@@ -56,13 +59,13 @@ public class Load implements CommandI{
     return output;
   }
   
-  private void validateFileName(FileSystemI filesys, String fullInput){
+  private void validateFileName(FileSystemI filesys, String fullInput) throws InvalidArgsProvidedException{
     if(!checkFileName(filePath, filesys)) {
-      output = error.getError("Invalid File", fullInput);
+      throw new InvalidArgsProvidedException("Error: Invalid File : " + fullInput);
     }
     if(filePath.contains(".")){
       if(!filePath.substring(filePath.length()-5, filePath.length()).equals(".json")) {
-        output = error.getError("Invalid File", fullInput);
+        throw new InvalidArgsProvidedException("Error: Invalid File : " + fullInput);
       }
     }
   }

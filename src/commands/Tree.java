@@ -2,6 +2,7 @@ package commands;
 
 import data.FileSystemI;
 import data.Node;
+import errors.InvalidArgsProvidedException;
 
 /**
  * Class Tree is responsible for displaying all directories in the filesystem (including files)
@@ -31,20 +32,21 @@ public class Tree implements CommandI {
 	 */
 	@Override
 	public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
-		if (!isValid(args)) {
-			return e.getError("Multiple parameters provided", "");
+		try {
+			isValid(args);
+		} catch (InvalidArgsProvidedException e) {
+			return e.getLocalizedMessage();
 		}
 		traverse(fs.getRoot(), 0);
 		System.out.println("");
 		return null;
 	}
 	
-	private boolean isValid(String[] args) {
+	private void isValid(String[] args) throws InvalidArgsProvidedException {
 		//Check if any arguments were provided
 		if (args.length != 0) {
-			return false;
+			throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided");
 		}
-		return true;
 	}
 
 	private void traverse(Node root, int depth) {
