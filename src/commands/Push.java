@@ -30,6 +30,7 @@
 package commands;
 
 import data.FileSystemI;
+import errors.DirectoryException;
 import errors.InvalidArgsProvidedException;
 
 /**
@@ -39,24 +40,13 @@ import errors.InvalidArgsProvidedException;
  */
 public class Push extends DirectoryManager implements CommandI {
 
-  /**
-   * Declare an instance of ErrorHandler to handle any errors that occur
-   */
-  private ErrorHandler errorManager;
-
   private Cd goBack;
-  /**
-   * Constructor for Push that initializes the ErrorHandler object
-   */
+  RedirectionManager rManager;
+  
   public Push() {
-    this.errorManager = new ErrorHandler();
     this.goBack = new Cd();
+    rManager = new RedirectionManager();
   }
-
-  @Override
-	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
-		return false;
-	}
 
   /**
    * Saves the current working directory to the directory stack and changes the
@@ -69,22 +59,41 @@ public class Push extends DirectoryManager implements CommandI {
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     String current = filesys.getCurrentPath();
+    try {
+      if (rManager.isRedirectionableCommand(filesys, fullInput));
 
-    if (args.length != 1) {
-      return errorManager.getError("Invalid Argument",
-          Integer.toString(args.length) + " arguments, expecting 1 argument");
+      if(checkArgs(filesys, args, fullInput)){
+        runPush(filesys, args, current);
+      }
+    } catch (InvalidArgsProvidedException e) {
+      return e.getLocalizedMessage();
     }
 
-    
+    return null;
+    /**
+     * 60
+     * 
+     */
+  }
+  
+  @Override
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+    if (arguments.length == 0) {
+      throw new InvalidArgsProvidedException("Error : No parameters provided");
+    }else if(arguments.length > 1){
+      String parameter = String.join(" ", arguments);
+      throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided : " 
+                    + parameter + " Only 1 valid directory path is required");
+    }
+    return true;
+  }
 
+  private void runPush(FileSystemI filesys, String[] args, String current) throws DirectoryException{
     if (goBack.run(args, filesys)) {
       filesys.getStack().push(current);
     } else {
-      return errorManager.getError("Invalid Directory",
-          args[0] + " is not a valid directory");
-    }
-    
-
-    return null;
+      throw new DirectoryException("Error: Invalid Directory : " + args[0] + " is not a valid directory");
+    }  
+    return;  
   }
 }

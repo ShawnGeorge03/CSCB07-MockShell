@@ -38,16 +38,11 @@ import errors.InvalidArgsProvidedException;
  * user
  */
 public class Pop extends DirectoryManager implements CommandI {
-  /**
-   * Declare instance variable of ErrorHandler to handle error messages
-   */
-  private ErrorHandler error;
 
-  /**
-   * Constructor for Pop that initializes the ErrorHandler
-   */
+  RedirectionManager rManager;
+
   public Pop() {
-    this.error = new ErrorHandler();
+    rManager = new RedirectionManager();
   }
 
   /**
@@ -61,32 +56,27 @@ public class Pop extends DirectoryManager implements CommandI {
    * @return String  An error message, else null
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-    if (args.length != 0) {
-      return error.getError("Invalid Argument", "No arguments should be given");
+    try {
+      if (rManager.isRedirectionableCommand(filesys, fullInput));
+      if(checkArgs(filesys, args, fullInput)){
+        String[] path = {filesys.getStack().pop()};
+        Cd newWorkingDirectory = new Cd();
+        newWorkingDirectory.run(path, filesys);      
+      }
+    } catch (InvalidArgsProvidedException e) {
+      return e.getLocalizedMessage();
     }
-
-    String output = pop(filesys);
-    return output;
+    return null;
   }
 
   @Override
 	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
-		return false;
+    if(arguments.length > 0){
+      throw new InvalidArgsProvidedException("Error: Invalid Argument : No arguments should be given");
+    } else if(fs.getStack().size() == 0){
+      throw new InvalidArgsProvidedException("Error: Stack is empty");
+    }
+    return true;
   }
   
-  /**
-   * Pop takes the current stack and removes the very top of the stack
-   * 
-   * @return String  if performed without error then will return null else, it will return error
-   */
-  public String pop(FileSystemI filesys) {
-    if (filesys.getStack().size() == 0) {
-      return "Stack is empty";
-    }
-
-    String[] path = {filesys.getStack().pop()};
-    Cd newWorkingDirectory = new Cd();
-    newWorkingDirectory.run(path, filesys);
-    return null;
-  }
 }

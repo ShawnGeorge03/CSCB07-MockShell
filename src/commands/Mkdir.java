@@ -54,7 +54,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 
 	private Cd traverse;
 
-	String fullinput;
+	//String fullinput;
 
 	/**
 	 * Constructor of Mkdir to initialize error
@@ -76,9 +76,8 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 */
 	public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
 		try {
-			this.fullinput = fullinput;
 			rManager.isRedirectionableCommand(filesys, fullInput);
-			return MakeDirectory(args, filesys);
+			return MakeDirectory(args, filesys, fullInput);
 		} catch (InvalidArgsProvidedException e) {
 			return e.getLocalizedMessage();
 		}
@@ -92,7 +91,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * @param arguments  The string array of all arguments provided
 	 * @return String  An error message, else null
 	 */
-	public String MakeDirectory(String[] arguments, FileSystemI filesys) throws InvalidArgsProvidedException, DirectoryException{
+	public String MakeDirectory(String[] arguments, FileSystemI filesys, String fullinput) throws InvalidArgsProvidedException, DirectoryException{
 		
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
 		checkArgs(filesys, arguments, fullinput);

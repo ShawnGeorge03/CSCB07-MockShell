@@ -63,7 +63,9 @@ public class MockFileSystem implements FileSystemI {
        *    guest 
        *  documents 
        *    txtone 
-       *    txttwo 
+       *    txttwo
+       *    journal
+       *      week1  
        *  downloads 
        *    homework
        *      HW8 
