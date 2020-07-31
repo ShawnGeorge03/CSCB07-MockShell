@@ -238,4 +238,20 @@ public class HistoryTest {
     //Checks if the values are equal or not
     assertEquals(expected, actual);
   }
+
+
+  /**
+   * Test J : User does not provide a folder for redirection
+   */
+  @Test
+  public void testLRedirectionErrorCase3(){
+    //Add the command to the history stack
+    fs.getCommandLog().add("history 1 > Hello$");
+    //Actual return from History after the operation has been run
+    actual = history.run(fs, "1 > Hello$".split(" "), "history 1 > Hello$", false);
+    //Expected return from History
+    expected =  "Error: Invalid File : Hello$ is not a valid file name";
+    //Checks if the values are equal or not
+    assertEquals(expected, actual);
+  }
 }

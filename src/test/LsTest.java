@@ -130,4 +130,12 @@ public class LsTest {
         expected = "Error: Invalid Directory : falsepaths is not a valid directory\n";
         assertEquals(expected, actual);
     }
+
+    @Test 
+    public void TestMRedirectionErrorCase4(){
+        String[] input = {"users", ">>", "Hello$"};
+        actual = ls.run(fs, input, "ls users >> Hello$", false);
+        expected =  "Error: Invalid File : Hello$ is not a valid file name";
+        assertEquals(expected, actual);
+    }
 }

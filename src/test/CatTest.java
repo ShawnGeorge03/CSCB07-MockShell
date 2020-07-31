@@ -217,4 +217,18 @@ public class CatTest {
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
+
+    /**
+     * Test I : User chooses to overwrite to a file with invalid name
+     */
+    @Test  
+    public void testIRedirectionErrorCase4(){
+        //Expected return from Cat
+        expected =  "Error: Invalid File : Hello$ is not a valid file name";
+        //Actual return from Cat after the operation has been run
+        actual = cat.run(fs, "downloads/homework/HW8 /documents/txttwo > Hello$".split(" "), 
+                "cat downloads/homework/HW8 /documents/txttwo > Hello$", false);
+        //Checks if the values are equal or not
+        assertEquals(expected, actual);
+    }
 }

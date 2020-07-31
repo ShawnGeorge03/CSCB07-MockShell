@@ -75,29 +75,26 @@ public class PwdTest {
 
     @Test
     public void testFOverwriteToFile(){
-        String[] emptyArr = {};
         fs.setCurrent(fs.games);
         expectedPath = null;
-        actualPath = pwd.run(fs,emptyArr, "pwd > /A2", false);
+        actualPath = pwd.run(fs,"> /A2".split(" "), "pwd > /A2", false);
         assertTrue(expectedPath == actualPath && "/downloads/Games".equals(fs.findFile("/A2", false).getContent()));
     }
 
 
     @Test
     public void testGAppendToFile(){
-        String[] emptyArr = {};
         fs.setCurrent(fs.games);
         expectedPath = null;
-        actualPath = pwd.run(fs,emptyArr, "pwd >> /A2", false);
+        actualPath = pwd.run(fs,">> /A2".split(" "), "pwd >> /A2", false);
         assertTrue(expectedPath == actualPath && 
             "Wow what a project\n/downloads/Games".equals(fs.findFile("/A2", false).getContent()));
     }
 
     @Test
     public void testRedirectionErrorCase1(){
-        String[] emptyArr = {};
         expectedPath = "Error : No parameters provided";
-        actualPath = pwd.run(fs,emptyArr, "pwd >>", false);
+        actualPath = pwd.run(fs,">>".split(" "), "pwd >>", false);
         assertEquals(expectedPath, actualPath);
     }
 
@@ -107,6 +104,14 @@ public class PwdTest {
         actualPath = pwd.run(fs,">> lol plz work".split(" "), "pwd >> lol plz work", false);
         assertEquals(expectedPath, actualPath);
     }
+
+    @Test
+    public void testRedirectionErrorCase3(){
+        expectedPath =  "Error: Invalid File : Hello$ is not a valid file name";
+        actualPath = pwd.run(fs,">> Hello$".split(" "), "pwd >> Hello$", false);
+        assertEquals(expectedPath, actualPath);
+    }
+
 
 
     

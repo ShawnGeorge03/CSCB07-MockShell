@@ -136,4 +136,11 @@ public class EchoTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void testORedirectionErrorCase3() {
+        expected =  "Error: Invalid File : Hello$ is not a valid file name";
+        actual = echo.run(fs,"echo \"Hello\" > Hello$".split(" "), "echo \"Hello\" > Hello$", false);
+        assertEquals(expected, actual);
+    }
+
 }

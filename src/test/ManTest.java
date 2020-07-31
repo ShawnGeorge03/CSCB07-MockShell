@@ -233,4 +233,18 @@ public class ManTest {
         //Checks if the values are equal or not
         assertEquals(expected, actual);      
     }
+
+
+    /**
+     * Test J : User provides a random unspported command of JShell an redirects it
+     */
+    @Test
+    public void testKRedirectionErrorCase4(){
+        //Expected return from Man
+        expected =  "Error: Invalid File : Hello$ is not a valid file name";
+        //Actual return from Man after the operation has been run
+        actual = man.run(fs,"speak > Hello$".split(" "), "man speak > Hello$", false);
+        //Checks if the values are equal or not
+        assertEquals(expected, actual);      
+    }
 }
