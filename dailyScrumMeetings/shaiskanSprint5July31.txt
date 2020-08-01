@@ -1,0 +1,24 @@
+a) What did I work on in the last three days? 
+    - Changed Mkdir to throw Exceptions
+    - Changed Mkdir to fit current requirements
+    - Made Mkdir code cleaner and much easier to read
+    - Fixed ls to fit current requirements
+    - Fixed pushd and popd to pass failed test cases 
+    - Ensured that pushd,ls and popd test cases used Mockfilesystem
+    - Fixed Rm to only work with directories and not files
+    - Fixed Cp and Rm bugs
+    - Helped Shawn with bugs that arose in code
+
+b) What do I plan to work in the next three days?
+    - Convert any commands to use exceptions
+    - Work on commenting all of the files
+    - Update CRC Cards to reflect the current changes to the project
+    - Fix Cp and Mv to work with current requirements of creating new folders
+    - Clean up any lengthy commands into cleaner functions
+	
+
+c) Am I blocked on anything?  
+    - Require other commands to be fully complete so we can test shell as a whole
+
+
+
