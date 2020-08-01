@@ -8,14 +8,14 @@ a) What did I work on in the last three days?
 
 b) What do I plan to work in the next three days?
     - Work on completing the mannual for mv and cp
-    - Work on commenting all of the files
+    - Work on commenting all of the files and adding Javadocs
     - Add any extra testcases if required
     - Update CRC Cards to reflect the current changes to the project
 	
 
 c) Am I blocked on anything?  
     - Require Tree to return a String
-    - Required FindTest to be completed
+    - Required FindTest, LoadTest to be completed
 
 
 
