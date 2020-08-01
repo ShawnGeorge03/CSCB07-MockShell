@@ -231,7 +231,7 @@ public class FileSystem implements FileSystemI{
         addToDirectory(fileNode);
         assignCurrent(currentNode);
       }else{
-        throw new FileException("Error: Invalid File : " + file +" is not a valid file name");
+        throw new FileException("Error: Invalid File : " + file + " is not a valid file name");
       }
     }
   }
