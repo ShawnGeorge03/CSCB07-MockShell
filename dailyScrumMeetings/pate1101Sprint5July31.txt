@@ -1,0 +1,19 @@
+a) What did I work on in the last three days? 
+    	- Worked on fixing bugs in RedirectionManager
+    	- Worked on adding redirection to other commands
+    	- Worked on fixing bugs involving the creation of files
+	- Worked on fixing bugs in the FileSystem
+    	- Created the SaveTest JUnit class and added test cases
+    	- Restructured Save to make testing possible
+
+b) What do I plan to work in the next three days?
+    	- Work on making another method in Load command to make testing easier
+    	- Work on adding LoadTest cases
+    	- Update CRC Cards to reflect the current changes/structure
+	- Add comments/Javadocs to the project
+
+c) Am I blocked on anything?  
+    	- Require Tree to return a String for redirection purposes
+
+
+
