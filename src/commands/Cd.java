@@ -1,7 +1,7 @@
 // **********************************************************
 // Assignment2:
 // Student1:
-// UTORID user_name: patelt26
+// UTORID user_name: santhos7
 // UT Student #: 1005904103
 // Author: Shawn Santhoshgeorge
 //
@@ -31,21 +31,27 @@ package commands;
 
 import data.FileSystemI;
 import errors.InvalidArgsProvidedException;
-import errors.InvalidRedirectionError;
 
 /**
  * Class Cd is responsible for changing directories within the FileSystem
  */
 public class Cd extends DirectoryManager implements CommandI {
 
-  boolean successfulPath = false;
+  /**
+   * Declares an instance of boolean
+   */
+  private boolean successfulPath = false;
 
+  /**
+   * Declares an instance of RedirectionManager to handle redirection
+   */
   RedirectionManager rManager;
 
   /**
    * Constructor for class Cd which initalizes instance variables
    */
   public Cd() {
+    // Initializing the RedirectionManager object
     rManager = new RedirectionManager();
   }
 
@@ -53,38 +59,60 @@ public class Cd extends DirectoryManager implements CommandI {
    * Starting run method which checks if arguments were given, then passes it to
    * another run method which processes the command
    * 
-   * @param filesys   the filesystem interface we are using to access the
-   *                  filesystem
+   * @param filesys   refrence of FileSystemI object (MockFileSystem or FileSystem)
    * @param args      the string array of arguments
    * @param fullInput the full line of input that the user gives into jshell
    * @param val       the boolean we are using
-   * @return any error messages if there are any
+   * 
+   * @return any error messages if there are any or null 
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     try {
+      //Checks if the user used any redirection in the parameter
       if (rManager.isRedirectionableCommand(filesys, fullInput));
+      //Checks the rest of the parameters
       checkArgs(filesys, args, fullInput);
-    } catch (InvalidRedirectionError e) {
+      //Catches the error for using redirection or mistakes with the parameter
+    } catch (InvalidArgsProvidedException e) {
+      //Returns the error message
       return e.getLocalizedMessage();
-    } catch(InvalidArgsProvidedException e){
-      return e.getLocalizedMessage();
-    }
+    } 
+    //If the traversal went correctly
     return null;
   }
 
-  public boolean checkArgs(FileSystemI filesys, String[] args, String fullInput) throws InvalidArgsProvidedException{
+  /**
+   * Checks if the arguments provided by the user follows the requirements or else throw an exception
+   * 
+   * @param filesys  refrence of FileSystemI object (MockFileSystem or FileSystem)
+   * @param arguments the list of arguments from user which may contain a redirection error
+   * @param fullInput the user input
+   * 
+   * @throws InvalidArgsProvidedException
+   * 
+   * @return true if the parameter meet requirements and false if not
+   */
+  public boolean checkArgs(FileSystemI filesys, String[] arguments, String fullInput) throws InvalidArgsProvidedException{
+    //Collects the path name(s) from the user input
     String paths = fullInput.substring(fullInput.indexOf("cd") + 2).trim();
-    if (args.length == 0) {
+    //If the user provided no path name
+    if (arguments.length == 0) {
+      //Throws an error
       throw new InvalidArgsProvidedException("Error : No parameters provided");
-    } else if (args.length > 1) {
+    //If the user provides multiple path names
+    } else if (arguments.length > 1) {
+      //Throws an error
       throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided : " + paths);
     }
     // If the change of directory was unsuccessful, then an error msg is returned
-    if (!run(args, filesys)) {
+    if (!run(arguments, filesys)) {
+      //Throws an error
       throw new InvalidArgsProvidedException("Error: Invalid Directory : " + paths);
     }
+    //If the user follewd the requirements for the command
     return true;
   }
+
   /**
    * Main run method that executes the performance of changing directories based
    * on what argument is given. If argument is ".", nothing happens If argument is
@@ -94,6 +122,8 @@ public class Cd extends DirectoryManager implements CommandI {
    * change to that directory
    * 
    * @param arguments the array of arguments provided by user
+   * @param filesys  refrence of FileSystemI object (MockFileSystem or FileSystem)
+   * 
    * @return true if the argument was processed and the change of directory was
    *         successful
    */
@@ -112,7 +142,15 @@ public class Cd extends DirectoryManager implements CommandI {
     }
     return successfulPath;
   }
-
+  
+  /**
+   * 
+   * @param argument
+   * @param splitArgs
+   * @param filesys  refrence of FileSystemI object (MockFileSystem or FileSystem)
+   * 
+   * @return
+   */
   private boolean run_1_arg(String argument, String[] splitArgs, FileSystemI filesys) {
     // Processes change of directory with all the one argument options
     if (argument.equals("..")) {
@@ -131,6 +169,13 @@ public class Cd extends DirectoryManager implements CommandI {
     return successfulPath;
   }
 
+  /**
+   * 
+   * @param splitArgs
+   * @param filesys  refrence of FileSystemI object (MockFileSystem or FileSystem)
+   * 
+   * @return
+   */
   private boolean run_more_args(String[] splitArgs, FileSystemI filesys) {
     // If there are more arguments, it will create a relative path depending on the
     // first element

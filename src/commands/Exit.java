@@ -37,8 +37,12 @@ import errors.InvalidArgsProvidedException;
  */
 public class Exit implements CommandI {
 
+  //
   private RedirectionManager rManager;
 
+  /**
+   * 
+   */
   public Exit() {
     this.rManager = new RedirectionManager();
   }
@@ -66,6 +70,8 @@ public class Exit implements CommandI {
     return null;
   }
 
+  
+  
   @Override
   public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
     if(arguments.length != 0) 

@@ -41,7 +41,6 @@ import java.net.URLConnection;
 import java.util.Arrays;
 
 import data.FileSystemI;
-import errors.FileException;
 import errors.InvalidArgsProvidedException;
 
 /**
@@ -73,77 +72,75 @@ public class Curl implements CommandI {
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
 
-    //Declare instance of URL to handle the user input
+    // Declare instance of URL to handle the user input
     URL site;
-
 
     try {
       rManager.isRedirectionableCommand(filesys, fullInput);
-      //If the user provides one URL
-    if(checkArgs(filesys, args, fullInput)) {
-      try {
-        //Initializes a URL object
+      // If the user provides one URL
+      if (checkArgs(filesys, args, fullInput)) {
+        // Initializes a URL object
         site = new URL(args[0]);
-        //Declares and Initializes a URLConnection object to setup the connection with the file server 
+        // Declares and Initializes a URLConnection object to setup the connection with
+        // the file server
         final URLConnection siteConnection = site.openConnection();
-        //Collects the name of the file from the end of the URL
-        String fileName = site.getFile().trim().substring(
-          site.getFile().trim().lastIndexOf("/"), site.getFile().trim().lastIndexOf("."));
+        // Collects the name of the file from the end of the URL
+        String fileName = site.getFile().trim().substring(site.getFile().trim().lastIndexOf("/"),
+            site.getFile().trim().lastIndexOf("."));
 
-        //Declares and Initializes a InputStreamReader to collect the data of the file from the server
+        // Declares and Initializes a InputStreamReader to collect the data of the file
+        // from the server
         final InputStreamReader reader = new InputStreamReader(siteConnection.getInputStream());
-        //Declares and Initializes a BufferedReader to read the collected data
+        // Declares and Initializes a BufferedReader to read the collected data
         final BufferedReader info = new BufferedReader(reader);
-        
-        //Declares and Initializes some String to hold the the text
+
+        // Declares and Initializes some String to hold the the text
         String inputLine, text = "";
 
-        //Reads the content returned from the file server line by line
+        // Reads the content returned from the file server line by line
         while ((inputLine = info.readLine()) != null) {
-          //Appends each line of content and continues on until the end
+          // Appends each line of content and continues on until the end
           text += inputLine + "\n";
         }
 
-        //Closes the BufferedReader
+        // Closes the BufferedReader
         info.close();
-        //Closes the InputStreamReader
+        // Closes the InputStreamReader
         reader.close();
-        
+
         filesys.fileOverwrite(text, fileName);
 
-      //If the user provides any Malformed URL
-      } catch (MalformedURLException e) {
-        //Returns an error for malformed URL
-        return "Parameter given is invalid " + args[0];
-      //If the user provides a URL with out a file or file is not on the server   
-      } catch (FileNotFoundException | StringIndexOutOfBoundsException e) {
-        //Returns an error for this expection
-        return "URL provided does not contain a file " + args[0];
-      //If a connection could not be made to the server for various reasons
-      } catch (IOException e) {
-        //Returns the appropriate error
-        return "Connection could not be made to " + args[0];
-      }catch (FileException e){
-        return e.getLocalizedMessage();
       }
+      //Catches a malformed URL
+    } catch (MalformedURLException e) {
+      // Returns an error for malformed URL
+      return "Parameter given is invalid " + args[0];
+      // If the user provides a URL with out a file or file is not on the server
+    } catch (FileNotFoundException | StringIndexOutOfBoundsException e) {
+      // Returns an error for this expection
+      return "URL provided does not contain a file " + args[0];
+      // If a connection could not be made to the server for various reasons
+    } catch (IOException e) {
+      // Returns the appropriate error
+      return "Connection could not be made to " + args[0];
+    } catch (InvalidArgsProvidedException e) {
+      return e.getLocalizedMessage();
     }
-    } catch (InvalidArgsProvidedException e1) {
-      return e1.getLocalizedMessage();
-    }
-    
-    //If all goes well then it returns null
+
+    // If all goes well then it returns null
     return null;
   }
 
   @Override
   public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
     if (arguments.length == 0) {
-      //Returns an error when no URL is provided
-      throw new InvalidArgsProvidedException("Error : No parameters provided"); 
-    //If the user provides more than one URL
-    }else if(arguments.length > 1) {
-      //Returns an error when more than one URL is provided
-      throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided : " + Arrays.toString(arguments));
+      // Returns an error when no URL is provided
+      throw new InvalidArgsProvidedException("Error : No parameters provided");
+      // If the user provides more than one URL
+    } else if (arguments.length > 1) {
+      // Returns an error when more than one URL is provided
+      throw new InvalidArgsProvidedException(
+          "Error : Multiple Parameters have been provided : " + Arrays.toString(arguments));
     }
     return true;
   }

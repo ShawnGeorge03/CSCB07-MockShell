@@ -60,7 +60,7 @@ public class CommandHandler {
      * Declare instance variables of String to hold the actual command, output from
      * the operation and the file name for redirection
      */
-    String command, output;
+    String command;
 
     /**
      * Declare instance variable of HashMap to hold all of the commands this program
@@ -116,13 +116,14 @@ public class CommandHandler {
         // Calls the function to run the command
         try {
             run(command, args, parsedInput);
+        //Checks if the command is supported
         } catch (InvalidCommandException e) {
-            output = e.getLocalizedMessage();
-            outputToConsole();
+            //Returns the error
+            outputToConsole(e.getLocalizedMessage());
         }
 
-        // If the command was speak and the user input ends with the special keyword
-        // QUIT
+        // If the command was speak and the user input ends 
+        // with the special keyword QUIT
         if (command.equals("speak") && parsedInput.endsWith("QUIT"))
             // The console exits into speak mode
             speakMode = false;
@@ -135,6 +136,8 @@ public class CommandHandler {
      * @param command   the name of the command
      * @param args      the string array of arguments
      * @param fullInput the raw input that the user gave to JShell
+     * 
+     * @throws InvalidCommandException if command is not supported
      */
     private void run(String command, String[] args, String fullInput) throws InvalidCommandException {
         // Check if the command is supported
@@ -149,7 +152,7 @@ public class CommandHandler {
                     // Created an instance of the Class and initialized it
                     CommandI commandObj = (CommandI) Class.forName(className).getDeclaredConstructor().newInstance();
                     // Calls the run command in that respective class and collects the output
-                    output = commandObj.run(fs, args, fullInput, speakMode);
+                    outputToConsole(commandObj.run(fs, args, fullInput, speakMode));
                 } catch (InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
@@ -167,11 +170,15 @@ public class CommandHandler {
                 e.printStackTrace();
             }
         }
-        outputToConsole();
     }
 
-    private void outputToConsole(){
-        if(output != null) System.out.println(output.trim());
+    /**
+     * Prints out the result to the console
+     * 
+     * @param result to be printed
+     */
+    private void outputToConsole(String result){
+        if(result != null) System.out.println(result.trim());
     }
 
     /**

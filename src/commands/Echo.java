@@ -39,72 +39,73 @@ import errors.MissingQuotesException;
  */
 public class Echo implements CommandI {
 
-  /** Declare instance variable of String to hold the output that will be returned */
+  /**
+   * Declare instance variable of String to hold the output that will be returned
+   */
   String output = "";
   String properArgument = "";
   private RedirectionManager redirect;
 
-  public Echo(){
+  public Echo() {
     this.redirect = new RedirectionManager();
   }
 
   /**
-   * Main run method that checks if the user had inputted any arguments to the command. It splices the
-   * input so that it can send parsed data to the appropriate implementation of echo. Calls the
-   * execute method that will perform the required task for the appropriate scenario. Returns a String
-   * that will either contain an error message if there was an error or return null
+   * Main run method that checks if the user had inputted any arguments to the
+   * command. It splices the input so that it can send parsed data to the
+   * appropriate implementation of echo. Calls the execute method that will
+   * perform the required task for the appropriate scenario. Returns a String that
+   * will either contain an error message if there was an error or return null
    * 
-   * @param args  the String array of arguments provided by user (split from a whitespace)
-   * @return String will either be null if there were no errors or an appropriate error message
+   * @param args the String array of arguments provided by user (split from a
+   *             whitespace)
+   * @return String will either be null if there were no errors or an appropriate
+   *         error message
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-    String[] arguments =  redirect.setParams(filesys, fullInput);
-
+    String[] arguments = redirect.setParams(filesys, fullInput);
     try {
       if (checkArgs(filesys, arguments, fullInput)) {
-        try {
-          output = redirect.outputResult(filesys, runEcho(arguments));
-        } catch (MissingQuotesException e) {
-          return e.getLocalizedMessage();
-        }catch (InvalidArgsProvidedException e){
-          return e.getLocalizedMessage();
-        }
+        output = redirect.outputResult(filesys, runEcho(arguments));
       }
-    } catch (InvalidArgsProvidedException e1) {
-      return e1.getLocalizedMessage();
+    } catch (InvalidArgsProvidedException e) {
+      return e.getLocalizedMessage();
     }
     return output;
   }
 
-  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException { 
-    if(arguments.length == 0){
-      throw new InvalidArgsProvidedException("Error : No parameters provided"); 
-    }else if(String.join(" ", arguments).contains("Error : No parameters provided")){
+  /**
+   * 
+   */
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+    if (arguments.length == 0) {
+      throw new InvalidArgsProvidedException("Error : No parameters provided");
+    } else if (String.join(" ", arguments).contains("Error : No parameters provided")) {
       throw new InvalidArgsProvidedException(String.join(" ", arguments));
-    }else if(String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")){
+    } else if (String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")) {
       throw new InvalidArgsProvidedException(String.join(" ", arguments));
     }
     return true;
   }
 
-  private String runEcho(String[] args) throws MissingQuotesException, InvalidArgsProvidedException{
-    // If no arguments were inputted
-    if(args.length == 0) {
-      throw new InvalidArgsProvidedException("Error : No parameters provided");
-    }
-    for(int i = 0; i < args.length; i++){
+  /**
+   * 
+   * @param args
+   * @return
+   * @throws MissingQuotesException
+   * @throws InvalidArgsProvidedException
+   */
+  private String runEcho(String[] args) throws MissingQuotesException, InvalidArgsProvidedException {
+    for (int i = 0; i < args.length; i++) {
       properArgument += args[i] + " ";
     }
     properArgument = properArgument.trim();
-    if(hasQuotations(properArgument)) {
-      output = properArgument.substring(1, properArgument.length()-1);
+    if (properArgument.startsWith("\"") && properArgument.endsWith("\"")) {
+      output = properArgument.substring(1, properArgument.length() - 1);
     } else
       // Missing quotations in user input
       throw new MissingQuotesException("Error : Missing Quotes : " + args[0]);
     return output;
   }
 
-  private boolean hasQuotations(String fullInput) {
-      return fullInput.startsWith("\"") && fullInput.endsWith("\"");
-  }
 }

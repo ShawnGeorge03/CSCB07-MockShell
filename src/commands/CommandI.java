@@ -46,10 +46,23 @@ interface CommandI {
   * @param args  the string array of arguments
   * @param fullInput  the full line of input that the user gives into JShell
   * @param val  stores a boolean value
+
   * @return any error message or valid output for user input
   */  
   public String run(FileSystemI fs, String args[], String fullInput, boolean val) ;
 
+  /**
+   * Provides a comman method to check the arguments of the of the 
+   * command and throw exception if required 
+   * 
+   * @param fs  refrence of FileSystemI object (MockFileSystem or FileSystem)
+   * @param arguments the list of arguments from user which may contain a redirection error
+   * @param fullInput the user input
+   * 
+   * @return true if it meets a the requirements of the command and falso if not
+   * 
+   * @throws InvalidArgsProvidedException
+   */
   public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException;
 
 }

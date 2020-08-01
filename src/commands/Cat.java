@@ -1,7 +1,7 @@
 // **********************************************************
 // Assignment2:
 // Student1:
-// UTORID user_name: patelt26
+// UTORID user_name: santhso7
 // UT Student #: 1005904103
 // Author: Shawn Santhoshgeorge
 //
@@ -45,7 +45,7 @@ public class Cat implements CommandI {
   private String output;
 
   /**
-   * Declares an instance of RedirectionManager
+   * Declares an instance of RedirectionManager to handle redirection
    */
   private RedirectionManager redirect;
 
@@ -62,30 +62,32 @@ public class Cat implements CommandI {
   /**
    * Checks if arguments are valid, then sends it to readFile to read the file
    * 
+   * @param filesys refrence of FileSystemI object (MockFileSystem or FileSystem)
    * @param args  the string array of given arguments
    * @param fullInput  the string that contains the raw input given to JShell
    * @param val  stores a boolean value
-   * @return the contents of file
+   * 
+   * @return the contents of file or error message or null
    */
-  public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
-    String[] arguments = redirect.setParams(fs, fullInput);
+  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+    //Seperates the parameters from everything else from the user input
+    String[] arguments = redirect.setParams(filesys, fullInput);
     try {
-      if (checkArgs(fs, arguments, fullInput)) {
+      //If the parameters meet the requirements
+      if (checkArgs(filesys, arguments, fullInput)) {
         // Initializing the String object output after each time the method is called
         output = "";
         // Calls the readFile function to return what is in the file
-        try {
-          readFile(arguments, fs);
-        } catch (FileException e) {
-          return e.getLocalizedMessage();
-        }
+        readFile(arguments, filesys);
       }
-    } catch (InvalidArgsProvidedException e1) {
-      return e1.getLocalizedMessage();
+    //If the parameter has not meet all of the requirements
+    } catch (InvalidArgsProvidedException e) {
+      //Returns the error message
+      return e.getLocalizedMessage();
     }
       
     // Returns the output for the arguments
-    return redirect.outputResult(fs, output);
+    return redirect.outputResult(filesys, output);
   }
 
   /**
@@ -95,7 +97,7 @@ public class Cat implements CommandI {
    * @param filePaths the list of file to be read
    * @param filesys  refrence of FileSystemI object (MockFileSystem or FileSystem)
    * 
-   * @throws FileException
+   * @throws FileException when file does not exist in the file system
    */
   private void readFile(String[] filePaths, FileSystemI filesys) throws FileException {
     // Declares and initialized a Node to null
@@ -124,23 +126,28 @@ public class Cat implements CommandI {
    * Checks the user input for any redirection error if used and other issues from user
    * if there are none then it return true else throws the exception
    * 
-   * @param filePaths the list of file to be read
-   * @param arguments the list of arguments from user which may contain a redirection error
    * @param filesys  refrence of FileSystemI object (MockFileSystem or FileSystem)
+   * @param arguments the list of arguments from user which may contain a redirection error
+   * @param fullInput the user input
    * 
-   * @throws InvalidArgsProvidedException
+   * @throws InvalidArgsProvidedException if the user provided invalid input
+   * 
+   * @return true if the parameter meet requirements and false if not
    */
-  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+  public boolean checkArgs(FileSystemI filesys, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
     //Collects the content of the array as one string with spaces in between elements or array 
     String error = String.join(" ", arguments);
     //If the user provided no input
     if(arguments.length == 0){
+      //Throws an error
       throw new InvalidArgsProvidedException("Error : No parameters provided"); 
     //If the user provided no file names for redirection
     }else if(error.contains("Error : No parameters provided")){
+      //Throws an error
       throw new InvalidArgsProvidedException(error);
     //If the user provided multiple file names for redirection
     }else if(error.contains("Error : Multiple Parameters have been provided")){
+      //Throws an error
       throw new InvalidArgsProvidedException(error);
     }
     //If the user follewd the requirements for the command

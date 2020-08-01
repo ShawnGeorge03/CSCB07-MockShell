@@ -71,35 +71,56 @@ public class History implements CommandI {
    * @return the error message if there is any or null
    */
   public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
+    //Seperates the parameters from everything else from the user input
     String[] arguments = redirect.setParams(fs, fullInput);
+
     try {
+      //If the parameters meet the requirements
       if (checkArgs(fs, arguments, fullInput)) {
-        try {
-          output = redirect.outputResult(fs, runHistory(arguments, fs));
-        } catch (InvalidArgsProvidedException e) {
-          return e.getLocalizedMessage();
-        }
+        //Runs the command and handles redirection after that
+        output = redirect.outputResult(fs, runHistory(arguments, fs));
       }
-    } catch (InvalidArgsProvidedException e1) {
-      return e1.getLocalizedMessage();
+    } catch (InvalidArgsProvidedException e) {
+      return e.getLocalizedMessage();
     }
+    //If all goes well 
     return output;
   }
 
+  /**
+   * Checks the user input for any redirection error if used and other issues from user
+   * if there are none then it return true else throws the exception
+   * 
+   * @param filesys  refrence of FileSystemI object (MockFileSystem or FileSystem)
+   * @param arguments the list of arguments from user which may contain a redirection error
+   * @param fullInput the user input
+   * 
+   * @throws InvalidArgsProvidedException if the user provided invalid input
+   * 
+   * @return true if the parameter meet requirements and false if not
+   */
   public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException { 
+    //If the user provided no file names for redirection
     if(String.join(" ", arguments).contains("Error : No parameters provided")){
+      //Throws an error
       throw new InvalidArgsProvidedException(String.join(" ", arguments));
+    //If the user provides multiple file names for redirection
     }else if(String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")){
+      //Throws an error
       throw new InvalidArgsProvidedException(String.join(" ", arguments));
     }
+    //If the user follewd the requirements for the command
     return true;
   }
 
   /**
    * Parses input and then calls print method to print history
    * 
-   * @param param  holds the x last commands
-   * @param fs     the refrence to teh file system
+   * @param param  the parameter by which to recall commands
+   * @param fs     refrence of FileSystemI object (MockFileSystem or FileSystem)
+   * 
+   * @throws InvalidArgsProvidedException user provides invalid arguments 
+   * 
    * @return the error message if there is any or the actual history
    */
   private String runHistory(String[] params, FileSystemI fs) throws InvalidArgsProvidedException {

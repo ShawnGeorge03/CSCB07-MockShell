@@ -121,7 +121,6 @@ public class MkdirTest {
     expected = null;
     actual = mkdir.run(fs, "/A3 /A5".split(" "), "mkdir /A3 /A5", false);
     collectContent("/");
-    System.out.println(allContent);
     assertTrue(allContent.containsAll(Arrays.asList("A3 A5".split(" "))) && actual == expected);
   }
 
