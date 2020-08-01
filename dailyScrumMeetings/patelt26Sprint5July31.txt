@@ -1,0 +1,10 @@
+a) What did I work on in the last three days? 
+-Made find return string containing the output
+-Started tree test cases
+	
+b) What do I plan to work in the next three days?
+-Finish tree and find test cases
+-Finish commenting
+	
+c) Am I blocked on anything?  
+-No
