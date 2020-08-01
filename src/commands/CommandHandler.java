@@ -30,7 +30,6 @@
 package commands;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import data.FileSystem;
@@ -97,25 +96,21 @@ public class CommandHandler {
         splitInput = parsedInput.split(" ");
         // Retrieving the command portion of the the user input from array
         command = splitInput[0];
-        // Retrieving the arguments portion of the the user input from array
-        String args[] = Arrays.copyOfRange(splitInput, 1, splitInput.length);
 
         // If we are in speak mode
         if (speakMode) {
             // Sets the command to the String speak
             this.command = "speak";
-            // Sets the arguments to the splitInput
-            args = splitInput;
         }
 
         // If the command was speak and there was no user input
-        if (command.equals("speak") && args.length == 0)
+        if (command.equals("speak") && parsedInput.trim().length() == 0)
             // The console enters into speak mode
             speakMode = true;
 
         // Calls the function to run the command
         try {
-            run(command, args, parsedInput);
+            run(command, parsedInput);
         //Checks if the command is supported
         } catch (InvalidCommandException e) {
             //Returns the error
@@ -139,7 +134,7 @@ public class CommandHandler {
      * 
      * @throws InvalidCommandException if command is not supported
      */
-    private void run(String command, String[] args, String fullInput) throws InvalidCommandException {
+    private void run(String command, String fullInput) throws InvalidCommandException {
         // Check if the command is supported
         if (!commandMap.containsKey(command)) {
             // Sets the error as Invalid Command
@@ -152,7 +147,7 @@ public class CommandHandler {
                     // Created an instance of the Class and initialized it
                     CommandI commandObj = (CommandI) Class.forName(className).getDeclaredConstructor().newInstance();
                     // Calls the run command in that respective class and collects the output
-                    outputToConsole(commandObj.run(fs, args, fullInput, speakMode));
+                    outputToConsole(commandObj.run(fs, fullInput, speakMode));
                 } catch (InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {

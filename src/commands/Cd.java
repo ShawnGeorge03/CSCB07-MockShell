@@ -66,12 +66,14 @@ public class Cd extends DirectoryManager implements CommandI {
    * 
    * @return any error messages if there are any or null 
    */
-  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String fullInput, boolean val) {
+    //Seperates the parameters from everything else from the user input
+    String[] arguments = rManager.setParams(fullInput);
     try {
       //Checks if the user used any redirection in the parameter
-      if (rManager.isRedirectionableCommand(filesys, fullInput));
+      if (rManager.isRedirectionableCommand(fullInput));
       //Checks the rest of the parameters
-      checkArgs(filesys, args, fullInput);
+      checkArgs(filesys, arguments, fullInput);
       //Catches the error for using redirection or mistakes with the parameter
     } catch (InvalidArgsProvidedException e) {
       //Returns the error message

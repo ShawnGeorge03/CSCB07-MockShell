@@ -15,8 +15,15 @@ public class Load implements CommandI{
   private BufferedReader reader;
   private String filePath;
   private String output;
+
+  /**
+   * Declare instance variable of RedirectionManager to handle redirection to file
+   */
+  private RedirectionManager redirect;
   
   public Load(){
+    // Initializes a RedirectionManager Object
+    this.redirect = new RedirectionManager();
     this.output = null;
   }
   
@@ -39,7 +46,9 @@ public class Load implements CommandI{
   */
 
   @Override
-  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String fullInput, boolean val) {
+    //Seperates the parameters from everything else from the user input
+    String[] args = redirect.setParams(fullInput);
     try {
       if (checkArgs(filesys, args, fullInput)) {
         filePath = formatArguments(args);

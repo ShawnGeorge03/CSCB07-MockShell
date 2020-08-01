@@ -44,8 +44,7 @@ public class PushTest {
 
     @Test
     public void testARelativePath() {
-        String[] path = {"users/skeshavaa"};
-        push.run(fs,path, "pushd users/desktop", false);
+        push.run(fs, "pushd users/skeshavaa", false);
         expected = "/users/skeshavaa";
         actual = fs.getCurrentPath();
         assertEquals(expected, actual);
@@ -53,8 +52,7 @@ public class PushTest {
 
     @Test
     public void testBAbsolutePath() {
-        String[] path = {"/documents/journal"};
-        push.run(fs,path, "pushd /documents/journal", false);
+        push.run(fs, "pushd /documents/journal", false);
         actual = fs.getCurrentPath();
         expected = "/documents/journal";
         assertEquals(expected, actual);
@@ -62,24 +60,21 @@ public class PushTest {
 
     @Test
     public void testCInvalidPath() {
-        String[] path = {"wrongpath"};
-        actual = push.run(fs,path, "pushd wrongpath", false);
+        actual = push.run(fs, "pushd wrongpath", false);
         expected = "Error: Invalid Directory : wrongpath is not a valid directory";
         assertEquals(expected, actual);
     }
 
     @Test
     public void testDNoArguments() {
-        String[] path = {};
-        actual = push.run(fs,path, "pushd ", false);
+        actual = push.run(fs, "pushd ", false);
         expected ="Error : No parameters provided";
         assertEquals(expected, actual);
     }
 
     @Test
     public void testEMultipleArguments() {
-        String[] path = {"hi", "hello", "bye"};
-        actual = push.run(fs,path, "pushd hi hello bye", false);
+        actual = push.run(fs, "pushd hi hello bye", false);
         expected = "Error : Multiple Parameters have been provided : "
                         +"hi hello bye Only 1 valid directory path is required";
         assertEquals(expected, actual);
@@ -88,7 +83,7 @@ public class PushTest {
     @Test
     public void testFRedirectionError(){
         expected = "Error : Redirection Error : pushd does not support redirection";
-        actual = push.run(fs, "/users > test".split(" "), "pushd /users > test", false);
+        actual = push.run(fs, "pushd /users > test", false);
         assertEquals(expected, actual);
     }
 

@@ -34,10 +34,12 @@ public class Mv extends DirectoryManager implements CommandI {
 		traverse = new Cd();
 	}
 
-	public String run(FileSystemI filesys, String[] arguments, String actualInput, boolean val) {
+	public String run(FileSystemI filesys, String actualInput, boolean val) {
+	    //Seperates the parameters from everything else from the user input
+		String[] arguments = rManager.setParams(actualInput);
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
 		try {
-			rManager.isRedirectionableCommand(filesys, actualInput);
+			rManager.isRedirectionableCommand(actualInput);
 			if(checkArgs(filesys, arguments, actualInput)){
 
 				initPathandFile(filesys);	

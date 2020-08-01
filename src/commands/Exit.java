@@ -55,11 +55,14 @@ public class Exit implements CommandI {
    * @return null no matter what
    */
   @Override
-  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String fullInput, boolean val) {
+    //Seperates the parameters from everything else from the user input
+    
+    String[] arguments = rManager.setParams(fullInput);
     try {
-      rManager.isRedirectionableCommand(filesys, fullInput);
+      rManager.isRedirectionableCommand(fullInput);
 
-      if (checkArgs(filesys, args, fullInput)) {
+      if (checkArgs(filesys, arguments, fullInput)) {
         // Exits the session of the Shell
         System.exit(0);
       }

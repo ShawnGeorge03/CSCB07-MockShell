@@ -63,12 +63,10 @@ public class CatTest {
     */
     @Test
     public void testANoArgs(){
-        //Declares and initializes an empty array
-        String[] emptyArr = {};
         //Expected return from Cat
         expected = "Error : No parameters provided";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, emptyArr, "cat ", false);
+        actual = cat.run(fs, "cat", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -81,7 +79,7 @@ public class CatTest {
         //Expected return from Cat
         expected = "Error: File Not Found : /pics/picflex";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "/pics/picflex".split(" "), "cat /pics/picflex", false);
+        actual = cat.run(fs, "cat /pics/picflex", false);
          //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -93,7 +91,7 @@ public class CatTest {
         //Expected return from Cat
         expected = "this is a document";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "/documents/txtone".split(" "), "cat /documents/txtone", false);
+        actual = cat.run(fs, "cat /documents/txtone", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -106,7 +104,7 @@ public class CatTest {
         //Expected return from Cat
         expected = "Error: File Not Found : A0";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "A0".split(" "), "cat A0", false);
+        actual = cat.run(fs, "cat A0", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -118,7 +116,7 @@ public class CatTest {
         //Expected return from Cat
         expected = "Wow what a project";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "A2".split(" "), "cat A2", false);
+        actual = cat.run(fs,"cat A2", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -131,7 +129,7 @@ public class CatTest {
         //Expected return from Cat    
         expected = "this is a document 2" + "\n" + "\n" + "\n" + "Wow what a project";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "/documents/txttwo A2".split(" "), "cat /documents/txttwo A2", false);
+        actual = cat.run(fs, "cat /documents/txttwo A2", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -144,8 +142,7 @@ public class CatTest {
         //Expected return from Cat
         expected =  "Error: File Not Found : LOL";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "downloads/homework/HW8 LOL /documents/txttwo".split(" "), 
-                "cat downloads/homework/HW8 LOL /documents/txttwo", false);
+        actual = cat.run(fs, "cat downloads/homework/HW8 LOL /documents/txttwo", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -158,8 +155,7 @@ public class CatTest {
         //Expected return from Cat
         expected =  "2+2=5" + "\n" + "\n" + "\n" + "this is a document 2";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "downloads/homework/HW8 /documents/txttwo > A2".split(" "), 
-                "cat downloads/homework/HW8 /documents/txttwo > A2", false);
+        actual = cat.run(fs, "cat downloads/homework/HW8 /documents/txttwo > A2", false);
         //Checks if the values are equal or not
         assertEquals(expected, fs.findFile("A2", false).getContent());
     }
@@ -172,8 +168,7 @@ public class CatTest {
         //Expected return from Cat
         expected =  "2+2=5" + "\n" + "\n" + "\n" + "this is a document 2";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "downloads/homework/HW8 /documents/txttwo > downloads/homework/HW8".split(" "), 
-                "cat downloads/homework/HW8 /documents/txttwo > downloads/homework/HW8", false);
+        actual = cat.run(fs, "cat downloads/homework/HW8 /documents/txttwo > downloads/homework/HW8", false);
         //Checks if the values are equal or not
         assertEquals(expected, fs.findFile("downloads/homework/HW8", false).getContent());
     }
@@ -186,7 +181,7 @@ public class CatTest {
         //Expected return from Cat
         expected = "Error : No parameters provided for redirection";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "args >".split(" "), "cat args >", false);
+        actual = cat.run(fs, "cat args >", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);       
     }
@@ -199,7 +194,7 @@ public class CatTest {
         //Expected return from Cat
         expected = "Error : Multiple Parameters have been provided : [LOL, zip] Only one is required for redirection";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "args > LOL zip".split(" "), "cat args > LOL zip", false);
+        actual = cat.run(fs, "cat args > LOL zip", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);   
     }
@@ -212,8 +207,7 @@ public class CatTest {
         //Expected return from Cat
         expected =  "Error: File Not Found : LOL";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "downloads/homework/HW8 LOL /documents/txttwo > downloads/homework/HW8".split(" "), 
-                "cat downloads/homework/HW8 LOL /documents/txttwo > downloads/homework/HW8", false);
+        actual = cat.run(fs, "cat downloads/homework/HW8 LOL /documents/txttwo > downloads/homework/HW8", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -226,8 +220,7 @@ public class CatTest {
         //Expected return from Cat
         expected =  "Error: Invalid File : Hello$ is not a valid file name";
         //Actual return from Cat after the operation has been run
-        actual = cat.run(fs, "downloads/homework/HW8 /documents/txttwo > Hello$".split(" "), 
-                "cat downloads/homework/HW8 /documents/txttwo > Hello$", false);
+        actual = cat.run(fs,"cat downloads/homework/HW8 /documents/txttwo > Hello$", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }

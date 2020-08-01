@@ -58,8 +58,8 @@ public class Pwd extends DirectoryManager implements CommandI {
    * @param val  stores a boolean value
    * @return String holding the absolute path to the current working directory, or an error message
    */
-  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-    String[] arguments =  redirect.setParams(filesys, fullInput);
+  public String run(FileSystemI filesys, String fullInput, boolean val) {
+    String[] arguments =  redirect.setParams(fullInput);
 
     try {
       if (checkArgs(arguments)) {

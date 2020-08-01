@@ -57,10 +57,13 @@ public class Push extends DirectoryManager implements CommandI {
    * 
    * @return String  An error message if any error, else null
    */
-  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String fullInput, boolean val) {
+    //Gets the current path
     String current = filesys.getCurrentPath();
+    //Seperates the parameters from everything else from the user input
+    String[] args = rManager.setParams(fullInput);
     try {
-      if (rManager.isRedirectionableCommand(filesys, fullInput));
+      if (rManager.isRedirectionableCommand(fullInput));
 
       if(checkArgs(filesys, args, fullInput)){
         runPush(filesys, args, current);
@@ -70,10 +73,6 @@ public class Push extends DirectoryManager implements CommandI {
     }
 
     return null;
-    /**
-     * 60
-     * 
-     */
   }
   
   @Override

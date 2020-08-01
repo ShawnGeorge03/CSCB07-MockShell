@@ -62,8 +62,8 @@ public class Echo implements CommandI {
    * @return String will either be null if there were no errors or an appropriate
    *         error message
    */
-  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-    String[] arguments = redirect.setParams(filesys, fullInput);
+  public String run(FileSystemI filesys, String fullInput, boolean val) {
+    String[] arguments = redirect.setParams(fullInput);
     try {
       if (checkArgs(filesys, arguments, fullInput)) {
         output = redirect.outputResult(filesys, runEcho(arguments));

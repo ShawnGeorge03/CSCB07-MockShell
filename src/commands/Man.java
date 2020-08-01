@@ -70,8 +70,8 @@ public class Man implements CommandI {
      * @param val       stores a boolean value
      * @return the documentation of the requested commands
      */
-    public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
-        String[] parsedArgs = redirect.setParams(filesys, fullInput);
+    public String run(FileSystemI filesys, String fullInput, boolean val) {
+        String[] parsedArgs = redirect.setParams(fullInput);
 
         try {
             if (checkArgs(filesys, parsedArgs, fullInput)) {

@@ -31,45 +31,40 @@ public class PwdTest {
 
     @Test
     public void testAInitialPath(){
-        String[] emptyArr = {};
         expectedPath = "/";
-        actualPath = pwd.run(fs,emptyArr, "pwd", false);
+        actualPath = pwd.run(fs, "pwd", false);
         assertEquals(expectedPath, actualPath);
     }
 
 
     @Test
     public void testBChangeDirectoryRelative(){
-        String[] emptyArr = {};
         fs.setCurrent(fs.users);
         expectedPath = "/users";
-        actualPath = pwd.run(fs,emptyArr, "pwd", false);
+        actualPath = pwd.run(fs, "pwd", false);
         assertEquals(expectedPath, actualPath);
     }
 
     @Test
     public void testCChangeDirectoryAbsolute(){
-        String[] emptyArr = {};
         fs.setCurrent(fs.homework);
         expectedPath = "/downloads/homework";
-        actualPath = pwd.run(fs,emptyArr, "pwd", false);
+        actualPath = pwd.run(fs, "pwd", false);
         assertEquals(expectedPath, actualPath);
     }
 
     @Test
     public void testDChangeToRoot(){
-        String[] emptyArr = {};
         fs.setCurrent(fs.root);
         expectedPath = "/";
-        actualPath = pwd.run(fs,emptyArr, "pwd", false);
+        actualPath = pwd.run(fs, "pwd", false);
         assertEquals(expectedPath, actualPath);
     }
 
     @Test
     public void testEMultipleArgs(){
-        String[] argsArr = {"/Sys/IO", "/users"};
         expectedPath = "Error: Invalid Argument : pwd doesn't take any arguments";
-        actualPath = pwd.run(fs,argsArr, "pwd /Sys/IO /users", false);
+        actualPath = pwd.run(fs, "pwd /Sys/IO /users", false);
         assertEquals(expectedPath, actualPath);
     }
 
@@ -77,7 +72,7 @@ public class PwdTest {
     public void testFOverwriteToFile(){
         fs.setCurrent(fs.games);
         expectedPath = null;
-        actualPath = pwd.run(fs,"> /A2".split(" "), "pwd > /A2", false);
+        actualPath = pwd.run(fs, "pwd > /A2", false);
         assertTrue(expectedPath == actualPath && "/downloads/Games".equals(fs.findFile("/A2", false).getContent()));
     }
 
@@ -86,7 +81,7 @@ public class PwdTest {
     public void testGAppendToFile(){
         fs.setCurrent(fs.games);
         expectedPath = null;
-        actualPath = pwd.run(fs,">> /A2".split(" "), "pwd >> /A2", false);
+        actualPath = pwd.run(fs, "pwd >> /A2", false);
         assertTrue(expectedPath == actualPath && 
             "Wow what a project\n/downloads/Games".equals(fs.findFile("/A2", false).getContent()));
     }
@@ -94,21 +89,21 @@ public class PwdTest {
     @Test
     public void testRedirectionErrorCase1(){
         expectedPath = "Error : No parameters provided";
-        actualPath = pwd.run(fs,">>".split(" "), "pwd >>", false);
+        actualPath = pwd.run(fs,"pwd >>", false);
         assertEquals(expectedPath, actualPath);
     }
 
     @Test
     public void testRedirectionErrorCase2(){
         expectedPath = "Error : Multiple Parameters have been provided : [lol, plz, work] Only one is required for redirection";
-        actualPath = pwd.run(fs,">> lol plz work".split(" "), "pwd >> lol plz work", false);
+        actualPath = pwd.run(fs, "pwd >> lol plz work", false);
         assertEquals(expectedPath, actualPath);
     }
 
     @Test
     public void testRedirectionErrorCase3(){
         expectedPath =  "Error: Invalid File : Hello$ is not a valid file name";
-        actualPath = pwd.run(fs,">> Hello$".split(" "), "pwd >> Hello$", false);
+        actualPath = pwd.run(fs, "pwd >> Hello$", false);
         assertEquals(expectedPath, actualPath);
     }
 

@@ -69,9 +69,9 @@ public class Cat implements CommandI {
    * 
    * @return the contents of file or error message or null
    */
-  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String fullInput, boolean val) {
     //Seperates the parameters from everything else from the user input
-    String[] arguments = redirect.setParams(filesys, fullInput);
+    String[] arguments = redirect.setParams(fullInput);
     try {
       //If the parameters meet the requirements
       if (checkArgs(filesys, arguments, fullInput)) {

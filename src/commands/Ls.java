@@ -63,8 +63,8 @@ public class Ls extends DirectoryManager implements CommandI {
 	 *                  provides to JShell
 	 * @return null always
 	 */
-	public String run(FileSystemI filesys, String[] arguments, String fullInput, boolean val) {
-		String[] parsedArgs = redirect.setParams(filesys, fullInput);
+	public String run(FileSystemI filesys, String fullInput, boolean val) {
+		String[] parsedArgs = redirect.setParams(fullInput);
 		try {
 			if (checkArgs(filesys, parsedArgs, fullInput)) {
 				output = redirect.outputResult(filesys, runLs(filesys, parsedArgs));

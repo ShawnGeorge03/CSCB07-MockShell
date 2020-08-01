@@ -65,12 +65,10 @@ public class CurlTest {
   */
   @Test
   public void testANoArg() {
-    //Declares and initializes an empty array
-    String[] testCase1Curl = {};
     //Expected return from Curl
     expected = "Error : No parameters provided";
     //Actual return from Curl after the operation is complete
-    actual = curl.run(fs, testCase1Curl, "curl "+ website, false);
+    actual = curl.run(fs, "curl ", false);
     //Checks if the values are equal or not
     assertEquals(expected, actual);
   }
@@ -85,7 +83,7 @@ public class CurlTest {
     //Expected return from Curl
     expected = "Parameter given is invalid " + website;
     //Actual return from Curl after the operation is complete
-    actual = curl.run(fs, website.split(" "), "curl "+ website, false);
+    actual = curl.run(fs, "curl "+ website, false);
     //Checks if the values are equal or not
     assertEquals(expected, actual);
   }
@@ -102,7 +100,7 @@ public class CurlTest {
     //Expected return from Curl
     expected = "URL provided does not contain a file " + website;
     //Actual return from Curl after the operation is complete
-    actual = curl.run(fs, website.split(" "), "curl "+ website, false);
+    actual = curl.run(fs, "curl "+ website, false);
     //Checks if the values are equal or not
     assertEquals(expected, actual);
   }
@@ -118,7 +116,7 @@ public class CurlTest {
     //Expected return from Curl
     expected = "URL provided does not contain a file " + website;
     //Actual return from Curl after the operation is complete
-    actual = curl.run(fs, website.split(" "), "curl "+ website, false);
+    actual = curl.run(fs, "curl "+ website, false);
     //Checks if the values are equal or not
     assertEquals(expected, actual);
   }
@@ -134,7 +132,7 @@ public class CurlTest {
     //Expected return from Curl
     expected = "Connection could not be made to " + website;
     //Actual return from Curl after the operation is complete
-    actual = curl.run(fs, website.split(" "), "curl "+ website, false);
+    actual = curl.run(fs, "curl "+ website, false);
     //Checks if the values are equal or not
     assertEquals(expected, actual);
   }
@@ -150,7 +148,7 @@ public class CurlTest {
     //Expected return from Curl
     expected = "<h1>Hello World</h1>\n";
     //Actual return from Curl after the operation is complete
-    curl.run(fs, website.split(" "), "curl "+ website, false);
+    curl.run(fs, "curl "+ website, false);
     //Checks if the values are equal or not
     assertEquals(expected, fs.findFile("lesson1", false).getContent());
   }
@@ -165,7 +163,7 @@ public class CurlTest {
     "/master/Lesson%201/Lesson1.txt";
     expected = "Write your name on the Browser \n";
     //Actual return from Curl after the operation is complete
-    curl.run(fs, website.split(" "), "curl "+ website, false);
+    curl.run(fs, "curl "+ website, false);
     //Checks if the values are equal or not
     assertEquals(expected, fs.findFile("Lesson1", false).getContent());
   }
@@ -183,7 +181,7 @@ public class CurlTest {
         + "[https://raw.githubusercontent.com/ShawnGeorge03/Learn-HTML-CSS/master/README.md, "
         + "https://raw.githubusercontent.com/ShawnGeorge03/Learn-HTML-CSS/master/Lesson%201/Lesson1.txt]";
     //Actual return from Curl after the operation is complete
-    actual = curl.run(fs, website.trim().split(" "), "curl "+ website, false);
+    actual = curl.run(fs, "curl "+ website, false);
     //Checks if the values are equal or not
     assertEquals(expected, actual);
   }
@@ -192,7 +190,7 @@ public class CurlTest {
   public void testIRedirectionError(){
     website = "https://raw.githubusercontent.com/ShawnGeorge03/Learn-HTML-CSS/master/README.md";
     expected = "Error : Redirection Error : curl does not support redirection";
-    actual = curl.run(fs, website.trim().split(" "), "curl "+ website + " > text", false);
+    actual = curl.run(fs, "curl "+ website + " > text", false);
     assertEquals(expected, actual);
   }
 

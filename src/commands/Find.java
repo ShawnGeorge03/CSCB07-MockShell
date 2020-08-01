@@ -18,7 +18,10 @@ public class Find extends DirectoryManager implements CommandI {
 	}
 
 	@Override
-	public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+	public String run(FileSystemI filesys, String fullInput, boolean val) {
+		//Seperates the parameters from everything else from the user input
+		String[] args = rManager.setParams(fullInput);
+		
 		ArrayList<String> paths = new ArrayList<String>();
 		ArrayList<String> arguments = new ArrayList<String>(Arrays.asList(args));
 		try {

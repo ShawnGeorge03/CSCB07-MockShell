@@ -66,12 +66,10 @@ public class ManTest {
      */
     @Test
     public void testANoArgs(){
-        //Declares and initializes an empty array
-        String[] emptyArr = {};
         //Expected return from Man
         expected = "Error : No argument(s) provided : Man requires one supported command";
         //Actual return from Man after the operation has been run
-        actual = man.run(fs,emptyArr, "man ", false);
+        actual = man.run(fs, "man ", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);      
     }
@@ -84,7 +82,7 @@ public class ManTest {
         //Expected return from Man
         expected = "Error: Invalid Argument : LOL is not a supported command supported one is required";
         //Actual return from Man after the operation has been run
-        actual = man.run(fs,"LOL".split(" "), "man LOL", false);
+        actual = man.run(fs,"man LOL", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);      
     }
@@ -105,7 +103,7 @@ public class ManTest {
         + "\n\tto be redirected to a file instead of the console "
         + "\n\tif there is any output for the command";
         //Actual return from Man after the operation has been run
-        actual = man.run(fs,"exit".split(" "), "man exit", false);
+        actual = man.run(fs,"man exit", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);      
     }
@@ -133,7 +131,7 @@ public class ManTest {
         + "\n\n\tSample Use Case: man man > mannul"
         + "\n\tThe file named mannul gets overwritten with the mannual for man";
         //Actual return from Man after the operation has been run
-        actual = man.run(fs,"man".split(" "), "man man", false);
+        actual = man.run(fs,"man man", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);      
     }
@@ -146,7 +144,7 @@ public class ManTest {
         //Expected return from Man
         expected = "Error : Multiple Arguments have been provided : Only one supported command is required";
         //Actual return from Man after the operation has been run
-        actual = man.run(fs,"speak ls".split(" "), "man speak ls", false);
+        actual = man.run(fs,"man speak ls", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);  
     }
@@ -168,7 +166,7 @@ public class ManTest {
                  + "\n\tto be redirected to a file instead of the console "
                 + "\n\tif there is any output for the command";
         //Actual return from Man after the operation has been run
-        actual = man.run(fs, "exit > A2".split(" "), "man exit > A2", false);
+        actual = man.run(fs, "man exit > A2", false);
         //Checks if the values are equal or not
         assertTrue(expected == actual &&  text.equals(fs.findFile("A2", false).getContent()));
     }
@@ -190,7 +188,7 @@ public class ManTest {
                 + "\n\tto be redirected to a file instead of the console "
                 + "\n\tif there is any output for the command";
         //Actual return from Man after the operation has been run
-        actual = man.run(fs, "exit >> A2".split(" "), "man exit >> A2", false);
+        actual = man.run(fs, "man exit >> A2", false);
         //Checks if the values are equal or not
         assertTrue(expected == actual &&  text.equals(fs.findFile("A2", false).getContent()));
     }
@@ -203,7 +201,7 @@ public class ManTest {
         //Expected return from Man
         expected = "Error : No parameters provided for redirection";
         //Actual return from Man after the operation has been run
-        actual = man.run(fs, "exit >>".split(" "), "man exit >>", false);
+        actual = man.run(fs, "man exit >>", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -216,7 +214,7 @@ public class ManTest {
         //Expected return from Man
         expected = "Error : Multiple Parameters have been provided : [lol, plz, work] Only one is required for redirection";
         //Actual return from Man after the operation has been run
-        actual = man.run(fs, "exit >> lol plz work".split(" "), "man exit >> lol plz work", false);
+        actual = man.run(fs, "man exit >> lol plz work", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -229,7 +227,7 @@ public class ManTest {
         //Expected return from Man
         expected = "Error: Invalid Argument : LOL is not a supported command supported one is required";
         //Actual return from Man after the operation has been run
-        actual = man.run(fs,"LOL > text".split(" "), "man LOL > text", false);
+        actual = man.run(fs, "man LOL > text", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);      
     }
@@ -243,7 +241,7 @@ public class ManTest {
         //Expected return from Man
         expected =  "Error: Invalid File : Hello$ is not a valid file name";
         //Actual return from Man after the operation has been run
-        actual = man.run(fs,"speak > Hello$".split(" "), "man speak > Hello$", false);
+        actual = man.run(fs, "man speak > Hello$", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);      
     }

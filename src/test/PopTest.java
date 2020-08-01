@@ -16,7 +16,6 @@ public class PopTest {
 
     private static Pop pop;
 
-    private static String[] input = {};
     String actual, expected;
 
     @Before
@@ -47,7 +46,7 @@ public class PopTest {
 
     @Test
     public void testAAbsolutePath(){
-        pop.run(fs, input, "popd", false);
+        pop.run(fs, "popd", false);
         expected = "/documents/journal";
         actual = fs.getCurrentPath();
         assertEquals(expected, actual);
@@ -55,8 +54,8 @@ public class PopTest {
 
     @Test
     public void testBRelativePath(){
-        pop.run(fs, input, "popd", false);
-        pop.run(fs, input, "popd", false);
+        pop.run(fs,  "popd", false);
+        pop.run(fs,  "popd", false);
         expected = "/users/skeshavaa";
         actual = fs.getCurrentPath();
         assertEquals(expected, actual);
@@ -64,9 +63,9 @@ public class PopTest {
 
     @Test
     public void testCLastPop(){
-        pop.run(fs, input, "popd", false);
-        pop.run(fs, input, "popd", false);
-        pop.run(fs, input, "popd", false);
+        pop.run(fs,  "popd", false);
+        pop.run(fs,  "popd", false);
+        pop.run(fs,  "popd", false);
 
         expected = "/";;
         actual = fs.getCurrentPath();
@@ -75,19 +74,18 @@ public class PopTest {
 
     @Test
     public void testDEmptyStack(){
-        pop.run(fs, input, "popd", false);
-        pop.run(fs, input, "popd", false);
-        pop.run(fs, input, "popd", false);
+        pop.run(fs,  "popd", false);
+        pop.run(fs,  "popd", false);
+        pop.run(fs,  "popd", false);
        
         expected = "Error: Stack is empty";;
-        actual =  pop.run(fs, input, "popd", false);
+        actual =  pop.run(fs,  "popd", false);
         assertEquals(expected, actual);
     }
 
     @Test 
     public void testEArguments(){
-        String input[] = {"unrequired args"};
-        actual = pop.run(fs, input, "popd unrequired args", false);
+        actual = pop.run(fs, "popd unrequired args", false);
         expected = "Error: Invalid Argument : No arguments should be given";
         assertEquals(expected, actual);
     }
@@ -95,7 +93,7 @@ public class PopTest {
     @Test
     public void testFRedirectionError(){
         expected = "Error : Redirection Error : popd does not support redirection";
-        actual = pop.run(fs, "> test".split(" "), "popd > test", false);
+        actual = pop.run(fs, "popd > test", false);
         assertEquals(expected, actual);
     }
 

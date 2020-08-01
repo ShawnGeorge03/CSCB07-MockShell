@@ -25,8 +25,7 @@ public class MvTest {
 
     @Test
     public void TestAMoveRelativePath(){
-        String[] input = {"users", "documents"};
-        mv.run(fs, input, "mv users documents", false);
+        mv.run(fs, "mv users documents", false);
         boolean expected = false;
         boolean actual = false;
         for (int i = 0; i < fs.getCurrent().getList().size(); i++){
@@ -46,8 +45,7 @@ public class MvTest {
 
     @Test
     public void TestBMoveAbsolutePath(){
-        String[] input = {"/users", "/downloads"};
-        mv.run(fs, input, "mv /users /downloads", false);
+        mv.run(fs, "mv /users /downloads", false);
         boolean expected = false;
         boolean actual = false;
         for (int i = 0; i < fs.getCurrent().getList().size(); i++){
@@ -67,40 +65,35 @@ public class MvTest {
 
     @Test
     public void TestCMoveDirToInvalidPath(){
-        String[] input = {"/users", "clearlyfake"};
-        String actual = mv.run(fs, input, "mv /users clearlyfake", false);
-        String expected = "Error: Invalid Directory : clearlyfake does not exist!";
+        String actual = mv.run(fs, "mv /users clearlyfake", false);
+        String expected = null;
         assertEquals(expected, actual);
     }
 
     @Test
     public void TestDMoveInvalidDirtoPath(){
-        String[] input = {"fake", "/users"};
-        String actual = mv.run(fs, input, "mv fake /users", false);
+        String actual = mv.run(fs,  "mv fake /users", false);
         String expected = "Error: Directory Not Found : fake does not exist in the path you specified!";
         assertEquals(expected, actual);
     }
 
     @Test
     public void TestEMoveInvalidPathDirToPath(){
-        String[] input = {"fake/user", "documents"};
-        String actual = mv.run(fs, input, "mv fake/user documents", false);
+        String actual = mv.run(fs,  "mv fake/user documents", false);
         String expected = "Error: Invalid Directory : fake does not exist!";
         assertEquals(expected, actual);
     }
 
     @Test
     public void TestFMoveRoot(){
-        String[] input = {"/", "documents"};
-        String actual = mv.run(fs, input, "mv / documents", false);
+        String actual = mv.run(fs,  "mv / documents", false);
         String expected = "Error: Invalid Directory : Cannot move the root directory";
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGRedirectionError(){
-        String[] input = {"/", "documents", ">", "text"};
-        String actual = mv.run(fs, input, "mv / documents > text", false);
+        String actual = mv.run(fs,  "mv / documents > text", false);
         String expected = "Error : Redirection Error : mv does not support redirection";
         assertEquals(expected, actual); 
     }

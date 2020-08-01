@@ -70,17 +70,19 @@ public class Curl implements CommandI {
    * @param val       a boolean value
    * @return any error messages if there are any or null
    */
-  public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String fullInput, boolean val) {
+    //Seperates the parameters from everything else from the user input
+    String[] arguments = rManager.setParams(fullInput);
 
     // Declare instance of URL to handle the user input
     URL site;
 
     try {
-      rManager.isRedirectionableCommand(filesys, fullInput);
+      rManager.isRedirectionableCommand(fullInput);
       // If the user provides one URL
-      if (checkArgs(filesys, args, fullInput)) {
+      if (checkArgs(filesys, arguments, fullInput)) {
         // Initializes a URL object
-        site = new URL(args[0]);
+        site = new URL(arguments[0]);
         // Declares and Initializes a URLConnection object to setup the connection with
         // the file server
         final URLConnection siteConnection = site.openConnection();
@@ -114,15 +116,15 @@ public class Curl implements CommandI {
       //Catches a malformed URL
     } catch (MalformedURLException e) {
       // Returns an error for malformed URL
-      return "Parameter given is invalid " + args[0];
+      return "Parameter given is invalid " + arguments[0];
       // If the user provides a URL with out a file or file is not on the server
     } catch (FileNotFoundException | StringIndexOutOfBoundsException e) {
       // Returns an error for this expection
-      return "URL provided does not contain a file " + args[0];
+      return "URL provided does not contain a file " + arguments[0];
       // If a connection could not be made to the server for various reasons
     } catch (IOException e) {
       // Returns the appropriate error
-      return "Connection could not be made to " + args[0];
+      return "Connection could not be made to " + arguments[0];
     } catch (InvalidArgsProvidedException e) {
       return e.getLocalizedMessage();
     }

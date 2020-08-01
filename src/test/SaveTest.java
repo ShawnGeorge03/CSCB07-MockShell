@@ -39,9 +39,8 @@ public class SaveTest {
      */
     @Test
     public void testANoArgs(){
-        String[] testNoArg = {};
         expected = "Error : No parameters provided";
-        actual = save.getFileContent(fs,testNoArg, "save", false);
+        actual = save.getFileContent(fs, "save", false);
         assertEquals(expected, actual);
     }
 
@@ -50,9 +49,8 @@ public class SaveTest {
      */
     @Test
     public void testBInvalidFileName(){
-        String[] testNoArg = {"!"};
         expected = "Error: Invalid File : save !";
-        actual = save.getFileContent(fs,testNoArg, "save !", false);
+        actual = save.getFileContent(fs, "save !", false);
         assertEquals(expected, actual);
     }
 
@@ -61,9 +59,8 @@ public class SaveTest {
      */
     @Test
     public void testCInvalidPath(){
-        String[] testNoArg = {"//testing"};
         expected = "Error: Invalid Path : //testing";
-        actual = save.getFileContent(fs,testNoArg, "save //testing", false);
+        actual = save.getFileContent(fs, "save //testing", false);
         assertEquals(expected, actual);
     }
 
@@ -72,13 +69,12 @@ public class SaveTest {
      */
     @Test
     public void testDGivenOnlyFileName(){
-        String[] testNoArg = {"saveFile"};
         expected = "\"name\" : \"/\"\n"
                  + "\t\"isDir\" : \"true\"\n" 
                  + "\t\"parent\" : \"null\"\n"
                  + "\n"
                  + "\t\"/\"";
-        actual = save.getFileContent(fs,testNoArg, "save //testing", false);
+        actual = save.getFileContent(fs, "save savefile", false);
         //System.out.println(actual);
         assertEquals(expected, actual);
     }
@@ -88,7 +84,7 @@ public class SaveTest {
      */
     @Test
     public void testERedirectionError(){
-        actual = save.getFileContent(fs, "input".split(" "), "save input > text", false);
+        actual = save.getFileContent(fs, "save input > text", false);
         expected = "Error : Redirection Error : save does not support redirection";
         assertEquals(expected, actual); 
     }
@@ -104,7 +100,7 @@ public class SaveTest {
                  + "\t\"parent\" : \"null\"\n"
                  + "\n"
                  + "\t\"/\"\n\n";
-        actual = save.run(fs,testNoArg, "save //testing", false);
+        actual = save.run(fs, "save //testing", false);
         System.out.println(actual);
         assertEquals(expected, actual);
     }
@@ -120,7 +116,7 @@ public class SaveTest {
                  + "\t\"parent\" : \"null\"\n"
                  + "\n"
                  + "\t\"/\"\n\n";
-        actual = save.run(fs,testNoArg, "save //testing", false);
+        actual = save.run(fs, "save //testing", false);
         System.out.println(actual);
         assertEquals(expected, actual);
     }*/

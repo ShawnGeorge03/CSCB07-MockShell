@@ -9,13 +9,13 @@ import errors.InvalidArgsProvidedException;
  */
 public class Tree implements CommandI {
 	
-	RedirectionManager rmManager;
+	RedirectionManager rManager;
 
 	/**
 	 * Constructor for Tree which initializes errorhandler object
 	 */
 	public Tree() {
-		rmManager = new RedirectionManager();
+		rManager = new RedirectionManager();
 	}
 
 	/**
@@ -28,7 +28,9 @@ public class Tree implements CommandI {
 	 * @return any error messages there may be
 	 */
 	@Override
-	public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
+	public String run(FileSystemI fs, String fullInput, boolean val) {
+		//Seperates the parameters from everything else from the user input
+		String[] args = rManager.setParams(fullInput);
 		try {
 			checkArgs(fs, args, fullInput); 
 		} catch (InvalidArgsProvidedException e) {

@@ -29,32 +29,28 @@ public class LsTest {
 
     @Test
     public void testANoArgs(){
-        String[] input = {};
-        actual = ls.run(fs, input, "ls", false);
+        actual = ls.run(fs, "ls", false);
         expected = "A2\ndesktop\nusers\ndocuments\ndownloads\n";
         assertEquals(expected, actual);
     }
 
     @Test
     public void testBRelativePath(){
-        String[] input = {"users"};
-        actual = ls.run(fs, input, "ls users", false);
+        actual = ls.run(fs, "ls users", false);
         expected = "Path: /users\nskeshavaa\nguest\n\n";
         assertEquals(expected, actual);
     }
 
     @Test
     public void testCAbsolutePath(){
-        String[] input = {"/documents"};
-        actual = ls.run(fs, input, "ls /documents", false);
+        actual = ls.run(fs, "ls /documents", false);
         expected = "Path: /documents\ntxtone\ntxttwo\njournal\n\n";
         assertEquals(expected, actual);
     }
 
     @Test
     public void TestDRecurisveMode(){
-        String[] input = {"-R"};
-        actual = ls.run(fs, input, "ls -R", false);
+        actual = ls.run(fs, "ls -R", false);
         expected = "Path: /\nA2\ndesktop\nusers\ndocuments\ndownloads\n\nPath: /desktop\n\nPath: "
                                 + "/users\nskeshavaa\nguest\n\nPath: /users/skeshavaa"
                                 + "\n\nPath: /users/guest\n\nPath: /documents\ntxtone"
@@ -65,40 +61,35 @@ public class LsTest {
 
     @Test
     public void TestEMultiplePaths(){
-        String[] input = {"users", "documents"};
-        actual = ls.run(fs, input, "ls users documents", false);
+        actual = ls.run(fs, "ls users documents", false);
         expected = "Path: /users\nskeshavaa\nguest\n\nPath: /documents\ntxtone\ntxttwo\njournal\n\n";
         assertEquals(expected, actual);
     }
 
     @Test
     public void TestFInvalidPath(){
-        String[] input = {"falsepaths"};
-        actual = ls.run(fs, input, "ls falsepaths", false);
+        actual = ls.run(fs, "ls falsepaths", false);
         expected = "Error: Invalid Directory : falsepaths is not a valid directory\n";
         assertEquals(expected, actual);
     }
 
     @Test 
     public void TestGMultiplePathsWithInvalidPath(){
-        String[] input = {"users", "falsepaths"};
-        actual = ls.run(fs, input, "ls users falsepaths", false);
+        actual = ls.run(fs, "ls users falsepaths", false);
         expected = "Error: Invalid Directory : falsepaths is not a valid directory\n";
         assertEquals(expected, actual);
     }
 
     @Test
     public void testHRedirectionOverwrite(){
-        String[] input = {">", "A2"};
-        actual = ls.run(fs, input, "ls > A2", false);
+        actual = ls.run(fs, "ls > A2", false);
         expected = "A2\ndesktop\nusers\ndocuments\ndownloads\n";
         assertTrue(actual == null && expected.equals(fs.findFile("A2", false).getContent()));  
     }
 
     @Test
     public void testIRedirectionAppend(){
-        String[] input = {"-R", ">>", "A2"};
-        actual = ls.run(fs, input, "ls -R >> A2", false);
+        actual = ls.run(fs, "ls -R >> A2", false);
         expected = "Wow what a project\nPath: /\nA2\ndesktop\nusers\ndocuments\ndownloads\n\nPath: /desktop\n\nPath: "
                                 + "/users\nskeshavaa\nguest\n\nPath: /users/skeshavaa"
                                 + "\n\nPath: /users/guest\n\nPath: /documents\ntxtone"
@@ -109,32 +100,28 @@ public class LsTest {
 
     @Test
     public void testJRedirectionErrorCase1(){
-        String[] input = {">"};
-        actual = ls.run(fs, input, "ls >", false);
+        actual = ls.run(fs, "ls >", false);
         expected = "Error : No parameters provided for redirection";
         assertEquals(expected, actual);       
     }
 
     @Test
     public void testKRedirectionErrorCase2(){
-        String[] input = {">", "LOL", "polo"};
-        actual = ls.run(fs, input, "ls > LOL polo", false);
+        actual = ls.run(fs, "ls > LOL polo", false);
         expected = "Error : Multiple Parameters have been provided : [LOL, polo] Only one is required for redirection";
         assertEquals(expected, actual);       
     }
 
     @Test 
     public void TestLRedirectionErrorCase3(){
-        String[] input = {"users", "falsepaths", ">>", "LOL"};
-        actual = ls.run(fs, input, "ls users falsepaths", false);
+        actual = ls.run(fs, "ls users falsepaths", false);
         expected = "Error: Invalid Directory : falsepaths is not a valid directory\n";
         assertEquals(expected, actual);
     }
 
     @Test 
     public void TestMRedirectionErrorCase4(){
-        String[] input = {"users", ">>", "Hello$"};
-        actual = ls.run(fs, input, "ls users >> Hello$", false);
+        actual = ls.run(fs, "ls users >> Hello$", false);
         expected =  "Error: Invalid File : Hello$ is not a valid file name";
         assertEquals(expected, actual);
     }

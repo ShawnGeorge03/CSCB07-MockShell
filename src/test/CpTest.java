@@ -27,8 +27,7 @@ public class CpTest {
 
     @Test
     public void TestACopyRelativePath(){
-        String[] input = {"users", "documents"};
-        cp.run(fs, input, "cp users documents", false);
+        cp.run(fs, "cp users documents", false);
         boolean check1 = false;
         boolean check2 = false;
 
@@ -51,8 +50,7 @@ public class CpTest {
 
     @Test
     public void TestBCopyAbsolutePath(){
-        String[] input = {"/users", "/downloads"};
-        cp.run(fs, input, "cp /users /downloads", false);
+        cp.run(fs, "cp /users /downloads", false);
         
         boolean check1 = false;
         boolean check2 = false;
@@ -74,40 +72,35 @@ public class CpTest {
 
     @Test
     public void TestCCopyDirToInvalidPath(){
-        String[] input = {"/users", "clearlyfake"};
-        String actual = cp.run(fs, input, "cp /users clearlyfake", false);
-        String expected = "Error: Invalid Directory : clearlyfake does not exist!";
+        String actual = cp.run(fs, "cp /users clearlyfake", false);
+        String expected = null;
         assertEquals(expected, actual);
     }
 
     @Test
     public void TestDCopyInvalidDirtoPath(){
-        String[] input = {"fake", "/users"};
-        String actual = cp.run(fs, input, "cp fake /users", false);
+        String actual = cp.run(fs, "cp fake /users", false);
         String expected = "Error: Directory Not Found : fake does not exist in the path you specified!";
         assertEquals(expected, actual);
     }
 
     @Test
     public void TestEMoveInvalidPathDirToPath(){
-        String[] input = {"fake/user", "documents"};
-        String actual = cp.run(fs, input, "cp fake/user documents", false);
+        String actual = cp.run(fs, "cp fake/user documents", false);
         String expected = "Error: Invalid Directory : fake does not exist!";
         assertEquals(expected, actual);
     }
 
     @Test
     public void TestFMoveRoot(){
-        String[] input = {"/", "documents"};
-        String actual = cp.run(fs, input, "cp / documents", false);
-        String expected = "Error: Invalid Directory : Cannot move the root directory";
+        String actual = cp.run(fs, "cp / documents", false);
+        String expected = "Error: Invalid Directory : Cannot copy the root directory";
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGRedirectionError(){
-        String[] input = {"/users", "/downloads", ">", "test"};
-        String actual = cp.run(fs, input, "cp /users /downloads > test", false);
+        String actual = cp.run(fs, "cp /users /downloads > test", false);
         String expected = "Error : Redirection Error : cp does not support redirection";
         assertEquals(expected, actual);
     }

@@ -70,21 +70,22 @@ public class History implements CommandI {
    * 
    * @return the error message if there is any or null
    */
-  public String run(FileSystemI fs, String[] args, String fullInput, boolean val) {
+  public String run(FileSystemI fs, String fullInput, boolean val) {
     //Seperates the parameters from everything else from the user input
-    String[] arguments = redirect.setParams(fs, fullInput);
+    String[] arguments = redirect.setParams(fullInput);
 
     try {
       //If the parameters meet the requirements
       if (checkArgs(fs, arguments, fullInput)) {
         //Runs the command and handles redirection after that
-        output = redirect.outputResult(fs, runHistory(arguments, fs));
+        output = runHistory(arguments, fs);
       }
     } catch (InvalidArgsProvidedException e) {
       return e.getLocalizedMessage();
     }
-    //If all goes well 
-    return output;
+    //Returns the valid output for the given parameters
+    return redirect.outputResult(fs, output);
+
   }
 
   /**

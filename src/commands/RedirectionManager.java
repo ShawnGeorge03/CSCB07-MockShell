@@ -67,13 +67,15 @@ public class RedirectionManager {
     }
 
     /**
-     * Checks if the given command is a redirectionable command or
+     * Checks if the given command is a redirectionable command or throws an exception
      * 
-     * @param fs        refrence of the file system(FileSystem or MockFileSystem)
      * @param fullInput the user input
+     * 
+     * @throws InvalidRedirectionError if the command is not part of the list
+     * 
      * @return true if command is redirectionable and false other wise
      */
-    public boolean isRedirectionableCommand(FileSystemI fs, String fullInput) throws InvalidRedirectionError {
+    public boolean isRedirectionableCommand(String fullInput) throws InvalidRedirectionError {
         // Retrives the command from the user input
         String command = fullInput.split(" ")[0];
 
@@ -88,17 +90,20 @@ public class RedirectionManager {
                         "Error : Redirection Error : " + command + " does not support redirection");
             }
         }
+        //Returns if there is an issue
         return false;
     }
 
     /**
+     * Collects the correct params from the user input
      * 
      * @param fs        refrence of the file system(FileSystem or MockFileSystem)
      * @param fullInput the user input
+     * 
      * @return the parameters for the command to run or null if multiple file names
      *         are provided
      */
-    public String[] setParams(FileSystemI fs, String fullInput) {
+    public String[] setParams(String fullInput) {
         // Initializes an array containing the words of the parsedInput
         String[] params = fullInput.split(" ");
 
@@ -128,7 +133,9 @@ public class RedirectionManager {
                 fileName = "";
                 mode = "";
             }
+        //Catches the error of zero or multiple file names
         } catch (InvalidArgsProvidedException e) {
+            //Returns an error
             return e.getLocalizedMessage().split(" ");
         }
 
@@ -137,10 +144,13 @@ public class RedirectionManager {
     }
 
     /**
-     * Collects the file name from the user input
+     * Collects the file name from the user input or throws an exception
      * 
      * @param params the user input but split up
      * @param type   either append(">>") or overwrite(">")
+     * 
+     * @throws InvalidArgsProvidedException if there is no file name or multiple file names
+     * 
      * @return the file name or null with the error printed on the console
      */
     public String setFileName(String[] params, String type) throws InvalidArgsProvidedException {
@@ -164,11 +174,13 @@ public class RedirectionManager {
     }
 
     /**
-     * Redirects the content to a file or back to the console
+     * Redirects the content to a file or back to the console or throw an exception if
+     * the filename is invalid for redirection
      *
      * @param fs     refrence of the file system(FileSystem or MockFileSystem)
      * @param result the string to be outputed to the console
-     * @return returns null is ther is not issue or returns the result or does the
+     * 
+     * @return returns null is there is not issue or returns the result or does the
      *         redirection
      */
     public String outputResult(FileSystemI fs, String result) {
@@ -196,7 +208,9 @@ public class RedirectionManager {
                 // If the user is not using redirection at all
                 return result;
             }
+        //catches if the user provided an innvalid filenames
         } catch (FileException e) {
+            //Return the error message
             return e.getLocalizedMessage();
         }
     }
