@@ -9,4 +9,5 @@ Responsibilties:
 
 Collaborators:
 *FileSystem
-*ErrorHandler
+*RedirectionManager
+*Node
