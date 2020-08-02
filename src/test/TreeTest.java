@@ -20,7 +20,7 @@ public class TreeTest {
 	/**
 	 * Initialize instance of Tree to test it
 	 */
-	private Tree testTree = new Tree();
+	private Tree testTree;
 
 	/**
 	 * setup for TreeTest to initialize required instance variables
