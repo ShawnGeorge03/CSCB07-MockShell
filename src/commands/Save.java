@@ -12,18 +12,54 @@ import errors.InvalidRedirectionError;
  */
 public class Save implements CommandI {
 
+  /**
+   * Declare instance variable of FileWriter to write to the file
+   */
   private FileWriter writer;
+  
+  /**
+   * Declare instance variable of RedirectionManager to handle the redirection operations
+   */
   private RedirectionManager redirect;
+
+  /**
+   * Declare instance variable of String to holf the filepath
+   */
   private String filePath;
+
+  /**
+   * Declare instance variable of String to hold the output of the command (error if error occurs else null)
+   */
   private String output;
+
+  /**
+   * Declare instance variable of String to hold the contents of the json file (only the node data)
+   */
   private String fileContent;
 
+  /**
+   * Constructor for Save that initializes instance variables
+   */
   public Save() {
+    //initialize the RedirectionManager
     this.redirect = new RedirectionManager();
+    //initialize the String output
     this.output = null;
+    //initialize the String fileContent
     this.fileContent = "";
   }
 
+  /**
+   * Method that checks if the parameters provided by the user is considered valid or not. 
+   * If the user inputs more than 1 parameter for the command then it returns false.
+   * If the user simply inputs the command name and no parameter then returns false.
+   * Returns true if the user inputs only 1 parameter after the command.
+   * 
+   * @param fs  FileSystem Object that stores the current filesystem
+   * @param arguments  String array that holds the paramters that the user inputted
+   * @param fullInput  String object that stores the full input provided by user
+   * @return boolean  false if the user inputed no parameters or more than 1 parameter
+   */
   @Override
 	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
     //checks if user inputted a parameter or not
@@ -37,10 +73,22 @@ public class Save implements CommandI {
     return true;
 	}
 
-  /*
-   * Things to work on: - JavaDoc - Test cases
-   */
-
+  /**
+   * Method that creates the file on the users computer and writes to the file. 
+   * If the user tries to use redirection, the method returns an error.
+   * If the user inputted invalid parameters, invalid filepath, or invalid filename then method returns corresponding error.
+   * Creates file and writes the data as sections: NODES, FILESYSTEM, COMMAND LOG
+   * NODES section holds the data associated with each individual node
+   * FILESYSTEM section visually displays the saved FileSystem (similar to tree)
+   * COMMAND LOG section stores the command log of the saved FileSystem  
+   * If no errors occur, method returns null
+   * 
+   * @param fs  FileSystem Object that stores the current filesystem
+   * @param arguments  String array that holds the paramters that the user inputted
+   * @param fullInput  String object that stores the full input provided by user
+   * @param val  boolean value that is true if we are in speakMode and false otherwise
+   * @return String  if an error occured then the error message is returned, else null is returned
+   */ 
   @Override
   public String run(FileSystemI filesys, String[] arguments, String fullInput, boolean val) {
     //Seperates the parameters from everything else from the user input
@@ -107,6 +155,20 @@ public class Save implements CommandI {
     return true;
   }
 
+  /**
+   * Method that grabs the file content of the file being saved. 
+   * Used primarily to test if the nodes are being correctly stored.
+   * Returns the Node data from the NODES section as that essentially returns the filesystem structure
+   * If the user tries to use redirection, the method returns an error.
+   * If the user inputted invalid parameters, invalid filepath, or invalid filename then method returns corresponding error.
+   * If no errors occur, then the method returns null
+   * 
+   * @param fs  FileSystem Object that stores the current filesystem
+   * @param arguments  String array that holds the paramters that the user inputted
+   * @param fullInput  String object that stores the full input provided by user
+   * @param val  boolean value that is true if we are in speakMode and false otherwise
+   * @return String  if an error occured then the error message is returned, else the fileContents are retured
+   */
   public String getFileContent(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     try {
       //Checks if redirection is allowed 
@@ -126,6 +188,15 @@ public class Save implements CommandI {
     return fileContent.trim();
   }
   
+  /**
+   * Method that checks if the filename/filepath that the user inputted is valid.
+   * If the filename is invalid, then method throws FileException.
+   * If the file type is not a json file, then the method throws FileException
+   * If the user does not specify a file type, then by default it is a json file
+   * 
+   * @param filesys  FileSystem Object that stores the current filesystem
+   * @param fullInput  String object that stores the full input provided by user
+   */
   private void validateFileName(FileSystemI filesys, String fullInput) throws FileException{
     //Checks of the filename is valid
     if(!checkFileName(filePath, filesys)) {
@@ -142,6 +213,15 @@ public class Save implements CommandI {
     else filePath += ".json";
   }
 
+  /**
+   * Method that checks if the filename is a valid filename. 
+   * If the filename contains any invalid characters then the method returns false.
+   * If the filename does not conatin any invalid characters then the method returns true.
+   * 
+   * @param filePath  String object that stores the full input provided by user
+   * @param filesys  FileSystem Object that stores the current filesystem
+   * @return  boolean that is false if filename contains an invalid character, else returns true
+   */
   private boolean checkFileName(String filePath, FileSystemI filesys){
     String fileName = "";
     //If filename is given as absolute path then grab the fileName
@@ -152,6 +232,7 @@ public class Save implements CommandI {
     return false;
   }
 
+  
   private String formatArguments(String[] args) {
     //replaces / with \\
     if(args[0].contains("/")) return args[0].replace("/", "\\\\");

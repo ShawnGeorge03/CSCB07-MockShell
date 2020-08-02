@@ -9,12 +9,34 @@ import data.Node;
 import errors.InvalidArgsProvidedException;
 import errors.InvalidRedirectionError;
 
+/**
+ * Class Load is responsible for loading a filesystem saved on a json file to the JShell
+ */
 public class Load implements CommandI{
 
+  /**
+   * Declare instance variable of FileReader to store the json file located on the users computer
+   */
   private FileReader fileReader;
+
+  /**
+   * Declare instance variable of BufferedReader to read the file line by line
+   */
   private BufferedReader reader;
+
+  /**
+   * Declare instance variable of String to hold the file path/file location
+   */
   private String filePath;
+
+  /**
+   * Declare instance variable of String to hold the output of the command (error if error occurs else null)
+   */
   private String output;
+  
+  /**
+   * Declare instance variable of String to hold the contents of the compiled data read from file
+   */
   private String fileContents;
 
   /**
@@ -25,10 +47,23 @@ public class Load implements CommandI{
   public Load(){
     // Initializes a RedirectionManager Object
     this.redirect = new RedirectionManager();
+    // Initializes the String output
     this.output = null;
+    // Initializes a String fileContents
     this.fileContents = "";
   }
   
+  /**
+   * Method that checks if the parameters provided by the user is considered valid or not. 
+   * If the user inputs more than 1 parameter for the command then it returns false.
+   * If the user simply inputs the command name and no parameter then returns false.
+   * Returns true if the user inputs only 1 parameter after the command.
+   * 
+   * @param fs  FileSystem Object that stores the current filesystem
+   * @param arguments  String array that holds the paramters that the user inputted
+   * @param fullInput  String object that stores the full input provided by user
+   * @return boolean  false if the user inputed no parameters or more than 1 parameter
+   */
   @Override
 	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
     //checks if user inputted a parameter or not
@@ -46,11 +81,23 @@ public class Load implements CommandI{
     return true;
 	}
   
-  /*
-   * Things to work on:
-   *    - JavaDoc
-  */
-
+  /**
+   * Method that loads a FileSystem to the JShell by reading from a json file on the users computer.
+   * If the user tries to use redirection, the method returns an error.
+   * If the user inputted invalid parameters, invalid filepath, or invalid filename then method returns corresponding error.
+   * Reads file and recreates the saved FileSystem data from sections: NODES and COMMAND LOG
+   * NODES section holds the data associated with each individual node and each node created will be added to the filesystem 
+   * Since the node data were stored in order (depth first) method adds each node as it create thems
+   * COMMAND LOG section stores the command log of the saved FileSystem
+   * Method simply adds each line read to the current command log
+   * If no errors occur, method returns null
+   * 
+   * @param fs  FileSystem Object that stores the current filesystem
+   * @param arguments  String array that holds the paramters that the user inputted
+   * @param fullInput  String object that stores the full input provided by user
+   * @param val  boolean value that is true if we are in speakMode and false otherwise
+   * @return String  if an error occured then the error message is returned, else null is returned
+   */ 
   @Override
   public String run(FileSystemI filesys, String arguments[], String fullInput, boolean val) {
     //Seperates the parameters from everything else from the user input
@@ -114,6 +161,20 @@ public class Load implements CommandI{
     return true;
   }
   
+  /**
+   * Method that grabs the file content of the file being read. 
+   * Used primarily to test if the data of the nodes are being correctly parsed.
+   * Returns the Node data from the NODES section as that essentially returns the filesystem structure
+   * If the user tries to use redirection, the method returns an error.
+   * If the user inputted invalid parameters, invalid filepath, or invalid filename then method returns corresponding error.
+   * If no errors occur, then the method returns null
+   * 
+   * @param fs  FileSystem Object that stores the current filesystem
+   * @param arguments  String array that holds the paramters that the user inputted
+   * @param fullInput  String object that stores the full input provided by user
+   * @param val  boolean value that is true if we are in speakMode and false otherwise
+   * @return String  if an error occured then the error message is returned, else the fileContents are retured
+   */
   public String getFileContents(FileSystemI filesys, String[] args, String fullInput, boolean val){
     try {
       //checks if user tries to use redirection with this command
@@ -133,6 +194,15 @@ public class Load implements CommandI{
     return fileContents.trim();
   }
 
+  /**
+   * Method that checks if the filename/filepath that the user inputted is valid.
+   * If the filename is invalid, then method throws FileException.
+   * If the file type is not a json file, then the method throws FileException
+   * If the user does not specify a file type, then by default it is a json file
+   * 
+   * @param filesys  FileSystem Object that stores the current filesystem
+   * @param fullInput  String object that stores the full input provided by user
+   */
   private void validateFileName(FileSystemI filesys, String fullInput) throws InvalidArgsProvidedException{
     //checks for valid filename
     if(!checkFileName(filePath, filesys)) {
@@ -148,12 +218,31 @@ public class Load implements CommandI{
     else filePath += ".json";
   }
 
+  /**
+   * Method that checks the command log of the current filesystem.
+   * Returns true if the size of the command log is less than or equal to 1
+   * If it is greater than 1, then load was not the first command inputted and method returns false
+   * There must not be any previous command inputted previously (including any invalid commands)
+   * 
+   * @param filePath  String object that stores the full input provided by user
+   * @param filesys  FileSystem Object that stores the current filesystem
+   * @return  boolean that is false if filename contains an invalid character, else returns true
+   */
   private boolean checkCommandLog(FileSystemI filesys) {
     //checks if load was the first command inputted 
     if(filesys.getCommandLog().size() <= 1) return true;
     return false;
   }
 
+  /**
+   * Method that checks if the filename is a valid filename. 
+   * If the filename contains any invalid characters then the method returns false.
+   * If the filename does not conatin any invalid characters then the method returns true.
+   * 
+   * @param filePath  String object that stores the full input provided by user
+   * @param filesys  FileSystem Object that stores the current filesystem
+   * @return  boolean that is false if filename contains an invalid character, else returns true
+   */
   private boolean checkFileName(String filePath, FileSystemI filesys){
     String fileName = "";
     //if given absolute path then grab the filename
