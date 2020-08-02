@@ -97,10 +97,10 @@ public class MkdirTest {
   }
 
   /**
-   * Test A : User provides no input
+   * Test : User provides no input
    */
   @Test
-  public void testANoPath() {
+  public void testNoPath() {
     //Declares an empty array
     String[] testNoArg = {};
     // Expected return from mkdir

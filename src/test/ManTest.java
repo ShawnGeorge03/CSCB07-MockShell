@@ -62,10 +62,10 @@ public class ManTest {
     }
 
     /**
-     * Test A : User provides no input command for Man to look up
+     * Test : User provides no input command for Man to look up
      */
     @Test
-    public void testANoArgs(){
+    public void testNoArgs(){
         //Declares and initializes an empty array
         String[] emptyArr = {};
         //Expected return from Man
@@ -77,10 +77,10 @@ public class ManTest {
     }
 
     /**
-     * Test B : User provides a random unspported command of JShell
+     * Test : User provides a random unspported command of JShell
      */
     @Test
-    public void testBUnsupportedCommand(){
+    public void testUnsupportedCommand(){
         //Expected return from Man
         expected = "Error: Invalid Argument : LOL is not a supported command supported one is required";
         //Actual return from Man after the operation has been run
@@ -90,10 +90,10 @@ public class ManTest {
     }
 
     /**
-     * Test C : User provides a random supported command of JShell
+     * Test : User provides a random supported command of JShell
      */
     @Test
-    public void testCSupportedCommand(){
+    public void testSupportedCommand(){
         //Expected return from Man
         expected =         
         "Command : exit" 
@@ -111,24 +111,23 @@ public class ManTest {
     }
 
     /**
-     * Test D : User asks for the manual for man
+     * Test : User asks for the manual for man
      */
     @Test
-    public void testDCommandMan(){
+    public void testCommandMan(){
         //Expected return from Man
         expected = 
-        "Command: man CMD" 
+        "Command: man CMD"
         + "\n\tProvides documentation on all commands within THIS Java Shell"
         + "\n\tProvides information such as arguments and function."
         + "\n\n\tREDIRECTION : This command allows the output to be redirected "
         + "\n\tto the a file instead of the console"
         + "\n\n\tParameter: Requires one supported CMD"
-        + "\n\n\tIf any or multiple of these parameter are not meet an "
-        + "\n\terror will be outputed respectively"
-        + "\n\n\tREDIRECTION : This command does not allow the output"
+        + "\n\n\tIf any or multiple of these parameter are not meet an \n\terror will be outputed respectively"
+        + "\n\n\tREDIRECTION : This command does allow the output"
         + "\n\tto be redirected to a file instead of the console "
         + "\n\tif there is any output for the command"
-        + "\n\n\tSample Use Case : man man "
+        + "\n\tif there is any output for the command" + "\n\n\tSample Use Case : man man "
         + "\n\tThis would output the the mannual for man"
         + "\n\n\tSample Use Case: man man > mannul"
         + "\n\tThe file named mannul gets overwritten with the mannual for man";
@@ -139,10 +138,10 @@ public class ManTest {
     }
 
     /**
-     * Test E : User provided multiple commnads
+     * Test : User provided multiple commnads
      */
     @Test
-    public void testEMultipleArgs(){
+    public void testMultipleArgs(){
         //Expected return from Man
         expected = "Error : Multiple Arguments have been provided : Only one supported command is required";
         //Actual return from Man after the operation has been run
@@ -152,10 +151,10 @@ public class ManTest {
     }
 
     /**
-     * Test F : User redirects output to overwrite a file
+     * Test : User redirects output to overwrite a file
      */
     @Test
-    public void testFOverwriteFile(){
+    public void testOverwriteFile(){
         //Expected return from Man
         expected = null;
         //Text to be in the file
@@ -174,10 +173,10 @@ public class ManTest {
     }
     
     /**
-     * Test G : User redirects output to append to a file
+     * Test : User redirects output to append to a file
      */
     @Test
-    public void testGAppendFile(){
+    public void testAppendFile(){
         //Expected return from Man
         expected = null;
         //Text to be in the file
@@ -196,10 +195,10 @@ public class ManTest {
     }
 
     /**
-     * Test H : User provides no file for redirection
+     * Test : User provides no file for redirection
      */
     @Test
-    public void testHRedirectionErrorCase1(){
+    public void testRedirectionErrorCase1(){
         //Expected return from Man
         expected = "Error : No parameters provided for redirection";
         //Actual return from Man after the operation has been run
@@ -209,10 +208,10 @@ public class ManTest {
     }
     
     /**
-     * Test I : User provides multiple files for redirection
+     * Test : User provides multiple files for redirection
      */
     @Test
-    public void testIRedirectionErrorCase2(){
+    public void testRedirectionErrorCase2(){
         //Expected return from Man
         expected = "Error : Multiple Parameters have been provided : [lol, plz, work] Only one is required for redirection";
         //Actual return from Man after the operation has been run
@@ -222,10 +221,10 @@ public class ManTest {
     }
 
     /**
-     * Test J : User provides a random unspported command of JShell an redirects it
+     * Test : User provides a random unspported command of JShell an redirects it
      */
     @Test
-    public void testJRedirectionErrorCase3(){
+    public void testRedirectionErrorCase3(){
         //Expected return from Man
         expected = "Error: Invalid Argument : LOL is not a supported command supported one is required";
         //Actual return from Man after the operation has been run
@@ -236,10 +235,10 @@ public class ManTest {
 
 
     /**
-     * Test J : User provides an invalid filename for redirection
+     * Test : User provides an invalid filename for redirection
      */
     @Test
-    public void testKRedirectionErrorCase4(){
+    public void testRedirectionErrorCase4(){
         //Expected return from Man
         expected =  "Error: Invalid File : Hello$ is not a valid file name";
         //Actual return from Man after the operation has been run

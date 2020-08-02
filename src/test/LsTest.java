@@ -59,10 +59,10 @@ public class LsTest {
     }
 
     /**
-     * Test A : User provides no input
+     * Test : User provides no input
      */
     @Test
-    public void testANoArgs(){
+    public void testNoArgs(){
         //Declares an empty array 
         String[] input = {};
         //Actual return from Ls after the operation has been run
@@ -74,10 +74,10 @@ public class LsTest {
     }
 
     /**
-     * User provides a relative path
+     * Test : User provides a relative path
      */
     @Test
-    public void testBRelativePath(){
+    public void testRelativePath(){
         //Actual return from Ls after the operation has been run 
         actual = ls.run(fs, "users".split(" "), "ls users", false);
         //Expected return from Ls
@@ -87,10 +87,10 @@ public class LsTest {
     }
 
     /**
-     * Test C : User provides an absolute path 
+     * Test : User provides an absolute path 
      */
     @Test
-    public void testCAbsolutePath(){
+    public void testAbsolutePath(){
         //Actual return from Ls after the operation has been run 
         actual = ls.run(fs, "/documents".split(" "), "ls /documents", false);
         //Expected return from Ls
@@ -100,10 +100,10 @@ public class LsTest {
     }
 
     /**
-     * Test D : User provides the special character -R 
+     * Test : User provides the special character -R 
      */
     @Test
-    public void TestDRecurisveMode(){
+    public void testRecurisveMode(){
         //Actual return from Ls after the operation has been run 
         actual = ls.run(fs, "-R".split(" "), "ls -R", false);
         //Expected return from Ls
@@ -117,10 +117,10 @@ public class LsTest {
     }
 
     /**
-     * Test E : User provides multiple valid paths
+     * Test : User provides multiple valid paths
      */
     @Test
-    public void TestEMultiplePaths(){
+    public void testMultiplePaths(){
         //Actual return from Ls after the operation has been run 
         actual = ls.run(fs, "users documents".split(" "), "ls users documents", false);
         //Expected return from Ls
@@ -130,10 +130,10 @@ public class LsTest {
     }
 
     /**
-     * Test F : User provides an invalid path
+     * Test : User provides an invalid path
      */
     @Test
-    public void TestFInvalidPath(){
+    public void testInvalidPath(){
         //Actual return from Ls after the operation has been run
         actual = ls.run(fs, "falsepaths".split(" "), "ls falsepaths", false);
         //Expected return from Ls
@@ -143,10 +143,10 @@ public class LsTest {
     }
 
     /**
-     * Test G : User provides multiple paths, with one invalid path
+     * Test : User provides multiple paths, with one invalid path
      */
     @Test 
-    public void TestGMultiplePathsWithInvalidPath(){
+    public void testMultiplePathsWithInvalidPath(){
         //Actual return from Ls after the operation has been run
         actual = ls.run(fs, "users falsepaths".split(" "), "ls users falsepaths", false);
         //Expected return from Ls
@@ -156,10 +156,10 @@ public class LsTest {
     }
 
     /**
-     * Test H : User uses redirection to overwrite with new content to file with result from Ls
+     * Test : User uses redirection to overwrite with new content to file with result from Ls
      */
     @Test
-    public void testHRedirectionOverwrite(){
+    public void testRedirectionOverwrite(){
         //Actual return from Ls after the operation has been run
         actual = ls.run(fs,"> A2".split(" "), "ls > A2", false);
         //Expected return from Ls
@@ -169,10 +169,10 @@ public class LsTest {
     }
 
     /**
-     * Test I : User uses redirection to append new content to file with result from Ls
+     * Test : User uses redirection to append new content to file with result from Ls
      */
     @Test
-    public void testIRedirectionAppend(){
+    public void testRedirectionAppend(){
         //Actual return from Ls after the operation has been run
         actual = ls.run(fs, "-R >> A2".split(" "), "ls -R >> A2", false);
         //Expected return from Ls
@@ -186,10 +186,10 @@ public class LsTest {
     }
 
     /**
-     * Test J : User provides no file name for redirection
+     * Test : User provides no file name for redirection
      */
     @Test
-    public void testJRedirectionErrorCase1(){
+    public void testRedirectionErrorCase1(){
         //Actual return from Ls after the operation has been run
         actual = ls.run(fs, ">".split(" "), "ls >", false);
         //Expected return from Ls
@@ -199,10 +199,10 @@ public class LsTest {
     }
 
     /**
-     * Test K : User provides multiple file names for redirection
+     * Test : User provides multiple file names for redirection
      */
     @Test
-    public void testKRedirectionErrorCase2(){
+    public void testRedirectionErrorCase2(){
         //Actual return from Ls after the operation has been run
         actual = ls.run(fs, "> LOL polo".split(" "),"ls > LOL polo", false);
         //Expected return from Ls
@@ -212,10 +212,10 @@ public class LsTest {
     }
 
     /**
-     * Test L : User provides invalid command and uses redirection
+     * Test : User provides invalid command and uses redirection
      */
     @Test 
-    public void TestLRedirectionErrorCase3(){
+    public void testRedirectionErrorCase3(){
         //Actual return from Ls after the operation has been run
         actual = ls.run(fs, "users falsepaths > file".split(" "), "ls users falsepaths > file", false);
         //Expected return from Ls
@@ -225,10 +225,10 @@ public class LsTest {
     }
 
     /**
-     * test M : User provides an invalid file name for redirection
+     * Test : User provides an invalid file name for redirection
      */
     @Test 
-    public void TestMRedirectionErrorCase4(){
+    public void testRedirectionErrorCase4(){
         //Actual return from Ls after the operation has been run
         actual = ls.run(fs, "users >> Hello$".split(" "), "ls users >> Hello$", false);
         //Expected return from Ls
