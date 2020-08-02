@@ -10,19 +10,43 @@ import commands.Save;
 
 import java.lang.reflect.Field;
 
+/**
+ * Class SaveTest runs all the different test cases for Save
+ */
 public class SaveTest {
 
+    /**
+    * Declare instance of MockFileSystem so we can access the filesystem
+    */
     private MockFileSystem fs;
+
+    /**
+     * Declares instance of Save to be tested
+     */
     private Save save;
 
+    /**
+    * Declare two different instance of a String 
+    * objects called expected and actual 
+    */
     String expected, actual;
 
+    /**
+     * Sets up the test environment and initializes the instance variables
+     * 
+     * @throws Exception
+    */
     @Before
     public void setup(){
         fs = MockFileSystem.getMockFileSys("EMPTYSYS");
         save = new Save();
     }
 
+    /**
+     * Destroys the FileSystem after all the testcases have run
+     * 
+     * @throws Exception
+    */
     @After
     public void tearDown() throws Exception {
         //Declares and initializes a Feild variable 
@@ -39,9 +63,13 @@ public class SaveTest {
      */
     @Test
     public void testANoArgs(){
+        //String array that holds the input parameters
         String[] emptyArr = {};
+        //Expected string output from save
         expected = "Error : No parameters provided";
+        //Actual output when running save
         actual = save.getFileContent(fs, emptyArr, "save", false);
+        //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
 
@@ -50,8 +78,11 @@ public class SaveTest {
      */
     @Test
     public void testBInvalidFileName(){
+        //Expected string output from save
         expected = "Error: Invalid File : save !";
+        //Actual output when running save
         actual = save.getFileContent(fs, "!".split(" "), "save !", false);
+        //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
 
@@ -60,8 +91,11 @@ public class SaveTest {
      */
     @Test
     public void testCInvalidPath(){
+        //Expected string output from save
         expected = "Error: Invalid Path : //testing";
+        //Actual output when running save
         actual = save.getFileContent(fs, "//testing".split(" "), "save //testing", false);
+        //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
 
@@ -70,12 +104,15 @@ public class SaveTest {
      */
     @Test
     public void testDGivenFileNameWithoutFileType(){
+        //Expected string output from save
         expected = "\"name\" : \"/\"\n"
                  + "\t\"isDir\" : \"true\"\n" 
                  + "\t\"parent\" : \"null\"\n"
                  + "\n"
                  + "\t\"/\"";
+        //Actual output when running save
         actual = save.getFileContent(fs, "savefile".split(" "), "save savefile", false);
+        //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
 
@@ -84,8 +121,11 @@ public class SaveTest {
      */
     @Test
     public void testERedirectionError(){
+        //Actual output when running save
         actual = save.getFileContent(fs, "input > text".split(" "), "save input > text", false);
+        //Expected string output from save
         expected = "Error : Redirection Error : save does not support redirection";
+        //Checks if the values are equal or not
         assertEquals(expected, actual); 
     }
 
@@ -94,8 +134,11 @@ public class SaveTest {
      */
     @Test
     public void testFGivenFileNameWithIncorrectFileType(){
+        //Expected string output from save
         expected = "Error: Invalid File : save savefile.txt";
+        //Actual output when running save
         actual = save.getFileContent(fs, "savefile".split(" "), "save savefile.txt", false);
+        //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
 
