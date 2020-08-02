@@ -39,8 +39,9 @@ public class SaveTest {
      */
     @Test
     public void testANoArgs(){
+        String[] emptyArr = {};
         expected = "Error : No parameters provided";
-        actual = save.getFileContent(fs, "save", false);
+        actual = save.getFileContent(fs, emptyArr, "save", false);
         assertEquals(expected, actual);
     }
 
@@ -50,7 +51,7 @@ public class SaveTest {
     @Test
     public void testBInvalidFileName(){
         expected = "Error: Invalid File : save !";
-        actual = save.getFileContent(fs, "save !", false);
+        actual = save.getFileContent(fs, "!".split(" "), "save !", false);
         assertEquals(expected, actual);
     }
 
@@ -60,7 +61,7 @@ public class SaveTest {
     @Test
     public void testCInvalidPath(){
         expected = "Error: Invalid Path : //testing";
-        actual = save.getFileContent(fs, "save //testing", false);
+        actual = save.getFileContent(fs, "//testing".split(" "), "save //testing", false);
         assertEquals(expected, actual);
     }
 
@@ -74,7 +75,7 @@ public class SaveTest {
                  + "\t\"parent\" : \"null\"\n"
                  + "\n"
                  + "\t\"/\"";
-        actual = save.getFileContent(fs, "save savefile", false);
+        actual = save.getFileContent(fs, "savefile".split(" "), "save savefile", false);
         //System.out.println(actual);
         assertEquals(expected, actual);
     }
@@ -84,7 +85,7 @@ public class SaveTest {
      */
     @Test
     public void testERedirectionError(){
-        actual = save.getFileContent(fs, "save input > text", false);
+        actual = save.getFileContent(fs, "input > text".split(" "), "save input > text", false);
         expected = "Error : Redirection Error : save does not support redirection";
         assertEquals(expected, actual); 
     }

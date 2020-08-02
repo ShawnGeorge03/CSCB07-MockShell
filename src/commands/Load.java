@@ -49,7 +49,7 @@ public class Load implements CommandI{
   */
 
   @Override
-  public String run(FileSystemI filesys, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String arguments[], String fullInput, boolean val) {
     //Seperates the parameters from everything else from the user input
     String[] args = redirect.setParams(fullInput);
     try {
@@ -79,13 +79,13 @@ public class Load implements CommandI{
     return output;
   }
   
-  public String getFileContents(FileSystemI filesys, String fullInput, boolean val){
+  public String getFileContents(FileSystemI filesys, String[] args, String fullInput, boolean val){
     try {
       redirect.isRedirectionableCommand(fullInput);
     } catch (InvalidRedirectionError e) {
       return e.getLocalizedMessage();
     }
-    output = run(filesys, fullInput, false);
+    output = run(filesys, args, fullInput, false);
     if(output != null){
       if(output.startsWith("Error:") || output.startsWith("Error :")) return output;
     }
