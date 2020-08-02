@@ -33,17 +33,18 @@ public class Tree implements CommandI {
 	 */
 	@Override
 	public String run(FileSystemI fs, String[] arguments, String fullInput, boolean val) {
+		String output = "";
 		//Seperates the parameters from everything else from the user input
 		String[] args = rManager.setParams(fullInput);
 		//Try catch to test validity of args
 		try {
-			checkArgs(fs, args, fullInput); 
+			if(checkArgs(fs, args, fullInput)){
+ 				output = rManager.outputResult(fs, traverse(fs.getRoot(), 0, output));
+			}
 		} catch (InvalidArgsProvidedException e) {
 			return e.getLocalizedMessage();
 		}
-		String output = "";
 		//Traverse file system and gather the desired tree format in the string output
-		output = traverse(fs.getRoot(), 0, output);
 		return output;
 	}
 
