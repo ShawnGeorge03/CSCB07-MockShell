@@ -104,20 +104,7 @@ public class Save implements CommandI {
           //checks for valid filename
           validateFileName(filesys, fullInput);
           writer = new FileWriter(filePath);
-          //Adds the node information of every node to the file
-          writer.write("NODES\n{\n");
-          storeNodeInformation(writer, filesys);
-          writer.write("}");
-          fileContent += "\n";
-          //Adds the filesystem structure to the file (similar to tree)
-          writer.write("\n\nFILESYSTEM\n{\n");
-          storeFileSystem(writer, filesys);
-          writer.write("}");
-          fileContent += "\n";
-          //Adds the command log to the file
-          writer.write("\n\nCOMMAND LOG\n{\n");
-          storeCommandHistoryToFile(writer, filesys);
-          writer.write("}");
+          writeToFile(filesys, writer, args);
           writer.close();
         } 
         // Invalid arguments were provided
@@ -135,6 +122,29 @@ public class Save implements CommandI {
     }
     return output;
   }
+
+  private void writeToFile(FileSystemI filesys, FileWriter writer, String[] args) {
+    //Adds the node information of every node to the file
+    try {
+      writer.write("NODES\n{\n");
+      storeNodeInformation(writer, filesys);
+      writer.write("}");
+      fileContent += "\n";
+      //Adds the filesystem structure to the file (similar to tree)
+      writer.write("\n\nFILESYSTEM\n{\n");
+      storeFileSystem(writer, filesys);
+      writer.write("}");
+      fileContent += "\n";
+      //Adds the command log to the file
+      writer.write("\n\nCOMMAND LOG\n{\n");
+      storeCommandHistoryToFile(writer, filesys);
+      writer.write("}");
+    } catch (IOException e) {
+      output = "Error: Invalid Path : " + args[0];
+    }
+    
+  }
+
 
   /**
    * Method that checks if the file name that the user inputted is a valid file name. If the file name
