@@ -232,7 +232,14 @@ public class Save implements CommandI {
     return false;
   }
 
-  
+  /**
+   * Method that formats the user input to make sure the file path is valid in Windows
+   * Windows require path to be split using \\ instead of \ or /
+   * This method replaces / and \ with \\ for full compatibility
+   * 
+   * @param args  String array that stores the arguments inputted by the user
+   * @return  String that is the formatted version of the user inputted arguments
+   */
   private String formatArguments(String[] args) {
     //replaces / with \\
     if(args[0].contains("/")) return args[0].replace("/", "\\\\");
@@ -241,18 +248,43 @@ public class Save implements CommandI {
     return args[0];
   }
   
+  /**
+   * Method that adds the FILESYSTEM section to the json file
+   * Starts from root and calls helper function that traverses the filesystem
+   * 
+   * @param writer  FileWriter object that is used to write to the file
+   * @param filesys  FileSystem object that stores the filesystem being saved
+   */
   private void storeFileSystem(FileWriter writer, FileSystemI filesys) {
     Node root = filesys.getRoot();
     //Traverses the filesystem using Depth First Search 
     traverseFileSystem(root, writer, 1, 1);
   }
   
+  /**
+   * Method that adds the node data to the NODES section in the json file
+   * Starts from root and calls helper function that traverses the filesystem
+   * 
+   * @param writer  FileWriter object that is used to write to the file
+   * @param filesys  FileSystem object that stores the filesystem being saved
+   */
   private void storeNodeInformation(FileWriter writer, FileSystemI filesys){
     Node root = filesys.getRoot();
     //Traverses the filesystem using Depth First Search
     traverseFileSystem(root, writer, 1, 2);
   }
   
+  /**
+   * Method that traverses the file system and adds either the node data or visual representation of filesystem 
+   * Uses Depth First Search to go through the file system and adds the corresponding information depending on the mode paramter
+   * If mode is 1, then the method writes the Visual Display of FileSystem to the FILESYSTEM section 
+   * If mode is 2, then the method writes the data corresponding to each node to the NODES section 
+   * 
+   * @param root  Node object that represents the current node on the FileSystem traversal
+   * @param writer  FileWriter object that is used to write to the file
+   * @param depth  int value that starts with 1 and increases as we go deeper into the FileSystem
+   * @param mode  int value that differentiates between writing to the NODES section or FILESYSTEM section of the json file
+   */
   private void traverseFileSystem(Node root, FileWriter writer, int depth, int mode){
     //If we want to add the node to our filesystem section of the file
     if(mode == 1) addNodeNameToFile(root, writer, depth);
@@ -269,6 +301,14 @@ public class Save implements CommandI {
     }
   }
   
+  /**
+   * Method that adds the node name to the FILESYSTEM section
+   * Adds the current node to the visual filesystem representation
+   * 
+   * @param current  Node object that represents the current node on the FileSystem traversal
+   * @param writer  FileWriter object that is used to write to the file
+   * @param depth  int value that starts with 1 and increases as we go deeper into the FileSystem
+   */
   private void addNodeNameToFile(Node current, FileWriter writer, int depth) {
     try {
       String result = "";
@@ -284,6 +324,14 @@ public class Save implements CommandI {
     }
   }
   
+  /**
+   * Method that adds the node name to the NODES section
+   * Adds the current node and the corresponding data to the json file
+   * 
+   * @param current  Node object that represents the current node on the FileSystem traversal
+   * @param writer  FileWriter object that is used to write to the file
+   * @param depth  int value that starts with 1 and increases as we go deeper into the FileSystem
+   */
   private void addNodeInformationToFile(Node current, FileWriter writer, int depth) {
     try {
       //Adds the node information to the nodes section of the file
@@ -307,6 +355,13 @@ public class Save implements CommandI {
     }
   }
   
+  /**
+   * Method that gets the contents of the node to be added to the file
+   * Replaces every instance of the new line character to make sure the content fits on one line
+   * 
+   * @param current  Node object that represents the current node on the FileSystem traversal
+   * @return  String object that holds the new formatted contents of the node
+   */
   private String getContentOfNode(Node current){
     String finalOutput = null;
     //grabs current content of node
@@ -316,6 +371,13 @@ public class Save implements CommandI {
     return finalOutput;
   }
 
+  /**
+   * Method that stores the command log to the COMMAND LOG section 
+   * Loops through the command log arraylist in FileSystem object and adds each index to the file
+   * 
+   * @param writer  FileWriter object that is used to write to the file
+   * @param filesys  FileSystem object that stores the filesystem being saved
+   */
   private void storeCommandHistoryToFile(FileWriter writer, FileSystemI filesys) {
     //loops through the command log of the filesystem
     for(int i = 0; i < filesys.getCommandLog().size(); i++) {
