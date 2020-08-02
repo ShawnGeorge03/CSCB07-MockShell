@@ -89,8 +89,7 @@ public class TreeTest {
 	public void test4FullFsWithArgs() {
 		String[] temp = { "test" };
 		assertEquals("Error : Multiple Parameters have been provided", testTree.run(fullFs, temp, "tree test", true));
-	}
-	
+	}	
 }
 
 

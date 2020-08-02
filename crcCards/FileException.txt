@@ -1,0 +1,10 @@
+Class name: FileException
+Parent class: InvalidArgsProvidedException
+Subclasses: N/A
+Implements: N/A
+
+Responsibilties:
+*Throws an exception regarding invalid file operations
+
+Collaborators:
+*N/A

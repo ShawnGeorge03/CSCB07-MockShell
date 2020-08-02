@@ -2,7 +2,7 @@ package errors;
 
 /**
  * Class MalformedInputException handles expections 
- * related to malformed text for writing to file
+ * related to malformed text by improper use of quotations
  */
 
 @SuppressWarnings("serial")

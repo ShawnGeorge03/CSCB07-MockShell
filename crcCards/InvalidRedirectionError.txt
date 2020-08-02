@@ -1,0 +1,10 @@
+Class name: InvalidRedirectionError
+Parent class: InvalidArgsProvidedException
+Subclasses: N/A
+Implements: N/A
+
+Responsibilties:
+*Throws an exception regarding invalid use of redirection 
+
+Collaborators:
+*N/A

@@ -1,0 +1,10 @@
+Class name: InvalidArgsProvidedException
+Parent class: N/A
+Subclasses: N/A
+Implements: N/A
+
+Responsibilties:
+*Throws an exception regarding invalid user input
+
+Collaborators:
+*N/A

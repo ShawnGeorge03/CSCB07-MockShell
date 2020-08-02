@@ -66,10 +66,10 @@ public class CdTest {
     }
 
     /**
-     * Test A : User provides no input
+     * Test : User provides no input
     */
     @Test
-    public void testANoArgs() {
+    public void testNoArgs() {
         //Declares and initializes an empty array
         String[] emptyArr = {};
         //Expected return from Cd
@@ -85,10 +85,10 @@ public class CdTest {
     }
 
     /**
-     * Test B : User provides a relative path
+     * Test : User provides a relative path
     */
     @Test
-    public void testBRelativePath() {
+    public void testRelativePath() {
         //Expected return from Cd
         expectedCd = null;
         //Expected current working directory
@@ -102,10 +102,62 @@ public class CdTest {
     }
 
     /**
-     * Test C : User uses a special pattern to change directory
+     * Test : User provides a relative directory
+     */
+    @Test
+    public void testRelativeDir() {
+        //Expected return from Cd
+        expectedCd = null;
+        //Expected current working directory
+        expectedPath = "/users/skeshavaa";
+        //Actual return from Cd
+        actualCd = cd.run(fs,"users/skeshavaa".split(" "), "cd users/skeshavaa", false);
+        //Returns the current working directory
+        actualPath = fs.getCurrentPath();
+        //Checks if the values are equal or not
+        assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
+    }
+
+    /**
+     * Test : User provides a file path instead of a directory
+     */
+    @Test
+    public void testTraverseFile() {
+        //Expected return from Cd
+        expectedCd = "Error: Invalid Directory : A2";
+        //Expected current working directory
+        expectedPath = "/";
+        //Actual return from Cd
+        actualCd = cd.run(fs,"A2".split(" "), "cd A2", false);
+        //Returns the current working directory
+        actualPath = fs.getCurrentPath();
+        //Checks if the values are equal or not
+        assertTrue(actualCd.equals(expectedCd) && actualPath.equals(expectedPath));
+    }
+
+    /**
+     * Test  : User provides an absolute path to a directory
+     */
+    @Test
+    public void testAbsolutePath() {
+        //Expected return from Cd
+        expectedCd = null;
+        //Expected current working directory
+        expectedPath = "/documents/journal/week1";
+        //Actual return from Cd
+        actualCd = cd.run(fs,"/documents/journal/week1".split(" "), "cd /documents/journal/week1", false);
+        //Returns the current working directory
+        actualPath = fs.getCurrentPath();
+        //Checks if the values are equal or not
+        assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
+    }
+
+        
+    /**
+     * Test : User uses a special pattern to change directory
     */
     @Test
-    public void testCPatternCase1() {
+    public void testPatternCase1() {
         //Expected return from Cd
         expectedCd = null;
         //Expected current working directory
@@ -121,27 +173,10 @@ public class CdTest {
     }
 
     /**
-     * Test D : User provides a relative directory
+     * Test : User uses a special pattern to change directory
      */
     @Test
-    public void testDRelativeDir() {
-        //Expected return from Cd
-        expectedCd = null;
-        //Expected current working directory
-        expectedPath = "/users/skeshavaa";
-        //Actual return from Cd
-        actualCd = cd.run(fs,"users/skeshavaa".split(" "), "cd users/skeshavaa", false);
-        //Returns the current working directory
-        actualPath = fs.getCurrentPath();
-        //Checks if the values are equal or not
-        assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
-    }
-
-    /**
-     * Test E : User uses a special pattern to change directory
-     */
-    @Test
-    public void testEPatternCase2() {
+    public void testPatternCase2() {
         //Expected return from Cd
         expectedCd = null;
         //Expected current working directory
@@ -156,44 +191,10 @@ public class CdTest {
     }
 
     /**
-     * Test F : User provides a file path instead of a directory
+     * Test : User uses a special pattern to change directory
      */
     @Test
-    public void testFTraverseFile() {
-        //Expected return from Cd
-        expectedCd = "Error: Invalid Directory : A2";
-        //Expected current working directory
-        expectedPath = "/";
-        //Actual return from Cd
-        actualCd = cd.run(fs,"A2".split(" "), "cd A2", false);
-        //Returns the current working directory
-        actualPath = fs.getCurrentPath();
-        //Checks if the values are equal or not
-        assertTrue(actualCd.equals(expectedCd) && actualPath.equals(expectedPath));
-    }
-
-    /**
-     * Test G : User provides an absolute path to a directory
-     */
-    @Test
-    public void testGAbsolutePath() {
-        //Expected return from Cd
-        expectedCd = null;
-        //Expected current working directory
-        expectedPath = "/documents/journal/week1";
-        //Actual return from Cd
-        actualCd = cd.run(fs,"/documents/journal/week1".split(" "), "cd /documents/journal/week1", false);
-        //Returns the current working directory
-        actualPath = fs.getCurrentPath();
-        //Checks if the values are equal or not
-        assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
-    }
-
-    /**
-     * Test H : User uses a special pattern to change directory
-     */
-    @Test
-    public void testHPatternCase3() {
+    public void testPatternCase3() {
         //Expected return from Cd
         expectedCd = null;
         //Expected current working directory
@@ -208,27 +209,10 @@ public class CdTest {
     }
 
     /**
-     * Test I : User provides multiple arguments
+     * Test : User uses a special pattern to access a subdirectory
      */
     @Test
-    public void testIMultipleArgs() {
-        //Expected return from Cd
-        expectedCd = "Error : Multiple Parameters have been provided : /pics /Sys/LOL";
-        //Expected current working directory
-        expectedPath = "/";
-        //Actual return from Cd
-        actualCd = cd.run(fs,"/pics /Sys/LOL".split(" "), "cd /pics /Sys/LOL", false);
-        //Returns the current working directory
-        actualPath = fs.getCurrentPath();
-        //Checks if the values are equal or not
-        assertTrue(actualCd.equals(expectedCd) && actualPath.equals(expectedPath));
-    }
-
-    /**
-     * Test J : User uses a special pattern to access a subdirectory
-     */
-    @Test
-    public void testJPatternCase4(){
+    public void testPatternCase4(){
         //Expected return from Cd
         expectedCd = null;
         //Expected current working directory
@@ -242,27 +226,10 @@ public class CdTest {
     }
 
     /**
-     * Test K : User uses redirection for a non redirectionable command
-     */
-    @Test
-    public void testKRedirectionError(){
-        //Expected return from Cd
-        expectedCd = "Error : Redirection Error : cd does not support redirection";
-        //Expected current working directory
-        expectedPath = "/";
-        //Actual return from Cd
-        actualCd = cd.run(fs, "/documents > file".split(" "), "cd /documents > file", false);
-        //Returns the current working directory
-        actualPath = fs.getCurrentPath();
-        //Checks if the values are equal or not
-        assertTrue(actualCd.equals(expectedCd) && actualPath.equals(expectedPath));
-    }
-
-    /**
-    * Test L : User uses a special pattern to change directory
+    * Test : User uses a special pattern to stay in current directory
     */
     @Test
-    public void testLPatternCase5() {
+    public void testPatternCase5() {
         //Expected return from Cd
         expectedCd = null;
         //Expected current working directory
@@ -276,5 +243,38 @@ public class CdTest {
         //Checks if the values are equal or not
         assertTrue(actualCd == expectedCd && actualPath.equals(expectedPath));
     }
+    
+    /**
+     * Test : User provides multiple arguments
+     */
+    @Test
+    public void testMultipleArgs() {
+        //Expected return from Cd
+        expectedCd = "Error : Multiple Parameters have been provided : /pics /Sys/LOL";
+        //Expected current working directory
+        expectedPath = "/";
+        //Actual return from Cd
+        actualCd = cd.run(fs,"/pics /Sys/LOL".split(" "), "cd /pics /Sys/LOL", false);
+        //Returns the current working directory
+        actualPath = fs.getCurrentPath();
+        //Checks if the values are equal or not
+        assertTrue(actualCd.equals(expectedCd) && actualPath.equals(expectedPath));
+    }
 
+    /**
+     * Test : User uses redirection for a non redirectionable command
+     */
+    @Test
+    public void testRedirectionError(){
+        //Expected return from Cd
+        expectedCd = "Error : Redirection Error : cd does not support redirection";
+        //Expected current working directory
+        expectedPath = "/";
+        //Actual return from Cd
+        actualCd = cd.run(fs, "/documents > file".split(" "), "cd /documents > file", false);
+        //Returns the current working directory
+        actualPath = fs.getCurrentPath();
+        //Checks if the values are equal or not
+        assertTrue(actualCd.equals(expectedCd) && actualPath.equals(expectedPath));
+    }
 }

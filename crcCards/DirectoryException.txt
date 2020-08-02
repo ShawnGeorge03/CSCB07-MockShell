@@ -1,0 +1,10 @@
+Class name: DirectoryException
+Parent class: InvalidArgsProvidedException
+Subclasses: N/A
+Implements: N/A
+
+Responsibilties:
+*Throws an exception regarding invalid driectory operations
+
+Collaborators:
+*N/A

@@ -1,0 +1,10 @@
+Class name: MalformedInputException
+Parent class: InvalidArgsProvidedException
+Subclasses: N/A
+Implements: N/A
+
+Responsibilties:
+*Throws an exception regarding imporper use of quotations
+
+Collaborators:
+*N/A

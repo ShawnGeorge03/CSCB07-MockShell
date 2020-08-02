@@ -1,0 +1,10 @@
+Class name: InvalidCommandException
+Parent class: InvalidArgsProvidedException
+Subclasses: N/A
+Implements: N/A
+
+Responsibilties:
+*Throws an exception regarding invalid commands
+
+Collaborators:
+*N/A

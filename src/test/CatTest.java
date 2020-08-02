@@ -61,10 +61,10 @@ public class CatTest {
     }
 
     /**
-     * Test A : User provides no input
+     * Test : User provides no input
     */
     @Test
-    public void testANoArgs(){
+    public void testNoArgs(){
         //Declares and initializes an empty array
         String[] emptyArr = {};
         //Expected return from Cat
@@ -76,10 +76,10 @@ public class CatTest {
     }
 
     /**
-     * Test B : File not Found , Absolute Path
+     * Test : File not Found , Absolute Path
     */
     @Test
-    public void testBFileNotFoundCase1(){
+    public void testFileNotFoundCase1(){
         //Expected return from Cat
         expected = "Error: File Not Found : /pics/picflex";
         //Actual return from Cat after the operation has been run
@@ -88,10 +88,10 @@ public class CatTest {
         assertEquals(expected, actual);
     }
     /**
-     * Test C : File Exists Absolute Path
+     * Test : File Exists Absolute Path
     */
     @Test
-    public void testCAbsolutePath(){
+    public void testAbsolutePath(){
         //Expected return from Cat
         expected = "this is a document";
         //Actual return from Cat after the operation has been run
@@ -101,10 +101,10 @@ public class CatTest {
     }
 
     /**
-     * Test D : File not Found , Relative Path
+     * Test : File not Found , Relative Path
     */
     @Test
-    public void testDFileNotFoundCase2(){
+    public void testFileNotFoundCase2(){
         //Expected return from Cat
         expected = "Error: File Not Found : A0";
         //Actual return from Cat after the operation has been run
@@ -113,10 +113,10 @@ public class CatTest {
         assertEquals(expected, actual);
     }
     /**
-     * Test E : File Exists , Relative Path
+     * Test : File Exists , Relative Path
     */
     @Test
-    public void testERelativePath(){
+    public void testRelativePath(){
         //Expected return from Cat
         expected = "Wow what a project";
         //Actual return from Cat after the operation has been run
@@ -126,10 +126,10 @@ public class CatTest {
     }
 
     /**
-     * Test F : Multiple Files of different file paths
+     * Test : Multiple Files of different file paths
     */
     @Test
-    public void testFMultipleFiles(){
+    public void testMultipleFiles(){
         //Expected return from Cat    
         expected = "this is a document 2" + "\n" + "\n" + "\n" + "Wow what a project";
         //Actual return from Cat after the operation has been run
@@ -139,10 +139,10 @@ public class CatTest {
     }
 
     /**
-     * Test G : Multiple Files of different file paths but one File Not Found
+     * Test : Multiple Files of different file paths but one File Not Found
     */
     @Test
-    public void testGFileNotFoundCase3(){
+    public void testFileNotFoundCase3(){
         //Expected return from Cat
         expected =  "Error: File Not Found : LOL";
         //Actual return from Cat after the operation has been run
@@ -153,10 +153,10 @@ public class CatTest {
     }
 
     /**
-     * Test H : User chooses to overwrite contents of a file with the results
+     * Test : User chooses to overwrite contents of a file with the results
      */
     @Test
-    public void testHRedirectionOverwrite(){
+    public void testRedirectionOverwrite(){
         //Expected return from Cat
         expected =  "2+2=5" + "\n" + "\n" + "\n" + "this is a document 2";
         //Actual return from Cat after the operation has been run
@@ -167,10 +167,10 @@ public class CatTest {
     }
 
     /**
-     * Test I : User chooses to append the result to the contents of a file
+     * Test : User chooses to append the result to the contents of a file
      */
     @Test  
-    public void testIRedirectionAppend(){
+    public void testRedirectionAppend(){
         //Expected return from Cat
         expected =  "2+2=5" + "\n" + "\n" + "\n" + "this is a document 2";
         //Actual return from Cat after the operation has been run
@@ -181,10 +181,10 @@ public class CatTest {
     }
 
     /**
-     * Test J : User provides no files for the redirection
+     * Test : User provides no files for the redirection
      */
     @Test
-    public void testJRedirectionErrorCase1(){
+    public void testRedirectionErrorCase1(){
         //Expected return from Cat
         expected = "Error : No parameters provided for redirection";
         //Actual return from Cat after the operation has been run
@@ -194,10 +194,10 @@ public class CatTest {
     }
 
     /**
-     * Test K : User provides multiple files for the redirection
+     * Test : User provides multiple files for the redirection
      */
     @Test
-    public void testKRedirectionErrorCase2(){
+    public void testRedirectionErrorCase2(){
         //Expected return from Cat
         expected = "Error : Multiple Parameters have been provided : [LOL, zip] Only one is required for redirection";
         //Actual return from Cat after the operation has been run
@@ -207,10 +207,10 @@ public class CatTest {
     }
 
     /**
-     * Test L : User provides an invalid file and redirects input to file
+     * Test : User provides an invalid file and redirects input to file
      */
     @Test  
-    public void testLRedirectionErrorCase3(){
+    public void testRedirectionErrorCase3(){
         //Expected return from Cat
         expected =  "Error: File Not Found : LOL";
         //Actual return from Cat after the operation has been run
@@ -221,10 +221,10 @@ public class CatTest {
     }
 
     /**
-     * Test I : User chooses to overwrite to a file with invalid name
+     * Test : User chooses to overwrite to a file with invalid name
      */
     @Test  
-    public void testIRedirectionErrorCase4(){
+    public void testRedirectionErrorCase4(){
         //Expected return from Cat
         expected =  "Error: Invalid File : Hello$ is not a valid file name";
         //Actual return from Cat after the operation has been run

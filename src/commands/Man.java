@@ -38,267 +38,323 @@ import errors.InvalidArgsProvidedException;
  * Class man provides documentation for requested command
  */
 public class Man implements CommandI {
-    /**
-     * Declare instance variable of Hashtable
-     */
-    Hashtable<String, String> manMap;
+        /**
+         * Declare instance variable of Hashtable
+         */
+        Hashtable<String, String> manMap;
 
-    private RedirectionManager redirect;
+        private RedirectionManager redirect;
 
-    String output;
+        String output;
 
-    /**
-     * Constructor for Man which initializes instance variables and fills Hashtable
-     */
-    public Man() {
-        // Creates a HashTable Object called manMap
-        manMap = new Hashtable<String, String>();
-        // Initializes a ErrorHandler Object
-        this.redirect = new RedirectionManager();
-        // Initializes the Hashtable with the keys and values
-        setDictionary();
-    }
-
-    /**
-     * Provides documentation depending on the command requested
-     * 
-     * @param filesys   the refrence to the FileSystemI
-     *                  object(FileSystem/MockFileSystem)
-     * @param args      the string array with all arguements provided by user
-     * @param fullInput the string that contains the raw input provided by user in
-     *                  JShell
-     * @param val       stores a boolean value
-     * @return the documentation of the requested commands
-     */
-    public String run(FileSystemI filesys,  String[] args,  String fullInput, boolean val) {
-        String[] parsedArgs = redirect.setParams(fullInput);
-
-        try {
-            if (checkArgs(filesys, parsedArgs, fullInput)) {
-                output = redirect.outputResult(filesys, manMap.get(parsedArgs[0]));
-            }
-        } catch (InvalidArgsProvidedException e) {
-            return e.getLocalizedMessage();
+        /**
+         * Constructor for Man which initializes instance variables and fills Hashtable
+         */
+        public Man() {
+                // Creates a HashTable Object called manMap
+                manMap = new Hashtable<String, String>();
+                // Initializes a ErrorHandler Object
+                this.redirect = new RedirectionManager();
+                // Initializes the Hashtable with the keys and values
+                setDictionary();
         }
 
-        return output;
-    }
+        /**
+         * Provides documentation depending on the command requested
+         * 
+         * @param filesys   the refrence to the FileSystemI
+         *                  object(FileSystem/MockFileSystem)
+         * @param args      the string array with all arguements provided by user
+         * @param fullInput the string that contains the raw input provided by user in
+         *                  JShell
+         * @param val       stores a boolean value
+         * @return the documentation of the requested commands
+         */
+        public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+                String[] parsedArgs = redirect.setParams(fullInput);
 
-    @Override
-    public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
-        if (String.join(" ", arguments).contains("Error : No parameters provided")) {
-            throw new InvalidArgsProvidedException(String.join(" ", arguments));
-        } else if (String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")) {
-            throw new InvalidArgsProvidedException(String.join(" ", arguments));
-             // If the user provides no command to checked with
-        }else if (arguments.length == 0) {
-            throw new InvalidArgsProvidedException(
-                    "Error : No argument(s) provided : Man requires one supported command");
-            // If the user provides more than one command
-        } else if (arguments.length > 1) {
-            // Returns an error
-            throw new InvalidArgsProvidedException(
-                    "Error : Multiple Arguments have been provided : Only one supported command is required");
-            // If the command is not supported by Man
-        } else if (!manMap.containsKey(arguments[0])) {
-            // Returns an error
-            throw new InvalidArgsProvidedException(
-                    "Error: Invalid Argument : " + arguments[0] + " is not a supported command supported one is required");
+                try {
+                        if (checkArgs(filesys, parsedArgs, fullInput)) {
+                                output = redirect.outputResult(filesys, manMap.get(parsedArgs[0]));
+                        }
+                } catch (InvalidArgsProvidedException e) {
+                        return e.getLocalizedMessage();
+                }
+
+                return output;
         }
-        return true;
-    }
-    
-    /**
-     * Fills Hashtable with all commands and their respective documentation
-     */
-    public void setDictionary() {
-        // Adds a key named speak and adds its manual
-        manMap.put("speak", "Command : speak" + "\n\tConverts text to audiable speech"
-                + "\n\n\tParameter : Text must be inside of quotes(\" \") " + "\n\tto be converted to audio "
-                + "\n\n\tParameter : If there was no text provided then all"
-                + "\n\tinput provided next will be converted to audio, it"
-                + "\n\twill only exit if the special key word QUIT is used"
-                + "\n\n\tSample Output : $ speak \"Hello World\"" + "\n\tConverts Hello World to audio and exits"
-                + "\n\n\tSample Output : $ speak" + "\n\t$ What's up" + "\n\tConverts Whats up to audio"
-                + "\n\t$ Hello Professor, How are you QUIT"
-                + "\n\tConverts Hello Professor How are you to audio and exits ");
 
-        // Adds a key named mkdir and adds its manual
-        manMap.put("mkdir", "Command : mkdir DIR" + "\n\tCreates one or more directory for a given set of DIR(s)"
-                + "\n\n\tParameter : DIR can be either absolute or relative path"
-                + "\n\tParameter : It can take a list of DIR or at least on DIR"
-                + "\n\tParameter : DIR must contain a unique file name and must not contain the following "
-                + "\n\t\tInvalid Chars : /, ., , !, @, #, $, %, ^, &, *, (, ), {, }, ~, |, <, >, ?"
-                + "\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
-                + "\n\n\tSample Use Case : $ mkdir user"
-                + "\n\tCreates a directory called user with in the current working directory -> Relative DIR"
-                + "\n\n\tSample Use Case : $ mkdir /user/user1"
-                + "\n\tCreates a directory called user1 inside of user -> Absolute DIR"
-                + "\n\n\tSample Use Case : $ mkdir /user/user1/desktop resources resources/driver"
-                + "\n\tCreates a desktop folder in user1 and a resources folder in the"
-                + "\n\tcurrent directory and a driver folder in resources -> List of DIR");
+        @Override
+        public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput)
+                        throws InvalidArgsProvidedException {
+                if (String.join(" ", arguments).contains("Error : No parameters provided")) {
+                        throw new InvalidArgsProvidedException(String.join(" ", arguments));
+                } else if (String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")) {
+                        throw new InvalidArgsProvidedException(String.join(" ", arguments));
+                        // If the user provides no command to checked with
+                } else if (arguments.length == 0) {
+                        throw new InvalidArgsProvidedException(
+                                        "Error : No argument(s) provided : Man requires one supported command");
+                        // If the user provides more than one command
+                } else if (arguments.length > 1) {
+                        // Returns an error
+                        throw new InvalidArgsProvidedException(
+                                        "Error : Multiple Arguments have been provided : Only one supported command is required");
+                        // If the command is not supported by Man
+                } else if (!manMap.containsKey(arguments[0])) {
+                        // Returns an error
+                        throw new InvalidArgsProvidedException("Error: Invalid Argument : " + arguments[0]
+                                        + " is not a supported command supported one is required");
+                }
+                return true;
+        }
 
-        // Adds a key named cd and adds its manual
-        manMap.put("cd", "Command: cd DIR" + "\n\tChanges the current working directory to DIR"
-                + "\n\n\tParameter : DIR can be either absolute or relative path"
-                + "\n\tParameter : It has to be only on DIR"
-                + "\n\tParameter : DIR must be a possible path the exist in the File System"
-                + "\n\tParameter : DIR cannot be a file path"
-                + "\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
-                + "\n\n\tSpecial Charaters for DIR:" + "\n\tIf DIR is . then it stays at the current working directory"
-                + "\n\tIf DIR is .. then it moves back one directory from the current working directory"
-                + "\n\tIf DIR is \\ then it sets the current working directory to the root of the File System"
-                + "\n\tIf DIR is ../ or ../.. or some combination of those then it will go back n pairs of directories"
-                + "\n\n\tSample Use Case : cd /" + "\n\tSets the current working directory to /"
-                + "\n\tSample Use Case : cd user" + "\n\tSets the current working directory to the /user"
-                + "\n\tSample Use Case : cd user1/desktop"
-                + "\n\tSets the current working directory to the /user/user1/desktop"
-                + "\n\tSample Use Case : cd ../../.." + "\n\tSets the current working directory to the /");
+        /**
+         * Fills Hashtable with all commands and their respective documentation
+         */
+        public void setDictionary() {
+                // Adds a key named speak and adds its manual
+                manMap.put("speak", "Command : speak" + "\n\tConverts text to audiable speech"
+                                + "\n\n\tParameter : Text must be inside of quotes(\" \") "
+                                + "\n\tto be converted to audio "
+                                + "\n\n\tParameter : If there was no text provided then all"
+                                + "\n\tinput provided next will be converted to audio, it"
+                                + "\n\twill only exit if the special key word QUIT is used"
+                                + "\n\n\tSample Output : $ speak \"Hello World\""
+                                + "\n\tConverts Hello World to audio and exits" + "\n\n\tSample Output : $ speak"
+                                + "\n\t$ What's up" + "\n\tConverts Whats up to audio"
+                                + "\n\t$ Hello Professor, How are you QUIT"
+                                + "\n\tConverts Hello Professor How are you to audio and exits ");
 
-        // Adds a key named ls and adds its manual
-        manMap.put("ls", "Command: ls" + "\nLists all the files and directories within the specified directory"
-                + "\nParameters: No arguments or an absolute or relative pathname"
-                + "\nIf not arguments, all files and directories within " + "current working directory will be listed"
-                + "\nIf pathname provided, all files and directories in that path" + " will be listed");
+                // Adds a key named mkdir and adds its manual
+                manMap.put("mkdir", "Command : mkdir DIR"
+                                + "\n\tCreates one or more directory for a given set of DIR(s)"
+                                + "\n\n\tParameter : DIR can be either absolute or relative path"
+                                + "\n\tParameter : It can take a list of DIR or at least on DIR"
+                                + "\n\tParameter : DIR must contain a unique file name and must not contain the following "
+                                + "\n\t\tInvalid Chars : /, ., , !, @, #, $, %, ^, &, *, (, ), {, }, ~, |, <, >, ?"
+                                + "\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
+                                + "\n\n\tSample Use Case : $ mkdir user"
+                                + "\n\tCreates a directory called user with in the current working directory -> Relative DIR"
+                                + "\n\n\tSample Use Case : $ mkdir /user/user1"
+                                + "\n\tCreates a directory called user1 inside of user -> Absolute DIR"
+                                + "\n\n\tSample Use Case : $ mkdir /user/user1/desktop resources resources/driver"
+                                + "\n\tCreates a desktop folder in user1 and a resources folder in the"
+                                + "\n\tcurrent directory and a driver folder in resources -> List of DIR");
 
-        // Adds a key named pwd and adds its manual
-        manMap.put("pwd", "Command: pwd" + "\nPrints the current working directory");
+                // Adds a key named cd and adds its manual
+                manMap.put("cd", "Command: cd DIR" + "\n\tChanges the current working directory to DIR"
+                                + "\n\n\tParameter : DIR can be either absolute or relative path"
+                                + "\n\tParameter : It has to be only on DIR"
+                                + "\n\tParameter : DIR must be a possible path the exist in the File System"
+                                + "\n\tParameter : DIR cannot be a file path"
+                                + "\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
+                                + "\n\n\tSpecial Charaters for DIR:"
+                                + "\n\tIf DIR is . then it stays at the current working directory"
+                                + "\n\tIf DIR is .. then it moves back one directory from the current working directory"
+                                + "\n\tIf DIR is \\ then it sets the current working directory to the root of the File System"
+                                + "\n\tIf DIR is ../ or ../.. or some combination of those then it will go back n pairs of directories"
+                                + "\n\n\tSample Use Case : cd /" + "\n\tSets the current working directory to /"
+                                + "\n\tSample Use Case : cd user"
+                                + "\n\tSets the current working directory to the /user"
+                                + "\n\tSample Use Case : cd user1/desktop"
+                                + "\n\tSets the current working directory to the /user/user1/desktop"
+                                + "\n\tSample Use Case : cd ../../.."
+                                + "\n\tSets the current working directory to the /");
 
-        // Adds a key named pushd and adds its manual
-        manMap.put("pushd", "Command: pushd" + "\nTakes a relative or absolute path as an argument and "
-                + "pushes it onto\n" + "the current directory stack and traverses into that path");
+                // Adds a key named ls and adds its manual
+                manMap.put("ls", "Command: ls" + "\nLists all the files and directories within the specified directory"
+                                + "\nParameters: No arguments or an absolute or relative pathname"
+                                + "\nIf not arguments, all files and directories within "
+                                + "current working directory will be listed"
+                                + "\nIf pathname provided, all files and directories in that path" + " will be listed"
+                                + "\n\n\tREDIRECTION : This command does allow the output"
+                                + "\n\tto be redirected to a file instead of the console "
+                                + "\n\tif there is any output for the command");
 
-        // Adds a key named popd and adds its manual
-        manMap.put("popd", "Command: popd" + "\nPops the latest directory on the directory stack into the\n"
-                + "current working directory and traverses into that path");
+                // Adds a key named pwd and adds its manual
+                manMap.put("pwd", "Command: pwd" + "\nPrints the current working directory"
+                                + "\n\n\tParameters : pwd takes no arguments"
+                                + "\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
+                                + "\n\n\tREDIRECTION : This command does allow the output"
+                                + "\n\tto be redirected to a file instead of the console "
+                                + "\n\tif there is any output for the command");
 
-        // Adds a key named history and adds its manual
-        manMap.put("history",
-                "Command : history" + "\n\tPrints out recent commands, one command per line. "
-                        + "\n\tIf there is a number after the commad, then the output is "
-                        + "\n\ttruncated by the specified numeber"
-                        + "\n\n\tParameter : None or a whole number (3, 7, 100 and such)"
-                        + "\n\n\tSample Output : $ history" + "\n\t 1. ls" + "\n\t 2. cd users " + "\n\t 3. pwd"
-                        + "\n\t 4. echo \"Hello World\" > C/pics/picturefile" + "\n\t 5. cat C/pics/picturefile.txt"
-                        + "\n\t 6. history" + "\n\n\tSample Output : $ history 4"
-                        + "\n\t 4. echo \"Hello World\" > C/pics/picturefile" + "\n\t 5. cat C/pics/picturefile.txt"
-                        + "\n\t 6. history" + "\n\t 7. history 4");
+                // Adds a key named pushd and adds its manual
+                manMap.put("pushd PATH", "Command: pushd" + "\nTakes a relative or absolute path as an argument and "
+                                + "pushes it onto\n" + "the current directory stack and traverses into that path"
+                                + "\n\n\tParameter : PATH must be a valid directory path and only path is needed"
+                                + "\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
+                                + "\n\n\tREDIRECTION : This command does not allow the output"
+                                + "\n\tto be redirected to a file instead of the console "
+                                + "\n\tif there is any output for the command");
 
-        // Adds a key named cat and adds its manual
-        manMap.put("cat",
-                "Command : cat" + "\n\tDisplays the content of File(s) in series"
-                        + "\n\n\tParameter : FILE(s) can be absolute or relative path(s)"
-                        + "\n\tParameter : It requires a file or can take a list of "
-                        + "\n\tFILE(s) seperated by a space" + "\n\n\tSample Output : $ cat picturefile"
-                        + "\n\tThis is a picture file" + "\n\n\tSample Output : $ cat C/pics/picturefile text C/hello"
-                        + "\n\tThis is a picture file" + "\n\n\n\tHello World" + "\n\n\n\tHow are you QUIT");
+                // Adds a key named popd and adds its manual
+                manMap.put("popd", "Command: popd" + "\nPops the latest directory on the directory stack into the\n"
+                                + "current working directory and traverses into that path"
+                                + "\n\n\tParameters : popd takes no arguments"
+                                + "\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
+                                + "\n\n\tREDIRECTION : This command does not allow the output"
+                                + "\n\tto be redirected to a file instead of the console "
+                                + "\n\tif there is any output for the command");
 
-        // Adds a key named echo and adds its manual
-        manMap.put("echo",
-                "Command: echo" + "\n\tParameters: String (in quotations), and arrow or"
-                        + "\n\tdouble arrow followed by filename" + "\n\n\tIf provided without arrow and fileaname, "
-                        + "\n\tit simply prints out string in the console"
-                        + "\n\n\tIf provided with a single arrow and filename,"
-                        + "\n\tit overwrites that file's content with the string"
-                        + "\n\n\tIf provided with double arrow and filename, "
-                        + "\n\tit appends that file's content with the string"
-                        + "\n\n\tFilename can be given in the form of an absolute" + "\n\tpath or relative path");
+                // Adds a key named history and adds its manual
+                manMap.put("history", "Command : history" + "\n\tPrints out recent commands, one command per line. "
+                                + "\n\tIf there is a number after the commad, then the output is "
+                                + "\n\ttruncated by the specified numeber"
+                                + "\n\n\tParameter : None or a whole number (3, 7, 100 and such)"
+                                + "\n\n\tREDIRECTION : This command does allow the output"
+                                + "\n\tto be redirected to a file instead of the console "
+                                + "\n\tif there is any output for the command" + "\n\n\tSample Output : $ history"
+                                + "\n\t 1. ls" + "\n\t 2. cd users " + "\n\t 3. pwd"
+                                + "\n\t 4. echo \"Hello World\" > C/pics/picturefile"
+                                + "\n\t 5. cat C/pics/picturefile.txt" + "\n\t 6. history"
+                                + "\n\n\tSample Output : $ history 4"
+                                + "\n\t 4. echo \"Hello World\" > C/pics/picturefile"
+                                + "\n\t 5. cat C/pics/picturefile.txt" + "\n\t 6. history" + "\n\t 7. history 4");
 
-        // Adds a key named man and adds its manual
-        manMap.put("man", "Command: man CMD" + "\n\tProvides documentation on all commands within THIS Java Shell"
-                + "\n\tProvides information such as arguments and function."
-                + "\n\n\tREDIRECTION : This command allows the output to be redirected "
-                + "\n\tto the a file instead of the console" + "\n\n\tParameter: Requires one supported CMD"
-                + "\n\n\tIf any or multiple of these parameter are not meet an \n\terror will be outputed respectively"
-                + "\n\n\tREDIRECTION : This command does not allow the output"
-                + "\n\tto be redirected to a file instead of the console "
-                + "\n\tif there is any output for the command" + "\n\n\tSample Use Case : man man "
-                + "\n\tThis would output the the mannual for man" + "\n\n\tSample Use Case: man man > mannul"
-                + "\n\tThe file named mannul gets overwritten with the mannual for man");
+                // Adds a key named cat and adds its manual
+                manMap.put("cat", "Command : cat" + "\n\tDisplays the content of File(s) in series"
+                                + "\n\n\tParameter : FILE(s) can be absolute or relative path(s)"
+                                + "\n\tParameter : It requires a file or can take a list of "
+                                + "\n\tFILE(s) seperated by a space" + "\n\n\tSample Output : $ cat picturefile"
+                                + "\n\tThis is a picture file"
+                                + "\n\n\tSample Output : $ cat C/pics/picturefile text C/hello"
+                                + "\n\tThis is a picture file" + "\n\n\n\tHello World" + "\n\n\n\tHow are you QUIT"
+                                + "\n\n\tREDIRECTION : This command does allow the output"
+                                + "\n\tto be redirected to a file instead of the console "
+                                + "\n\tif there is any output for the command");
 
-        // Adds a key named exit and adds its manual
-        manMap.put("exit",
-                "Command : exit" + "\n\tCloses the current session and leaves the Shell" + "\n\n\tParameter : None"
-                        + "\n\n\tIf any or multiple of these parameter are not meet an "
-                        + "\n\terror will be outputed respectively"
-                        + "\n\n\tREDIRECTION : This command does not allow the output"
-                        + "\n\tto be redirected to a file instead of the console "
-                        + "\n\tif there is any output for the command");
+                // Adds a key named echo and adds its manual
+                manMap.put("echo", "Command: echo" + "\n\tParameters: String (in quotations), and arrow or"
+                                + "\n\tdouble arrow followed by filename"
+                                + "\n\n\tIf provided without arrow and fileaname, "
+                                + "\n\tit simply prints out string in the console"
+                                + "\n\n\tIf provided with a single arrow and filename,"
+                                + "\n\tit overwrites that file's content with the string"
+                                + "\n\n\tIf provided with double arrow and filename, "
+                                + "\n\tit appends that file's content with the string"
+                                + "\n\n\tFilename can be given in the form of an absolute" + "\n\tpath or relative path"
+                                + "\n\n\tREDIRECTION : This command does allow the output"
+                                + "\n\tto be redirected to a file instead of the console "
+                                + "\n\tif there is any output for the command");
 
-        // Adds a key named rm and adds its manual
-        manMap.put("rm", "Command: rm DIR" + "\n\tRemoves the give DIR from the file system"
-                + "\n\n\tParameter : DIR can be either absolute or relative path"
-                + "\n\tParameter : It has to be only on DIR"
-                + "\n\tParameter : DIR must be a possible path the exist in the file System"
-                + "\n\tParameter : DIR cannot be a file path"
-                + "\n\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
-                + "\n\n\tREDIRECTION : This command does not allow the output"
-                + "\n\tto be redirected to the a file instead of the console" + "\n\n\tSample Use Case : rm resources"
-                + "\n\tRemoves the directory resources with in the current working directory"
-                + "\n\n\tSample Use Case : rm /user/user1/desktop"
-                + "\n\tRemoves the directory desktop which is in the user1 directory"
-                + "\n\twhich is in user which is the root of file system");
+                // Adds a key named man and adds its manual
+                manMap.put("man", "Command: man CMD"
+                                + "\n\tProvides documentation on all commands within THIS Java Shell"
+                                + "\n\tProvides information such as arguments and function."
+                                + "\n\n\tREDIRECTION : This command allows the output to be redirected "
+                                + "\n\tto the a file instead of the console"
+                                + "\n\n\tParameter: Requires one supported CMD"
+                                + "\n\n\tIf any or multiple of these parameter are not meet an \n\terror will be outputed respectively"
+                                + "\n\n\tREDIRECTION : This command does allow the output"
+                                + "\n\tto be redirected to a file instead of the console "
+                                + "\n\tif there is any output for the command"
+                                + "\n\tif there is any output for the command" + "\n\n\tSample Use Case : man man "
+                                + "\n\tThis would output the the mannual for man"
+                                + "\n\n\tSample Use Case: man man > mannul"
+                                + "\n\tThe file named mannul gets overwritten with the mannual for man");
 
-        // Adds a key named mv and adds its manual
-        manMap.put("mv", "Command: mv OLDPATH NEWPATH");
+                // Adds a key named exit and adds its manual
+                manMap.put("exit",
+                                "Command : exit" + "\n\tCloses the current session and leaves the Shell"
+                                                + "\n\n\tParameter : None"
+                                                + "\n\n\tIf any or multiple of these parameter are not meet an "
+                                                + "\n\terror will be outputed respectively"
+                                                + "\n\n\tREDIRECTION : This command does not allow the output"
+                                                + "\n\tto be redirected to a file instead of the console "
+                                                + "\n\tif there is any output for the command");
 
-        // Adds a key named cp and adds its manual
-        manMap.put("cp", "Command: cp OLDPATH NEWPATH");
+                // Adds a key named rm and adds its manual
+                manMap.put("rm", "Command: rm DIR" + "\n\tRemoves the give DIR from the file system"
+                                + "\n\n\tParameter : DIR can be either absolute or relative path"
+                                + "\n\tParameter : It has to be only on DIR"
+                                + "\n\tParameter : DIR must be a possible path the exist in the file System"
+                                + "\n\tParameter : DIR cannot be a file path"
+                                + "\n\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
+                                + "\n\n\tREDIRECTION : This command does not allow the output"
+                                + "\n\tto be redirected to the a file instead of the console"
+                                + "\n\n\tSample Use Case : rm resources"
+                                + "\n\tRemoves the directory resources with in the current working directory"
+                                + "\n\n\tSample Use Case : rm /user/user1/desktop"
+                                + "\n\tRemoves the directory desktop which is in the user1 directory"
+                                + "\n\twhich is in user which is the root of file system");
 
-        // Adds a key named curl and adds its manual
-        manMap.put("curl", "Command: curl URL"
-                + "\n\tRetrives the content of the a file at the URL and adds it to the current working directory"
-                + "\n\n\tParameter : URL must be a valid link and should have the file name in the URL"
-                + "\n\tParameter : It has to be only one URL"
-                + "\n\n\tREDIRECTION : This command does not allow the output"
-                + "\n\tto be redirected to the a file instead of the console"
-                + "\n\n\tSample Use Case : curl http://www.cs.utoronto.ca/~trebla//CSCB09-2020-Summer/course-info.html"
-                + "\n\tCreates a course-info file in the current directory and stores the content of the file from the URL");
+                // Adds a key named mv and adds its manual
+                manMap.put("mv", "Command: mv OLDPATH NEWPATH" + "Removes OLDPATH and moves it to new NEWPATH"
+                                + "\n\n\tParameters : OLDPATH and NEWPATH must be directory"
+                                + "\n\n\tREDIRECTION : This command does not allow the output"
+                                + "\n\tto be redirected to a file instead of the console "
+                                + "\n\tif there is any output for the command");
 
-        // Adds a key named save and adds its manual
-        manMap.put("save", "Command: save FILE" + "\n\tSave the current session of the JShell and stores it to a "
-                + "\n\tFILE on the users actual file system" + "\n\n\tParameter : FILE can be relative or absolute path"
-                + "\n\tParameter : There can only be one FILE"
-                + "\n\n\tREDIRECTION : This command does not allow the output"
-                + "\n\tto be redirected to a file instead of the console "
-                + "\n\tif there is any output for the command");
+                // Adds a key named cp and adds its manual
+                manMap.put("cp", "Command: cp OLDPATH NEWPATH" + "Creates a copy of OLDPATH and moves it to new NEWPATH"
+                                + "\n\n\tParameters : OLDPATH and NEWPATH must be directory"
+                                + "\n\n\tREDIRECTION : This command does not allow the output"
+                                + "\n\tto be redirected to a file instead of the console "
+                                + "\n\tif there is any output for the command");
 
-        // Adds a key named load and adds its manual
-        manMap.put("load", "Command: load FILE" + "\n\tLoads up a previous session of the JShell "
-                + "\n\tand sets up the JShell to that state" + "\n\n\tParameter : FILE can be relative or absolute path"
-                + "\n\tParameter : There can only be one FILE"
-                + "\n\n\tREDIRECTION : This command does not allow the output"
-                + "\n\tto be redirected to a file instead of the console "
-                + "\n\tif there is any output for the command");
+                // Adds a key named curl and adds its manual
+                manMap.put("curl", "Command: curl URL"
+                                + "\n\tRetrives the content of the a file at the URL and adds it to the current working directory"
+                                + "\n\n\tParameter : URL must be a valid link and should have the file name in the URL"
+                                + "\n\tParameter : It has to be only one URL"
+                                + "\n\n\tREDIRECTION : This command does not allow the output"
+                                + "\n\tto be redirected to a file instead of the console"
+                                + "\n\n\tSample Use Case : curl http://www.cs.utoronto.ca/~trebla//CSCB09-2020-Summer/course-info.html"
+                                + "\n\tCreates a course-info file in the current directory and stores the content of the file from the URL");
 
-        // Adds a key named find and adds its manual
-        manMap.put("find", "Command: find PATH -type[f|d] -name EXPRESSION"
-                + "\n\tSearches the give PATH for a file/directory called EXPRESSION"
-                + "\n\n\tParameter : PATH can be either absolute or relative path"
-                + "\n\tParameter : It can be one PATH or multiple PATH"
-                + "\n\tParameter : PATH must be a possible path the exist in the File System"
-                + "\n\tParameter : PATH cannot be a file path" + "\n\tParamerter : If type is f then it is a file"
-                + "\n\tParamerter : If type is d then it is a directory"
-                + "\n\tParameter : The EXPRESSION must be surrounded by quotes"
-                + "\n\n\tREDIRECTION : This command allows for the output"
-                + "\n\tto be redirected to a file instead of the console "
-                + "\n\tif there is any output for the command"
-                + "\n\n\tSample Use Case: find /users/desktop -type f -name \"A2\""
-                + "\n\tSearches the desktop directory for a file named A2"
-                + "\n\n\tSample Use Case: find / -type d -name \"resources\""
-                + "\n\tSearches the root directory for directories named resources");
+                // Adds a key named save and adds its manual
+                manMap.put("save",
+                                "Command: save FILE" + "\n\tSave the current session of the JShell and stores it to a "
+                                                + "\n\tFILE on the users actual file system"
+                                                + "\n\n\tParameter : FILE can be relative or absolute path"
+                                                + "\n\tParameter : There can only be one FILE"
+                                                + "\n\n\tREDIRECTION : This command does not allow the output"
+                                                + "\n\tto be redirected to a file instead of the console "
+                                                + "\n\tif there is any output for the command");
 
-        // Adds a key named tree and adds its manual
-        manMap.put("tree", "Command: tree" + "\n\tDisplays the entire file system as a tree" + "\n\n\tParameter : None"
-                + "\n\tIf any of these parameter are not meet an error will be outputed respectively"
-                + "\n\n\tREDIRECTION : This command allows for the output"
-                + "\n\tto be redirected to a file instead of the console "
-                + "\n\tif there is any output for the command" + "\n\n\tSample Use Case : tree" + "\n\n  \t\t\\"
-                + "\n\n\tSince there is no other directories in the file \n\tsystem it prints out the root directory only"
-                + "\n\n\tSample Use Case : tree" + "\n\n    \t\t\\\n\t\t users\n\t\t resources"
-                + "\n\n\tThe root directory has two sub \n\tdirectories and so it prints them out"
-                + "\n\n\tSample Use Case : tree"
-                + "\n\n   \t\t\\\n\t\t users\n\t\t\t\b\buser1\n\t\t\t   desktop\n\t\t resources"
-                + "\n\n\tIt prints out all the sub directories in \n\tthe file system one directory at a time");
-    }
+                // Adds a key named load and adds its manual
+                manMap.put("load",
+                                "Command: load FILE" + "\n\tLoads up a previous session of the JShell "
+                                                + "\n\tand sets up the JShell to that state"
+                                                + "\n\n\tParameter : FILE can be relative or absolute path"
+                                                + "\n\tParameter : There can only be one FILE"
+                                                + "\n\n\tREDIRECTION : This command does not allow the output"
+                                                + "\n\tto be redirected to a file instead of the console "
+                                                + "\n\tif there is any output for the command");
+
+                // Adds a key named find and adds its manual
+                manMap.put("find", "Command: find PATH -type[f|d] -name EXPRESSION"
+                                + "\n\tSearches the give PATH for a file/directory called EXPRESSION"
+                                + "\n\n\tParameter : PATH can be either absolute or relative path"
+                                + "\n\tParameter : It can be one PATH or multiple PATH"
+                                + "\n\tParameter : PATH must be a possible path the exist in the File System"
+                                + "\n\tParameter : PATH cannot be a file path"
+                                + "\n\tParamerter : If type is f then it is a file"
+                                + "\n\tParamerter : If type is d then it is a directory"
+                                + "\n\tParameter : The EXPRESSION must be surrounded by quotes"
+                                + "\n\n\tREDIRECTION : This command allows for the output"
+                                + "\n\tto be redirected to a file instead of the console "
+                                + "\n\tif there is any output for the command"
+                                + "\n\n\tSample Use Case: find /users/desktop -type f -name \"A2\""
+                                + "\n\tSearches the desktop directory for a file named A2"
+                                + "\n\n\tSample Use Case: find / -type d -name \"resources\""
+                                + "\n\tSearches the root directory for directories named resources");
+
+                // Adds a key named tree and adds its manual
+                manMap.put("tree", "Command: tree" + "\n\tDisplays the entire file system as a tree"
+                                + "\n\n\tParameter : None"
+                                + "\n\tIf any of these parameter are not meet an error will be outputed respectively"
+                                + "\n\n\tREDIRECTION : This command allows for the output"
+                                + "\n\tto be redirected to a file instead of the console "
+                                + "\n\tif there is any output for the command" + "\n\n\tSample Use Case : tree"
+                                + "\n\n  \t\t\\"
+                                + "\n\n\tSince there is no other directories in the file \n\tsystem it prints out the root directory only"
+                                + "\n\n\tSample Use Case : tree" + "\n\n    \t\t\\\n\t\t users\n\t\t resources"
+                                + "\n\n\tThe root directory has two sub \n\tdirectories and so it prints them out"
+                                + "\n\n\tSample Use Case : tree"
+                                + "\n\n   \t\t\\\n\t\t users\n\t\t\t\b\buser1\n\t\t\t   desktop\n\t\t resources"
+                                + "\n\n\tIt prints out all the sub directories in \n\tthe file system one directory at a time");
+        }
 }

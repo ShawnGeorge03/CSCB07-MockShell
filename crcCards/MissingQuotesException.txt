@@ -1,0 +1,10 @@
+Class name: MissingQuotesException
+Parent class: InvalidArgsProvidedException
+Subclasses: N/A
+Implements: N/A
+
+Responsibilties:
+*Throws an exception regarding not using quotes
+
+Collaborators:
+*N/A
