@@ -76,7 +76,8 @@ public class Ls extends DirectoryManager implements CommandI {
 	}
 
 	@Override
-	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
+			throws InvalidArgsProvidedException {
 		if (String.join(" ", arguments).contains("Error : No parameters provided")) {
 			throw new InvalidArgsProvidedException(String.join(" ", arguments));
 		} else if (String.join(" ", arguments).contains("Error : Multiple Parameters have been provided")) {
@@ -121,7 +122,8 @@ public class Ls extends DirectoryManager implements CommandI {
 						output += current.getList().get(j).getName() + '\n';
 					}
 				} else {
-					throw new DirectoryException("Error: Invalid Directory : " + args.get(i) + " is not a valid directory\n");
+					throw new DirectoryException("Error: Invalid Directory : " + args.get(i) + 
+					" is not a valid directory\n");
 				}
 
 				Cd goBack = new Cd();
@@ -147,7 +149,8 @@ public class Ls extends DirectoryManager implements CommandI {
 				if (traverse.run(path, filesys)) {
 					output = listDirectory(filesys.getCurrent(), filesys, output);
 				} else {
-					throw new DirectoryException("Error: Invalid Directory : " + args.get(i) + " is not a valid directory\n\n");
+					throw new DirectoryException("Error: Invalid Directory : " + args.get(i) + 
+					" is not a valid directory\n\n");
 				}
 				traverse.run(currentPath, filesys);
 			}

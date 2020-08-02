@@ -94,7 +94,8 @@ public class Find extends DirectoryManager implements CommandI {
 			if (checkArgs(filesys, args, fullInput)) {
 				for (String x : paths) {
 					String[] pathArr = { x };
-					output = rManager.outputResult(filesys, checkList(filesys, pathArr, arguments.get(3), arguments.get(1)));
+					output = rManager.outputResult(filesys, checkList(filesys, pathArr, arguments.get(3)
+						, arguments.get(1)));
 				}
 			}
 				
@@ -117,7 +118,8 @@ public class Find extends DirectoryManager implements CommandI {
 	 * @throws InvalidArgsProvidedException the user provided invalid argument
 	 */
 	@Override
-	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
+		throws InvalidArgsProvidedException {
 		ArrayList<String> args = new ArrayList<String>(Arrays.asList(arguments));
 
 		if (args.size() == 0 || args.size() < 4) {
@@ -138,7 +140,8 @@ public class Find extends DirectoryManager implements CommandI {
 		return true;
 	}
 	
-	private String checkList(FileSystemI filesys, String[] path, String expression, String type) throws DirectoryException {
+	private String checkList(FileSystemI filesys, String[] path, String expression, String type) 
+		throws DirectoryException {
 		//Removing quotations around the expression
 		expression = expression.substring(1, expression.length() - 1);
 		//getting current path so we can traverse back to it after the method is done

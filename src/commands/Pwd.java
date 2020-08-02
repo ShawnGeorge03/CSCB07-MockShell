@@ -72,7 +72,8 @@ public class Pwd extends DirectoryManager implements CommandI {
   }
 
   @Override
-	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
+    throws InvalidArgsProvidedException {
 		return false;
 	}
 

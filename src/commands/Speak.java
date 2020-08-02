@@ -146,7 +146,8 @@ public class Speak implements CommandI {
     return null;
   }
 
-  public boolean checkArgs(FileSystemI fs, String[] arguments, String text) throws MissingQuotesException, MalformedInputException {
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String text) 
+    throws MissingQuotesException, MalformedInputException {
     // If we are not in speak mode
     if (!speakMode) {
       // If the user did not use or partially used quote(s) at the beginning

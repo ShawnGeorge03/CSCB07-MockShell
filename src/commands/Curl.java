@@ -134,7 +134,8 @@ public class Curl implements CommandI {
   }
 
   @Override
-  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
+    throws InvalidArgsProvidedException {
     if (arguments.length == 0) {
       // Returns an error when no URL is provided
       throw new InvalidArgsProvidedException("Error : No parameters provided");

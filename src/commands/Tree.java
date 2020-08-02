@@ -108,7 +108,8 @@ public class Tree implements CommandI {
 	 * @throws InvalidArgsProvidedException the user provided invalid argument
 	 */
 	@Override
-	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
+		throws InvalidArgsProvidedException {
 		//Check if any arguments were provided
 		if (arguments.length != 0) {
 			throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided");

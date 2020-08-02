@@ -63,6 +63,7 @@ interface CommandI {
    * 
    * @throws InvalidArgsProvidedException
    */
-  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException;
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
+    throws InvalidArgsProvidedException;
 
 }

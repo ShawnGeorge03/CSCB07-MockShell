@@ -94,7 +94,8 @@ public class Cd extends DirectoryManager implements CommandI {
    * 
    * @return true if the parameter meet requirements and false if not
    */
-  public boolean checkArgs(FileSystemI filesys, String[] arguments, String fullInput) throws InvalidArgsProvidedException{
+  public boolean checkArgs(FileSystemI filesys, String[] arguments, String fullInput) 
+    throws InvalidArgsProvidedException{
     //Collects the path name(s) from the user input
     String paths = fullInput.substring(fullInput.indexOf("cd") + 2).trim();
     //If the user provided no path name

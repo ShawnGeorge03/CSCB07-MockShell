@@ -156,7 +156,8 @@ public class Cp extends DirectoryManager implements CommandI {
 		}
 		//Checks if the newDirectory to possibly make is a valid directory
 		if (!fs.isValidName(newDir)){
-			throw new DirectoryException("Error: Invalid Directory " + newDir + " is not a valid directory name");
+			throw new DirectoryException("Error: Invalid Directory " + newDir +
+			 " is not a valid directory name");
 		}
 		//Stores the current path the user is at
 		currentPath[0] = fs.getCurrentPath();
@@ -217,12 +218,14 @@ public class Cp extends DirectoryManager implements CommandI {
 			// Throws an exception if no node was built, meaning file/directory doesn't exist in specified path
 			if (toMove == null){
 				throw new DirectoryException(
-						"Error: Directory Not Found : " + fileName + " does not exist in the path you specified!");
+						"Error: Directory Not Found : " + fileName + 
+						" does not exist in the path you specified!");
 			}
 			
 		} else {
 			//Throws an exception if pathFrom path is not a valid path
-			throw new DirectoryException("Error: Invalid Directory : " + pathFrom[0] + " does not exist!");
+			throw new DirectoryException("Error: Invalid Directory : "
+				 + pathFrom[0] + " does not exist!");
 		}
 		return null;
 	}

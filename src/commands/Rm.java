@@ -77,7 +77,8 @@ public class Rm extends DirectoryManager implements CommandI{
 	 * @return true if the parameter meet requirements and false if not
 	 */
 	@Override
-	public boolean checkArgs(FileSystemI filesys, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+	public boolean checkArgs(FileSystemI filesys, String[] arguments, String fullInput) 
+			throws InvalidArgsProvidedException {
 		ArrayList<String> args = new ArrayList<String>(Arrays.asList(arguments));
 		if (args.size() != 1) {
 			throw new InvalidArgsProvidedException("Error: Invalid Argument : Expecting 1 Argument only!");
@@ -131,7 +132,8 @@ public class Rm extends DirectoryManager implements CommandI{
 	 * @throws InvalidArgsProvidedException
 	 * 
 	 */
-	private void removeDir(FileSystemI fs, String[] dirToRemove, String[] currentPath) throws InvalidArgsProvidedException{
+	private void removeDir(FileSystemI fs, String[] dirToRemove, String[] currentPath) 
+			throws InvalidArgsProvidedException{
 		//Checks if the directory exists in the filesystem
 		if (traverseFileSystem.run(dirToRemove, fs)){
 			if (!fs.getCurrent().getisDir()){
@@ -149,7 +151,8 @@ public class Rm extends DirectoryManager implements CommandI{
 			}
 		}else{
 			//Returns an error
-			throw new InvalidArgsProvidedException("Error: Invalid Directory : " + dirToRemove[0] + " is not a directory");
+			throw new InvalidArgsProvidedException("Error: Invalid Directory : " + 
+				dirToRemove[0] + " is not a directory");
 		}
 	}
 }

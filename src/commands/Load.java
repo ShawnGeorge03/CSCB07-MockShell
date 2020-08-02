@@ -94,14 +94,16 @@ public class Load implements CommandI{
    * @return boolean  false if the user inputed no parameters or more than 1 parameter
    */
   @Override
-	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
+    throws InvalidArgsProvidedException {
     //checks if user inputted a parameter or not
     if(arguments.length == 0){
       throw new InvalidArgsProvidedException("Error: Invalid Argument : No arguments should be given");
     }
     //checks if user inputted more than one parameter
     else if(arguments.length > 1){
-      throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided : " + String.join(" ", arguments) + " Only one is required");
+      throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided : " + 
+        String.join(" ", arguments) + " Only one is required");
     }
     //checks if load was the first command inputted 
     else if(!checkCommandLog(fs)){
@@ -232,7 +234,8 @@ public class Load implements CommandI{
    * @param filesys  FileSystem Object that stores the current filesystem
    * @param fullInput  String object that stores the full input provided by user
    */
-  private void validateFileName(FileSystemI filesys, String fullInput) throws InvalidArgsProvidedException{
+  private void validateFileName(FileSystemI filesys, String fullInput) 
+    throws InvalidArgsProvidedException{
     //checks for valid filename
     if(!checkFileName(filePath, filesys)) {
       throw new InvalidArgsProvidedException("Error: Invalid File : " + fullInput);
@@ -401,7 +404,8 @@ public class Load implements CommandI{
    * @param newNode  Node that holds the newly created node that is to be added to the fiesystem
    * @param filesys  FileSystem Object that stores the current filesystem
    */
-  private void traverseFileSystem(Node current, String desiredParentName, Node newNode, FileSystemI filesys) {
+  private void traverseFileSystem(Node current, String desiredParentName, 
+      Node newNode, FileSystemI filesys) {
     //If we have reached the parent node then just add the newNode to the parent node arraylist
     if(current.getName().equals(desiredParentName)) {
       newNode.setParent(current);

@@ -72,7 +72,8 @@ public class Pop extends DirectoryManager implements CommandI {
   }
 
   @Override
-	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
+    throws InvalidArgsProvidedException {
     if(arguments.length > 0){
       throw new InvalidArgsProvidedException("Error: Invalid Argument : No arguments should be given");
     } else if(fs.getStack().size() == 0){

@@ -157,7 +157,8 @@ public class Mv extends DirectoryManager implements CommandI {
 		}
 		//Checks if the possible new directory to be made is valid
 		if (!fs.isValidName(newDir)){
-			throw new DirectoryException("Error: Invalid Directory " + newDir + " is not a valid directory name");
+			throw new DirectoryException("Error: Invalid Directory " + newDir 
+				+ " is not a valid directory name");
 		}
 		//Stores the users current position within the filesystem
 		currentPath[0] = fs.getCurrentPath();
@@ -219,12 +220,14 @@ public class Mv extends DirectoryManager implements CommandI {
 			//Throws an exception if the node wasn't found, meaning the filename was invalid
 			if (toMove == null){
 				throw new DirectoryException(
-						"Error: Directory Not Found : " + fileName + " does not exist in the path you specified!");
+						"Error: Directory Not Found : " + fileName 
+						+ " does not exist in the path you specified!");
 			}
 			
 		} else {
 			//Throws an exception since pathFrom was not valid
-			throw new DirectoryException("Error: Invalid Directory : " + pathFrom[0] + " does not exist!");
+			throw new DirectoryException("Error: Invalid Directory : " 
+			+ pathFrom[0] + " does not exist!");
 		}
 		return null;
 	}

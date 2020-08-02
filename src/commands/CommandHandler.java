@@ -148,7 +148,8 @@ public class CommandHandler {
                 String className = commandMap.get(command);
                 try {
                     // Created an instance of the Class and initialized it
-                    CommandI commandObj = (CommandI) Class.forName(className).getDeclaredConstructor().newInstance();
+                    CommandI commandObj = (CommandI) Class.forName(className)
+                        .getDeclaredConstructor().newInstance();
                     // Calls the run command in that respective class and collects the output
                     outputToConsole(commandObj.run(fs, args, fullInput, speakMode));
                 } catch (InstantiationException e) {

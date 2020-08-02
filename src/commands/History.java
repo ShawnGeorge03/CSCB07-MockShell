@@ -100,7 +100,8 @@ public class History implements CommandI {
    * 
    * @return true if the parameter meet requirements and false if not
    */
-  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException { 
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
+      throws InvalidArgsProvidedException { 
     //If the user provided no file names for redirection
     if(String.join(" ", arguments).contains("Error : No parameters provided")){
       //Throws an error

@@ -76,7 +76,8 @@ public class Exit implements CommandI {
   
   
   @Override
-  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
+    throws InvalidArgsProvidedException {
     if(arguments.length != 0) 
       throw new InvalidArgsProvidedException("Error : Arguments not required : " + 
                   fullInput.substring(fullInput.indexOf("exit ") + 4).trim());

@@ -84,7 +84,8 @@ public class Push extends DirectoryManager implements CommandI {
    * @return Boolean  returns a boolean if arguments are valid for command or not
    */
   @Override
-	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
+      throws InvalidArgsProvidedException {
     if (arguments.length == 0) {
       throw new InvalidArgsProvidedException("Error : No parameters provided");
     }else if(arguments.length > 1){

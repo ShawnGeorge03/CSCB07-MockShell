@@ -91,8 +91,8 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * @param arguments  The string array of all arguments provided
 	 * @return String  An error message, else null
 	 */
-	public String MakeDirectory(String[] arguments, FileSystemI filesys, String fullinput) throws InvalidArgsProvidedException, DirectoryException{
-		
+	public String MakeDirectory(String[] arguments, FileSystemI filesys, String fullinput) 
+		throws InvalidArgsProvidedException, DirectoryException{
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
 		String[] currentPath = {fs.getCurrentPath()};
 		checkArgs(fs, arguments, fullinput);
@@ -110,17 +110,20 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	}
 
 	@Override
-	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {	
+	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
+		throws InvalidArgsProvidedException {	
 		if (args.size() == 0) {
 			throw new InvalidArgsProvidedException("Error: Invalid Argument : Expected at least 1 argument");
 		}
 		for (int i = 0; i < args.size(); i++){
 			setPathAndFile(i);
 			if (!fs.isValidName(fileName)){
-				throw new InvalidArgsProvidedException("Error: Invalid Directory : "  + fileName + " is not a valid directory name");
+				throw new InvalidArgsProvidedException("Error: Invalid Directory : "  
+				+ fileName + " is not a valid directory name");
 			}
 			if (!traverse.run(newArgs, fs)){
-				throw new InvalidArgsProvidedException("Error: Invalid Directory : " + newArgs[0] + " is not a valid directory");
+				throw new InvalidArgsProvidedException("Error: Invalid Directory : " 
+				+ newArgs[0] + " is not a valid directory");
 			}
 		}
 		return true;
@@ -146,7 +149,8 @@ public class Mkdir extends DirectoryManager implements CommandI {
 			ArrayList<Node> parentList = fs.getCurrent().getList();
 			for (int j = 0; j < parentList.size(); j++){
 				if (parentList.get(j).getName().equals(fileName) && parentList.get(j).getisDir()){
-					throw new DirectoryException("Invalid Directory: "  + fileName + " already exists in " + newArgs[0]);
+					throw new DirectoryException("Invalid Directory: "  + 
+					fileName + " already exists in " + newArgs[0]);
 				}
 			}
 		}

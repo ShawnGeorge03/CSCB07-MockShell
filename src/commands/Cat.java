@@ -134,7 +134,8 @@ public class Cat implements CommandI {
    * 
    * @return true if the parameter meet requirements and false if not
    */
-  public boolean checkArgs(FileSystemI filesys, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
+  public boolean checkArgs(FileSystemI filesys, String[] arguments, String fullInput) 
+    throws InvalidArgsProvidedException {
     //Collects the content of the array as one string with spaces in between elements or array 
     String error = String.join(" ", arguments);
     //If the user provided no input
