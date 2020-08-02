@@ -39,8 +39,8 @@ import errors.MalformedInputException;
 import errors.MissingQuotesException;
 
 /**
- * Class TextSpeech is responsible for converting given text to audio Note :
- * Parts of this class was built from
+ * Class TextSpeech is responsible for converting given text to audio
+ * Note : Parts of this class was built from 
  * https://www.youtube.com/watch?v=d50sZteNC1E
  */
 
@@ -69,22 +69,15 @@ public class Speak implements CommandI {
   /**
    * Declare instance of String to store the voice that is to be used
    */
-  private static final String VOICEDIR = "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory";
+  private static final String VOICEDIR =
+      "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory";
 
-  /**
-   * Declares an instance of RedirectionManager to handle redirection
-   */
+  private String text;
+  private String userText;
+  private boolean speakMode;
   private RedirectionManager rManager;
 
-  /**
-   * Declare instance of String to hold the user input
-   */
-  private String text, userText;
 
-  /**
-   * Declares instance of boolean which tells if in speak mode or not
-   */
-  private boolean speakMode;
 
   /**
    * Constructor for class TextSpeech which initializes instance variables
@@ -100,104 +93,82 @@ public class Speak implements CommandI {
     this.voice.allocate();
     // Initializes the text
     this.text = "";
-    // Initializing the RedirectionManager object
     this.rManager = new RedirectionManager();
+
   }
 
   /**
    * This function checks if the text given is valid and then converts it audio
    * 
-   * @param filesys   refrence of FileSystemI object (MockFileSystem or
-   *                  FileSystem)
-   * @param args      the string array of arguments
-   * @param fullInput the full line of input that the user gives into JShell
-   * @param val       tells if the it should enter speakMode or not
-   * 
+   * @param args  the string array of arguments
+   * @param fullInput  the full line of input that the user gives into JShell
+   * @param val  tells if the it should enter speakMode or not
    * @return any error messages if there are any or null
    */
-  public String run(FileSystemI filesys, String fullInput, boolean val) {
-    // Sets the if in speak mode or not
+  public String run(FileSystemI filesys, String[] args, String actualInput, boolean val) {
     this.speakMode = val;
+    
+    try {
+      rManager.isRedirectionableCommand(actualInput);
+    } catch (InvalidRedirectionError e) {
+      return e.getLocalizedMessage();
+    }
 
-    //Seperates the parameters from everything else from the user input
-    String[] args = rManager.setParams(fullInput);
+    // Converts a String array containing user words to a single String sentence
+    text = Arrays.toString(args);
+    text = text.substring(1, text.length() - 1).replace(",", "").trim();
+
+    // If the user enters nothing or just QUIT
+    if (text.length() == 0) {
+      // The method returns null
+      return null;
+    }
+
+    // Stores the exact user input
+    userText = text;
+
+    // If the text ends with the special keyword QUIR
+    if (text.endsWith("QUIT")) {
+      // Stores a new copy of the user text except no QUIT
+      text = text.substring(0, text.indexOf("QUIT")).trim();
+    }
 
     try {
-      rManager.isRedirectionableCommand(fullInput);
-
-      // Converts a String array containing user words to a single String sentence
-      text = Arrays.toString(args);
-      text = text.substring(1, text.length() - 1).replace(",", "").trim();
-
-      // If the user enters nothing or just QUIT
-      if (text.length() == 0) {
-        // The method returns null
-        return null;
-      }
-
-      // Stores the exact user input
-      userText = text;
-
-      // If the text ends with the special keyword QUIR
-      if (text.endsWith("QUIT")) {
-        // Stores a new copy of the user text except no QUIT
-        text = text.substring(0, text.indexOf("QUIT")).trim();
-      }
-
       // Converts the voice to audio
-      if (checkArgs(filesys, args, text)) {
-        voice.speak(text);
-      }
-      // Catches if user used redirection or misses quotes or has malformed input
-    } catch (InvalidRedirectionError | MissingQuotesException | MalformedInputException e) {
+      if(checkArgs(filesys, args, text)) 
+          voice.speak(text);
+    } catch (MissingQuotesException | MalformedInputException e) {
       return e.getLocalizedMessage();
-    } catch (Exception e) {
+    }catch(Exception e){
       e.printStackTrace();
     }
     // The method returns null
     return null;
   }
 
-  /**
-   * Checks the user input for any redirection error if used and other issues from
-   * user if there are none then it return true else throws the respective
-   * exception
-   * 
-   * @param filesys   refrence of FileSystemI object (MockFileSystem or
-   *                  FileSystem)
-   * @param arguments the list of arguments from user which may contain a
-   *                  redirection error
-   * @param fullInput the user input
-   * 
-   * @throws MissingQuotesException  if user provides input with no quotes
-   * @throws MalformedInputException user provides malformed text (Quotes in
-   *                                 incorrect places)
-   * 
-   * @return true if the parameter meet requirements and false if not
-   */
-  public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput)
-      throws MissingQuotesException, MalformedInputException {
+  public boolean checkArgs(FileSystemI fs, String[] arguments, String text) throws MissingQuotesException, MalformedInputException {
     // If we are not in speak mode
     if (!speakMode) {
       // If the user did not use or partially used quote(s) at the beginning
       // and/or end of their input
-      if (fullInput.startsWith("\"") && fullInput.endsWith("\"")) {
+      if (text.startsWith("\"") && text.endsWith("\"")) {
         // If the use text is not an alphabet
-        if (!(fullInput.length() <= 1))
+        if (!(text.length() <= 1))
           // Stores a new copy of the user text except no quotes
-          fullInput = fullInput.substring(1, fullInput.lastIndexOf("\""));
+          text = text.substring(1, text.lastIndexOf("\""));
       } else {
         // Returns an error if the quotes are not used properly
-        throw new MissingQuotesException("Error : Missing Quotes : " + this.userText);
+        throw new MissingQuotesException("Error : Missing Quotes : " + userText);
       }
 
       // If the user used multiple quotations
       if (text.indexOf("\"") != -1) {
         // Returns an error if the quotes are not used properly
-        throw new MalformedInputException("Error : Malformed Input :" + this.userText);
+        throw new MalformedInputException("Error : Malformed Input :" + userText);
       }
     }
-    // If the user has meet all the requirements
     return true;
   }
+
+
 }

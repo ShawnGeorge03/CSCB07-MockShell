@@ -62,10 +62,12 @@ public class EchoTest {
     */
     @Test
     public void testANoArgs() {
+        //Declares an empty array
+        String[] emptyArr = {};
         //Expected return from Echo
         expected = "Error : No parameters provided";
         //Actual return from Echo after the operation has been run
-        actual = echo.run(fs, "echo ", false);
+        actual = echo.run(fs,emptyArr, "echo ", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -78,7 +80,7 @@ public class EchoTest {
         //Expected return from Echo
         expected = "Hello";
         //Actual return from Echo after the operation has been run
-        actual = echo.run(fs, "echo \"Hello\"", false);
+        actual = echo.run(fs,"echo \"Hello\"".split(" "), "echo \"Hello\"", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -91,7 +93,7 @@ public class EchoTest {
         //Expected return from Echo
         expected = "Error : Missing Quotes : \"Hello";
         //Actual return from Echo after the operation has been run
-        actual = echo.run(fs, "echo \"Hello", false);
+        actual = echo.run(fs,"echo \"Hello".split(" "), "echo \"Hello", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -104,7 +106,7 @@ public class EchoTest {
         //Expected return from Echo
         expected = "Error : Missing Quotes : Hello\"";
         //Actual return from Echo after the operation has been run
-        actual = echo.run(fs, "echo Hello\"", false);
+        actual = echo.run(fs,"echo Hello\"".split(" "), "echo Hello\"", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -118,7 +120,7 @@ public class EchoTest {
         //Expected return from Echo
         expected = "Error : No parameters provided for redirection";
         //Actual return from Echo after the operation has been run
-        actual = echo.run(fs, "echo \"Hello\" >", false);
+        actual = echo.run(fs,"echo \"Hello\" >".split(" "), "echo \"Hello\" >", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -131,7 +133,7 @@ public class EchoTest {
         //Expected return from Echo
         expected = "Error : No parameters provided for redirection";
         //Actual return from Echo after the operation has been run
-        actual = echo.run(fs, "echo \"Hello\" >>", false);
+        actual = echo.run(fs,"echo \"Hello\" >>".split(" "), "echo \"Hello\" >>", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -144,7 +146,7 @@ public class EchoTest {
         //Expected return from Echo
         expected = null;
         //Actual return from Echo after the operation has been run
-        actual = echo.run(fs, "echo \"Hello\" > file", false);
+        actual = echo.run(fs,"echo \"Hello\" > file".split(" "), "echo \"Hello\" > file", false);
         //Checks if the values are equal or not
         assertTrue(expected == actual && "Hello".equals(fs.findFile("file", false).getContent()));
     }
@@ -157,7 +159,7 @@ public class EchoTest {
         //Expected return from Echo
         expected = null;
         //Actual return from Echo after the operation has been run
-        actual = echo.run(fs, "echo \"Hello\" > file", false);
+        actual = echo.run(fs,"echo \"Hello\" > file".split(" "), "echo \"Hello\" > file", false);
         //Checks if the values are equal or not
         assertTrue(expected == actual && "Hello".equals(fs.findFile("file", false).getContent()));
     }
@@ -170,7 +172,7 @@ public class EchoTest {
         //Expected return from Echo
         expected = null;
         //Actual return from Echo after the operation has been run
-        actual= echo.run(fs, "echo \"okay\" > A2", false);
+        actual= echo.run(fs,"echo \"okay\" > A2".split(" "), "echo \"okay\" > A2", false);
         //Checks if the values are equal or not
         assertTrue(actual == expected && "okay".equals(fs.findFile("A2", false).getContent()));
     }
@@ -183,7 +185,7 @@ public class EchoTest {
         //Expected return from Echo
         expected = null;
         //Actual return from Echo after the operation has been run
-        actual = echo.run(fs,"echo \"Bye\" >> A2", false);
+        actual = echo.run(fs,"echo \"Bye\" >> A2".split(" "), "echo \"Bye\" >> A2", false);
         //Checks if the values are equal or not
         assertTrue(actual == expected && "Wow what a project\nBye".equals(fs.findFile("A2", false).getContent()));
     }
@@ -196,8 +198,8 @@ public class EchoTest {
         //Expected return from Echo
         expected= null;
         //Actual return from Echo after the operation has been run
-        actual = echo.run(fs, "echo \"KeyWASD\" > /downloads/homework/HW8", false);
-        //Checks if the values are equal or not
+        actual = echo.run(fs,"echo \"KeyWASD\" > /downloads/homework/HW8".split(" "),
+                "echo \"KeyWASD\" > /downloads/homework/HW8", false);        //Checks if the values are equal or not
         assertTrue(actual == expected && 
                 "KeyWASD".equals(fs.findFile("/downloads/homework/HW8", false).getContent()));
     }
@@ -210,8 +212,8 @@ public class EchoTest {
         //Expected return from Echo
         expected = null;
         //Actual return from Echo after the operation has been run
-        actual = echo.run(fs, "echo \"QWERTY\" >> /documents/txtone", false);
-        //Checks if the values are equal or not
+        actual = echo.run(fs,"echo \"QWERTY\" >> /documents/txtone".split(" "),
+                "echo \"QWERTY\" >> /documents/txtone", false);        //Checks if the values are equal or not
         assertTrue(actual == expected && 
             "this is a document\nQWERTY".equals(fs.findFile("/documents/txtone", false).getContent()));
     }
@@ -224,7 +226,8 @@ public class EchoTest {
         //Expected return from Echo
         expected = "Error : No parameters provided for redirection";
         //Actual return from Echo after the operation has been run
-        actual = echo.run(fs, "echo \"QWERTY\" >>", false);
+        actual = echo.run(fs,"echo \"QWERTY\" >>".split(" "),
+        "echo \"QWERTY\" >>", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -237,7 +240,8 @@ public class EchoTest {
         //Expected return from Echo
         expected = "Error : Multiple Parameters have been provided : [pks, loops] Only one is required for redirection";
         //Actual return from Echo after the operation has been run
-        actual = echo.run(fs,  "echo \"QWERTY\" >> pks loops", false);
+        actual = echo.run(fs,"echo \"QWERTY\" >> pks loops".split(" "),
+        "echo \"QWERTY\" >> pks loops", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -250,7 +254,7 @@ public class EchoTest {
         //Expected return from Echo
         expected =  "Error: Invalid File : Hello$ is not a valid file name";
         //Actual return from Echo after the operation has been run
-        actual = echo.run(fs,"echo \"Hello\" > Hello$", false);
+        actual = echo.run(fs,"echo \"Hello\" > Hello$".split(" "), "echo \"Hello\" > Hello$", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }

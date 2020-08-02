@@ -55,7 +55,7 @@ public class Pop extends DirectoryManager implements CommandI {
    * @param val  A boolean for speak mode
    * @return String  An error message, else null
    */
-  public String run(FileSystemI filesys, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String[] arg, String fullInput, boolean val) {
     //Seperates the parameters from everything else from the user input
     String[] args = rManager.setParams(fullInput);
     try {

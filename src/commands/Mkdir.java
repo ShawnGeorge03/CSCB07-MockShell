@@ -73,7 +73,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 *                  JShell
 	 * @return String null always
 	 */
-	public String run(FileSystemI filesys, String fullInput, boolean val) {
+	public String run(FileSystemI filesys, String[] arg, String fullInput, boolean val) {
 	    //Seperates the parameters from everything else from the user input
 		String[] args = rManager.setParams(fullInput);
 		try {
@@ -100,10 +100,10 @@ public class Mkdir extends DirectoryManager implements CommandI {
 		
 		for (int i = 0; i < args.size(); i++){
 			setPathAndFile(i);
-			traverse.run(fs, "cd " + newArgs[0], false);
+			traverse.run(fs, newArgs, "cd " + newArgs[0], false);
 			Node newNode = new Node.Builder(true, fileName).setParent(fs.getCurrent()).build();
 			fs.addToDirectory(newNode);
-			traverse.run(fs, "cd " + currentPath[0], false);
+			traverse.run(fs, currentPath, "cd " + currentPath[0], false);
 		}
 		return null;
 	
@@ -142,7 +142,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	public void checkRepitition() throws DirectoryException{ 
 		for (int i = 0; i < args.size(); i++){
 			setPathAndFile(i);
-			traverse.run(fs, "cd " + newArgs[0], false);
+			traverse.run(fs, newArgs,  "cd " + newArgs[0], false);
 			ArrayList<Node> parentList = fs.getCurrent().getList();
 			for (int j = 0; j < parentList.size(); j++){
 				if (parentList.get(j).getName().equals(fileName) && parentList.get(j).getisDir()){

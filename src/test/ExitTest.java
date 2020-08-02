@@ -66,7 +66,7 @@ public class ExitTest {
         // Expected return from Exit
         expected = "Error : Arguments not required : LOL LOL";
         // Actual return from Exit after the operation has been run
-        actual = exit.run(fs, "exit LOL LOL", false);
+        actual = exit.run(fs, "LOL LOL".split(" "), "exit LOL LOL", false);
         // Checks if the values are equal or not
         assertEquals(expected, actual);
     }
@@ -79,7 +79,7 @@ public class ExitTest {
         // Expected return from Exit
         expected = "Error : Redirection Error : exit does not support redirection";
         // Actual return from Exit after the operation has been run
-        actual = exit.run(fs, "exit > LOL", false);
+        actual = exit.run(fs, "> LOL".trim().split(" "), "exit > LOL", false);
         // Checks if the values are equal or not
         assertEquals(expected, actual);
     }

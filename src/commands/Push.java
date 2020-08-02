@@ -57,7 +57,7 @@ public class Push extends DirectoryManager implements CommandI {
    * 
    * @return String  An error message if any error, else null
    */
-  public String run(FileSystemI filesys, String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String[] arg, String fullInput, boolean val) {
     //Gets the current path
     String current = filesys.getCurrentPath();
     //Seperates the parameters from everything else from the user input

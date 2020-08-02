@@ -55,7 +55,7 @@ public class Exit implements CommandI {
    * @return null no matter what
    */
   @Override
-  public String run(FileSystemI filesys, String fullInput, boolean val) {
+  public String run(FileSystemI filesys,  String[] args,  String fullInput, boolean val) {
     //Seperates the parameters from everything else from the user input
     
     String[] arguments = rManager.setParams(fullInput);

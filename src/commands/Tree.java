@@ -31,7 +31,7 @@ public class Tree implements CommandI {
 	 * @return any error messages there may be
 	 */
 	@Override
-	public String run(FileSystemI fs, String fullInput, boolean val) {
+	public String run(FileSystemI fs, String[] arguments, String fullInput, boolean val) {
 		//Seperates the parameters from everything else from the user input
 		String[] args = rManager.setParams(fullInput);
 		//Try catch to test validity of args

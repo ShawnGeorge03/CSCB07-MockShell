@@ -70,7 +70,7 @@ public class History implements CommandI {
    * 
    * @return the error message if there is any or null
    */
-  public String run(FileSystemI fs, String fullInput, boolean val) {
+  public String run(FileSystemI fs,  String[] args,  String fullInput, boolean val) {
     //Seperates the parameters from everything else from the user input
     String[] arguments = redirect.setParams(fullInput);
 

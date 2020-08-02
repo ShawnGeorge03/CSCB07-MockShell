@@ -33,7 +33,7 @@ public class Cp extends DirectoryManager implements CommandI {
 		traverse = new Cd();
 	}
 
-	public String run(FileSystemI filesys, String actualInput, boolean val) {
+	public String run(FileSystemI filesys,  String[] args, String actualInput, boolean val) {
 		//Seperates the parameters from everything else from the user input
 		String[] arguments = rManager.setParams(actualInput);
 		this.args = new ArrayList<String>(Arrays.asList(arguments));

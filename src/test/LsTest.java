@@ -63,8 +63,10 @@ public class LsTest {
      */
     @Test
     public void testANoArgs(){
+        //Declares an empty array 
+        String[] input = {};
         //Actual return from Ls after the operation has been run
-        actual = ls.run(fs, "ls", false);
+        actual = ls.run(fs, input, "ls", false);
         //Expected return from Ls
         expected = "A2\ndesktop\nusers\ndocuments\ndownloads\n";
         //Checks if the values are equal or not
@@ -77,7 +79,7 @@ public class LsTest {
     @Test
     public void testBRelativePath(){
         //Actual return from Ls after the operation has been run 
-        actual = ls.run(fs, "ls users", false);
+        actual = ls.run(fs, "users".split(" "), "ls users", false);
         //Expected return from Ls
         expected = "Path: /users\nskeshavaa\nguest\n\n";
         //Checks if the values are equal or not
@@ -90,7 +92,7 @@ public class LsTest {
     @Test
     public void testCAbsolutePath(){
         //Actual return from Ls after the operation has been run 
-        actual = ls.run(fs, "ls /documents", false);
+        actual = ls.run(fs, "/documents".split(" "), "ls /documents", false);
         //Expected return from Ls
         expected = "Path: /documents\ntxtone\ntxttwo\njournal\n\n";
         //Checks if the values are equal or not
@@ -103,7 +105,7 @@ public class LsTest {
     @Test
     public void TestDRecurisveMode(){
         //Actual return from Ls after the operation has been run 
-        actual = ls.run(fs, "ls -R", false);
+        actual = ls.run(fs, "-R".split(" "), "ls -R", false);
         //Expected return from Ls
         expected = "Path: /\nA2\ndesktop\nusers\ndocuments\ndownloads\n\nPath: /desktop\n\nPath: "
                                 + "/users\nskeshavaa\nguest\n\nPath: /users/skeshavaa"
@@ -120,7 +122,7 @@ public class LsTest {
     @Test
     public void TestEMultiplePaths(){
         //Actual return from Ls after the operation has been run 
-        actual = ls.run(fs, "ls users documents", false);
+        actual = ls.run(fs, "users documents".split(" "), "ls users documents", false);
         //Expected return from Ls
         expected = "Path: /users\nskeshavaa\nguest\n\nPath: /documents\ntxtone\ntxttwo\njournal\n\n";
         //Checks if the values are equal or not
@@ -133,7 +135,7 @@ public class LsTest {
     @Test
     public void TestFInvalidPath(){
         //Actual return from Ls after the operation has been run
-        actual = ls.run(fs, "ls falsepaths", false);
+        actual = ls.run(fs, "falsepaths".split(" "), "ls falsepaths", false);
         //Expected return from Ls
         expected = "Error: Invalid Directory : falsepaths is not a valid directory\n";
         //Checks if the values are equal or not
@@ -146,7 +148,7 @@ public class LsTest {
     @Test 
     public void TestGMultiplePathsWithInvalidPath(){
         //Actual return from Ls after the operation has been run
-        actual = ls.run(fs, "ls users falsepaths", false);
+        actual = ls.run(fs, "users falsepaths".split(" "), "ls users falsepaths", false);
         //Expected return from Ls
         expected = "Error: Invalid Directory : falsepaths is not a valid directory\n";
         //Checks if the values are equal or not
@@ -159,7 +161,7 @@ public class LsTest {
     @Test
     public void testHRedirectionOverwrite(){
         //Actual return from Ls after the operation has been run
-        actual = ls.run(fs, "ls > A2", false);
+        actual = ls.run(fs,"> A2".split(" "), "ls > A2", false);
         //Expected return from Ls
         expected = "A2\ndesktop\nusers\ndocuments\ndownloads\n";
         //Checks if the values are equal or not
@@ -172,7 +174,7 @@ public class LsTest {
     @Test
     public void testIRedirectionAppend(){
         //Actual return from Ls after the operation has been run
-        actual = ls.run(fs, "ls -R >> A2", false);
+        actual = ls.run(fs, "-R >> A2".split(" "), "ls -R >> A2", false);
         //Expected return from Ls
         expected = "Wow what a project\nPath: /\nA2\ndesktop\nusers\ndocuments\ndownloads\n\nPath: /desktop\n\nPath: "
                                 + "/users\nskeshavaa\nguest\n\nPath: /users/skeshavaa"
@@ -189,7 +191,7 @@ public class LsTest {
     @Test
     public void testJRedirectionErrorCase1(){
         //Actual return from Ls after the operation has been run
-        actual = ls.run(fs, "ls >", false);
+        actual = ls.run(fs, ">".split(" "), "ls >", false);
         //Expected return from Ls
         expected = "Error : No parameters provided for redirection";
         //Checks if the values are equal or not
@@ -202,7 +204,7 @@ public class LsTest {
     @Test
     public void testKRedirectionErrorCase2(){
         //Actual return from Ls after the operation has been run
-        actual = ls.run(fs, "ls > LOL polo", false);
+        actual = ls.run(fs, "> LOL polo".split(" "),"ls > LOL polo", false);
         //Expected return from Ls
         expected = "Error : Multiple Parameters have been provided : [LOL, polo] Only one is required for redirection";
         //Checks if the values are equal or not
@@ -215,7 +217,7 @@ public class LsTest {
     @Test 
     public void TestLRedirectionErrorCase3(){
         //Actual return from Ls after the operation has been run
-        actual = ls.run(fs, "ls users falsepaths > file", false);
+        actual = ls.run(fs, "users falsepaths > file".split(" "), "ls users falsepaths > file", false);
         //Expected return from Ls
         expected = "Error: Invalid Directory : falsepaths is not a valid directory\n";
         //Checks if the values are equal or not
@@ -228,7 +230,7 @@ public class LsTest {
     @Test 
     public void TestMRedirectionErrorCase4(){
         //Actual return from Ls after the operation has been run
-        actual = ls.run(fs, "ls users >> Hello$", false);
+        actual = ls.run(fs, "users >> Hello$".split(" "), "ls users >> Hello$", false);
         //Expected return from Ls
         expected =  "Error: Invalid File : Hello$ is not a valid file name";
         //Checks if the values are equal or not

@@ -70,7 +70,7 @@ public class Rm extends DirectoryManager implements CommandI{
 	 * @return null or an error message if there is any
 	 */
 	@Override
-	public String run(FileSystemI filesys, String fullInput, boolean val) {
+	public String run(FileSystemI filesys, String[] arg, String fullInput, boolean val) {
 	    //Seperates the parameters from everything else from the user input
 		String[] arguments = rManager.setParams(fullInput);
 		//Converts the array to an arraylist

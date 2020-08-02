@@ -101,10 +101,12 @@ public class MkdirTest {
    */
   @Test
   public void testANoPath() {
+    //Declares an empty array
+    String[] testNoArg = {};
     // Expected return from mkdir
     expected = "Error: Invalid Argument : Expected at least 1 argument";
     // Actual return from mkdir
-    actual = mkdir.run(fs, "mkdir", false);
+    actual = mkdir.run(fs, testNoArg, "mkdir", false);
     // Collects the node that are in the given working directory
     collectNodeNames("/");
     // Checks if the values are equal or not
@@ -119,7 +121,7 @@ public class MkdirTest {
     // Expected return from mkdir
     expected = "Error: Invalid Directory : ... is not a valid directory name";
     // Actual return from mkdir
-    actual = mkdir.run(fs, "mkdir ...", false);
+    actual = mkdir.run(fs, "...".split(" "), "mkdir ...", false);
     // Collects the node that are in the given working directory
     collectNodeNames("/");
     // Checks if the values are equal or not
@@ -134,7 +136,7 @@ public class MkdirTest {
     // Expected return from mkdir
     expected = "Error: Invalid Directory : /hello is not a valid directory";
     // Actual return from mkdir
-    actual = mkdir.run(fs, "mkdir /hello/hi", false);
+    actual = mkdir.run(fs, "/hello/hi".split(" "), "mkdir /hello/hi", false);
     // Collects the node that are in the given working directory
     collectNodeNames("/");
     // Checks if the values are equal or not
@@ -149,7 +151,7 @@ public class MkdirTest {
     // Expected return from mkdir
     expected = null;
     // Actual return from mkdir
-    actual = mkdir.run(fs, "mkdir /System32", false);
+    actual = mkdir.run(fs, "/System32".split(" "), "mkdir /System32", false);
     // Collects the node that are in the given working directory
     collectNodeNames("/");
     // Checks if the values are equal or not
@@ -164,7 +166,7 @@ public class MkdirTest {
     // Expected return from mkdir
     expected = null;
     // Actual return from mkdir
-    actual = mkdir.run(fs, "mkdir System32", false);
+    actual = mkdir.run(fs, "System32".split(" "), "mkdir System32", false);
     // Collects the node that are in the given working directory
     collectNodeNames("/");
     // Checks if the values are equal or not
@@ -179,7 +181,7 @@ public class MkdirTest {
     // Expected return from mkdir
     expected = "Invalid Directory: users already exists in /";
     // Actual return from mkdir
-    actual = mkdir.run(fs, "mkdir /users", false);
+    actual = mkdir.run(fs, "/users".split(" "), "mkdir /users", false);
     // Collects the node that are in the given working directory
     collectNodeNames("/");
     // Checks if the values are equal or not
@@ -194,7 +196,7 @@ public class MkdirTest {
     // Expected return from mkdir
     expected = null;
     // Actual return from mkdir
-    actual = mkdir.run(fs, "mkdir desktop/project", false);
+    actual = mkdir.run(fs, "desktop/project".split(" "), "mkdir desktop/project", false);
     // Collects the node that are in the given working directory
     collectNodeNames("desktop");
     // Checks if the values are equal or not
@@ -209,7 +211,7 @@ public class MkdirTest {
     // Expected return from mkdir
     expected = null;
     // Actual return from mkdir
-    actual = mkdir.run(fs, "mkdir Business A6", false);
+    actual = mkdir.run(fs, "Business A6".split(" "), "mkdir Business A6", false);
     // Collects the node that are in the given working directory
     collectNodeNames("/");
     // Checks if the values are equal or not
@@ -224,7 +226,7 @@ public class MkdirTest {
     // Expected return from mkdir
     expected = null;
     // Actual return from mkdir
-    actual = mkdir.run(fs, "mkdir /A3 /A5", false);
+    actual = mkdir.run(fs, "/A3 /A5".split(" "), "mkdir /A3 /A5", false);
     // Collects the node that are in the given working directory
     collectNodeNames("/");
     // Checks if the values are equal or not
@@ -239,7 +241,7 @@ public class MkdirTest {
     // Expected return from mkdir
     expected = "Error: Invalid Directory : /lol is not a valid directory";
     // Actual return from mkdir
-    actual = mkdir.run(fs, "mkdir /lol/F anotherFile", false);
+    actual = mkdir.run(fs, "/lol/F anotherFile".split(" "), "mkdir /lol/F anotherFile", false);
     // Collects the node that are in the given working directory
     collectNodeNames("/");
     // Checks if the values are equal or not
@@ -254,7 +256,7 @@ public class MkdirTest {
     // Expected return from mkdir
     expected = "Error : Redirection Error : mkdir does not support redirection";
     // Actual return from mkdir
-    actual = mkdir.run(fs, "mkdir hello > text", false);
+    actual = mkdir.run(fs, "hello > test".split(" "), "mkdir hello > text", false);
     // Collects the node that are in the given working directory
     collectNodeNames("/");
     // Checks if the values are equal or not

@@ -70,10 +70,12 @@ public class HistoryTest {
    */
   @Test
   public void testANoArgs() {
+    //Declares and initializes an empty array
+    String[] testCase1history = {};
     //Add the command to the history stack
     fs.getCommandLog().add("history");
     //Actual return from History after the operation has been run
-    actual = history.run(fs, "history", false);
+    actual = history.run(fs, testCase1history, "history", false);
     //Expected return from History
     expected = "1. mkdir users\n" + "2. mkdir pics\n" + "3. mkdir Sys\n" 
     + "4. echo \"Wow what a project\" > A2\n"
@@ -90,7 +92,7 @@ public class HistoryTest {
     //Add the command to the history stack
     fs.getCommandLog().add("history 100");
     //Actual return from History after the operation has been run
-    actual = history.run(fs, "history 100", false);
+    actual = history.run(fs, "100".split(" "), "history 100", false);
     //Expected return from History
     expected = "1. mkdir users\n" + "2. mkdir pics\n" + "3. mkdir Sys\n" 
     + "4. echo \"Wow what a project\" > A2\n"
@@ -107,7 +109,7 @@ public class HistoryTest {
     //Add the command to the history stack
     fs.getCommandLog().add("history 5");
     //Actual return from History after the operation has been run
-    actual = history.run(fs, "history 5", false);
+    actual = history.run(fs, "5".split(" "), "history 5", false);
     //Expected return from History
     expected = "3. mkdir Sys\n" + "4. echo \"Wow what a project\" > A2\n" 
     + "5. cd C/users\n" + "6. mkdir desktop\n" + "7. history 5";
@@ -123,7 +125,7 @@ public class HistoryTest {
     //Add the command to the history stack
     fs.getCommandLog().add("history -3");
     //Actual return from History after the operation has been run
-    actual = history.run(fs, "history -3", false);
+    actual = history.run(fs, "-3".split(" "), "history -3", false);
     //Expected return from History
     expected = "Error: Invalid Argument : -3 is not either a number or " 
     + "positive or an integer";
@@ -139,7 +141,7 @@ public class HistoryTest {
     //Add the command to the history stack
     fs.getCommandLog().add("history 1.0");
     //Actual return from History after the operation has been run
-    actual = history.run(fs, "history 1.0", false);
+    actual = history.run(fs, "1.0".split(" "), "history 1.0", false);
     //Expected return from History
     expected = "Error: Invalid Argument : 1.0 is not either a number or " 
     + "positive or an integer";
@@ -155,7 +157,7 @@ public class HistoryTest {
     //Add the command to the history stack
     fs.getCommandLog().add("history hello");
     //Actual return from History after the operation has been run
-    actual = history.run(fs, "history hello", false);
+    actual = history.run(fs, "hello".split(" "), "history hello", false);
     //Expected return from History
     expected = "Error: Invalid Argument : hello is not either a number or " + "positive or an integer";
     //Checks if the values are equal or not    
@@ -170,7 +172,7 @@ public class HistoryTest {
     //Add the command to the history stack
     fs.getCommandLog().add("history 1 3 5");
     //Actual return from History after the operation has been run
-    actual = history.run(fs, "history 1 3 5", false);
+    actual = history.run(fs, "1 3 5".split(" "), "history 1 3 5", false);
     //Expected return from History
     expected = "Error : Multiple Parameters have been provided : 1 3 5 , " + "either one or no input";
     //Checks if the values are equal or not
@@ -185,7 +187,7 @@ public class HistoryTest {
     //Add the command to the history stack
     fs.getCommandLog().add("history 1 > test");
     //Actual return from History after the operation has been run
-    actual = history.run(fs, "history 1 > test", false);
+    actual = history.run(fs, "1 > test".split(" "), "history 1 > test", false);
     //Expected return from History
     expected = "7. history 1 > test";
     //Checks if the values are equal or not
@@ -200,7 +202,7 @@ public class HistoryTest {
     //Add the command to the history stack
     fs.getCommandLog().add("history 1 >> file");
     //Actual return from History after the operation has been run
-    actual = history.run(fs,"history 1 >> A2", false);
+    actual = history.run(fs, "1 >> A2".split(" "), "history 1 >> A2", false);
     //Expected return from History
     expected = "Wow what a project\n7. history 1 >> file";
     //Checks if the values are equal or not
@@ -215,7 +217,7 @@ public class HistoryTest {
     //Add the command to the history stack
     fs.getCommandLog().add("history 1 >");
     //Actual return from History after the operation has been run
-    actual = history.run(fs, "history 1 >", false);
+    actual = history.run(fs, "1 >".split(" "), "history 1 >", false);
     //Expected return from History
     expected = "Error : No parameters provided for redirection";
     //Checks if the values are equal or not
@@ -230,7 +232,7 @@ public class HistoryTest {
     //Add the command to the history stack
     fs.getCommandLog().add("history 1 > lol plz work");
     //Actual return from History after the operation has been run
-    actual = history.run(fs, "history 1 > lol plz work", false);
+    actual = history.run(fs, "1 > lol plz work".split(" "), "history 1 > lol plz work", false);
     //Expected return from History
     expected = "Error : Multiple Parameters have been provided : [lol, plz, work] Only one is required for redirection";
     //Checks if the values are equal or not
@@ -246,7 +248,7 @@ public class HistoryTest {
     //Add the command to the history stack
     fs.getCommandLog().add("history 1 > Hello$");
     //Actual return from History after the operation has been run
-    actual = history.run(fs, "history 1 > Hello$", false);
+    actual = history.run(fs, "1 > Hello$".split(" "), "history 1 > Hello$", false);
     //Expected return from History
     expected =  "Error: Invalid File : Hello$ is not a valid file name";
     //Checks if the values are equal or not

@@ -22,6 +22,11 @@ public class PopTest {
     private static Pop pop;
 
     /**
+     * Delcares a empty String array
+     */
+    private static String[] input = {};
+
+    /**
      * Declare two different instance of a String objects called expected and actual
      */
     private String actual, expected;
@@ -69,7 +74,7 @@ public class PopTest {
         //Expected return from Pop
         expected = null;
         //Actual return from Pop
-        actual = pop.run(fs, "popd", false);
+        actual = pop.run(fs, input, "popd", false);
         //Check the return from Pop and the current working directory
         assertTrue(actual == expected && fs.getCurrentPath().equals("/documents/journal"));
     }
@@ -81,8 +86,8 @@ public class PopTest {
         //Expected return from Pop
         expected = null;
         //Actual return from Pop
-        actual = pop.run(fs, "popd", false);
-        actual = pop.run(fs, "popd", false);
+        actual = pop.run(fs, input, "popd", false);
+        actual = pop.run(fs, input, "popd", false);
         //Check the return from Pop and the current working directory
         assertTrue(actual == expected && fs.getCurrentPath().equals("/users/skeshavaa"));
     }
@@ -95,9 +100,9 @@ public class PopTest {
         //Expected return from Pop
         expected = null;
         //Actual return from Pop
-        actual = pop.run(fs, "popd", false);
-        actual = pop.run(fs, "popd", false);
-        actual = pop.run(fs, "popd", false);
+        actual = pop.run(fs, input, "popd", false);
+        actual = pop.run(fs, input, "popd", false);
+        actual = pop.run(fs, input, "popd", false);
         //Check the return from Pop and the current working directory
         assertTrue(actual == expected && fs.getCurrentPath().equals("/"));
     }
@@ -110,10 +115,10 @@ public class PopTest {
         //Expected return from Pop
         expected = "Error: Stack is empty";
         //Actual return from Pop
-        actual = pop.run(fs, "popd", false);
-        actual = pop.run(fs, "popd", false);
-        actual = pop.run(fs, "popd", false);
-        actual = pop.run(fs, "popd", false);
+        actual = pop.run(fs, input, "popd", false);
+        actual = pop.run(fs, input, "popd", false);
+        actual = pop.run(fs, input, "popd", false);
+        actual = pop.run(fs, input, "popd", false);
         //Check the return from Pop and the current working directory
         assertTrue(actual.equals(expected) && fs.getCurrentPath().equals("/")); 
     }
@@ -126,7 +131,7 @@ public class PopTest {
         //Expected return from Pop
         expected = "Error: Invalid Argument : No arguments should be given";
         //Actual return from Pop
-        actual = pop.run(fs, "popd unrequired args", false);
+        actual = pop.run(fs,"unrequired args".split(" "), "popd unrequired args", false);
         System.out.println(actual + "|" + fs.getCurrentPath());
         //Check the return from Pop and the current working directory
         assertTrue(actual.equals(expected) && fs.getCurrentPath().equals("/desktop"));  
@@ -140,7 +145,7 @@ public class PopTest {
         //Expected return from Pop
         expected = "Error : Redirection Error : popd does not support redirection";
         //Actual return from Pop
-        actual  = pop.run(fs, "popd > test", false);
+        actual = pop.run(fs, "> test".split(" "), "popd > test", false);
         //Check the return from Pop and the current working directory
         assertTrue(actual.equals(expected) && fs.getCurrentPath().equals("/desktop"));  
     }

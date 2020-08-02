@@ -64,7 +64,7 @@ public class PushTest {
         //Expected return from Push
         expected = null;
         //Actual return from Push
-        actual = push.run(fs, "pushd users/skeshavaa", false);
+        actual = push.run(fs, "users/skeshavaa".split(" "), "pushd users/skeshavaa", false);
         //Check the return from Push and the current working directory
         assertTrue(actual == expected && fs.getCurrentPath().equals("/users/skeshavaa"));
     }
@@ -77,7 +77,7 @@ public class PushTest {
         //Expected return from Push
         expected = null;
         //Actual return from Push
-        actual = push.run(fs, "pushd /documents/journal", false);
+        actual = push.run(fs, "/documents/journal".split(" "), "pushd /documents/journal", false);
         //Check the return from Push and the current working directory
         assertTrue(actual == expected && fs.getCurrentPath().equals("/documents/journal"));
     }
@@ -90,7 +90,7 @@ public class PushTest {
         //Expected return from Push
         expected = "Error: Invalid Directory : wrongpath is not a valid directory";
         //Actual return from Push
-        actual = push.run(fs, "pushd wrongpath", false);
+        actual = push.run(fs, "wrongpath".split(" "), "pushd wrongpath", false);
         //Check the return from Push and the current working directory
         assertTrue(actual.equals(expected) && fs.getCurrentPath().equals("/"));
     }
@@ -100,10 +100,12 @@ public class PushTest {
      */
     @Test
     public void testDNoArguments() {
+        //Declares an empty String array
+        String[] path = {};
         //Expected return from Push
         expected = "Error : No parameters provided";
         //Actual return from Push
-        actual = push.run(fs, "pushd ", false);
+        actual = push.run(fs, path, "pushd ", false);
         //Check the return from Push and the current working directory
         assertTrue(actual.equals(expected) && fs.getCurrentPath().equals("/"));
     }
@@ -117,7 +119,7 @@ public class PushTest {
         expected = "Error : Multiple Parameters have been provided : "
         + "hi hello bye Only 1 valid directory path is required";
         //Actual return from Push
-        actual = push.run(fs, "pushd hi hello bye", false);    
+        actual = push.run(fs, "hi hello bye".split(" "), "pushd hi hello bye", false);    
         //Check the return from Push and the current working directory
         assertTrue(actual.equals(expected) && fs.getCurrentPath().equals("/"));
     }
@@ -131,7 +133,7 @@ public class PushTest {
         //Expected return from Push
         expected = "Error : Redirection Error : pushd does not support redirection";
         //Actual return from Push
-        actual = push.run(fs, "pushd /users > test", false);
+        actual = push.run(fs, "/users > test".split(" "), "pushd /users > test", false);
         //Check the return from Push and the current working directory
         assertTrue(actual.equals(expected) && fs.getCurrentPath().equals("/"));
     }

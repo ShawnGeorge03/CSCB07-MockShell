@@ -34,7 +34,7 @@ public class RmTest {
      */
     @Test
     public void testARelativeDir(){
-        returnRm = rm.run(fs, "rm users", false);
+        returnRm = rm.run(fs, "users".split(" "), "rm users", false);
         actual = fs.getCurrent().getList().contains(fs.users);
         assertTrue(returnRm == null && expected == actual);
     }
@@ -44,7 +44,7 @@ public class RmTest {
      */
     @Test
     public void testBRelativeFile(){
-        returnRm = rm.run(fs, "rm A2", false);
+        returnRm = rm.run(fs, "A2".split(" "), "rm A2", false);
         actual = fs.getCurrent().getList().contains(fs.A2);
         assertTrue(returnRm.equals("Error: Invalid Directory : A2 is not a directory"));
     }
@@ -54,7 +54,7 @@ public class RmTest {
      */
     @Test
     public void testCRelativeSubdirectory(){
-        returnRm = rm.run(fs, "rm users/skeshavaa", false);
+        returnRm = rm.run(fs, "users/skeshavaa".split(" "), "rm users/skeshavaa", false);
         fs.setCurrent(fs.users);
         actual = fs.getCurrent().getList().contains(fs.user1);
         assertTrue(returnRm == null && expected == actual );
@@ -65,7 +65,7 @@ public class RmTest {
      */
     @Test
     public void testDSubdirectoryFile(){
-        returnRm = rm.run(fs, "rm documents/txtone", false);
+        returnRm = rm.run(fs, "documents/txtone".split(" "), "rm documents/txtone", false);
         fs.setCurrent(fs.documents);
         actual = fs.getCurrent().getList().contains(fs.doc1);
         assertTrue(returnRm.equals("Error: Invalid Directory : documents/txtone is not a directory") && expected != actual);
@@ -76,7 +76,7 @@ public class RmTest {
      */
     @Test
     public void testEAbsoluteDir(){
-        returnRm = rm.run(fs, "rm /users/skeshavaa", false);
+        returnRm = rm.run(fs, "/users/skeshavaa".split(" "), "rm /users/skeshavaa", false);
         fs.setCurrent(fs.users);
         actual = fs.getCurrent().getList().contains(fs.user1);
         assertTrue(returnRm == null && expected == actual );
@@ -87,7 +87,7 @@ public class RmTest {
      */
     @Test
     public void testFAbsoluteFile(){
-        returnRm = rm.run(fs, "rm /documents/txtone", false);
+        returnRm = rm.run(fs, "/documents/txtone".split(" "), "rm /documents/txtone", false);
         fs.setCurrent(fs.documents);
         actual = fs.getCurrent().getList().contains(fs.doc1);
         assertTrue(returnRm.equals("Error: Invalid Directory : /documents/txtone is not a directory") && expected != actual);
@@ -98,7 +98,7 @@ public class RmTest {
      */
     @Test
     public void testGRedirectionError(){
-        String actual = rm.run(fs, "rm documents > text", false);
+        String actual = rm.run(fs, "documents > text".split(" "), "rm documents > text", false);
         String expected = "Error : Redirection Error : rm does not support redirection";
         assertEquals(expected, actual); 
     }
