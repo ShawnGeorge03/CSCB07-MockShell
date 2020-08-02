@@ -253,6 +253,13 @@ public class Load implements CommandI{
     return false;
   }
   
+  /**
+   * Method that reads the NODES section and creates the nodes from the read line
+   * Method reads the data of a node and stores it to a String array and calls helper function to create the nodes
+   * 
+   * @param line  String object that stores the current line in the json file
+   * @param filesys  FileSystem Object that stores the current filesystem
+   */
   private void uploadNodes(String line, FileSystemI filesys) {
     try {
       //Two readLines need to be used to read the useless \n used to divide sections
@@ -276,6 +283,13 @@ public class Load implements CommandI{
     }
   }
   
+  /**
+   * Method that reads the COMMAND LOG section and adds every line to the filesystem
+   * Method reads the line in the json file and adds that file to the filesystem command log
+   * 
+   * @param line  String object that stores the current line in the json file
+   * @param filesys  FileSystem Object that stores the current filesystem
+   */
   private void uploadCommandLog(String line, FileSystemI filesys) {
     try {
       //Two readLines need to be used to read the useless \n used to divide sections
@@ -293,6 +307,20 @@ public class Load implements CommandI{
     }
   }
   
+  /**
+   * Method that creates the nodes from the inputted array and adds it to the filesystem
+   * Method loops through the array that holds the data and parses it into data that is used to create the node
+   * Index 0 of array represents Node's Name data field
+   * Index 1 of array represents Node's isDir data field
+   * Index 2 of array represents Node's Parent data field
+   * Index 3 of array represents Node's Content data field
+   * Method then uses the Node Builder to create the node
+   * The content of the node replaces all instances of "\n" to \n character in order to undo the change save command made
+   * Calls filesystem method to add the newly created node to the filesystem
+   * 
+   * @param nodeInformation  String array that stores data read from the file
+   * @param filesys  FileSystem Object that stores the current filesystem
+   */
   private void createNode(String[] nodeInformation, FileSystemI filesys) {
     //Array to hold the parsed data of the node
     String[] parsedNodeInformation = new String[4];
@@ -321,12 +349,29 @@ public class Load implements CommandI{
     }
   }
   
+  /**
+   * Method that adds the newNode to the correct location
+   * Calls a helper function to traverse the file system to find the parent node
+   * 
+   * @param newNode  Node that holds the newly created node that is to be added to the fiesystem
+   * @param parentName  String that holds the name of the parent of the newNode
+   * @param filesys  FileSystem Object that stores the current filesystem
+   */
   private void addNodeToFileSystem(Node newNode, String parentName, FileSystemI filesys) {
     filesys.assignCurrent(filesys.getRoot());
     //Traverse the filesystem using Depth First Search
     traverseFileSystem(filesys.getCurrent(), parentName, newNode,filesys);
   }
   
+  /**
+   * Method that traverse the filesytem to find the parent node to add the newNode to the correct location
+   * Once parent is found, add the newNode to the filesystem with the parent being the current node
+   * 
+   * @param current  Node that holds the current position node in the fileSystem 
+   * @param desiredParentName  String that holds the name of the parent of the newNode
+   * @param newNode  Node that holds the newly created node that is to be added to the fiesystem
+   * @param filesys  FileSystem Object that stores the current filesystem
+   */
   private void traverseFileSystem(Node current, String desiredParentName, Node newNode, FileSystemI filesys) {
     //If we have reached the parent node then just add the newNode to the parent node arraylist
     if(current.getName().equals(desiredParentName)) {
@@ -343,6 +388,14 @@ public class Load implements CommandI{
     }
   }
   
+  /**
+   * Method that formats the user input to make sure the file path is valid in Windows
+   * Windows require path to be split using \\ instead of \ or /
+   * This method replaces / and \ with \\ for full compatibility
+   * 
+   * @param args  String array that stores the arguments inputted by the user
+   * @return  String that is the formatted version of the user inputted arguments
+   */
   private String formatArguments(String[] args) {
     //replaces / with \\
     if(args[0].contains("/")) return args[0].replace("/", "\\\\");
