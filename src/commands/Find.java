@@ -41,7 +41,6 @@ public class Find extends DirectoryManager implements CommandI {
 	public String run(FileSystemI filesys,  String[] arg,  String fullInput, boolean val) {
 		//Seperates the parameters from everything else from the user input
 		String[] args = rManager.setParams(fullInput);
-		System.out.println(Arrays.asList(args));
 		//Creating arraylists for the paths and all the arguments
 		ArrayList<String> paths = new ArrayList<String>();
 		ArrayList<String> arguments = new ArrayList<String>(Arrays.asList(args));
