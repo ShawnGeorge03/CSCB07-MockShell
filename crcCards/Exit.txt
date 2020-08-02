@@ -7,3 +7,5 @@ Responsibilties:
 *Exits the shell program
 
 Collaborators:
+*FileSystemI
+*RedirectionManager
