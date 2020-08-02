@@ -94,6 +94,25 @@ public class Load implements CommandI{
     }
     return output;
   }
+
+  /**
+   * Method that checks if the file name that the user inputted is a valid file name. If the file name
+   * contains illegal characters then this method returns false. If the file name does not contain any
+   * illegal characters then it returns true.
+   * 
+   * @param fileName  String that stores the file name that the user inputted
+   * @return boolean false if file name contains illegal characters, otherwise returns true
+   */
+  public boolean isValidName(String fileName) {
+    String[] invalidChars = {"/", "\\s+", "!", "@", "#", "$", "%", "^",
+        "&", "*", "(", ")", "{", "}", "~", "|", "<", ">", "?", "'", "[", "]"};
+    for (int i = 0; i < invalidChars.length; i++) {
+      if (fileName.contains(invalidChars[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
   
   public String getFileContents(FileSystemI filesys, String[] args, String fullInput, boolean val){
     try {
@@ -121,7 +140,7 @@ public class Load implements CommandI{
     }
     //checks if the file inputted is a .json file
     if(filePath.contains(".")){
-      if(!filePath.substring(filePath.length()-5, filePath.length()).equals(".json")) {
+      if(!filePath.substring(filePath.indexOf("."), filePath.length()).equals(".json")) {
         throw new InvalidArgsProvidedException("Error: Invalid File : " + fullInput);
       }
     }
@@ -141,7 +160,7 @@ public class Load implements CommandI{
     if(filePath.contains("\\")) filePath.substring(filePath.lastIndexOf("\\"), filePath.length());
     else fileName = filePath;
     //check if filename is valid
-    if(filesys.isValidName(fileName)) return true;
+    if(isValidName(fileName)) return true;
     return false;
   }
   

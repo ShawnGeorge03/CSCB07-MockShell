@@ -66,10 +66,10 @@ public class SaveTest {
     }
 
     /**
-     * Test D : User only inputs the filename and not the absolute path
+     * Test D : User only inputs the filename (without a ".")
      */
     @Test
-    public void testDGivenOnlyFileName(){
+    public void testDGivenFileNameWithoutFileType(){
         expected = "\"name\" : \"/\"\n"
                  + "\t\"isDir\" : \"true\"\n" 
                  + "\t\"parent\" : \"null\"\n"
@@ -87,6 +87,16 @@ public class SaveTest {
         actual = save.getFileContent(fs, "input > text".split(" "), "save input > text", false);
         expected = "Error : Redirection Error : save does not support redirection";
         assertEquals(expected, actual); 
+    }
+
+    /**
+     * Test F : User only inputs the filename that is not a .json
+     */
+    @Test
+    public void testFGivenFileNameWithIncorrectFileType(){
+        expected = "Error: Invalid File : save savefile.txt";
+        actual = save.getFileContent(fs, "savefile".split(" "), "save savefile.txt", false);
+        assertEquals(expected, actual);
     }
 
     /**

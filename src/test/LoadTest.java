@@ -71,17 +71,14 @@ public class LoadTest {
     /**
      * Test D : User only inputs the filename and not an absolute path
      */
-    /*@Test
-    public void testDGivenOnlyFileName(){
-        expected = "\"name\" : \"/\"\n"
-                 + "\t\"isDir\" : \"true\"\n" 
-                 + "\t\"parent\" : \"null\"\n"
-                 + "\n"
-                 + "\t\"/\"";
-        actual = load.getFileContents(fs, "load loadfile", false);
+    @Test
+    public void testDGivenIncorrectFileType(){
+        String[] fileArgs = {"loadFile.txt"};
+        expected = "Error: Invalid File : load loadfile.txt";
+        actual = load.getFileContents(fs, fileArgs, "load loadfile.txt", false);
         //System.out.println(actual);
         assertEquals(expected, actual);
-    }*/
+    }
 
     /**
      * Test E : User uses redirection for a non redirectionable command

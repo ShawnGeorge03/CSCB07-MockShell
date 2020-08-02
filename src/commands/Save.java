@@ -7,6 +7,9 @@ import errors.FileException;
 import errors.InvalidArgsProvidedException;
 import errors.InvalidRedirectionError;
 
+/**
+ * Class Save is responsible for saving the current filesystem to a json file on the users computer
+ */
 public class Save implements CommandI {
 
   private FileWriter writer;
@@ -85,6 +88,25 @@ public class Save implements CommandI {
     return output;
   }
 
+  /**
+   * Method that checks if the file name that the user inputted is a valid file name. If the file name
+   * contains illegal characters then this method returns false. If the file name does not contain any
+   * illegal characters then it returns true.
+   * 
+   * @param fileName  String that stores the file name that the user inputted
+   * @return boolean false if file name contains illegal characters, otherwise returns true
+   */
+  public boolean isValidName(String fileName) {
+    String[] invalidChars = {"/", "\\s+", "!", "@", "#", "$", "%", "^",
+        "&", "*", "(", ")", "{", "}", "~", "|", "<", ">", "?", "'", "[", "]"};
+    for (int i = 0; i < invalidChars.length; i++) {
+      if (fileName.contains(invalidChars[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   public String getFileContent(FileSystemI filesys, String[] args, String fullInput, boolean val) {
     try {
       //Checks if redirection is allowed 
@@ -126,7 +148,7 @@ public class Save implements CommandI {
     if(filePath.contains("\\")) filePath.substring(filePath.lastIndexOf("\\"), filePath.length());
     else fileName = filePath;
     //Check if filename is valid
-    if(filesys.isValidName(fileName)) return true;
+    if(isValidName(fileName)) return true;
     return false;
   }
 
