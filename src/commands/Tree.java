@@ -28,6 +28,7 @@ public class Tree implements CommandI {
 	 * @param args the string array that contains the arguments the user has provided with the command
 	 * @param fullinput the string that contains the entire line of input provided to jshell
 	 * @param val the boolean we are using
+	 * 
 	 * @return any error messages there may be
 	 */
 	@Override
@@ -65,16 +66,18 @@ public class Tree implements CommandI {
 		return output;
 	}
 
-	@Override
 	/**
 	 * Overridden method checkArgs which ensures that no arguments have been called for tree, as it requires no arguments
 	 * 
 	 * @param fs the variable we are using to access the filesystem
 	 * @param arguments the string array containing all the arguments provided alongside the command
 	 * @param fullInput the string that contains the raw input provided to console in jshell
+	 * 
 	 * @return boolean true if there were no arguments provided
+	 * 
 	 * @throws InvalidArgsProvidedException the user provided invalid argument
 	 */
+	@Override
 	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
 		//Check if any arguments were provided
 		if (arguments.length != 0) {
