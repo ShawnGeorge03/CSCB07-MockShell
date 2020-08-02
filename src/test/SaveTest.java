@@ -76,7 +76,6 @@ public class SaveTest {
                  + "\n"
                  + "\t\"/\"";
         actual = save.getFileContent(fs, "savefile".split(" "), "save savefile", false);
-        //System.out.println(actual);
         assertEquals(expected, actual);
     }
 
