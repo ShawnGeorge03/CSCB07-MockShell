@@ -1,0 +1,13 @@
+Class name: JShell
+Parent class: N/A
+Subclasses: N/A
+
+Responsibilties:
+*Opens up the shell and presents the command line to user
+*Collects user input and passes it to another class
+
+Collaborators:
+*FileSystem
+*Checker
+*History
+*TestCases
