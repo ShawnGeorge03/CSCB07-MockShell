@@ -1,13 +1,17 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.Field;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import commands.Rm;
-
+/**
+ * Class RmTest is used to test Rm
+ */
 public class RmTest {
 
     /**
@@ -20,22 +24,56 @@ public class RmTest {
     */
     private static Rm rm;
 
+    /**
+     * Declare two different instance of a boolean 
+     * objects called actual and expected
+     */
     private boolean actual = false, expected = false;
+    
+    /**
+     * Declare instance of a String object called returnRm
+     */
     private String returnRm;
 
+    /**
+     * Sets up the test environment and initializes the instance variables
+     * 
+     * @throws Exception
+     */
     @Before
     public void setup(){
-        rm = new Rm();
+        // Gets a specific preset FileSystem
         fs = MockFileSystem.getMockFileSys("MOCKENV");
+        // Initializes the class to be tested
+        rm = new Rm();
+    }
+    
+    /**
+     * Destroys the MockFileSystem after each testcases have run
+     * 
+     * @throws Exception
+     */
+    @After
+    public void tearDown() throws Exception {
+        // Declares and initializes a Feild variable
+        // to the fileSys variable in MockFileSystem
+        Field feild = fs.getClass().getDeclaredField("filesys");
+        // Allows the value of this variable in MockFileSystem to be accessed
+        feild.setAccessible(true);
+        // Changes the value of the variable in MockFileSystem to null
+        feild.set(null, null);
     }
 
     /**
-     * Test A : User removes a relative directory path
+     * Test : User removes a relative directory path
      */
     @Test
-    public void testARelativeDir(){
+    public void testRelativeDir(){
+        //Actual return from Class Rm after the opertaion
         returnRm = rm.run(fs, "users".split(" "), "rm users", false);
+        //Checks if the node exists or not
         actual = fs.getCurrent().getList().contains(fs.users);
+        //Checks if the values are as expected
         assertTrue(returnRm == null && expected == actual);
     }
 
@@ -43,64 +81,85 @@ public class RmTest {
      * Test B : User removes a relative file path
      */
     @Test
-    public void testBRelativeFile(){
+    public void testRelativeFile(){
+        //Actual return from Class Rm after the opertaion
         returnRm = rm.run(fs, "A2".split(" "), "rm A2", false);
+        //Checks if the node exists or not
         actual = fs.getCurrent().getList().contains(fs.A2);
+        //Checks if the values are as expected
         assertTrue(returnRm.equals("Error: Invalid Directory : A2 is not a directory"));
     }
 
     /**
-     * Test C : User removes a relative subdirectory path
+     * Test : User removes a relative subdirectory path
      */
     @Test
-    public void testCRelativeSubdirectory(){
+    public void testRelativeSubdirectory(){
+        //Actual return from Class Rm after the opertaion
         returnRm = rm.run(fs, "users/skeshavaa".split(" "), "rm users/skeshavaa", false);
+        //Changes the current working directory
         fs.setCurrent(fs.users);
+        //Checks if the node exists or not
         actual = fs.getCurrent().getList().contains(fs.user1);
+        //Checks if the values are as expected
         assertTrue(returnRm == null && expected == actual );
     }
 
     /**
-     * Test D : User removes a subdirectory file path
+     * Test : User removes a subdirectory file path
      */
     @Test
-    public void testDSubdirectoryFile(){
+    public void testSubdirectoryFile(){
+        //Actual return from Class Rm after the opertaion
         returnRm = rm.run(fs, "documents/txtone".split(" "), "rm documents/txtone", false);
+        //Changes the current working directory
         fs.setCurrent(fs.documents);
+        //Checks if the node exists or not
         actual = fs.getCurrent().getList().contains(fs.doc1);
+        //Checks if the values are as expected
         assertTrue(returnRm.equals("Error: Invalid Directory : documents/txtone is not a directory") && expected != actual);
     }
 
     /**
-     * Test E : User removes an absolute directory path
+     * Test : User removes an absolute directory path
      */
     @Test
-    public void testEAbsoluteDir(){
+    public void testAbsoluteDir(){
+        //Actual return from Class Rm after the opertaion
         returnRm = rm.run(fs, "/users/skeshavaa".split(" "), "rm /users/skeshavaa", false);
+        //Changes the current working directory
         fs.setCurrent(fs.users);
+        //Checks if the node exists or not
         actual = fs.getCurrent().getList().contains(fs.user1);
+        //Checks if the values are as expected
         assertTrue(returnRm == null && expected == actual );
     }
 
     /**
-     * Test F : User removes a absolute file path
+     * Test : User removes a absolute file path
      */
     @Test
-    public void testFAbsoluteFile(){
+    public void testAbsoluteFile(){
+        //Actual return from Class Rm after the opertaion
         returnRm = rm.run(fs, "/documents/txtone".split(" "), "rm /documents/txtone", false);
+        //Changes the current working directory
         fs.setCurrent(fs.documents);
+        //Checks if the node exists or not
         actual = fs.getCurrent().getList().contains(fs.doc1);
+        //Checks if the values are as expected
         assertTrue(returnRm.equals("Error: Invalid Directory : /documents/txtone is not a directory") && expected != actual);
     }
     
     /**
-     * Test G  : User uses redirection for a non redirectionable command
+     * Test : User uses redirection for a non redirectionable command
      */
     @Test
-    public void testGRedirectionError(){
+    public void testRedirectionError(){
+        //Actual return from Class Rm after the opertaion
         String actual = rm.run(fs, "documents > text".split(" "), "rm documents > text", false);
+        //Expected return from Class Rm
         String expected = "Error : Redirection Error : rm does not support redirection";
-        assertEquals(expected, actual); 
+        //Checks if the values are as expected
+        assertTrue(actual.equals(expected) && fs.getCurrent().getList().contains(fs.documents) == true);
     }
-
 }

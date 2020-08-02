@@ -8,7 +8,9 @@ import org.junit.Test;
 import commands.Pwd;
 
 import java.lang.reflect.Field;
-
+/**
+ * Class PwdTest is used to test Pwd Class
+ */
 public class PwdTest {
     /**
      * Declare instance of FileSystem so we can access the filesystem
@@ -61,10 +63,10 @@ public class PwdTest {
     }
 
     /**
-     * Test A : User runs the first command as pwd 
+     * Test : User runs the first command as pwd 
      */
     @Test
-    public void testAInitialPath(){
+    public void testInitialPath(){
         //Expected return from pwd
         expectedPath = "/";
         //Actual return from pwd
@@ -74,10 +76,10 @@ public class PwdTest {
     }
 
     /**
-     * Test B : User runs the command after changing working directory
+     * Test : User runs the command after changing working directory
      */
     @Test
-    public void testBChangeDirectory(){
+    public void testChangeDirectory(){
         //Changes the current working directory
         fs.setCurrent(fs.users);
         //Expected return from pwd
@@ -89,11 +91,10 @@ public class PwdTest {
     }
 
     /**
-     * Test C : Users changes the working 
-     * directory to a subdirectory
+     * Test : Users changes the working directory to a subdirectory
      */
     @Test
-    public void testCChangeSubDirectory(){
+    public void testChangeSubDirectory(){
         //Changes the current working directory
         fs.setCurrent(fs.homework);
         //Expected return from pwd
@@ -105,10 +106,10 @@ public class PwdTest {
     }
 
     /**
-     * Test D : User changes to the root directory
+     * Test : User changes to the root directory
      */
     @Test
-    public void testDChangeToRoot(){
+    public void testChangeToRoot(){
         //Changes the current working directory
         fs.setCurrent(fs.root);
         //Expected return from pwd
@@ -120,10 +121,10 @@ public class PwdTest {
     }
 
     /**
-     * Test E : User provides multiple 
+     * Test : User provides multiple arguments
      */
     @Test
-    public void testEMultipleArgs(){
+    public void testMultipleArgs(){
         //Expected return from pwd
         expectedPath = "Error: Invalid Argument : pwd doesn't take any arguments";
         //Actual return from pwd
@@ -132,46 +133,73 @@ public class PwdTest {
         assertEquals(expectedPath, actualPath);
     }
 
+    /**
+     * Test : User uses redirction to overwrite a file with current path
+     */
     @Test
-    public void testFOverwriteToFile(){
+    public void testOverwriteToFile(){
+        //Changes the current working directory
         fs.setCurrent(fs.games);
+        //Expected return from pwd
         expectedPath = null;
+        //Actual return from pwd
         actualPath = pwd.run(fs, "> /A2".split(" "), "pwd > /A2", false);
+        //Compares the values
         assertTrue(expectedPath == actualPath && "/downloads/Games".equals(fs.findFile("/A2", false).getContent()));
     }
 
-
+    /**
+     * Test : User uses redirction to append to a file with current path
+     */
     @Test
-    public void testGAppendToFile(){
+    public void testAppendToFile(){
+        //Changes the current working directory
         fs.setCurrent(fs.games);
+        //Expected return from pwd
         expectedPath = null;
+        //Actual return from pwd
         actualPath = pwd.run(fs, ">> /A2".split(" "), "pwd >> /A2", false);
+        //Compares the values
         assertTrue(expectedPath == actualPath && 
             "Wow what a project\n/downloads/Games".equals(fs.findFile("/A2", false).getContent()));
     }
 
+    /**
+     * Test : User uses redirction but does not provide no file
+     */
     @Test
     public void testRedirectionErrorCase1(){
+        //Expected return from pwd
         expectedPath = "Error : No parameters provided";
+        //Actual return from pwd
         actualPath = pwd.run(fs, ">>".split(" "), "pwd >>", false);
+        //Compares the values
         assertEquals(expectedPath, actualPath);
     }
 
+    /**
+     * Test : User uses redirction but provides multiple files
+     */
     @Test
     public void testRedirectionErrorCase2(){
+        //Expected return from pwd
         expectedPath = "Error : Multiple Parameters have been provided : [lol, plz, work] Only one is required for redirection";
+        //Actual return from pwd
         actualPath = pwd.run(fs, ">> lol plz work".split(" "), "pwd >> lol plz work", false);
+        //Compares the values
         assertEquals(expectedPath, actualPath);
     }
 
+    /**
+     * Test : User uses redirction but provides an invalid file name
+     */
     @Test
     public void testRedirectionErrorCase3(){
+        //Expected return from pwd
         expectedPath =  "Error: Invalid File : Hello$ is not a valid file name";
+        //Actual return from pwd
         actualPath = pwd.run(fs, ">> Hello$".split(" "), "pwd >> Hello$", false);
+        //Compares the values
         assertEquals(expectedPath, actualPath);
-    }
-
-
-
-    
+    }    
 }
