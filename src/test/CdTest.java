@@ -18,6 +18,7 @@ public class CdTest {
     * Declare instance of FileSystem so we can access the filesystem
     */
     private static MockFileSystem fs;
+    
     /**
     * Declare instance of Cd to be tested
     */
@@ -43,7 +44,7 @@ public class CdTest {
     */
     @Before
     public void setUp() throws Exception {
-        //Get the current FileSystem
+        //Gets a specific preset FileSystem
         fs = MockFileSystem.getMockFileSys("MOCKENV");
         //Initializes a Cd Object
         cd = new Cd();

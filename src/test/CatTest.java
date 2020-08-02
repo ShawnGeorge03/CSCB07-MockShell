@@ -19,6 +19,7 @@ public class CatTest {
     * Declare instance of FileSystem so we can access the filesystem
     */
     private static MockFileSystem fs;
+    
     /**
      * Declares instance of Cat to be tested
      */
@@ -39,6 +40,7 @@ public class CatTest {
     public void setup() throws Exception {
         //Gets a specific preset FileSystem
         fs = MockFileSystem.getMockFileSys("MOCKENV");
+        //Initializes the class to be tested
         cat = new Cat();
     }
 

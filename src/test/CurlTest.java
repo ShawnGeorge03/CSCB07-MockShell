@@ -108,7 +108,6 @@ public class CurlTest {
   /**
    * Test D : URL with not file agrumentation at the end
    */
-
   @Test
   public void testDNoFileNameArg() {
     //User provides a URL with no file name 
@@ -185,12 +184,19 @@ public class CurlTest {
     //Checks if the values are equal or not
     assertEquals(expected, actual);
   }
-
+  
+  /**
+   * Test I : User uses redirection for a non redirectionable command
+   */
   @Test
   public void testIRedirectionError(){
+    //User provides a valid URL with a file to be read 
     website = "https://raw.githubusercontent.com/ShawnGeorge03/Learn-HTML-CSS/master/README.md";
+    //Expected return from Curl
     expected = "Error : Redirection Error : curl does not support redirection";
+    //Actual return from Curl after the operation is complete
     actual = curl.run(fs, "curl "+ website + " > text", false);
+    //Checks if the values are equal or not
     assertEquals(expected, actual);
   }
 

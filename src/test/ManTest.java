@@ -234,7 +234,7 @@ public class ManTest {
 
 
     /**
-     * Test J : User provides a random unspported command of JShell an redirects it
+     * Test J : User provides an invalid filename for redirection
      */
     @Test
     public void testKRedirectionErrorCase4(){

@@ -59,22 +59,28 @@ public class ExitTest {
     }
 
     /**
-     * Test : User provides input after the command name
+     * Test A : User provides input after the command name
      */
     @Test
-    public void testArgs() {
+    public void testAProvidedArgs() {
         // Expected return from Exit
         expected = "Error : Arguments not required : LOL LOL";
         // Actual return from Exit after the operation has been run
-        actual = exit.run(fs,"exit LOL LOL", false);
+        actual = exit.run(fs, "exit LOL LOL", false);
         // Checks if the values are equal or not
         assertEquals(expected, actual);
     }
 
+    /**
+     * Test B : User used redirection for a nonredirectionable command
+     */
     @Test
-    public void testIRedirectionError(){
-      expected = "Error : Redirection Error : exit does not support redirection";
-      actual = exit.run(fs, "exit > LOL", false);
-      assertEquals(expected, actual);
+    public void testBRedirectionError() {
+        // Expected return from Exit
+        expected = "Error : Redirection Error : exit does not support redirection";
+        // Actual return from Exit after the operation has been run
+        actual = exit.run(fs, "exit > LOL", false);
+        // Checks if the values are equal or not
+        assertEquals(expected, actual);
     }
 }

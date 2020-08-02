@@ -12,14 +12,22 @@ public class MvTest {
     * Declare instance of FileSystem so we can access the filesystem
     */
     private static MockFileSystem fs;
+
     /**
     * Declare instance of Mkdir to make new directories
     */
     private static Mv mv;
 
+    /**
+     * Sets up the test environment and initializes the instance variables
+     * 
+     * @throws Exception
+    */
     @Before
     public void setup(){
+        //Initializes the class to be tested
         mv = new Mv();
+        //Gets a specific preset FileSystem
         fs = MockFileSystem.getMockFileSys("MOCKENV");
     }
 

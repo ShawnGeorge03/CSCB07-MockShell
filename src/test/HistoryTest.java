@@ -208,7 +208,7 @@ public class HistoryTest {
   }
 
   /**
-   * Test J : User does not provide a folder for redirection
+   * Test J : User does not provide a filename for redirection
    */
   @Test
   public void testJRedirectionErrorCase1(){
@@ -223,7 +223,7 @@ public class HistoryTest {
   }
 
   /**
-   * Test K : User provides multiple folders
+   * Test K : User provides multiple file names
    */
   @Test
   public void testKRedirectionErrorCase2(){
@@ -239,7 +239,7 @@ public class HistoryTest {
 
 
   /**
-   * Test J : User does not provide a folder for redirection
+   * Test L : User does not provide a proper file name for redirection
    */
   @Test
   public void testLRedirectionErrorCase3(){

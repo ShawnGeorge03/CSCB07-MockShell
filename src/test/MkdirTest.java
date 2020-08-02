@@ -12,123 +12,238 @@ import commands.Mkdir;
 
 import java.lang.reflect.Field;
 
+/**
+ * Class MkdirTest runs all the different test cases for Mkdir
+ */
 public class MkdirTest {
 
+  /**
+   * Declare instance of FileSystem so we can access the filesystem
+   */
   private static MockFileSystem fs;
+
+  /**
+   * Declare instance of Mkdir to be tested
+   */
   private static Mkdir mkdir;
 
-  private String expected;
-  private String actual;
+  /**
+   * Declare two different instance of a String objects called expected and actual
+   */
+  private String expected, actual;
 
-  private static ArrayList<String> allContent;
+  /**
+   * Declares an instance of ArrayList containing String objects called
+   * listOfNodes
+   */
+  private static ArrayList<String> listofNodes;
 
+  /**
+   * Sets up the test environment and initializes the instance variables
+   * 
+   * @throws Exception
+   */
   @Before
   public void setUp() throws Exception {
+    // Gets a specific preset FileSystem
     fs = MockFileSystem.getMockFileSys("MOCKENV");
+    // Initializes a test Object
     mkdir = new Mkdir();
 
-    allContent = new ArrayList<String>();
+    // Initializes the Arraylist
+    listofNodes = new ArrayList<String>();
   }
 
+  /**
+   * Destroys the FileSystem after all the testcases have run
+   * 
+   * @throws Exception
+   */
   @After
   public void tearDown() throws Exception {
+    // Declares and initializes a Feild variable
+    // to the fileSys variable in FileSystem
     Field feild = fs.getClass().getDeclaredField("filesys");
+    // Allows the value of this variable in FileSystem to be accessed
     feild.setAccessible(true);
+    // Changes the value of the variable in FileSystem to null
     feild.set(null, null);
   }
 
-  private void collectContent(String path) {
-    allContent.clear();
+  /**
+   * Returns a list of node names contained by the directory node
+   * 
+   * @param path the path to get to the node to be looked into
+   */
+  private void collectNodeNames(String path) {
+    // Clears the ArrayList
+    listofNodes.clear();
+    // If the path given is not root
     if (!path.equals("/")) {
+      // Find the Node that is that is to be looked into
       for (int i = 0; i < fs.getCurrent().getList().size(); i++) {
+        // If this is the node that is to be looked into
         if (fs.getCurrent().getList().get(i).getName().equals(path)) {
+          // Sets teh current node to be the that one
           fs.setCurrent(fs.getCurrent().getList().get(i));
+          // Exits the loop
           break;
         }
       }
     }
+    // Collects the names of the Node contained in the Node of intrest
     for (int i = 0; i < fs.getCurrent().getList().size(); i++)
-      allContent.add(fs.getCurrent().getList().get(i).getName());
+      listofNodes.add(fs.getCurrent().getList().get(i).getName());
   }
 
+  /**
+   * Test A : User provides no input
+   */
   @Test
   public void testANoPath() {
+    // Expected return from mkdir
     expected = "Error: Invalid Argument : Expected at least 1 argument";
+    // Actual return from mkdir
     actual = mkdir.run(fs, "mkdir", false);
-    collectContent("/");
-    assertTrue(actual.equals(expected));
+    // Collects the node that are in the given working directory
+    collectNodeNames("/");
+    // Checks if the values are equal or not
+    assertTrue(actual.equals(expected) && listofNodes.containsAll(Arrays.asList("users documents downloads A2 desktop".split(" "))));
   }
 
+  /**
+   * Test B : User provides an invalid directory name
+   */
   @Test
   public void testBInvalidName() {
+    // Expected return from mkdir
     expected = "Error: Invalid Directory : ... is not a valid directory name";
+    // Actual return from mkdir
     actual = mkdir.run(fs, "mkdir ...", false);
-    collectContent("/");
-    assertTrue(actual.equals(expected));
+    // Collects the node that are in the given working directory
+    collectNodeNames("/");
+    // Checks if the values are equal or not
+    assertTrue(actual.equals(expected) && listofNodes.containsAll(Arrays.asList("users documents downloads A2 desktop".split(" "))));
   }
 
+  /**
+   * Test C : User provides an invalid path for making a directory
+   */
   @Test
   public void testCInvalidPath() {
+    // Expected return from mkdir
     expected = "Error: Invalid Directory : /hello is not a valid directory";
+    // Actual return from mkdir
     actual = mkdir.run(fs, "mkdir /hello/hi", false);
-    collectContent("/");
-    assertTrue(actual.equals(expected));
+    // Collects the node that are in the given working directory
+    collectNodeNames("/");
+    // Checks if the values are equal or not
+    assertTrue(actual.equals(expected) && listofNodes.containsAll(Arrays.asList("users documents downloads A2 desktop".split(" "))));
   }
 
+  /**
+   * Test D : User provided a valid absolute path
+   */
   @Test
   public void testDValidAbsolutePath() {
+    // Expected return from mkdir
     expected = null;
+    // Actual return from mkdir
     actual = mkdir.run(fs, "mkdir /System32", false);
-    collectContent("/");
-    assertTrue(allContent.contains("System32") && actual == expected);
+    // Collects the node that are in the given working directory
+    collectNodeNames("/");
+    // Checks if the values are equal or not
+    assertTrue(actual == expected && listofNodes.containsAll(Arrays.asList("System32 users documents downloads A2 desktop".split(" "))));
   }
 
+  /**
+   * Test E : User provided a valid relative path
+   */
   @Test
   public void testEValidRelativePath() {
+    // Expected return from mkdir
     expected = null;
+    // Actual return from mkdir
     actual = mkdir.run(fs, "mkdir System32", false);
-    collectContent("/");
-    assertTrue(allContent.contains("System32") && actual == expected);
+    // Collects the node that are in the given working directory
+    collectNodeNames("/");
+    // Checks if the values are equal or not
+    assertTrue(actual == expected && listofNodes.containsAll(Arrays.asList("System32 users documents downloads A2 desktop".split(" "))));
   }
 
+  /**
+   * Test F : User provides a name of directory that already exists
+   */
   @Test
   public void testFRepeatedPath() {
+    // Expected return from mkdir
     expected = "Invalid Directory: users already exists in /";
+    // Actual return from mkdir
     actual = mkdir.run(fs, "mkdir /users", false);
-    collectContent("/");
-    assertTrue(actual.equals(expected));
+    // Collects the node that are in the given working directory
+    collectNodeNames("/");
+    // Checks if the values are equal or not
+    assertTrue(actual.equals(expected) && listofNodes.containsAll(Arrays.asList("users documents downloads A2 desktop".split(" "))));
   }
 
+  /**
+   * Test G : User provides a path that is relative to the current working directory
+   */
   @Test
   public void testGRelativeFromDirPath() {
+    // Expected return from mkdir
     expected = null;
+    // Actual return from mkdir
     actual = mkdir.run(fs, "mkdir desktop/project", false);
-    collectContent("desktop");
-    assertTrue(allContent.equals(Arrays.asList("project".split(" "))) && actual == expected);
+    // Collects the node that are in the given working directory
+    collectNodeNames("desktop");
+    // Checks if the values are equal or not
+    assertTrue(listofNodes.equals(Arrays.asList("project".split(" "))) && actual == expected);
   }
 
+  /**
+   * Test H : User provides multiple relative paths
+   */
   @Test
   public void testHMultipleArgsRelativePaths() {
+    // Expected return from mkdir
     expected = null;
+    // Actual return from mkdir
     actual = mkdir.run(fs, "mkdir Business A6", false);
-    collectContent("/");
-    assertTrue(allContent.containsAll(Arrays.asList("Business A6".split(" "))) && actual == expected);
+    // Collects the node that are in the given working directory
+    collectNodeNames("/");
+    // Checks if the values are equal or not
+    assertTrue(listofNodes.containsAll(Arrays.asList("users documents downloads A2 desktop Business A6".split(" "))) && actual == expected);
   }
 
+  /**
+   * Test I : User provides multiple absolute paths
+   */
   @Test
-  public void testIAbsolutePaths() {
+  public void testIMultipleAbsolutePaths() {
+    // Expected return from mkdir
     expected = null;
+    // Actual return from mkdir
     actual = mkdir.run(fs, "mkdir /A3 /A5", false);
-    collectContent("/");
-    assertTrue(allContent.containsAll(Arrays.asList("A3 A5".split(" "))) && actual == expected);
+    // Collects the node that are in the given working directory
+    collectNodeNames("/");
+    // Checks if the values are equal or not
+    assertTrue(listofNodes.containsAll(Arrays.asList("users documents downloads A2 desktop A3 A5".split(" "))) && actual == expected);
   }
 
+  /**
+   * Test J : User provides multiple directory paths, but one is invalid
+   */
   @Test
   public void testJMultipleArgsOneDoesNotExist() {
+    // Expected return from mkdir
     expected = "Error: Invalid Directory : /lol is not a valid directory";
+    // Actual return from mkdir
     actual = mkdir.run(fs, "mkdir /lol/F anotherFile", false);
-    collectContent("/");
-    assertTrue(!allContent.contains("anotherFile") && actual.equals(expected));
+    // Collects the node that are in the given working directory
+    collectNodeNames("/");
+    // Checks if the values are equal or not
+    assertTrue(listofNodes.containsAll(Arrays.asList("users documents downloads A2 desktop".split(" "))) && actual.equals(expected));
   }
 
   /**
@@ -136,11 +251,14 @@ public class MkdirTest {
    */
   @Test
   public void testKRedirectionError() {
-    // Expected return from Cd
+    // Expected return from mkdir
     expected = "Error : Redirection Error : mkdir does not support redirection";
+    // Actual return from mkdir
     actual = mkdir.run(fs, "mkdir hello > text", false);
-    collectContent("/");
-    assertTrue(!allContent.contains("hello") && actual.equals(expected));
+    // Collects the node that are in the given working directory
+    collectNodeNames("/");
+    // Checks if the values are equal or not
+    assertTrue(!listofNodes.contains("hello") && actual.equals(expected));
   }
 
 }
