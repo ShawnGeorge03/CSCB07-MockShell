@@ -61,6 +61,9 @@ public class FileSystem implements FileSystemI{
 
   /**
    * Constructor for FileSystem to set root default values
+   * Sets stack for pushd and popd 
+   * Sets history list for history command
+   * Sets current equal to root directory
    */
   private FileSystem() {
     CommandLog = new ArrayList<String>();
@@ -86,7 +89,7 @@ public class FileSystem implements FileSystemI{
   public Node getRoot() {
     return root;
   }
-
+  
   public Node getCurrent() {
     return current;
   }
@@ -268,6 +271,13 @@ public class FileSystem implements FileSystemI{
     }
   }
 
+  /**
+   * Checks if the given filename exists within the current directory node of the user
+   * 
+   * @param name  filename to look for within current directory
+   * @return  boolean indiciating if the file exists or not in the current directory
+   * 
+   */
   @Override
   public boolean checkRepeat(String name){
     for (int i = 0; i < getCurrent().getList().size(); i++){
