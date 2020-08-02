@@ -9,4 +9,4 @@ Responsibilties:
 Collaborators:
 *Node
 *Cd
-*ErrorHandler
+*RedirectionManager
