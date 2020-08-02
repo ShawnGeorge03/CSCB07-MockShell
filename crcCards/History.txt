@@ -7,4 +7,5 @@ Responsibilties:
 *Tracks and displays the previous inputs by the user from oldest to most recent order
 
 Collaborators:
-*ErrorHandler
+*FileSystemI
+*RedirectionManager
