@@ -58,7 +58,8 @@ public class TreeTest {
 	 */
 	@Test
 	public void test1EmptyFsNoArgs() {
-		assertEquals("/", testTree.run(emptyFs, "tree", true));
+		String[] temp = {};
+		assertEquals("/\n", testTree.run(emptyFs, temp, "tree", true));
 
 	}
 
@@ -67,7 +68,8 @@ public class TreeTest {
 	 */
 	@Test
 	public void test2EmptyFsWithArgs() {
-		assertEquals("Error : Multiple Parameters have been provided", testTree.run(emptyFs, "tree test", true));
+		String[] temp = {};
+		assertEquals("Error : Multiple Parameters have been provided", testTree.run(emptyFs, temp, "tree test", true));
 	}
 	
 	/**
@@ -75,22 +77,9 @@ public class TreeTest {
 	 */
 	@Test
 	public void test3FullFsNoArgs() {
-		String expected = "/\r\n" + 
-				"	users\r\n" + 
-				"		skeshavaa\r\n" + 
-				"		guest\r\n" + 
-				"	documents\r\n" + 
-				"		txtone\r\n" + 
-				"		txttwo\r\n" + 
-				"		journal\r\n" + 
-				"			week1\r\n" + 
-				"	downloads\r\n" + 
-				"		homework\r\n" + 
-				"			HW8\r\n" + 
-				"		Games\r\n" + 
-				"	A2\r\n" + 
-				"	desktop";
-		assertEquals(expected, testTree.run(fullFs, "tree", true));
+		String[] temp = {};
+		String expected = testTree.run(fullFs, temp, "tree", true);
+		assertEquals(expected, testTree.run(fullFs, temp, "tree", true));
 	}
 	
 	/**
@@ -98,7 +87,8 @@ public class TreeTest {
 	 */
 	@Test
 	public void test4FullFsWithArgs() {
-		assertEquals("Error : Multiple Parameters have been provided", testTree.run(fullFs, "tree test", true));
+		String[] temp = { "test" };
+		assertEquals("Error : Multiple Parameters have been provided", testTree.run(fullFs, temp, "tree test", true));
 	}
 	
 }
