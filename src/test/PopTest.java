@@ -67,7 +67,7 @@ public class PopTest {
     }
 
     /**
-     * Test A : User calls pop once
+     * Test : User calls pop once
      */
     @Test
     public void testAAbsolutePath() {
@@ -79,7 +79,7 @@ public class PopTest {
         assertTrue(actual == expected && fs.getCurrentPath().equals("/documents/journal"));
     }
     /**
-     * Test B : User calls pop twice
+     * Test : User calls pop twice
      */
     @Test
     public void testBRelativePath() {
@@ -93,10 +93,10 @@ public class PopTest {
     }
 
     /**
-     * Test C : User calls pop three times
+     * Test : User calls pop three times
      */
     @Test
-    public void testCLastPop() {
+    public void testLastPop() {
         //Expected return from Pop
         expected = null;
         //Actual return from Pop
@@ -108,10 +108,10 @@ public class PopTest {
     }
 
     /**
-     * Test D : User calls pop when the stack is empty
+     * Test : User calls pop when the stack is empty
      */
     @Test
-    public void testDEmptyStack() {
+    public void testEmptyStack() {
         //Expected return from Pop
         expected = "Error: Stack is empty";
         //Actual return from Pop
@@ -124,10 +124,10 @@ public class PopTest {
     }
 
     /**
-     * Test E : User provides arguments
+     * Test : User provides arguments
      */
     @Test
-    public void testEArguments() {
+    public void testArguments() {
         //Expected return from Pop
         expected = "Error: Invalid Argument : No arguments should be given";
         //Actual return from Pop
@@ -138,10 +138,10 @@ public class PopTest {
     }
 
     /**
-     * Test F : User tries to use redirection on a non redirectionable command
+     * Test : User tries to use redirection on a non redirectionable command
      */
     @Test
-    public void testFRedirectionError() {
+    public void testRedirectionError() {
         //Expected return from Pop
         expected = "Error : Redirection Error : popd does not support redirection";
         //Actual return from Pop

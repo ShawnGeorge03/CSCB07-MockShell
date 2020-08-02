@@ -114,10 +114,10 @@ public class MkdirTest {
   }
 
   /**
-   * Test B : User provides an invalid directory name
+   * Test : User provides an invalid directory name
    */
   @Test
-  public void testBInvalidName() {
+  public void testInvalidName() {
     // Expected return from mkdir
     expected = "Error: Invalid Directory : ... is not a valid directory name";
     // Actual return from mkdir
@@ -129,10 +129,10 @@ public class MkdirTest {
   }
 
   /**
-   * Test C : User provides an invalid path for making a directory
+   * Test : User provides an invalid path for making a directory
    */
   @Test
-  public void testCInvalidPath() {
+  public void testInvalidPath() {
     // Expected return from mkdir
     expected = "Error: Invalid Directory : /hello is not a valid directory";
     // Actual return from mkdir
@@ -144,10 +144,10 @@ public class MkdirTest {
   }
 
   /**
-   * Test D : User provided a valid absolute path
+   * Test : User provided a valid absolute path
    */
   @Test
-  public void testDValidAbsolutePath() {
+  public void testValidAbsolutePath() {
     // Expected return from mkdir
     expected = null;
     // Actual return from mkdir
@@ -159,10 +159,10 @@ public class MkdirTest {
   }
 
   /**
-   * Test E : User provided a valid relative path
+   * Test : User provided a valid relative path
    */
   @Test
-  public void testEValidRelativePath() {
+  public void testValidRelativePath() {
     // Expected return from mkdir
     expected = null;
     // Actual return from mkdir
@@ -174,10 +174,10 @@ public class MkdirTest {
   }
 
   /**
-   * Test F : User provides a name of directory that already exists
+   * Test : User provides a name of directory that already exists
    */
   @Test
-  public void testFRepeatedPath() {
+  public void testRepeatedPath() {
     // Expected return from mkdir
     expected = "Invalid Directory: users already exists in /";
     // Actual return from mkdir
@@ -189,10 +189,10 @@ public class MkdirTest {
   }
 
   /**
-   * Test G : User provides a path that is relative to the current working directory
+   * Test : User provides a path that is relative to the current working directory
    */
   @Test
-  public void testGRelativeFromDirPath() {
+  public void testRelativeFromDirPath() {
     // Expected return from mkdir
     expected = null;
     // Actual return from mkdir
@@ -204,10 +204,10 @@ public class MkdirTest {
   }
 
   /**
-   * Test H : User provides multiple relative paths
+   * Test : User provides multiple relative paths
    */
   @Test
-  public void testHMultipleArgsRelativePaths() {
+  public void testMultipleArgsRelativePaths() {
     // Expected return from mkdir
     expected = null;
     // Actual return from mkdir
@@ -219,10 +219,10 @@ public class MkdirTest {
   }
 
   /**
-   * Test I : User provides multiple absolute paths
+   * Test : User provides multiple absolute paths
    */
   @Test
-  public void testIMultipleAbsolutePaths() {
+  public void testMultipleAbsolutePaths() {
     // Expected return from mkdir
     expected = null;
     // Actual return from mkdir
@@ -234,10 +234,10 @@ public class MkdirTest {
   }
 
   /**
-   * Test J : User provides multiple directory paths, but one is invalid
+   * Test : User provides multiple directory paths, but one is invalid
    */
   @Test
-  public void testJMultipleArgsOneDoesNotExist() {
+  public void testMultipleArgsOneDoesNotExist() {
     // Expected return from mkdir
     expected = "Error: Invalid Directory : /lol is not a valid directory";
     // Actual return from mkdir
@@ -249,10 +249,10 @@ public class MkdirTest {
   }
 
   /**
-   * Test K : User uses redirection for a non redirectionable command
+   * Test : User uses redirection for a non redirectionable command
    */
   @Test
-  public void testKRedirectionError() {
+  public void testRedirectionError() {
     // Expected return from mkdir
     expected = "Error : Redirection Error : mkdir does not support redirection";
     // Actual return from mkdir

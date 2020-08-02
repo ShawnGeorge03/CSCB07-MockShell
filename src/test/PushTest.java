@@ -57,10 +57,10 @@ public class PushTest {
     }
 
     /**
-     * Test A : User provides an relative directory path
+     * Test : User provides an relative directory path
      */
     @Test
-    public void testARelativePath() {
+    public void testRelativePath() {
         //Expected return from Push
         expected = null;
         //Actual return from Push
@@ -70,10 +70,10 @@ public class PushTest {
     }
 
     /**
-     * Test B : User provides an absolute directory path
+     * Test : User provides an absolute directory path
      */
     @Test
-    public void testBAbsolutePath() {
+    public void testAbsolutePath() {
         //Expected return from Push
         expected = null;
         //Actual return from Push
@@ -83,10 +83,10 @@ public class PushTest {
     }
 
     /**
-     * Test C : User provides an invalid directory path
+     * Test : User provides an invalid directory path
      */
     @Test
-    public void testCInvalidPath() {
+    public void testInvalidPath() {
         //Expected return from Push
         expected = "Error: Invalid Directory : wrongpath is not a valid directory";
         //Actual return from Push
@@ -96,10 +96,10 @@ public class PushTest {
     }
 
     /**
-     * Test D : User provides no arguments
+     * Test : User provides no arguments
      */
     @Test
-    public void testDNoArguments() {
+    public void testNoArguments() {
         //Declares an empty String array
         String[] path = {};
         //Expected return from Push
@@ -111,10 +111,10 @@ public class PushTest {
     }
 
     /**
-     * Test E : User provides multiple paths
+     * Test : User provides multiple paths
      */
     @Test
-    public void testEMultipleArguments() {
+    public void testMultipleArguments() {
         //Expected return from Push
         expected = "Error : Multiple Parameters have been provided : "
         + "hi hello bye Only 1 valid directory path is required";
@@ -126,10 +126,10 @@ public class PushTest {
 
 
     /**
-     * Test F : User tries to use redirection on a non redirectionable command
+     * Test : User tries to use redirection on a non redirectionable command
      */
     @Test
-    public void testFRedirectionError() {
+    public void testRedirectionError() {
         //Expected return from Push
         expected = "Error : Redirection Error : pushd does not support redirection";
         //Actual return from Push
