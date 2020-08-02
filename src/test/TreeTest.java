@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import commands.Tree;
+import commands.Cat;
 
 public class TreeTest {
 	/**
@@ -21,6 +22,11 @@ public class TreeTest {
 	 * Initialize instance of Tree to test it
 	 */
 	private Tree testTree;
+	
+	/**
+	 * Initialize instance of Cat to read files
+	 */
+	private Cat testCat;
 
 	/**
 	 * setup for TreeTest to initialize required instance variables
@@ -32,6 +38,7 @@ public class TreeTest {
 		emptyFs = MockFileSystem.getMockFileSys("EMPTYSYS");
 		fullFs = MockFileSystem.getMockFileSys("MOCKENV");
 		testTree = new Tree();
+		testCat = new Cat();
 	}
 
 	/**
@@ -90,6 +97,20 @@ public class TreeTest {
 		String[] temp = { "test" };
 		assertEquals("Error : Multiple Parameters have been provided", testTree.run(fullFs, temp, "tree test", true));
 	}	
+	
+	/**
+	 * Test : Redirection into a file
+	 */
+	@Test
+	public void testRedirection() {
+		String[] temp = { ">", "txttwo" };
+		String[] temp2 = {"/documents/txttwo"};
+		String[] temp3 = {};
+		testTree.run(fullFs, temp, "tree > documents/txttwo", true);
+		String expected = testTree.run(fullFs, temp3, "tree", true);
+		String actual = testCat.run(fullFs, temp2, "cat /documents/txttwo", true);
+		assertEquals(expected, actual);
+	}
 }
 
 
