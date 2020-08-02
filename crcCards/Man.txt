@@ -7,4 +7,5 @@ Responsibilties:
 *Displays the documentation corresponding to the user-inputted command
 
 Collaborators:
-*ErrorHandler
+*RedirectionManager
+*FileSystemI
