@@ -25,6 +25,9 @@ public class CpTest {
         fs = MockFileSystem.getMockFileSys("MOCKENV");
     }
 
+    /**
+     * Test A : Copy a relative path to another relative path
+     */
     @Test
     public void TestACopyRelativePath(){
         String[] input = {"users", "documents"};
@@ -49,6 +52,9 @@ public class CpTest {
         assertEquals(check1 == check2, check1 == true);
     }
 
+    /**
+     * Test B : Copy an absolute path to an absolute path
+     */
     @Test
     public void TestBCopyAbsolutePath(){
         String[] input = {"/users", "/downloads"};
@@ -72,6 +78,9 @@ public class CpTest {
         assertEquals(check1 == check2, check1 == true);
     }
 
+    /**
+     * Test C : Copy a valid path to a path that doesn't exist, (cp must create the directory)
+     */
     @Test
     public void TestCCopyDirToInvalidPath(){
         String[] input = {"/users", "clearlyfake"};
@@ -80,6 +89,9 @@ public class CpTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Test D: Copy an invalid path
+     */
     @Test
     public void TestDCopyInvalidDirtoPath(){
         String[] input = {"fake", "/users"};
@@ -88,6 +100,9 @@ public class CpTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Copy an invalid path (absolute)
+     */
     @Test
     public void TestEMoveInvalidPathDirToPath(){
         String[] input = {"fake/user", "documents"};
@@ -96,14 +111,20 @@ public class CpTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Test F : Copy the root directory
+     */
     @Test
-    public void TestFMoveRoot(){
+    public void TestFCopyRoot(){
         String[] input = {"/", "documents"};
         String actual = cp.run(fs, input, "cp / documents", false);
         String expected = "Error: Invalid Directory : Cannot copy the root directory";
         assertEquals(expected, actual);
     }
 
+    /**
+     * Test G : Test redirection manager on cp
+     */
     @Test
     public void testGRedirectionError(){
         String[] input = {"/users", "/downloads", ">", "test"};
