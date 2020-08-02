@@ -10,3 +10,4 @@ Collaborators:
 *Cd
 *FileSystem
 *ErrorHandler
+*RedirectionManager
