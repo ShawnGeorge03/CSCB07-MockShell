@@ -23,9 +23,12 @@ public class Save implements CommandI {
 
   @Override
 	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
-    if(arguments.length == 0){ //checks if user inputted a parameter or not
+    //checks if user inputted a parameter or not
+    if(arguments.length == 0){ 
       throw new InvalidArgsProvidedException("Error : No parameters provided");
-    }else if(arguments.length > 1){  //checks if user inputted more than one parameter
+    }
+    //checks if user inputted more than one parameter
+    else if(arguments.length > 1){  
       throw new InvalidArgsProvidedException("Error : Multiple Parameters have been provided : " + String.join(" ", arguments) + " Only one is required");
     }
     return true;
@@ -195,12 +198,21 @@ public class Save implements CommandI {
         fileContent += "\t\"parent\" : \"null\"\n";
         writer.write("\t\"parent\" : \"null\"\n");
       }
-      writer.write("\t\"content\" : \"" + current.getContent() + "\"\n\n");
+      writer.write("\t\"content\" : \"" + getContentOfNode(current) + "\"\n\n");
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
   
+  private String getContentOfNode(Node current){
+    String finalOutput = null;
+    //grabs current content of node
+    String content = current.getContent();
+    //replaces all newline characters with "\n" so it would fit in one line in the json file
+    if(content != null)finalOutput = content.replaceAll("\n", "\\\\n");
+    return finalOutput;
+  }
+
   private void storeCommandHistoryToFile(FileWriter writer, FileSystemI filesys) {
     //loops through the command log of the filesystem
     for(int i = 0; i < filesys.getCommandLog().size(); i++) {
