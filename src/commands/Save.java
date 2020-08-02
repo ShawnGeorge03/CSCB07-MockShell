@@ -63,11 +63,35 @@ public class Save implements CommandI {
    */
   private String output;
 
+
   /**
    * Declare instance variable of String to hold the contents of the json file (only the node data)
    */
-  private String fileContent;
+  private String nodes;
 
+  /**
+   * Declare instance variable of String to hold the contents of the json file (only the filesystem)
+   */
+  private String filesystem;
+
+  /**
+   * Declare instance variable of String to hold the contents of the json file (only the command log)
+   */
+  private String commandLog;
+
+  /**
+   * Declare instance variable of String to hold the contents of the json file (only the directory stack)
+   */
+  private String directoryStack;
+
+  /**
+   * Declare instance variable of String to hold the contents of the json file (only the current path)
+   */
+  private String currentPath;
+
+  /**
+   * Declare instance variable of String to hold the current directory stack
+   */
   private String stackString;
 
   /**
@@ -78,8 +102,16 @@ public class Save implements CommandI {
     this.redirect = new RedirectionManager();
     //initialize the String output
     this.output = null;
-    //initialize the String fileContent
-    this.fileContent = "";
+    //initialize the String nodes
+    this.nodes = "";
+    //initialize the String filesystem
+    this.filesystem = "";
+    //initialize the String commandLog
+    this.commandLog = "";
+    //initialize the String directoryStack
+    this.directoryStack = "";
+    //initialize the String currentPath
+    this.currentPath = "";
     //initialize the String stackString
     this.stackString = "";
   }
@@ -112,10 +144,12 @@ public class Save implements CommandI {
    * Method that creates the file on the users computer and writes to the file. 
    * If the user tries to use redirection, the method returns an error.
    * If the user inputted invalid parameters, invalid filepath, or invalid filename then method returns corresponding error.
-   * Creates file and writes the data as sections: NODES, FILESYSTEM, COMMAND LOG
+   * Creates file and writes the data as sections: NODES, FILESYSTEM, COMMAND LOG, DIRECTORY STACK, CURRENT PATH
    * NODES section holds the data associated with each individual node
    * FILESYSTEM section visually displays the saved FileSystem (similar to tree)
    * COMMAND LOG section stores the command log of the saved FileSystem  
+   * DIRECTORY STACK
+   * CURRENT PATH
    * If no errors occur, method returns null
    * 
    * @param fs  FileSystem Object that stores the current filesystem
@@ -164,24 +198,27 @@ public class Save implements CommandI {
       writer.write("NODES\n{\n");
       storeNodeInformation(writer, filesys);
       writer.write("}");
-      fileContent += "\n";
+      //fileContent += "\n";
       //Adds the filesystem structure to the file (similar to tree)
       writer.write("\n\nFILESYSTEM\n{\n");
       storeFileSystem(writer, filesys);
       writer.write("}");
-      fileContent += "\n";
+      //fileContent += "\n";
       //Adds the command log to the file
       writer.write("\n\nCOMMAND LOG\n{\n");
       storeCommandHistoryToFile(writer, filesys);
       writer.write("}");
-      fileContent += "\n";
+      //fileContent += "\n";
       writer.write("\n\nDIRECTORY STACK\n{\n");
       addCurrentDirectoryStack(writer, filesys);
+      writer.write("}");
+      writer.write("\n\nCURRENT PATH\n{\n");
+      currentPath = "\t\"" + filesys.getCurrentPath() + "\"\n";
+      writer.write("\t\"" + filesys.getCurrentPath() + "\"\n");
       writer.write("}");
     } catch (IOException e) {
       output = "Error: Invalid Path : " + args[0];
     }
-    
   }
 
   private void addCurrentDirectoryStack(FileWriter writer, FileSystemI filesys){
@@ -241,10 +278,10 @@ public class Save implements CommandI {
    * @param fs  FileSystem Object that stores the current filesystem
    * @param arguments  String array that holds the paramters that the user inputted
    * @param fullInput  String object that stores the full input provided by user
-   * @param val  boolean value that is true if we are in speakMode and false otherwise
+   * @param section  int value that tells us which section we want to return (1-5)(starts from 1 which is NODES)
    * @return String  if an error occured then the error message is returned, else the fileContents are retured
    */
-  public String getFileContent(FileSystemI filesys, String[] args, String fullInput, boolean val) {
+  public String getFileContent(FileSystemI filesys, String[] args, String fullInput, int section) {
     try {
       //Checks if redirection is allowed 
       redirect.isRedirectionableCommand(fullInput);
@@ -259,8 +296,15 @@ public class Save implements CommandI {
     if(output != null){
       if(output.startsWith("Error:") || output.startsWith("Error :")) return output;
     }
-    //return the fileContents (only the node information is being checked)
-    return fileContent.trim();
+    //return the fileContents (according to the section)
+    switch(section){
+      case 1: return nodes.trim().replaceAll("\"", "");
+      case 2: return filesystem.trim().replaceAll("\"", "");
+      case 3: return commandLog.trim().replaceAll("\"", "");
+      case 4: return directoryStack.trim().replaceAll("\"", "");
+      case 5: return currentPath.trim().replaceAll("\"", "");
+    }
+    return null;
   }
   
   /**
@@ -392,7 +436,7 @@ public class Save implements CommandI {
         result += "\t";
       }
       //adds the node to the filesystem section of the file
-      fileContent += result + "\"" + current.getName() + "\"\n";
+      filesystem += result + "\"" + current.getName() + "\"\n";
       writer.write(result + "\"" + current.getName() + "\"\n");
     } catch (IOException e) {
       e.printStackTrace();
@@ -410,18 +454,18 @@ public class Save implements CommandI {
   private void addNodeInformationToFile(Node current, FileWriter writer, int depth) {
     try {
       //Adds the node information to the nodes section of the file
-      fileContent += "\t\"name\" : \"" + current.getName() + "\"\n";
-      fileContent += "\t\"isDir\" : \"" + current.getisDir() + "\"\n";
+      nodes += "\t\"name\" : \"" + current.getName() + "\"\n";
+      nodes += "\t\"isDir\" : \"" + current.getisDir() + "\"\n";
       writer.write("\t\"name\" : \"" + current.getName() + "\"\n");
       writer.write("\t\"isDir\" : \"" + current.getisDir() + "\"\n");
       //If the parent of the node is not null then we add the parent name
       if(current.getParent() != null){
-        fileContent += "\t\"parent\" : \"" + current.getParent().getName() + "\"\n";
+        nodes += "\t\"parent\" : \"" + current.getParent().getName() + "\"\n";
         writer.write("\t\"parent\" : \"" + current.getParent().getName() + "\"\n");
       }
       //Else set the parent to be null (only case this occurs is the root node)
       else{
-        fileContent += "\t\"parent\" : \"null\"\n";
+        nodes += "\t\"parent\" : \"null\"\n";
         writer.write("\t\"parent\" : \"null\"\n");
       }
       writer.write("\t\"content\" : \"" + getContentOfNode(current) + "\"\n\n");
@@ -458,7 +502,7 @@ public class Save implements CommandI {
     for(int i = 0; i < filesys.getCommandLog().size(); i++) {
       try {
         //adds the command to the command log section of the file
-        fileContent += "\t\"" + filesys.getCommandLog().get(i) + "\"\n";
+        commandLog += "\t\"" + filesys.getCommandLog().get(i) + "\"\n";
         writer.write("\t\"" + filesys.getCommandLog().get(i) + "\"\n");
       } catch (IOException e) {
         e.printStackTrace();

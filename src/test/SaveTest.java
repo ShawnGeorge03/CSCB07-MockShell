@@ -88,70 +88,120 @@ public class SaveTest {
     }
 
     /**
-     * Test A : User does not input a filepath or filename
+     * Test : User does not input a filepath or filename
      */
     @Test
-    public void testANoArgs(){
+    public void testNoArgs(){
         //String array that holds the input parameters
         String[] emptyArr = {};
         //Expected string output from save
         expected = "Error : No parameters provided";
         //Actual output when running save
-        actual = save.getFileContent(fs, emptyArr, "save", false);
+        actual = save.getFileContent(fs, emptyArr, "save", 1);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
 
     /**
-     * Test B : User inputs an invalid filename
+     * Test : User inputs an invalid filename
      */
     @Test
-    public void testBInvalidFileName(){
+    public void testInvalidFileName(){
         //Expected string output from save
         expected = "Error: Invalid File : save !";
         //Actual output when running save
-        actual = save.getFileContent(fs, "!".split(" "), "save !", false);
+        actual = save.getFileContent(fs, "!".split(" "), "save !", 1);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
 
     /**
-     * Test C : User inputs an invalid filepath
+     * Test : User inputs an invalid filepath
      */
     @Test
-    public void testCInvalidPath(){
+    public void testInvalidPath(){
         //Expected string output from save
         expected = "Error: Invalid Path : //testing";
         //Actual output when running save
-        actual = save.getFileContent(fs, "//testing".split(" "), "save //testing", false);
+        actual = save.getFileContent(fs, "//testing".split(" "), "save //testing", 1);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
 
     /**
-     * Test D : User only inputs the filename (without a ".")
+     * Test : Checks if the NODES section stores the correct data 
      */
     @Test
-    public void testDGivenFileNameWithoutFileType(){
+    public void testCheckNodes(){
         //Expected string output from save
-        expected = "\"name\" : \"/\"\n"
-                 + "\t\"isDir\" : \"true\"\n" 
-                 + "\t\"parent\" : \"null\"\n"
-                 + "\n"
-                 + "\t\"/\"";
+        expected = "name : /\n"
+                 + "\tisDir : true\n" 
+                 + "\tparent : null";
         //Actual output when running save
-        actual = save.getFileContent(fs, "savefile".split(" "), "save savefile", false);
+        actual = save.getFileContent(fs, "savefile".split(" "), "save savefile", 1);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
 
     /**
-     * Test E : User uses redirection for a non redirectionable command
+     * Test : Checks if the FILESYSTEM section stores the correct data 
      */
     @Test
-    public void testERedirectionError(){
+    public void testCheckFilesystem(){
+        //Expected string output from save
+        expected = "/";
         //Actual output when running save
-        actual = save.getFileContent(fs, "input > text".split(" "), "save input > text", false);
+        actual = save.getFileContent(fs, "savefile".split(" "), "save savefile", 2);
+        //Checks if the values are equal or not
+        assertEquals(expected, actual);
+    }
+
+    /**
+     * Test : Checks if the COMMAND LOG section stores the correct data 
+     */
+    @Test
+    public void testCheckCommandLog(){
+        //Expected string output from save
+        expected = "";
+        //Actual output when running save
+        actual = save.getFileContent(fs, "savefile".split(" "), "save savefile", 3);
+        //Checks if the values are equal or not
+        assertEquals(expected, actual);
+    }
+
+    /**
+     * Test : Checks if the DIRECTORY STACK section stores the correct data 
+     */
+    @Test
+    public void testCheckDirectoryStack(){
+        //Expected string output from save
+        expected = "";
+        //Actual output when running save
+        actual = save.getFileContent(fs, "savefile".split(" "), "save savefile", 4);
+        //Checks if the values are equal or not
+        assertEquals(expected, actual);
+    }
+
+    /**
+     * Test :Checks if the CURRENT PATH section stores the correct data 
+     */
+    @Test
+    public void testCheckCurrentPath(){
+        //Expected string output from save
+        expected = "/";
+        //Actual output when running save
+        actual = save.getFileContent(fs, "savefile".split(" "), "save savefile", 5);
+        //Checks if the values are equal or not
+        assertEquals(expected, actual);
+    }
+
+    /**
+     * Test : User uses redirection for a non redirectionable command
+     */
+    @Test
+    public void testRedirectionError(){
+        //Actual output when running save
+        actual = save.getFileContent(fs, "input > text".split(" "), "save input > text", 1);
         //Expected string output from save
         expected = "Error : Redirection Error : save does not support redirection";
         //Checks if the values are equal or not
@@ -159,49 +209,16 @@ public class SaveTest {
     }
 
     /**
-     * Test F : User only inputs the filename that is not a .json
+     * Test : User only inputs the filename that is not a .json
      */
     @Test
-    public void testFGivenFileNameWithIncorrectFileType(){
+    public void testGivenFileNameWithIncorrectFileType(){
         //Expected string output from save
         expected = "Error: Invalid File : save savefile.txt";
         //Actual output when running save
-        actual = save.getFileContent(fs, "savefile".split(" "), "save savefile.txt", false);
+        actual = save.getFileContent(fs, "savefile".split(" "), "save savefile.txt", 1);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
     }
-
-    /**
-     * Test E : 
-     */
-/*    @Test
-    public void testEGivenRelativePath(){
-        String[] testNoArg = {"saveFile"};
-        expected = "\t\"name\" : \"/\"\n"
-                 + "\t\"isDir\" : \"true\"\n" 
-                 + "\t\"parent\" : \"null\"\n"
-                 + "\n"
-                 + "\t\"/\"\n\n";
-        actual = save.run(fs, "save //testing", false);
-        System.out.println(actual);
-        assertEquals(expected, actual);
-    }
-*/    
-    /**
-     * Test F : 
-     */
-/*    @Test
-    public void testFGivenAbsolutePath(){
-        String[] testNoArg = {"saveFile"};
-        expected = "\t\"name\" : \"/\"\n"
-                 + "\t\"isDir\" : \"true\"\n" 
-                 + "\t\"parent\" : \"null\"\n"
-                 + "\n"
-                 + "\t\"/\"\n\n";
-        actual = save.run(fs, "save //testing", false);
-        System.out.println(actual);
-        assertEquals(expected, actual);
-    }*/
-
 
 }

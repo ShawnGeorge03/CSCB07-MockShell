@@ -73,17 +73,17 @@ public class Load implements CommandI{
    */
   private RedirectionManager redirect;
 
-  private Push pushCommand;
+  private Cd cdCommand;
   
   public Load(){
     // Initializes a RedirectionManager Object
     this.redirect = new RedirectionManager();
     // Initializes the String output
     this.output = null;
-    // Initializes a String fileContents
+    // Initializes the String fileContents
     this.fileContents = "";
-    // Initializes a String fileContents
-    this.pushCommand = new Push();
+    // Initializes the Cd object
+    this.cdCommand = new Cd();
   }
   
   /**
@@ -134,9 +134,8 @@ public class Load implements CommandI{
    * @return String  if an error occured then the error message is returned, else null is returned
    */ 
   @Override
-  public String run(FileSystemI filesys, String arguments[], String fullInput, boolean val) {
+  public String run(FileSystemI filesys, String args[], String fullInput, boolean val) {
     //Seperates the parameters from everything else from the user input
-    String[] args = redirect.setParams(fullInput);
     try {
       //checks for valid arguments
       if (checkArgs(filesys, args, fullInput)) {
@@ -160,7 +159,9 @@ public class Load implements CommandI{
             uploadCommandLog(line, filesys);
           else if (line.equals("DIRECTORY STACK"))
             //add the directory stack
-            uploadDirectoryStack(filesys, arguments, val, line);
+            uploadDirectoryStack(filesys, line);
+          else if (line.equals("CURRENT PATH"))
+            goToCurrentPath(line, filesys);  
           line = reader.readLine();
         }
       }
@@ -180,21 +181,24 @@ public class Load implements CommandI{
     return output;
   }
 
-  private void uploadDirectoryStack(FileSystemI filesys, String arg[], boolean val, String line){
+  private void goToCurrentPath(String line, FileSystemI filesys){
+    try {
+      line = reader.readLine();
+      line = reader.readLine().trim().replaceAll("\"", "");
+      cdCommand.run(line.split(" "), filesys);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void uploadDirectoryStack(FileSystemI filesys, String line){
     try {
       //Two readLines need to be used to read the useless \n used to divide sections
       line = reader.readLine();
       line = reader.readLine().trim().replaceAll("\"", "");
       //Loop runs until the end of section has been reached
       while(!line.equals("}")) {
-        //String path = line.trim();
-        //String input = "pushd " + path;
-        System.out.println(line);
-        //adds to the stack
-        //pushCommand.run(filesys, arg, input, val);
-        /*String path = line.trim().substring(1, line.length()-1);
-        filesys.getStack().push(path);*/
-        //fileContents += line + "\n";
+        filesys.getStack().push(line);
         line = reader.readLine().trim().replaceAll("\"", "");
       }
     } catch (IOException e) {
