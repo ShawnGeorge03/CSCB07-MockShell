@@ -9,4 +9,4 @@ Responsibilties:
 Collaborators:
 *Cd
 *FileSystem
-*ErrorHandler
+*RedirectionManager

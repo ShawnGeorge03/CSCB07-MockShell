@@ -9,5 +9,5 @@ Responsibilties:
 
 Collaborators:
 *Cd
-*ErrorHandler
+*RedirectionManager
 *FileSystem

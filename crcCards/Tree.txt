@@ -7,4 +7,4 @@ Responsibilties:
 *Visually displays a tree-like diagram of all directories and files in the filesystem
 
 Collaborators:
-*ErrorHandler
+*RedirectionManager
