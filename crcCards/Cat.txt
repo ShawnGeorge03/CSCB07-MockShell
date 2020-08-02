@@ -1,5 +1,5 @@
 Class name: Cat
-Parent class: FileManager
+Parent class: N/A
 Subclasses: N/A
 Implements: CommandI
 
@@ -10,3 +10,4 @@ Responsibilties:
 Collaborators:
 *FileManager
 *FileSystem
+*RedirectionManager
