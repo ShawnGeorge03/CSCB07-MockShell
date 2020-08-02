@@ -1,0 +1,15 @@
+Class name: MockFileSystem
+Parent class: N/A
+Subclasses: N/A
+Implements: FileSystemI
+
+Responsibilties:
+*Has a set of predetermeined set of directories and files
+*Store the information about the directories for convenient access 
+*Append and Overwrite new content to a file
+*Find a file in the File System
+*Find the current working directory
+*Checks if a directory or file name is valid
+
+Collaborators:
+*Node
