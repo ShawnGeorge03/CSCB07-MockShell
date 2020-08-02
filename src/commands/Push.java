@@ -74,7 +74,15 @@ public class Push extends DirectoryManager implements CommandI {
 
     return null;
   }
-  
+  /**
+   * Checks arguments to see if they are valid
+   * 
+   * @param fs  filesystem to be used
+   * @param arguments  argumetns containing directory to be pushed
+   * @param fullInput  full string input from the user
+   * 
+   * @return Boolean  returns a boolean if arguments are valid for command or not
+   */
   @Override
 	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) throws InvalidArgsProvidedException {
     if (arguments.length == 0) {
@@ -87,6 +95,15 @@ public class Push extends DirectoryManager implements CommandI {
     return true;
   }
 
+  /**
+   * After running checkArgs, runPush is run to actual push directory onto directory stack
+   * 
+   * @param filesys  filesystem to be used
+   * @param args  arguments containing directory ot be pushed
+   * @param current  current path of the location the user is in, in the filesystem
+   * 
+   * @throws DirectoryException  throws director exception if invalid path is pushed
+   */
   private void runPush(FileSystemI filesys, String[] args, String current) throws DirectoryException{
     if (goBack.run(args, filesys)) {
       filesys.getStack().push(current);
