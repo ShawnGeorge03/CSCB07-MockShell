@@ -41,6 +41,7 @@ public class Find extends DirectoryManager implements CommandI {
 	public String run(FileSystemI filesys,  String[] arg,  String fullInput, boolean val) {
 		//Seperates the parameters from everything else from the user input
 		String[] args = rManager.setParams(fullInput);
+		System.out.println(Arrays.asList(args));
 		//Creating arraylists for the paths and all the arguments
 		ArrayList<String> paths = new ArrayList<String>();
 		ArrayList<String> arguments = new ArrayList<String>(Arrays.asList(args));
@@ -150,13 +151,17 @@ public class Find extends DirectoryManager implements CommandI {
 		for (int i = 0; i < toCheck.size(); i++) {
 			if (type.equals("d")) {
 				if (toCheck.get(i).getisDir() && toCheck.get(i).getName().equals(expression)) {
-					output = output.concat(filesys.getCurrentPath());
-					output = output.concat("\n");
+					if (!output.contains(filesys.getCurrentPath() + "\n")) {
+						output = output.concat(filesys.getCurrentPath());
+						output = output.concat("\n");
+					}
 				}
 			} else if (type.equals("f")) {
 				if (!toCheck.get(i).getisDir() && toCheck.get(i).getName().equals(expression)) {
-					output = output.concat(filesys.getCurrentPath());
-					output = output.concat("\n");
+					if (!output.contains(filesys.getCurrentPath() + "\n")) {
+						output = output.concat(filesys.getCurrentPath());
+						output = output.concat("\n");
+					}
 				}
 			}
 		}
