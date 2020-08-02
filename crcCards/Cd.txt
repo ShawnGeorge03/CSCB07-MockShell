@@ -10,3 +10,4 @@ Responsibilties:
 Collaborators:
 *DirectoryManager
 *FileSystem
+*RedirectionManager
