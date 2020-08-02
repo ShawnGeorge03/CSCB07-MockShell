@@ -31,6 +31,8 @@ package commands;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Deque;
+
 import data.*;
 import errors.FileException;
 import errors.InvalidArgsProvidedException;
@@ -66,6 +68,8 @@ public class Save implements CommandI {
    */
   private String fileContent;
 
+  private String stackString;
+
   /**
    * Constructor for Save that initializes instance variables
    */
@@ -76,6 +80,8 @@ public class Save implements CommandI {
     this.output = null;
     //initialize the String fileContent
     this.fileContent = "";
+    //initialize the String stackString
+    this.stackString = "";
   }
 
   /**
@@ -168,12 +174,42 @@ public class Save implements CommandI {
       writer.write("\n\nCOMMAND LOG\n{\n");
       storeCommandHistoryToFile(writer, filesys);
       writer.write("}");
+      fileContent += "\n";
+      writer.write("\n\nDIRECTORY STACK\n{\n");
+      addCurrentDirectoryStack(writer, filesys);
+      writer.write("}");
     } catch (IOException e) {
       output = "Error: Invalid Path : " + args[0];
     }
     
   }
 
+  private void addCurrentDirectoryStack(FileWriter writer, FileSystemI filesys){
+    Deque<String> stack = filesys.getStack();
+    getStackAsString(stack);
+    try {
+      if(stackString != null){
+        writer.write(stackString);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void getStackAsString(Deque<String> stack){
+    // If stack is empty then return  
+    if(stack.isEmpty()) return;  
+    //Gets the string 
+    String element = stack.peek();  
+    //Pop the top element of the stack  
+    stack.pop();  
+    //Recursively call the function getStackAsString  
+    getStackAsString(stack);  
+    //Append the stack element
+    stackString += "\t\"" + element + "\"\n";
+    //Push the same element onto the stack to keep the order
+    stack.push(element);  
+  }
 
   /**
    * Method that checks if the file name that the user inputted is a valid file name. If the file name

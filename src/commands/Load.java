@@ -72,6 +72,8 @@ public class Load implements CommandI{
    * Declare instance variable of RedirectionManager to handle redirection to file
    */
   private RedirectionManager redirect;
+
+  private Push pushCommand;
   
   public Load(){
     // Initializes a RedirectionManager Object
@@ -80,6 +82,8 @@ public class Load implements CommandI{
     this.output = null;
     // Initializes a String fileContents
     this.fileContents = "";
+    // Initializes a String fileContents
+    this.pushCommand = new Push();
   }
   
   /**
@@ -154,6 +158,9 @@ public class Load implements CommandI{
           else if (line.equals("COMMAND LOG"))
             //add the command log
             uploadCommandLog(line, filesys);
+          else if (line.equals("DIRECTORY STACK"))
+            //add the directory stack
+            uploadDirectoryStack(filesys, arguments, val, line);
           line = reader.readLine();
         }
       }
@@ -171,6 +178,28 @@ public class Load implements CommandI{
       return "Issues with Load";
     }
     return output;
+  }
+
+  private void uploadDirectoryStack(FileSystemI filesys, String arg[], boolean val, String line){
+    try {
+      //Two readLines need to be used to read the useless \n used to divide sections
+      line = reader.readLine();
+      line = reader.readLine().trim().replaceAll("\"", "");
+      //Loop runs until the end of section has been reached
+      while(!line.equals("}")) {
+        //String path = line.trim();
+        //String input = "pushd " + path;
+        System.out.println(line);
+        //adds to the stack
+        //pushCommand.run(filesys, arg, input, val);
+        /*String path = line.trim().substring(1, line.length()-1);
+        filesys.getStack().push(path);*/
+        //fileContents += line + "\n";
+        line = reader.readLine().trim().replaceAll("\"", "");
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
