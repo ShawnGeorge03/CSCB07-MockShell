@@ -20,3 +20,11 @@ Collaborators:
 *Pwd
 *Speak
 *Checker
+*Find
+*Tree
+*Load
+*Save
+*Curl
+*Mv
+*Rm
+*Exit
