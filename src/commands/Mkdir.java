@@ -53,7 +53,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	//String fullinput;
 	String fileName;
 	String[] newArgs = {""};
-
+	String[] currentPath = {""};
 	FileSystemI fs;
 
 	/**
@@ -94,7 +94,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	public String MakeDirectory(String[] arguments, FileSystemI filesys, String fullinput) 
 		throws InvalidArgsProvidedException, DirectoryException{
 		this.args = new ArrayList<String>(Arrays.asList(arguments));
-		String[] currentPath = {fs.getCurrentPath()};
+		currentPath[0] = fs.getCurrentPath();
 		checkArgs(fs, arguments, fullinput);
 		checkRepitition();
 		
@@ -113,15 +113,18 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
 		throws InvalidArgsProvidedException {	
 		if (args.size() == 0) {
+			traverse.run(currentPath, fs);
 			throw new InvalidArgsProvidedException("Error: Invalid Argument : Expected at least 1 argument");
 		}
 		for (int i = 0; i < args.size(); i++){
 			setPathAndFile(i);
 			if (!fs.isValidName(fileName)){
+				traverse.run(currentPath, fs);
 				throw new InvalidArgsProvidedException("Error: Invalid Directory : "  
 				+ fileName + " is not a valid directory name");
 			}
 			if (!traverse.run(newArgs, fs)){
+				traverse.run(currentPath, fs);
 				throw new InvalidArgsProvidedException("Error: Invalid Directory : " 
 				+ newArgs[0] + " is not a valid directory");
 			}
@@ -149,6 +152,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 			ArrayList<Node> parentList = fs.getCurrent().getList();
 			for (int j = 0; j < parentList.size(); j++){
 				if (parentList.get(j).getName().equals(fileName) && parentList.get(j).getisDir()){
+					traverse.run(currentPath, fs);
 					throw new DirectoryException("Invalid Directory: "  + 
 					fileName + " already exists in " + newArgs[0]);
 				}
