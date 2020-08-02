@@ -101,6 +101,7 @@ public class Load implements CommandI{
         throw new InvalidArgsProvidedException("Error: Invalid File : " + fullInput);
       }
     }
+    else filePath += ".json";
   }
 
   private boolean checkCommandLog(FileSystemI filesys) {
