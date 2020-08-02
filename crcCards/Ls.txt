@@ -7,5 +7,6 @@ Responsibilties:
 *Displays all files and directories that reside in the user's current directory
 
 Collaborators:
-*ErrorHandler
-*Cd
+*Node
+*FileSystemI
+*RedirectionManager
