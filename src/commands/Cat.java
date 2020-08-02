@@ -1,7 +1,7 @@
 // **********************************************************
 // Assignment2:
 // Student1:
-// UTORID user_name: santhso7
+// UTORID user_name: santhos7
 // UT Student #: 1005904103
 // Author: Shawn Santhoshgeorge
 //

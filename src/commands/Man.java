@@ -1,7 +1,7 @@
 // **********************************************************
 // Assignment2:
 // Student1:
-// UTORID user_name: patelt26
+// UTORID user_name: santhos7
 // UT Student #: 1005904103
 // Author: Shawn Santhoshgeorge
 //
@@ -282,14 +282,16 @@ public class Man implements CommandI {
 
                 // Adds a key named mv and adds its manual
                 manMap.put("mv", "Command: mv OLDPATH NEWPATH" + "Removes OLDPATH and moves it to new NEWPATH"
-                                + "\n\n\tParameters : OLDPATH and NEWPATH must be directory"
+                                + "\n\n\tarameter : OLDPATH and NEWPATH must not be the root"
+                                + "\n\tParameter : OLDPATH must be a valid directory"
                                 + "\n\n\tREDIRECTION : This command does not allow the output"
                                 + "\n\tto be redirected to a file instead of the console "
                                 + "\n\tif there is any output for the command");
 
                 // Adds a key named cp and adds its manual
                 manMap.put("cp", "Command: cp OLDPATH NEWPATH" + "Creates a copy of OLDPATH and moves it to new NEWPATH"
-                                + "\n\n\tParameters : OLDPATH and NEWPATH must be directory"
+                                + "\n\n\tarameter : OLDPATH and NEWPATH must not be the root"
+                                + "\n\tParameter : OLDPATH must be a valid directory"
                                 + "\n\n\tREDIRECTION : This command does not allow the output"
                                 + "\n\tto be redirected to a file instead of the console "
                                 + "\n\tif there is any output for the command");
