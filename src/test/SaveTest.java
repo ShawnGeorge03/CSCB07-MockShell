@@ -35,7 +35,7 @@ public class SaveTest {
     }
 
     /**
-     * Test A : 
+     * Test A : User does not input a filepath or filename
      */
     @Test
     public void testANoArgs(){
@@ -45,7 +45,7 @@ public class SaveTest {
     }
 
     /**
-     * Test B : 
+     * Test B : User inputs an invalid filename
      */
     @Test
     public void testBInvalidFileName(){
@@ -55,7 +55,7 @@ public class SaveTest {
     }
 
     /**
-     * Test C : 
+     * Test C : User inputs an invalid filepath
      */
     @Test
     public void testCInvalidPath(){
@@ -65,7 +65,7 @@ public class SaveTest {
     }
 
     /**
-     * Test D : 
+     * Test D : User only inputs the filename and not the absolute path
      */
     @Test
     public void testDGivenOnlyFileName(){

@@ -8,6 +8,7 @@ import java.io.IOException;
 import data.FileSystemI;
 import data.Node;
 import errors.InvalidArgsProvidedException;
+import errors.InvalidRedirectionError;
 
 public class Load implements CommandI{
 
@@ -15,6 +16,7 @@ public class Load implements CommandI{
   private BufferedReader reader;
   private String filePath;
   private String output;
+  private String fileContents;
 
   /**
    * Declare instance variable of RedirectionManager to handle redirection to file
@@ -25,6 +27,7 @@ public class Load implements CommandI{
     // Initializes a RedirectionManager Object
     this.redirect = new RedirectionManager();
     this.output = null;
+    this.fileContents = "";
   }
   
   @Override
@@ -76,6 +79,19 @@ public class Load implements CommandI{
     return output;
   }
   
+  public String getFileContents(FileSystemI filesys, String fullInput, boolean val){
+    try {
+      redirect.isRedirectionableCommand(fullInput);
+    } catch (InvalidRedirectionError e) {
+      return e.getLocalizedMessage();
+    }
+    output = run(filesys, fullInput, false);
+    if(output != null){
+      if(output.startsWith("Error:") || output.startsWith("Error :")) return output;
+    }
+    return fileContents.trim();
+  }
+
   private void validateFileName(FileSystemI filesys, String fullInput) throws InvalidArgsProvidedException{
     if(!checkFileName(filePath, filesys)) {
       throw new InvalidArgsProvidedException("Error: Invalid File : " + fullInput);
@@ -88,7 +104,7 @@ public class Load implements CommandI{
   }
 
   private boolean checkCommandLog(FileSystemI filesys) {
-    if(filesys.getCommandLog().size() == 1) return true;
+    if(filesys.getCommandLog().size() <= 1) return true;
     return false;
   }
 
@@ -108,6 +124,7 @@ public class Load implements CommandI{
         String[] nodeInformation = new String[4];
         for(int i = 0; i < nodeInformation.length; i++) {
           nodeInformation[i] = line;
+          fileContents += nodeInformation[i] + "\n";
           line = reader.readLine();
         }
         createNode(nodeInformation, filesys);
@@ -124,6 +141,7 @@ public class Load implements CommandI{
       line = reader.readLine().trim().replaceAll("\"", "");
       while(!line.equals("}")) {
         filesys.getCommandLog().add(line);
+        fileContents += line + "\n";
         line = reader.readLine().trim().replaceAll("\"", "");
       }
     } catch (IOException e) {
