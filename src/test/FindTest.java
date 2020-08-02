@@ -7,12 +7,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import commands.Find;
+import commands.Cat;
 
 public class FindTest {
 
 	private MockFileSystem fs;
 
 	private Find findTest;
+	
+	private Cat catTest;
 
 	/**
 	 * setup for findTest to initialize required instance variables
@@ -23,6 +26,7 @@ public class FindTest {
 	public void setup() throws Exception {
 		fs = MockFileSystem.getMockFileSys("MOCKENV");
 		findTest = new Find();
+		catTest = new Cat();
 	}
 
 	/**
@@ -102,5 +106,19 @@ public class FindTest {
 	public void testMultiplePathsForFile() {
 		String[] args = { "/", "/documents", "-type", "f", "-name", "\"txtone\"" };
 		assertEquals("/documents\n", findTest.run(fs, args, "find / /documents -type f -name \"txtone\"", true));
+	}
+	
+	/**
+	 * Test : Redirection output to a file
+	 */
+	@Test
+	public void testRedirection() {
+		String[] args = { "/", "-type", "f", "-name", "\"txtone\"" };
+		String[] args2 = { "/documents/txtone" };
+		String[] args3 = { "/", "-type", "f", "-name", "\"txtone\"", ">", "/documents/txtone" };
+		String expected = findTest.run(fs, args, "find / -type f -name \"txtone\"", true);
+		findTest.run(fs, args3, "find / -type f -name \"txtone\" > /documents/txtone", true);
+		String actual = catTest.run(fs, args2, "cat /documents/txtone", true);
+		assertEquals(expected, actual);
 	}
 }
