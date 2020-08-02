@@ -96,7 +96,7 @@ public class LoadTest {
         String[] fileArgs = {};
         //Expected output when load has been executed
         expected = "Error: Invalid Argument : No arguments should be given";
-        //Actual output when running save
+        //Actual output when running Load
         actual = load.getFileContents(fs, fileArgs, "load", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
@@ -111,7 +111,7 @@ public class LoadTest {
         String[] fileArgs = {"!"};
         //Expected output when load has been executed
         expected = "Error: Invalid File : load !";
-        //Actual output when running save
+        //Actual output when running Load
         actual = load.getFileContents(fs, fileArgs, "load !", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
@@ -126,7 +126,7 @@ public class LoadTest {
         String[] fileArgs = {"//testing"};
         //Expected output when load has been executed
         expected = "Error: Invalid Path : //testing";
-        //Actual output when running save
+        //Actual output when running Load
         actual = load.getFileContents(fs, fileArgs, "load //testing", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
@@ -141,7 +141,7 @@ public class LoadTest {
         String[] fileArgs = {"loadFile.txt"};
         //Expected output when load has been executed
         expected = "Error: Invalid File : load loadfile.txt";
-        //Actual output when running save
+        //Actual output when running Load
         actual = load.getFileContents(fs, fileArgs, "load loadfile.txt", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual);
@@ -156,43 +156,9 @@ public class LoadTest {
         String[] fileArgs = {"input", ">", "text"};
         //Expected output when load has been executed
         expected = "Error : Redirection Error : load does not support redirection";
-        //Actual output when running save
+        //Actual output when running Load
         actual = load.getFileContents(fs, fileArgs, "load input > text", false);
         //Checks if the values are equal or not
         assertEquals(expected, actual); 
     }
-
-    /**
-     * Test E : 
-     */
-/*    @Test
-    public void testEGivenRelativePath(){
-        String[] testNoArg = {"saveFile"};
-        expected = "\t\"name\" : \"/\"\n"
-                 + "\t\"isDir\" : \"true\"\n" 
-                 + "\t\"parent\" : \"null\"\n"
-                 + "\n"
-                 + "\t\"/\"\n\n";
-        actual = save.run(fs, "save //testing", false);
-        System.out.println(actual);
-        assertEquals(expected, actual);
-    }
-*/    
-    /**
-     * Test F : 
-     */
-/*    @Test
-    public void testFGivenAbsolutePath(){
-        String[] testNoArg = {"saveFile"};
-        expected = "\t\"name\" : \"/\"\n"
-                 + "\t\"isDir\" : \"true\"\n" 
-                 + "\t\"parent\" : \"null\"\n"
-                 + "\n"
-                 + "\t\"/\"\n\n";
-        actual = save.run(fs, "save //testing", false);
-        System.out.println(actual);
-        assertEquals(expected, actual);
-    }*/
-
-
 }
