@@ -42,66 +42,65 @@ public class FindTest {
 	}
 
 	/**
-	 * Test 1: Finding single dir in filesystem
+	 * Test : Finding single dir in filesystem
 	 */
 	@Test
-	public void test1SingleDir() {
+	public void testSingleDir() {
 		String[] args = { "/", "-type", "d", "-name", "\"homework\"" };
 		assertEquals("/downloads\n", findTest.run(fs, args, "find / -type d -name \"homework\"", true));
 	}
 
 	/**
-	 * Test 2: Finding single file in filesystem
+	 * Test : Finding single file in filesystem
 	 */
 	@Test
-	public void test2SingleFileEntireFs() {
+	public void testSingleFileEntireFs() {
 		String[] args = { "/", "-type", "f", "-name", "\"txtone\"" };
 		assertEquals("/documents\n", findTest.run(fs, args, "find / -type f -name \"txtone\"", true));
 	}
 
 	/**
-	 * Test 3: Finding dir from multiple paths in filesystem
+	 * Test : Finding dir from multiple paths in filesystem
 	 */
 	@Test
-	public void test3MultipleDirs() {
+	public void testMultipleDirs() {
 		String[] args = { "/", "/downloads", "-type", "d", "-name", "\"homework\"" };
 		assertEquals("/downloads\n", findTest.run(fs, args, "find / /downloads -type d -name \"homework\"", true));
 	}
 
 	/**
-	 * Test 4: Finding dir that doesnt exist
+	 * Test : Finding dir that doesnt exist
 	 */
 	@Test
-	public void test4NoDir() {
+	public void testNoDir() {
 		String[] args = { "/", "-type", "d", "-name", "\"test123\"" };
 		assertEquals("", findTest.run(fs, args, "find / -type d -name \"test123\"", true));
 	}
 
 	/**
-	 * Test 5: Finding file that doesn't exist
+	 * Test : Finding file that doesn't exist
 	 */
 	@Test
-	public void test5NoFile() {
+	public void testNoFile() {
 		String[] args = { "/", "-type", "f", "-name", "\"test123\"" };
 		assertEquals("", findTest.run(fs, args, "find / -type f -name \"test123\"", true));
 	}
 
 	/**
-	 * Test 6: Finding single dir using multiple paths
+	 * Test : Finding single dir using multiple paths
 	 */
 	@Test
-	public void test6MultiplePathsForDir() {
+	public void testMultiplePathsForDir() {
 		String[] args = { "/", "/downloads", "-type", "d", "-name", "\"homework\"" };
 		assertEquals("/downloads\n", findTest.run(fs, args, "find / /downloads -type d -name \"homework\"", true));
 	}
 
 	/**
-	 * Test 7: Finding single file using multiple paths
+	 * Test : Finding single file using multiple paths
 	 */
 	@Test
-	public void test7MultiplePathsForFile() {
+	public void testMultiplePathsForFile() {
 		String[] args = { "/", "/documents", "-type", "f", "-name", "\"txtone\"" };
 		assertEquals("/documents\n", findTest.run(fs, args, "find / /documents -type f -name \"txtone\"", true));
 	}
-
 }

@@ -58,7 +58,7 @@ public class EchoTest {
 
 
     /**
-     * Test A : User provides no input
+     * Test : User provides no input
     */
     @Test
     public void testANoArgs() {
@@ -73,10 +73,10 @@ public class EchoTest {
     }
 
     /**
-     * Test B : User provides proper input
+     * Test : User provides proper input
      */
     @Test
-    public void testBProperText() {
+    public void testProperText() {
         //Expected return from Echo
         expected = "Hello";
         //Actual return from Echo after the operation has been run
@@ -86,10 +86,10 @@ public class EchoTest {
     }
 
     /**
-     * Test C : User provides malformed input
+     * Test : User provides malformed input
      */
     @Test
-    public void testCMalformedTextCase1() {
+    public void testMalformedTextCase1() {
         //Expected return from Echo
         expected = "Error : Missing Quotes : \"Hello";
         //Actual return from Echo after the operation has been run
@@ -99,10 +99,10 @@ public class EchoTest {
     }
 
     /**
-     * Test D : User provides malformed input
+     * Test : User provides malformed input
      */
     @Test
-    public void testDMalformedTextCase2() {
+    public void testMalformedTextCase2() {
         //Expected return from Echo
         expected = "Error : Missing Quotes : Hello\"";
         //Actual return from Echo after the operation has been run
@@ -113,10 +113,10 @@ public class EchoTest {
 
     
     /**
-     * Test E : User chooses to redirect output but no file to overwrite to 
+     * Test : User chooses to redirect output but no file to overwrite to 
      */
     @Test
-    public void testENoFileCase1() {
+    public void testNoFileCase1() {
         //Expected return from Echo
         expected = "Error : No parameters provided for redirection";
         //Actual return from Echo after the operation has been run
@@ -126,10 +126,10 @@ public class EchoTest {
     }
 
     /**
-     * Test F : User chooses to redirect output but no file to append to 
+     * Test : User chooses to redirect output but no file to append to 
      */
     @Test
-    public void testFNoFileCase2() {
+    public void testNoFileCase2() {
         //Expected return from Echo
         expected = "Error : No parameters provided for redirection";
         //Actual return from Echo after the operation has been run
@@ -139,10 +139,10 @@ public class EchoTest {
     }
 
     /**
-     * Test G : User chooses to redirect output to a relative path file
+     * Test : User chooses to redirect output to a relative path file
      */
     @Test
-    public void testGWriteToRelativeFile() {
+    public void testWriteToRelativeFile() {
         //Expected return from Echo
         expected = null;
         //Actual return from Echo after the operation has been run
@@ -152,10 +152,10 @@ public class EchoTest {
     }
 
     /**
-     * Test H : User chooses to redirect output to a absolute path file
+     * Test : User chooses to redirect output to a absolute path file
      */
     @Test
-    public void testHWriteToAbsoluteFile() {
+    public void testWriteToAbsoluteFile() {
         //Expected return from Echo
         expected = null;
         //Actual return from Echo after the operation has been run
@@ -165,10 +165,10 @@ public class EchoTest {
     }
 
     /**
-     * Test I : User chooses to overwrite contents of a file with the contents to relative filepath
+     * Test : User chooses to overwrite contents of a file with the contents to relative filepath
      */
     @Test
-    public void testIOverwriteRelativeFile() {
+    public void testOverwriteRelativeFile() {
         //Expected return from Echo
         expected = null;
         //Actual return from Echo after the operation has been run
@@ -178,10 +178,10 @@ public class EchoTest {
     }
 
     /**
-     * Test J : User chooses to append the result to the contents of a file to relative path
+     * Test : User chooses to append the result to the contents of a file to relative path
      */
     @Test
-    public void testJAppendRelativeFile() {
+    public void testAppendRelativeFile() {
         //Expected return from Echo
         expected = null;
         //Actual return from Echo after the operation has been run
@@ -191,10 +191,10 @@ public class EchoTest {
     }
 
     /**
-     * Test K : User chooses to overwrite contents of a file with the contents to absolute filepath
+     * Test : User chooses to overwrite contents of a file with the contents to absolute filepath
      */
     @Test
-    public void testKOverwriteAbsoluteFile() {
+    public void testOverwriteAbsoluteFile() {
         //Expected return from Echo
         expected= null;
         //Actual return from Echo after the operation has been run
@@ -205,10 +205,10 @@ public class EchoTest {
     }
 
     /**
-     * Test L : User chooses to append the result to the contents of a file to absolute path
+     * Test : User chooses to append the result to the contents of a file to absolute path
      */
     @Test
-    public void testLAppendAbsoluteFile() {
+    public void testAppendAbsoluteFile() {
         //Expected return from Echo
         expected = null;
         //Actual return from Echo after the operation has been run
@@ -219,10 +219,10 @@ public class EchoTest {
     }
 
     /**
-     * Test M : User provides no filename for redirection
+     * Test : User provides no filename for redirection
      */
     @Test
-    public void testMRedirectionErrorCase1(){
+    public void testRedirectionErrorCase1(){
         //Expected return from Echo
         expected = "Error : No parameters provided for redirection";
         //Actual return from Echo after the operation has been run
@@ -233,10 +233,10 @@ public class EchoTest {
     }
 
     /**
-     * Test N : User provides multiple file names fro redirection
+     * Test : User provides multiple file names fro redirection
      */
     @Test
-    public void testNRedirectionErrorCase2(){
+    public void testRedirectionErrorCase2(){
         //Expected return from Echo
         expected = "Error : Multiple Parameters have been provided : [pks, loops] Only one is required for redirection";
         //Actual return from Echo after the operation has been run
@@ -247,10 +247,10 @@ public class EchoTest {
     }
 
     /**
-     * Test O : User provides a file anme for redirection but it an invalid name
+     * Test : User provides a file anme for redirection but it an invalid name
      */
     @Test
-    public void testORedirectionErrorCase3() {
+    public void tesORedirectionErrorCase3() {
         //Expected return from Echo
         expected =  "Error: Invalid File : Hello$ is not a valid file name";
         //Actual return from Echo after the operation has been run

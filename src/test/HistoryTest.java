@@ -66,10 +66,10 @@ public class HistoryTest {
   }
   
   /**
-   * Test A : User provides no parameter
+   * Test : User provides no parameter
    */
   @Test
-  public void testANoArgs() {
+  public void testNoArgs() {
     //Declares and initializes an empty array
     String[] testCase1history = {};
     //Add the command to the history stack
@@ -85,10 +85,10 @@ public class HistoryTest {
   }
 
   /**
-   * Test B : Users provides a large integer parameter
+   * Test : Users provides a large integer parameter
    */
   @Test
-  public void testBLargeInteger() {    
+  public void testLargeInteger() {    
     //Add the command to the history stack
     fs.getCommandLog().add("history 100");
     //Actual return from History after the operation has been run
@@ -102,10 +102,10 @@ public class HistoryTest {
   }
 
   /**
-   * Test C : User provides a small intger parameter
+   * Test : User provides a small intger parameter
    */
   @Test
-  public void testCSmallInteger() {
+  public void testSmallInteger() {
     //Add the command to the history stack
     fs.getCommandLog().add("history 5");
     //Actual return from History after the operation has been run
@@ -118,10 +118,10 @@ public class HistoryTest {
   }
 
   /**
-   * Test D : User provides a parameter lower than zero
+   * Test : User provides a parameter lower than zero
    */
   @Test
-  public void testDNegativeInteger() {
+  public void testNegativeInteger() {
     //Add the command to the history stack
     fs.getCommandLog().add("history -3");
     //Actual return from History after the operation has been run
@@ -134,10 +134,10 @@ public class HistoryTest {
   }
 
   /**
-   * Test E : User provides an non-integer parameter
+   * Test : User provides an non-integer parameter
    */
   @Test
-  public void testENotAnIntegerCase1() {
+  public void testNotAnIntegerCase1() {
     //Add the command to the history stack
     fs.getCommandLog().add("history 1.0");
     //Actual return from History after the operation has been run
@@ -150,10 +150,10 @@ public class HistoryTest {
   }
 
   /**
-   * Test F : User provides a non-numeric parameter
+   * Test : User provides a non-numeric parameter
    */
   @Test
-  public void testFNotAnIntegerCase2() {
+  public void testNotAnIntegerCase2() {
     //Add the command to the history stack
     fs.getCommandLog().add("history hello");
     //Actual return from History after the operation has been run
@@ -165,10 +165,10 @@ public class HistoryTest {
   }
 
   /**
-   * Test G : User provides multiple parameter
+   * Test : User provides multiple parameter
    */
   @Test
-  public void testGMultipleArgs() {
+  public void testMultipleArgs() {
     //Add the command to the history stack
     fs.getCommandLog().add("history 1 3 5");
     //Actual return from History after the operation has been run
@@ -180,10 +180,10 @@ public class HistoryTest {
   }
 
   /**
-   * Test H : User overwrites a file with result
+   * Test : User overwrites a file with result
    */
   @Test
-  public void testHRedirectionOverwrite(){
+  public void testRedirectionOverwrite(){
     //Add the command to the history stack
     fs.getCommandLog().add("history 1 > test");
     //Actual return from History after the operation has been run
@@ -195,10 +195,10 @@ public class HistoryTest {
   }
 
   /**
-   * Test I : User appends the result to a file
+   * Test : User appends the result to a file
    */
   @Test
-  public void testIRedirectionAppend(){
+  public void testRedirectionAppend(){
     //Add the command to the history stack
     fs.getCommandLog().add("history 1 >> file");
     //Actual return from History after the operation has been run
@@ -210,10 +210,10 @@ public class HistoryTest {
   }
 
   /**
-   * Test J : User does not provide a filename for redirection
+   * Test : User does not provide a filename for redirection
    */
   @Test
-  public void testJRedirectionErrorCase1(){
+  public void testRedirectionErrorCase1(){
     //Add the command to the history stack
     fs.getCommandLog().add("history 1 >");
     //Actual return from History after the operation has been run
@@ -225,10 +225,10 @@ public class HistoryTest {
   }
 
   /**
-   * Test K : User provides multiple file names
+   * Test : User provides multiple file names
    */
   @Test
-  public void testKRedirectionErrorCase2(){
+  public void testRedirectionErrorCase2(){
     //Add the command to the history stack
     fs.getCommandLog().add("history 1 > lol plz work");
     //Actual return from History after the operation has been run
@@ -241,10 +241,10 @@ public class HistoryTest {
 
 
   /**
-   * Test L : User does not provide a proper file name for redirection
+   * Test : User does not provide a proper file name for redirection
    */
   @Test
-  public void testLRedirectionErrorCase3(){
+  public void testRedirectionErrorCase3(){
     //Add the command to the history stack
     fs.getCommandLog().add("history 1 > Hello$");
     //Actual return from History after the operation has been run

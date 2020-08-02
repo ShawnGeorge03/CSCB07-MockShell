@@ -59,10 +59,10 @@ public class ExitTest {
     }
 
     /**
-     * Test A : User provides input after the command name
+     * Test : User provides input after the command name
      */
     @Test
-    public void testAProvidedArgs() {
+    public void testProvidedArgs() {
         // Expected return from Exit
         expected = "Error : Arguments not required : LOL LOL";
         // Actual return from Exit after the operation has been run
@@ -72,10 +72,10 @@ public class ExitTest {
     }
 
     /**
-     * Test B : User used redirection for a nonredirectionable command
+     * Test : User used redirection for a nonredirectionable command
      */
     @Test
-    public void testBRedirectionError() {
+    public void testRedirectionError() {
         // Expected return from Exit
         expected = "Error : Redirection Error : exit does not support redirection";
         // Actual return from Exit after the operation has been run

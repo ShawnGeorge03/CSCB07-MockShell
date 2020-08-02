@@ -35,10 +35,10 @@ public class LoadTest {
     }
 
     /**
-     * Test A : User does not input a filepath or file location
+     * Test : User does not input a filepath or file location
      */
     @Test
-    public void testANoArgs(){
+    public void testNoArgs(){
         String[] fileArgs = {};
         expected = "Error: Invalid Argument : No arguments should be given";
         actual = load.getFileContents(fs, fileArgs, "load", false);
@@ -46,10 +46,10 @@ public class LoadTest {
     }
 
     /**
-     * Test B : User inputs an invalid filename 
+     * Test : User inputs an invalid filename 
      */
     @Test
-    public void testBInvalidFileName(){
+    public void testInvalidFileName(){
         String[] fileArgs = {"!"};
         expected = "Error: Invalid File : load !";
         //System.out.println(fs.getCommandLog().size());
@@ -58,10 +58,10 @@ public class LoadTest {
     }
 
     /**
-     * Test C : User inputs an invalid file path
+     * Test : User inputs an invalid file path
      */
     @Test
-    public void testCInvalidPath(){
+    public void testInvalidPath(){
         String[] fileArgs = {"//testing"};
         expected = "Error: Invalid Path : //testing";
         actual = load.getFileContents(fs, fileArgs, "load //testing", false);
@@ -69,22 +69,21 @@ public class LoadTest {
     }
 
     /**
-     * Test D : User only inputs the filename and not an absolute path
+     * Test : User only inputs the filename and not an absolute path
      */
     @Test
-    public void testDGivenIncorrectFileType(){
+    public void testGivenIncorrectFileType(){
         String[] fileArgs = {"loadFile.txt"};
         expected = "Error: Invalid File : load loadfile.txt";
         actual = load.getFileContents(fs, fileArgs, "load loadfile.txt", false);
-        //System.out.println(actual);
         assertEquals(expected, actual);
     }
 
     /**
-     * Test E : User uses redirection for a non redirectionable command
+     * Test : User uses redirection for a non redirectionable command
      */
     @Test
-    public void testERedirectionError(){
+    public void testRedirectionError(){
         String[] fileArgs = {"input", ">", "text"};
         expected = "Error : Redirection Error : load does not support redirection";
         actual = load.getFileContents(fs, fileArgs, "load input > text", false);

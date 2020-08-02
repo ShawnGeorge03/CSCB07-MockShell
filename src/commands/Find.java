@@ -65,7 +65,7 @@ public class Find extends DirectoryManager implements CommandI {
 			if (checkArgs(filesys, args, fullInput)) {
 				for (String x : paths) {
 					String[] pathArr = { x };
-					output = (checkList(filesys, pathArr, arguments.get(3), arguments.get(1)));
+					output = rManager.outputResult(filesys, checkList(filesys, pathArr, arguments.get(3), arguments.get(1)));
 				}
 			}
 				

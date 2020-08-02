@@ -61,10 +61,10 @@ public class CurlTest {
   }
 
   /**
-   * Test A : User provides no input
+   * Test : User provides no input
   */
   @Test
-  public void testANoArg() {
+  public void testNoArg() {
     //Declares and initializes an empty array
     String[] testCase1Curl = {};
     //Expected return from Curl
@@ -76,10 +76,10 @@ public class CurlTest {
   }
 
   /**
-   * Test B : Malformed URL
+   * Test : Malformed URL
    */
   @Test
-  public void testBMalformedArg() {
+  public void testMalformedArg() {
     //User provides a malformed URL
     website = "raw.githubusercontent.com/jjangsta/GamseeAI/master/README.md";
     //Expected return from Curl
@@ -91,11 +91,11 @@ public class CurlTest {
   }
 
   /**
-   * Test C : File not Found at given URL
+   * Test : File not Found at given URL
    */
 
   @Test
-  public void testCFileNotFoundArg() {
+  public void testFileNotFoundArg() {
     //User provides a valid URL but that file does not exist there
     website = "https://raw.githubusercontent.com/" + 
     "jjangsta/GamseeAI/master/LOL.md";
@@ -108,10 +108,10 @@ public class CurlTest {
   }
 
   /**
-   * Test D : URL with not file agrumentation at the end
+   * Test : URL with not file agrumentation at the end
    */
   @Test
-  public void testDNoFileNameArg() {
+  public void testNoFileNameArg() {
     //User provides a URL with no file name 
     website = "http://www.cs.utoronto.ca/~trebla/CSCB09-2020-Summer/";
     //Expected return from Curl
@@ -123,10 +123,10 @@ public class CurlTest {
   }
 
   /**
-   * Test E : Unable to Connect to URL
+   * Test : Unable to Connect to URL
    */
   @Test
-  public void testEFailConnectArg() {
+  public void testFailConnectArg() {
     //User provides a valid URL but Curl does not have acess to
     website = "https://markus.utsc.utoronto.ca/svn/cscb07s20/" + 
     "group_0096/Assignment2/sprints/readMeSprints.txt";
@@ -139,10 +139,10 @@ public class CurlTest {
   }
 
   /**
-   * Test F : Read a .html file
+   * Test : Read a .html file
    */
   @Test
-  public void testFReadHTML() {
+  public void testReadHTML() {
     //User provides a valid URL with a html file to be read 
     website = "https://raw.githubusercontent.com/ShawnGeorge03/"+
     "Learn-HTML-CSS/master/Lesson%201/lesson1.html";
@@ -155,10 +155,10 @@ public class CurlTest {
   }
 
   /**
-   * Test G : Read a .txt file
+   * Test : Read a .txt file
    */
   @Test
-  public void testGReadTXT() {
+  public void testReadTXT() {
     //User provides a valid URL with a text file to be read 
     website = "https://raw.githubusercontent.com/ShawnGeorge03/Learn-HTML-CSS" + 
     "/master/Lesson%201/Lesson1.txt";
@@ -170,10 +170,10 @@ public class CurlTest {
   }
 
   /**
-   * Test H : Multiple URLs
+   * Test : Multiple URLs
    */
   @Test
-  public void testHMultipleArgs() {
+  public void testMultipleArgs() {
     //User provided multiple URLs instead of only one
     website = "https://raw.githubusercontent.com/ShawnGeorge03/Learn-HTML-CSS/master/README.md"
         + " https://raw.githubusercontent.com/ShawnGeorge03/Learn-HTML-CSS/master/Lesson%201/Lesson1.txt";
@@ -188,10 +188,10 @@ public class CurlTest {
   }
   
   /**
-   * Test I : User uses redirection for a non redirectionable command
+   * Test : User uses redirection for a non redirectionable command
    */
   @Test
-  public void testIRedirectionError(){
+  public void testRedirectionError(){
     //User provides a valid URL with a file to be read 
     website = "https://raw.githubusercontent.com/ShawnGeorge03/Learn-HTML-CSS/master/README.md";
     //Expected return from Curl

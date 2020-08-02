@@ -54,39 +54,39 @@ public class TreeTest {
 	}
 
 	/**
-	 * Test 1: User provides no input in an empty filesystem
+	 * Test : User provides no input in an empty filesystem
 	 */
 	@Test
-	public void test1EmptyFsNoArgs() {
+	public void testEmptyFsNoArgs() {
 		String[] temp = {};
 		assertEquals("/\n", testTree.run(emptyFs, temp, "tree", true));
 
 	}
 
 	/**
-	 * Test 2: User provides input to an empty filesystem
+	 * Test : User provides input to an empty filesystem
 	 */
 	@Test
-	public void test2EmptyFsWithArgs() {
+	public void testEmptyFsWithArgs() {
 		String[] temp = {};
 		assertEquals("Error : Multiple Parameters have been provided", testTree.run(emptyFs, temp, "tree test", true));
 	}
 	
 	/**
-	 * Test 3: User provides no input in a full filesystem
+	 * Test : User provides no input in a full filesystem
 	 */
 	@Test
-	public void test3FullFsNoArgs() {
+	public void testFullFsNoArgs() {
 		String[] temp = {};
 		String expected = testTree.run(fullFs, temp, "tree", true);
 		assertEquals(expected, testTree.run(fullFs, temp, "tree", true));
 	}
 	
 	/**
-	 * Test 4: User provides input to a full filesystem
+	 * Test : User provides input to a full filesystem
 	 */
 	@Test
-	public void test4FullFsWithArgs() {
+	public void testFullFsWithArgs() {
 		String[] temp = { "test" };
 		assertEquals("Error : Multiple Parameters have been provided", testTree.run(fullFs, temp, "tree test", true));
 	}	
