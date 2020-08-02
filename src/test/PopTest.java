@@ -161,7 +161,6 @@ public class PopTest {
         expected = "Error: Invalid Argument : No arguments should be given";
         //Actual return from Pop
         actual = pop.run(fs,"unrequired args".split(" "), "popd unrequired args", false);
-        System.out.println(actual + "|" + fs.getCurrentPath());
         //Check the return from Pop and the current working directory
         assertTrue(actual.equals(expected) && fs.getCurrentPath().equals("/desktop"));  
     }
