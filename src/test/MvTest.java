@@ -31,6 +31,9 @@ public class MvTest {
         fs = MockFileSystem.getMockFileSys("MOCKENV");
     }
 
+    /**
+     * Test A : Move a directory into another directory, both using relative paths
+     */
     @Test
     public void TestAMoveRelativePath(){
         mv.run(fs,"users documents".split(" "), "mv users documents", false);
@@ -51,6 +54,9 @@ public class MvTest {
         }
     }
 
+    /**
+     * Test B : Move a directory into another directory based on absolute paths
+     */
     @Test
     public void TestBMoveAbsolutePath(){
         mv.run(fs,"/users /documents".split(" "), "mv users documents", false);
@@ -71,6 +77,9 @@ public class MvTest {
         }
     }
 
+    /**
+     * Test C : Move a directory into an invalid path, requiring mv to create a directory
+     */
     @Test
     public void TestCMoveDirToInvalidPath(){
         String actual = mv.run(fs,"/users clearlyfake".split(" "), "mv /users clearlyfake", false);
@@ -78,6 +87,9 @@ public class MvTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Test D : Try moving an invalid path
+     */
     @Test
     public void TestDMoveInvalidDirtoPath(){
         String actual = mv.run(fs, "fake /users".split(" "), "mv fake /users", false);
@@ -85,6 +97,9 @@ public class MvTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Test E : Move an invalid path with a file within it to a valid path
+     */
     @Test
     public void TestEMoveInvalidPathDirToPath(){
         String actual = mv.run(fs, "fake/user documents".split(" "),  "mv fake/user documents", false);
@@ -92,6 +107,9 @@ public class MvTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Test F : Move the root
+     */
     @Test
     public void TestFMoveRoot(){
         String actual = mv.run(fs, "/ documents".split(" "), "mv / documents", false);
@@ -99,6 +117,9 @@ public class MvTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Test G : Try redirecting output to a file
+     */
     @Test
     public void testGRedirectionError(){
         String actual = mv.run(fs, "/ documents > text".split(" "), "mv / documents > text", false);
