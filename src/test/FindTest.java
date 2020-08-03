@@ -40,10 +40,19 @@ import commands.Cat;
 
 public class FindTest {
 
+	/**
+     * Declare instance of MockFileSystem so we can access the preset filesystem
+     */
 	private MockFileSystem fs;
 
+	/**
+     * Declare instance of Find to be tested
+     */
 	private Find findTest;
 	
+	 /**
+     * Declare instance of Cat
+     */
 	private Cat catTest;
 
 	/**

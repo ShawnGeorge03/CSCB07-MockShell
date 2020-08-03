@@ -43,7 +43,7 @@ public class CpTest {
     */
     private static MockFileSystem fs;
     /**
-    * Declare instance of Mkdir to make new directories
+    * Declare instance of Cp to make new directories
     */
     private static Cp cp;
 
