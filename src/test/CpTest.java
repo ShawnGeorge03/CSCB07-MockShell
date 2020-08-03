@@ -47,7 +47,11 @@ public class CpTest {
     */
     private static Cp cp;
 
-
+    /**
+     * Sets up the test environment and initializes the instance variables
+     * 
+     * @throws Exception
+    */
     @Before
     public void setup(){
         cp = new Cp();
