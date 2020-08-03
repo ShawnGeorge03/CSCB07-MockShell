@@ -38,6 +38,10 @@ import data.Node;
 import errors.DirectoryException;
 import errors.InvalidArgsProvidedException;
 
+/**
+ * Class Cp is responsible for copying directories/files from
+ * the first given path to the second given path
+ */
 public class Cp extends DirectoryManager implements CommandI {
 
 	/**

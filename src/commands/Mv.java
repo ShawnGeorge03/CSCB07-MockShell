@@ -38,7 +38,7 @@ import errors.DirectoryException;
 import errors.InvalidArgsProvidedException;
 
 /**
- * Class Mv is responsible from moving directories/files from
+ * Class Mv is responsible for moving directories/files from
  * the first given path to the second given path
  */
 public class Mv extends DirectoryManager implements CommandI {
