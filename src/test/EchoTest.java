@@ -279,7 +279,7 @@ public class EchoTest {
      * Test : User provides a file anme for redirection but it an invalid name
      */
     @Test
-    public void tesORedirectionErrorCase3() {
+    public void testRedirectionErrorCase3() {
         //Expected return from Echo
         expected =  "Error: Invalid File : Hello$ is not a valid file name";
         //Actual return from Echo after the operation has been run
