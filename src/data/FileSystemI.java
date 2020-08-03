@@ -40,6 +40,7 @@ import errors.FileException;
  */  
 public interface FileSystemI {
 
+    //Trivial methods
     public Node getRoot();
     public Node getCurrent();
     public String getContent(Node file);
