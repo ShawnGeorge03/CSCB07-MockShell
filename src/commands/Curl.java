@@ -52,6 +52,9 @@ import errors.InvalidArgsProvidedException;
  */
 public class Curl implements CommandI {
 
+  /**
+   * Declare instance variable of RedirectionManager to handle the redirection operations
+   */
   private RedirectionManager rManager;
 
   /**
