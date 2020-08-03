@@ -38,14 +38,6 @@ import data.Node;
  * Class DirectoryManager which provides helper methods for other directory-related commands creating new paths
  */
 public class DirectoryManager {
-
-  /**
-   * Constructor for DirectoryManager which initializes filesystem
-   */
-  public DirectoryManager() {
-
-  }
-
   
   /**
    * Checks if requested directory exists in the ArrayList of nodes in the current node

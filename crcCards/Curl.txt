@@ -9,6 +9,6 @@ Responsibilties:
 *Retrives the file name from the given URL 
 
 Collaborators:
-*Echo
-*ErrorManager
 *RedirectionManager
+*FileSystemI
+*InvalidArgsProvidedException

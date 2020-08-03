@@ -4,27 +4,10 @@ Subclass: N/A
 
 Responsibilities:
 *Manages commands that the user requests into the shell
+*Parses the input to seperate command from arguments
+*Keeps check on speak mode or not
 
 Collaborators:
-*ErrorHandler
-*FileSystem
-*Cat
-*Cd
-*EchoAppend
-*EchoOverwrite
-*Exit
-*Ls
-*Man
-*Mkdir
-*PopAndPush
-*Pwd
-*Speak
-*Checker
-*Find
-*Tree
-*Load
-*Save
-*Curl
-*Mv
-*Rm
-*Exit
+*CommandI
+*FileSystemI
+*InvalidCommandException

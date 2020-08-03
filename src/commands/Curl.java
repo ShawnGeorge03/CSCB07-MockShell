@@ -133,6 +133,17 @@ public class Curl implements CommandI {
     return null;
   }
 
+	/**
+	 * A simple function to check if the arguments supplied are valid, inherited from CommandI
+	 * 
+	 * @param filesys  Filesystem to be mutated
+	 * @param arguments  Arguments containing path names, etc.
+	 * @param fullInput  String containing full user input
+	 * 
+	 * @throws InvalidArgsProvidedException  Throws an error if invalid arguments are supplied
+	 * 
+	 * @return  A boolean indicating if the args are valid or not
+	 */
   @Override
   public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
     throws InvalidArgsProvidedException {

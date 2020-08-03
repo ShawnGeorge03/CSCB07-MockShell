@@ -4,10 +4,12 @@ Subclasses: N/A
 Implements: CommandI
 
 Responsibilties:
-*Displays contents of file given by user's request
+*Retrives the contents of file given by user's request
 *Accepts both relative path and absolute path
+*Can take a list of paths
 
 Collaborators:
-*FileManager
-*FileSystem
+*FileSystemI
 *RedirectionManager
+*InvalidArgsProvidedException
+*FileException

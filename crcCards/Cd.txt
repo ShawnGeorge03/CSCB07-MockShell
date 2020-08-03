@@ -4,10 +4,11 @@ Subclasses: N/A
 Implements: CommandI
 
 Responsibilties:
-*Changes directory to user's requested location
+*Changes directory to user's requested path
 *Accepts both relative path and absolute path
 
 Collaborators:
 *DirectoryManager
-*FileSystem
+*FileSystemI
 *RedirectionManager
+*InvalidArgsProvidedException

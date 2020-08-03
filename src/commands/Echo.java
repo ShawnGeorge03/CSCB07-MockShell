@@ -46,7 +46,11 @@ public class Echo implements CommandI {
   String properArgument = "";
   private RedirectionManager redirect;
 
+  /**
+   * Sets up the class with requires objects
+   */
   public Echo() {
+    //Initializes a RedirectionManager object
     this.redirect = new RedirectionManager();
   }
 
@@ -74,9 +78,17 @@ public class Echo implements CommandI {
     return output;
   }
 
-  /**
-   * 
-   */
+  	/**
+	 * A simple function to check if the arguments supplied are valid, inherited from CommandI
+	 * 
+	 * @param fs  Filesystem to be mutated
+	 * @param arguments  Arguments containing path names, etc.
+	 * @param fullInput  String containing full user input
+	 * 
+	 * @throws InvalidArgsProvidedException  Throws an error if invalid arguments are supplied
+	 * 
+	 * @return  A boolean indicating if the args are valid or not
+	 */
   public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
     throws InvalidArgsProvidedException {
     if (arguments.length == 0) {
@@ -90,13 +102,15 @@ public class Echo implements CommandI {
   }
 
   /**
+   * Runs the actual echo command
    * 
-   * @param args
-   * @return
-   * @throws MissingQuotesException
-   * @throws InvalidArgsProvidedException
+   * @param args takes the parsed user input
+   * 
+   * @throws MissingQuotesException if user input has no quotations
+   * 
+   * @return error message or string output
    */
-  private String runEcho(String[] args) throws MissingQuotesException, InvalidArgsProvidedException {
+  private String runEcho(String[] args) throws MissingQuotesException {
     for (int i = 0; i < args.length; i++) {
       properArgument += args[i] + " ";
     }

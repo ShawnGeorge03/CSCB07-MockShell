@@ -8,5 +8,7 @@ Responsibilties:
 
 Collaborators:
 *Cd
-*FileSystem
+*FileSystemI
 *RedirectionManager
+*DirectoryException
+*InvalidArgsProvidedException

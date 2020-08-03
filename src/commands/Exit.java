@@ -37,7 +37,7 @@ import errors.InvalidArgsProvidedException;
  */
 public class Exit implements CommandI {
 
-  //
+  //Declares a RedirectionManager object
   private RedirectionManager rManager;
 
   /**
@@ -48,11 +48,12 @@ public class Exit implements CommandI {
   }
 
   /**
-   * Ends program
+   * Runs the exit command
    * 
    * @param args      the string array with all arguments
    * @param fullInput the string that contains the raw input provided to JShell
-   * @return null no matter what
+   * 
+   * @return null or error message
    */
   @Override
   public String run(FileSystemI filesys,  String[] args,  String fullInput, boolean val) {

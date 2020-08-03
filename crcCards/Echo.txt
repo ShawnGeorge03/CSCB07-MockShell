@@ -7,5 +7,7 @@ Responsibilties:
 *Prints the user given string to the shell/console
 
 Collaborators:
-*FileSystem
+*FileSystemI
 *RedirectionManager
+*MissingQuotesException
+*InvalidArgsProvidedException

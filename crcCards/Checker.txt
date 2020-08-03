@@ -3,7 +3,7 @@ Parent class: N/A
 Subclasses: N/A
 
 Responsibilties:
-*Checks if user input is valid or not
+*Parses the user input to a usable form
 
 Collaborators:
 *JShell

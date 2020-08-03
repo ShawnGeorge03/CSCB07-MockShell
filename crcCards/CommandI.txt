@@ -5,6 +5,7 @@ Implements: N/A
 
 Responsibilties:
 *Provides a common method to call any class containing that certain command
+*Provides a common method to check arguments for each class
 
 Collaborators:
 *N/A
