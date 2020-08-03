@@ -146,6 +146,17 @@ public class Speak implements CommandI {
     return null;
   }
 
+  /**
+	 * Overridden method checkArgs which ensures that no arguments have been called for tree, as it requires no arguments
+	 * 
+	 * @param fs the variable we are using to access the filesystem
+	 * @param arguments the string array containing all the arguments provided alongside the command
+	 * @param fullInput the string that contains the raw input provided to console in jshell
+	 * 
+	 * @return boolean true if there were no arguments provided
+	 * 
+	 * @throws InvalidArgsProvidedException the user provided invalid argument
+	 */
   public boolean checkArgs(FileSystemI fs, String[] arguments, String text) 
     throws MissingQuotesException, MalformedInputException {
     // If we are not in speak mode
