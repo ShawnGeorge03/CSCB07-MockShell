@@ -37,6 +37,10 @@ import data.Node;
 import errors.DirectoryException;
 import errors.InvalidArgsProvidedException;
 
+/**
+ * Class Mv is responsible from moving directories/files from
+ * the first given path to the second given path
+ */
 public class Mv extends DirectoryManager implements CommandI {
 
 	/**
