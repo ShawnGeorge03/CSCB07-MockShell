@@ -9,5 +9,8 @@ Responsibilities:
 * Closes the program when special keyword in provided
 
 Collaborators:
-*Command
 *RedirectionManager
+*FileSystemI
+*InvalidRedirectionError
+*MalformedInputException
+*MissingQuotesException

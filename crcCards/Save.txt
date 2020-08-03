@@ -8,5 +8,8 @@ Responsibilties:
 *Location of the file is given by user in either absolute path or relative
 
 Collaborators:
-*FileSystem
+*FileSystemI
 *RedirectionManager
+*FileException
+*InvalidArgsProvidedException
+*InvalidRedirectionError
