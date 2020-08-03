@@ -156,15 +156,4 @@ public class Node {
     this.parent = parent;
   }
 
-  @Override
-  public String toString() {
-		String name = "Name: " + this.name;
-		String isDir = "isDir: " + this.isDir;
-		String isRoot = "isRoot: " + this.isRoot;
-		String parent = "Parent: " + this.parent;
-		String list = "List: " + this.list;
-		String content = "Content: " + this.content;
-		return name + "\n" + isDir + "\n" + isRoot + "\n" + parent + "\n" + list + "\n" + content + "\n";
-  }
-  
 }
