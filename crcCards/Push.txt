@@ -10,4 +10,6 @@ Responsibilties:
 Collaborators:
 *Cd
 *RedirectionManager
-*FileSystem
+*FileSystemI
+*DirectoryException
+*InvalidArgsProvidedException

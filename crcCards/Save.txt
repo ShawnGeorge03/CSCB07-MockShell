@@ -13,3 +13,4 @@ Collaborators:
 *FileException
 *InvalidArgsProvidedException
 *InvalidRedirectionError
+*Node

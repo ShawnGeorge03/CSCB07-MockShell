@@ -8,3 +8,5 @@ Responsibilties:
 
 Collaborators:
 *RedirectionManager
+*FileSystemI
+*InvalidArgsProvidedException

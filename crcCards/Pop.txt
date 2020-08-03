@@ -7,6 +7,7 @@ Responsibilties:
 * Pops top most directory on stack onto working directory
 
 Collaborators:
-*FileSystem
+*FileSystemI
 *Cd
 *RedirectionManager
+*InvalidArgsProvidedException
