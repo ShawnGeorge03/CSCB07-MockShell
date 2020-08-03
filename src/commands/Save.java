@@ -192,26 +192,34 @@ public class Save implements CommandI {
     return output;
   }
 
+  /**
+   * Method that writes to the different sections to the json file
+   * Writes each section by using helper functions that add the information while the method creates teh sections
+   * Sets the output to an error if the iser inputs an invalid path
+   * 
+   * @param filesys  FileSystem Object that stores the current filesystem
+   * @param writer  FileWriter object that is used to write to the json file
+   * @param arguments  String array that holds the paramters that the user inputted
+   */ 
   private void writeToFile(FileSystemI filesys, FileWriter writer, String[] args) {
     //Adds the node information of every node to the file
     try {
       writer.write("NODES\n{\n");
       storeNodeInformation(writer, filesys);
       writer.write("}");
-      //fileContent += "\n";
       //Adds the filesystem structure to the file (similar to tree)
       writer.write("\n\nFILESYSTEM\n{\n");
       storeFileSystem(writer, filesys);
       writer.write("}");
-      //fileContent += "\n";
       //Adds the command log to the file
       writer.write("\n\nCOMMAND LOG\n{\n");
       storeCommandHistoryToFile(writer, filesys);
       writer.write("}");
-      //fileContent += "\n";
+      //Adds the directory stack to the file
       writer.write("\n\nDIRECTORY STACK\n{\n");
       addCurrentDirectoryStack(writer, filesys);
       writer.write("}");
+      //Adds the current path to the file
       writer.write("\n\nCURRENT PATH\n{\n");
       currentPath = "\t\"" + filesys.getCurrentPath() + "\"\n";
       writer.write("\t\"" + filesys.getCurrentPath() + "\"\n");
@@ -222,10 +230,14 @@ public class Save implements CommandI {
   }
 
   private void addCurrentDirectoryStack(FileWriter writer, FileSystemI filesys){
+    //creates teh stack
     Deque<String> stack = filesys.getStack();
+    //recursive helper function to get the stack
     getStackAsString(stack);
     try {
+      //if stack string is not null
       if(stackString != null){
+        //add to file
         writer.write(stackString);
       }
     } catch (IOException e) {

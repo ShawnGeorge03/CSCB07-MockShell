@@ -183,8 +183,10 @@ public class Load implements CommandI{
 
   private void goToCurrentPath(String line, FileSystemI filesys){
     try {
+      //Two readLines need to be used to read the useless \n used to divide sections
       line = reader.readLine();
       line = reader.readLine().trim().replaceAll("\"", "");
+      //Cd to go to the current path
       cdCommand.run(line.split(" "), filesys);
     } catch (IOException e) {
       e.printStackTrace();
