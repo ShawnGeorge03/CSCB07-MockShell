@@ -46,8 +46,14 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 */
 	ArrayList<String> args;
 
+	/**
+	 * Declare instance variable of RedirectionManager to handle the redirection operations
+	 */
 	private RedirectionManager rManager;
 
+	/**
+	 * Declare instance variable of Cd to traverse filesystem
+	 */
 	private Cd traverse;
 
 	//String fullinput;

@@ -45,7 +45,13 @@ public class Ls extends DirectoryManager implements CommandI {
 	 */
 	ArrayList<String> args;
 
+	/**
+	 * Declare instance variable of RedirectionManager to handle the redirection operations
+	 */
 	private RedirectionManager redirect;
+	/**
+	 * String instance variable to store the output
+	 */
 	private String output;
 
 	/**
