@@ -53,6 +53,7 @@ public class Pwd extends DirectoryManager implements CommandI {
    * Constructor for Pwd that initializes the ErrorHandler object
    */
   public Pwd() {
+    //Initializes the RedirectionManager object
     this.redirect = new RedirectionManager();
   }
 
@@ -63,6 +64,7 @@ public class Pwd extends DirectoryManager implements CommandI {
    * @param args  the string array of arguments
    * @param fullInput  the full line of input that the user gives into JShell
    * @param val  stores a boolean value
+   * 
    * @return String holding the absolute path to the current working directory, or an error message
    */
   public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
@@ -104,6 +106,16 @@ public class Pwd extends DirectoryManager implements CommandI {
     return true;
   }
 
+  /**
+   * Runs the actual command to retrive the current working directory path
+   * 
+   * @param filesys   refrence of FileSystemI object (MockFileSystem or FileSystem)
+   * @param args
+   * 
+   * @throws InvalidArgsProvidedException if the users provide any arguments
+   * 
+   * @return the absolute path or an error message
+   */
   private String runPwd(FileSystemI filesys, String[] args) throws InvalidArgsProvidedException{
     // If the user provides any input for the following function
     if (args.length != 0) {

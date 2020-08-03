@@ -125,6 +125,9 @@ public class Save implements CommandI {
    * @param fs  FileSystem Object that stores the current filesystem
    * @param arguments  String array that holds the paramters that the user inputted
    * @param fullInput  String object that stores the full input provided by user
+   * 
+   * @throws InvalidArgsProvidedException if the user provides any invalid arguments
+   * 
    * @return boolean  false if the user inputed no parameters or more than 1 parameter
    */
   @Override

@@ -54,6 +54,7 @@ public class Push extends DirectoryManager implements CommandI {
    * Constructor for Push that initializes instance variables
    */
   public Push() {
+    //Initializes the following objects
     this.goBack = new Cd();
     rManager = new RedirectionManager();
   }
@@ -62,8 +63,10 @@ public class Push extends DirectoryManager implements CommandI {
    * Saves the current working directory to the directory stack and changes the
    * current working directory to the one the user gave if it is valid
    * 
+   * @param filesys   refrence of FileSystemI object (MockFileSystem or FileSystem)
    * @param args  the string array of arguments
    * @param fullInput  the full line of input that the user gives into JShell
+   * @param val holds a boolean value
    * 
    * @return String  An error message if any error, else null
    */
@@ -73,8 +76,10 @@ public class Push extends DirectoryManager implements CommandI {
     //Seperates the parameters from everything else from the user input
     String[] args = rManager.setParams(fullInput);
     try {
+      //Checks for redirection
       if (rManager.isRedirectionableCommand(fullInput));
 
+      //Checks if the arguments are valid
       if(checkArgs(filesys, args, fullInput)){
         runPush(filesys, args, current);
       }

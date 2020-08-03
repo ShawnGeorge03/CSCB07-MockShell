@@ -66,6 +66,7 @@ public class Mkdir extends DirectoryManager implements CommandI {
 	 * Constructor of Mkdir to initialize error
 	 */
 	public Mkdir() {
+		//Initializes the following objects
 		this.rManager = new RedirectionManager();
 		traverse = new Cd();
 	}

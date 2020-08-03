@@ -74,7 +74,8 @@ public class Man implements CommandI {
          * @param fullInput the string that contains the raw input provided by user in
          *                  JShell
          * @param val       stores a boolean value
-         * @return the documentation of the requested commands
+         * 
+         * @return the documentation of the requested commands or error message
          */
         public String run(FileSystemI filesys, String[] args, String fullInput, boolean val) {
                 String[] parsedArgs = redirect.setParams(fullInput);
@@ -97,7 +98,7 @@ public class Man implements CommandI {
          * @param arguments the list of arguments from user which may contain a redirection error
          * @param fullInput the user input
          * 
-         * @throws InvalidArgsProvidedException
+         * @throws InvalidArgsProvidedException for invalid arguments
          * 
          * @return true if the parameter meet requirements and false if not
          */

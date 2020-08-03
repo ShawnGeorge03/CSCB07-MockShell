@@ -57,9 +57,11 @@ public class Pop extends DirectoryManager implements CommandI {
    * Returns string output, either an error message or if performed without error then will return
    * null
    * 
+   * @param filesys   refrence of FileSystemI object (MockFileSystem or FileSystem)
    * @param args  The string array of all arguments
    * @param fullInput  The full input provided by the user
    * @param val  A boolean for speak mode
+   * 
    * @return String  An error message, else null
    */
   public String run(FileSystemI filesys, String[] arg, String fullInput, boolean val) {
@@ -84,6 +86,7 @@ public class Pop extends DirectoryManager implements CommandI {
    * @param fs  Filesystem to be mutated
    * @param arguments  Arguments, in this case there should be none
    * @param fullInput  Full input string from the user
+   * 
    * @return  Boolean indicating if args are valid or not
    */
   @Override

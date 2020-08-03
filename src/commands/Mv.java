@@ -82,6 +82,7 @@ public class Mv extends DirectoryManager implements CommandI {
 	 * Constructor for Mv to initialize the instance variables of Redirection manager and Cd
 	 */
 	public Mv() {
+		//Initializes the following objects
 		rManager = new RedirectionManager();
 		traverse = new Cd();
 	}

@@ -47,6 +47,7 @@ public class Tree implements CommandI {
 	 * Constructor for Tree which initializes errorhandler object
 	 */
 	public Tree() {
+		//Initializes a RedirectionManager object
 		rManager = new RedirectionManager();
 	}
 
