@@ -90,7 +90,7 @@ public class EchoTest {
      * Test : User provides no input
     */
     @Test
-    public void testANoArgs() {
+    public void testNoArgs() {
         //Declares an empty array
         String[] emptyArr = {};
         //Expected return from Echo
