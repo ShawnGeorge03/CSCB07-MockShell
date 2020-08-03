@@ -11,3 +11,5 @@ Collaborators:
 *FileSystem
 *RedirectionManager
 *Node
+*InvalidArgsProvidedException
+*InvalidRedirectionError

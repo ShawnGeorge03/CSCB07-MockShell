@@ -73,8 +73,14 @@ public class Load implements CommandI{
    */
   private RedirectionManager redirect;
 
+  /**
+   * Declares instance variable of cd to handle traversals
+   */
   private Cd cdCommand;
-  
+
+  /**
+   * Constructor for class Load which initalizes instance variables
+   */
   public Load(){
     // Initializes a RedirectionManager Object
     this.redirect = new RedirectionManager();
@@ -95,6 +101,8 @@ public class Load implements CommandI{
    * @param fs  FileSystem Object that stores the current filesystem
    * @param arguments  String array that holds the paramters that the user inputted
    * @param fullInput  String object that stores the full input provided by user
+   * @param val holds a boolean value
+   * 
    * @return boolean  false if the user inputed no parameters or more than 1 parameter
    */
   @Override

@@ -41,28 +41,31 @@ public class Exit implements CommandI {
   private RedirectionManager rManager;
 
   /**
-   * 
+   * Constructor for class Exit which initalizes instance variables
    */
   public Exit() {
     this.rManager = new RedirectionManager();
   }
 
   /**
-   * Runs the exit command
+   * Starting run method which checks if arguments were given, then passes it to
+   * another run method which processes the command
    * 
-   * @param args      the string array with all arguments
-   * @param fullInput the string that contains the raw input provided to JShell
+   * @param filesys   refrence of FileSystemI object (MockFileSystem or FileSystem)
+   * @param args      the string array of arguments
+   * @param fullInput the full line of input that the user gives into jshell
+   * @param val       the boolean we are using
    * 
-   * @return null or error message
+   * @return any error messages if there are any or null 
    */
   @Override
   public String run(FileSystemI filesys,  String[] args,  String fullInput, boolean val) {
     //Seperates the parameters from everything else from the user input
-    
     String[] arguments = rManager.setParams(fullInput);
     try {
+      //Checks if the user used redirection or not
       rManager.isRedirectionableCommand(fullInput);
-
+      //If the arguments are valid
       if (checkArgs(filesys, arguments, fullInput)) {
         // Exits the session of the Shell
         System.exit(0);
@@ -70,12 +73,20 @@ public class Exit implements CommandI {
     } catch (InvalidArgsProvidedException e) {
       return e.getLocalizedMessage();
     } 
- 
     return null;
   }
 
-  
-  
+  /**
+   * Checks if the arguments provided by the user follows the requirements or else throw an exception
+   * 
+   * @param filesys  refrence of FileSystemI object (MockFileSystem or FileSystem)
+   * @param arguments the list of arguments from user which may contain a redirection error
+   * @param fullInput the user input
+   * 
+   * @throws InvalidArgsProvidedException
+   * 
+   * @return true if the parameter meet requirements and false if not
+   */
   @Override
   public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
     throws InvalidArgsProvidedException {
