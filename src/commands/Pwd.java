@@ -71,6 +71,17 @@ public class Pwd extends DirectoryManager implements CommandI {
     return output;
   }
 
+  /**
+   * Checks if the arguments provided by the user follows the requirements or else throw an exception
+   * 
+   * @param filesys  refrence of FileSystemI object (MockFileSystem or FileSystem)
+   * @param arguments the list of arguments from user which may contain a redirection error
+   * @param fullInput the user input
+   * 
+   * @throws InvalidArgsProvidedException
+   * 
+   * @return true if the parameter meet requirements and false if not
+   */
   @Override
   public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
     throws InvalidArgsProvidedException {
