@@ -148,8 +148,8 @@ public class Cd extends DirectoryManager implements CommandI {
   
   /**
    * 
-   * @param argument
-   * @param splitArgs
+   * @param argument part of the the path for traversal
+   * @param splitArgs the path for traversal
    * @param filesys  refrence of FileSystemI object (MockFileSystem or FileSystem)
    * 
    * @return
@@ -174,7 +174,7 @@ public class Cd extends DirectoryManager implements CommandI {
 
   /**
    * 
-   * @param splitArgs
+   * @param splitArgs the path for traversal
    * @param filesys  refrence of FileSystemI object (MockFileSystem or FileSystem)
    * 
    * @return

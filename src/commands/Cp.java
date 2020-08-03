@@ -79,6 +79,7 @@ public class Cp extends DirectoryManager implements CommandI {
 	 * Cp constructor to initialize rManager and traverse instance variables
 	 */
 	public Cp() {
+		//Initializes the following instance vairables
 		rManager = new RedirectionManager();
 		traverse = new Cd();
 	}

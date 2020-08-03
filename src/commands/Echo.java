@@ -67,8 +67,11 @@ public class Echo implements CommandI {
    * perform the required task for the appropriate scenario. Returns a String that
    * will either contain an error message if there was an error or return null
    * 
+   * @param filesys   refrence of FileSystemI object (MockFileSystem or FileSystem)
    * @param args the String array of arguments provided by user (split from a
    *             whitespace)
+   * @param fullInput  String containing full user input
+	 * @param val holds a boolean value 
    * @return String will either be null if there were no errors or an appropriate
    *         error message
    */
@@ -87,10 +90,11 @@ public class Echo implements CommandI {
   	/**
 	 * A simple function to check if the arguments supplied are valid, inherited from CommandI
 	 * 
-	 * @param fs  Filesystem to be mutated
+   * @param filesys   refrence of FileSystemI object (MockFileSystem or FileSystem)
 	 * @param arguments  Arguments containing path names, etc.
 	 * @param fullInput  String containing full user input
-	 * 
+	 * @param val holds a boolean value 
+   *
 	 * @throws InvalidArgsProvidedException  Throws an error if invalid arguments are supplied
 	 * 
 	 * @return  A boolean indicating if the args are valid or not
