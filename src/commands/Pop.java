@@ -71,6 +71,14 @@ public class Pop extends DirectoryManager implements CommandI {
     return null;
   }
 
+  /**
+   * Checks if arguments provided are valid or not
+   * 
+   * @param fs  Filesystem to be mutated
+   * @param arguments  Arguments, in this case there should be none
+   * @param fullInput  Full input string from the user
+   * @return  Boolean indicating if args are valid or not
+   */
   @Override
   public boolean checkArgs(FileSystemI fs, String[] arguments, String fullInput) 
     throws InvalidArgsProvidedException {
