@@ -242,7 +242,7 @@ public class Man implements CommandI {
                                 + "\n\tto the a file instead of the console"
                                 + "\n\n\tParameter: Requires one supported CMD"
                                 + "\n\n\tIf any or multiple of these parameter are not meet an \n\terror will be outputed respectively"
-                                + "\n\tif there is any output for the command" + "\n\n\tSample Use Case : man man "
+                                + "\n\n\tSample Use Case : man man "
                                 + "\n\tThis would output the the mannual for man"
                                 + "\n\n\tSample Use Case: man man > mannul"
                                 + "\n\tThe file named mannul gets overwritten with the mannual for man");

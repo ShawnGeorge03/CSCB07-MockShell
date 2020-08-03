@@ -147,16 +147,13 @@ public class ManTest {
         //Expected return from Man
         expected = 
         "Command: man CMD"
-        + "\n\tProvides documentation on all commands within THIS Java Shell"
+        + "\n\tProvides documentation on all commands within THIS JShell"
         + "\n\tProvides information such as arguments and function."
         + "\n\n\tREDIRECTION : This command allows the output to be redirected "
         + "\n\tto the a file instead of the console"
         + "\n\n\tParameter: Requires one supported CMD"
         + "\n\n\tIf any or multiple of these parameter are not meet an \n\terror will be outputed respectively"
-        + "\n\n\tREDIRECTION : This command does allow the output"
-        + "\n\tto be redirected to a file instead of the console "
-        + "\n\tif there is any output for the command"
-        + "\n\tif there is any output for the command" + "\n\n\tSample Use Case : man man "
+        + "\n\n\tSample Use Case : man man "
         + "\n\tThis would output the the mannual for man"
         + "\n\n\tSample Use Case: man man > mannul"
         + "\n\tThe file named mannul gets overwritten with the mannual for man";
