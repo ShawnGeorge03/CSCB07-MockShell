@@ -1,9 +1,0 @@
-Class name: ErrorHandler
-Parent class: N/A
-Subclasses: N/A
-
-Responsibilties:
-*Outputs an error message based of user input.
-
-Collaborators:
-
