@@ -10,3 +10,7 @@ Collaborators:
 *Node
 *FileSystemI
 *RedirectionManager
+*FileSystemI
+*Node
+*DirectoryException
+*InvalidArgsProvidedException
