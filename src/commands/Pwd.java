@@ -39,7 +39,14 @@ import errors.InvalidArgsProvidedException;
  */
 public class Pwd extends DirectoryManager implements CommandI {
 
+  /**
+   * Declare instance variable of RedirectionManager to handle the redirection operations
+   */
   RedirectionManager redirect;
+
+  /**
+   * Declare instance variable of String to hold the output of the command (error if error occurs else null)
+   */
   String output;
 
   /**
