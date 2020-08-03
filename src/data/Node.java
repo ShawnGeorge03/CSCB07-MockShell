@@ -123,7 +123,7 @@ public class Node {
 
   }
 
-
+  //Trivial methods below
   public boolean getisDir() {
     return isDir;
   }
