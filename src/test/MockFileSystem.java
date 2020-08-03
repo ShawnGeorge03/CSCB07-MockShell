@@ -139,6 +139,12 @@ public class MockFileSystem implements FileSystemI {
     }
   }
 
+  /**
+   * Returns MockFileSystem of object, keep in mind that it is returning the same object unless being
+   * called for the first time
+   * 
+   * @return the MockFileSystem object
+   */
   public static MockFileSystem getMockFileSys(String type) {
     if (type.equals("EMPTYSYS")) {
       filesys = new MockFileSystem("EMPTYSYS");
@@ -229,10 +235,18 @@ public class MockFileSystem implements FileSystemI {
     return currentPath;
   }
 
+  /**
+   * Method that searches the filesystem to check if the filepath already exists.
+   * Converts every input to absolute path using the getCurrent() method in FileSystem.
+   * Looks through the filesystem and if the node exists then the method returns the node else it returns null
+   * 
+   * @param fileName  String that stores the file name that the user inputted
+   * @param fileIsFolderNode  boolean false if the file to be found is a file node and false if the file is a folder node
+   * @return  Node that holds the node that the method is searching for, else returns null if node is not in filesystem
+   */
   @Override
   public Node findFile(String filePath, boolean fileIsFolderNode) {
     String absolutePath = filePath.trim();
-    //System.out.println("Absolute before " + absolutePath);
     if(filePath.startsWith("//")) return null;
 
     if(getCurrent().getName().equals(filePath)) return getCurrent();
@@ -242,8 +256,6 @@ public class MockFileSystem implements FileSystemI {
       else absolutePath = getCurrentPath() + filePath;
     }
 
-    //if(!absolutePath.startsWith("/")) absolutePath = "/" + absolutePath;
-    //System.out.println("Absolute: " + absolutePath);
     //Grabs root directory
     Node current = getRoot();
     //Splits the absolutePath into the individual folders
@@ -257,12 +269,16 @@ public class MockFileSystem implements FileSystemI {
         //System.out.println("Current : " + current.getList().get(j).getName());
         //If the folder matches the one we need then return it
         if (current.getList().get(j).getName().equals(directories[i])) {
+          //if we are at the last folder/file in the filepath
           if((i+1) == directories.length){
+            //check if the node matches the type of node we are looking for
             if(fileIsFolderNode == current.getList().get(j).getisDir()){
+              //return the node
               current = current.getList().get(j);
               return current;
             }
           }
+          //we are looping through the other directories
           else{
             current = current.getList().get(j);
           }
@@ -272,29 +288,51 @@ public class MockFileSystem implements FileSystemI {
     return null;  
   }
 
+  /**
+   * Method that appends the user inputted contents to a file in the filesystem.
+   * Uses helper function findFile to look if the file already exists in the filesystem
+   * If file exists, then method simply appends the inputted contents
+   * If file does not exist, then method creates a file with the given path and contents
+   * If the user inputs an invalid path, such as a directory that does not exist, then the method throws an error
+   * Once file has been created, method adds it to the filesystem
+   * 
+   * @param content  String that stores the content of the file node
+   * @param file  String that stores the filename/file location in the filesystem
+   */
   @Override
   public void fileAppend(String content, String file) throws FileException{
+    //looks for file in the current filesystem
     Node fileNode = findFile(file, false);
     if(fileNode != null){
+      //append the content to the found file
       fileNode.setContent(fileNode.getContent() + "\n" + content);
     }else{
+      //get filename from filepath
       String fileName = file.split("/")[file.split("/").length-1];
+      //if valid filename
       if(isValidName(fileName)){
+        //grab current
         Node currentNode = getCurrent();
+        //get filename
         String desiredPath = fileName;
+        //convert to absolute path
         if(!desiredPath.startsWith("/")){
           if(getCurrent() != getRoot()) desiredPath = (getCurrentPath() + "/" + file);
           else desiredPath = (getCurrentPath() + file);
         }
+        //grabs the path to the parent node
         desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
         Node parent;
         if(desiredPath.equals("")) parent = getRoot();
         else parent =  findFile(desiredPath, true);
-        if(parent == null) System.out.println("Error parent file not found");
+        //if invalid path is given
+        if(parent == null) throw new FileException("Error: Invalid Path : A directory does not exist");
         assignCurrent(parent);
+        //create the node
         fileNode = new Node.Builder(false, fileName)
                           .setContent(content)
                           .build();
+        //add to current filesystem 
         addToDirectory(fileNode);
         assignCurrent(currentNode);
       }else{
@@ -303,30 +341,51 @@ public class MockFileSystem implements FileSystemI {
     }
   }
 
+  /**
+   * Method that overwrites a file with the user inputted contents.
+   * Uses helper function findFile to look if the file already exists in the filesystem
+   * If file exists, then method simply overwrite with the inputted contents
+   * If file does not exist, then method creates a file with the given path and contents
+   * If the user inputs an invalid path, such as a directory that does not exist, then the method throws an error
+   * Once file has been created, method adds it to the filesystem
+   * 
+   * @param content  String that stores the content of the file node
+   * @param file  String that stores the filename/file location in the filesystem
+   */
   @Override
   public void fileOverwrite(String content, String file) throws FileException{
+    //looks for file in the current filesystem
     Node fileNode = findFile(file, false);
     if(fileNode != null){
+      //overwrite the content to the found file
       fileNode.setContent(content);
     }
     else{
+      //get the filename from filepath
       String fileName = file.split("/")[file.split("/").length-1];
+      //if valid filename
       if(isValidName(fileName)){
         Node currentNode = getCurrent();
         String desiredPath = file;
+        //converts to absolute path
         if(!desiredPath.startsWith("/")){
           if(getCurrent() != getRoot()) desiredPath = (getCurrentPath() + "/" + file);
           else desiredPath = (getCurrentPath() + file);
         }
+        //grabs the path to the parent node
         desiredPath = desiredPath.substring(0, desiredPath.lastIndexOf("/"));
         Node parent;
+        //find parent node
         if(desiredPath.equals("")) parent = getRoot();
         else parent =  findFile(desiredPath, true);
-        if(parent == null) System.out.println("Error parent file not found");
+        //if invalid path is given
+        if(parent == null) throw new FileException("Error: Invalid Path : A directory does not exist");
         assignCurrent(parent);
+        //create the node
         fileNode = new Node.Builder(false, fileName)
                            .setContent(content)
                            .build();
+        //add the new fileNode to the filesystem
         addToDirectory(fileNode);
         assignCurrent(currentNode);
       }else{
@@ -335,6 +394,13 @@ public class MockFileSystem implements FileSystemI {
     }
   }
 
+  /**
+   * Checks if the given filename exists within the current directory node of the user
+   * 
+   * @param name  filename to look for within current directory
+   * @return  boolean indiciating if the file exists or not in the current directory
+   * 
+   */
   @Override
   public boolean checkRepeat(String name) {
     for (int i = 0; i < getCurrent().getList().size(); i++) {
