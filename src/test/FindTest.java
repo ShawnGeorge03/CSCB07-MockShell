@@ -49,7 +49,7 @@ public class FindTest {
      * Declare instance of Find to be tested
      */
 	private Find findTest;
-	
+
 	 /**
      * Declare instance of Cat
      */
@@ -145,7 +145,7 @@ public class FindTest {
 		String[] args = { "/", "/documents", "-type", "f", "-name", "\"txtone\"" };
 		assertEquals("/documents\n", findTest.run(fs, args, "find / /documents -type f -name \"txtone\"", true));
 	}
-	
+
 	/**
 	 * Test : Redirection output to a file
 	 */

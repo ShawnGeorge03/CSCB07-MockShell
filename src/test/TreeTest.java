@@ -51,7 +51,7 @@ public class TreeTest {
 	 * Initialize instance of Tree to test it
 	 */
 	private Tree testTree;
-	
+
 	/**
 	 * Initialize instance of Cat to read files
 	 */
@@ -107,7 +107,7 @@ public class TreeTest {
 		String[] temp = {};
 		assertEquals("Error : Multiple Parameters have been provided", testTree.run(emptyFs, temp, "tree test", true));
 	}
-	
+
 	/**
 	 * Test : User provides no input in a full filesystem
 	 */
@@ -117,7 +117,7 @@ public class TreeTest {
 		String expected = testTree.run(fullFs, temp, "tree", true);
 		assertEquals(expected, testTree.run(fullFs, temp, "tree", true));
 	}
-	
+
 	/**
 	 * Test : User provides input to a full filesystem
 	 */
@@ -125,15 +125,15 @@ public class TreeTest {
 	public void testFullFsWithArgs() {
 		String[] temp = { "test" };
 		assertEquals("Error : Multiple Parameters have been provided", testTree.run(fullFs, temp, "tree test", true));
-	}	
-	
+	}
+
 	/**
 	 * Test : Redirection into a file
 	 */
 	@Test
 	public void testRedirection() {
 		String[] temp = { ">", "txttwo" };
-		String[] temp2 = {"/documents/txttwo"};
+		String[] temp2 = { "/documents/txttwo" };
 		String[] temp3 = {};
 		testTree.run(fullFs, temp, "tree > documents/txttwo", true);
 		String expected = testTree.run(fullFs, temp3, "tree", true);
@@ -141,35 +141,3 @@ public class TreeTest {
 		assertEquals(expected, actual);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

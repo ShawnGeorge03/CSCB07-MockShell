@@ -37,23 +37,24 @@ import data.FileSystem;
  * Class JShell is the main driver program where the user inputs commands
  */
 public class JShell {
-  /**
-   * Main method which handles the main loop for shell commands
-   * @param args
-   */
-  public static void main(String[] args) {
-      Checker parser = new Checker();
-      FileSystem fs = FileSystem.getFileSys();
-      Scanner sc = new Scanner(System.in);
+	/**
+	 * Main method which handles the main loop for shell commands
+	 * 
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Checker parser = new Checker();
+		FileSystem fs = FileSystem.getFileSys();
+		Scanner sc = new Scanner(System.in);
 
-      boolean running = true;
+		boolean running = true;
 
-      while (running) {
-        System.out.print("$");
-        String input = sc.nextLine();
-        fs.getCommandLog().add(input);
-        parser.parseInput(input);
-      }
-      sc.close();
-  }
+		while (running) {
+			System.out.print("$");
+			String input = sc.nextLine();
+			fs.getCommandLog().add(input);
+			parser.parseInput(input);
+		}
+		sc.close();
+	}
 }

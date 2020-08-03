@@ -35,93 +35,95 @@ import data.FileSystemI;
 import data.Node;
 
 /**
- * Class DirectoryManager which provides helper methods for other directory-related commands creating new paths
+ * Class DirectoryManager which provides helper methods for other
+ * directory-related commands creating new paths
  */
 public class DirectoryManager {
-  
-  /**
-   * Checks if requested directory exists in the ArrayList of nodes in the current node
-   * 
-   * @param toCheck ArrayList of Nodes that contain all of a Node's children
-   * @param dir the requested directory to check
-   * @return the index of the requested directory if it exists, -1 otherwise
-   */
-  public int checkDirExists(ArrayList<Node> toCheck, String dir) {
-    for (int i = 0; i < toCheck.size(); i++) {
-      if ((toCheck.get(i)).getName().equals(dir)) {
-        return i;
-      }
-    }
-    return -1;
-  }
 
-  /**
-   * Makes path from the root
-   * 
-   * @param path the path that the user is requesting
-   * @return true if path was made successfully, false otherwise
-   */
-  public boolean makePathFromRoot(String[] pathArr, FileSystemI filesys) {
-    Node currNode = filesys.getRoot();
-    // Loop through pathArr which is array of all directories in the path and change
-    // directory to
-    // the
-    // last one (if its a valid path)
-    for (int i = 0; i < pathArr.length; i++) {
-      if (pathArr[i].equals("")) {
-        continue;
-      }
-      if (pathArr[i].equals("..")) {
-        if (currNode.getParent() != null) {
-          currNode = currNode.getParent();
-        }
-      }
-      int indexOfDir = checkDirExists(currNode.getList(), pathArr[i]);
-      if (indexOfDir != -1) {
-        if (currNode.getList().get(indexOfDir).getisDir()) {
-          currNode = currNode.getList().get(indexOfDir);
-        } else {
+	/**
+	 * Checks if requested directory exists in the ArrayList of nodes in the current
+	 * node
+	 * 
+	 * @param toCheck ArrayList of Nodes that contain all of a Node's children
+	 * @param dir     the requested directory to check
+	 * @return the index of the requested directory if it exists, -1 otherwise
+	 */
+	public int checkDirExists(ArrayList<Node> toCheck, String dir) {
+		for (int i = 0; i < toCheck.size(); i++) {
+			if ((toCheck.get(i)).getName().equals(dir)) {
+				return i;
+			}
+		}
+		return -1;
+	}
 
-          return false;
-        }
-      } else {
-        return false;
-      }
-    }
-    filesys.assignCurrent(currNode);
-    return true;
-  }
+	/**
+	 * Makes path from the root
+	 * 
+	 * @param path the path that the user is requesting
+	 * @return true if path was made successfully, false otherwise
+	 */
+	public boolean makePathFromRoot(String[] pathArr, FileSystemI filesys) {
+		Node currNode = filesys.getRoot();
+		// Loop through pathArr which is array of all directories in the path and change
+		// directory to
+		// the
+		// last one (if its a valid path)
+		for (int i = 0; i < pathArr.length; i++) {
+			if (pathArr[i].equals("")) {
+				continue;
+			}
+			if (pathArr[i].equals("..")) {
+				if (currNode.getParent() != null) {
+					currNode = currNode.getParent();
+				}
+			}
+			int indexOfDir = checkDirExists(currNode.getList(), pathArr[i]);
+			if (indexOfDir != -1) {
+				if (currNode.getList().get(indexOfDir).getisDir()) {
+					currNode = currNode.getList().get(indexOfDir);
+				} else {
 
-  /**
-   * Makes relative path from current directory
-   * 
-   * @param path the path that the user is requesting
-   * @return true if path was made successfully, false otherwise
-   */
-  public boolean makeRelativePath(String[] pathArr, FileSystemI filesys) {
-    Node currNode = filesys.getCurrent();
-    // Loop through pathArr which is array of all directories in the path and change
-    // directory to
-    // the last one (if its a valid path)
-    for (int i = 0; i < pathArr.length; i++) {
-      if (pathArr[i].equals("..")) {
-        if (currNode.getParent() != null) {
-          currNode = currNode.getParent();
-        }
-        continue;
-      }
-      int indexOfDir = checkDirExists(currNode.getList(), pathArr[i]);
-      if (indexOfDir != -1) {
-        if (currNode.getList().get(indexOfDir).getisDir()) {
-          currNode = currNode.getList().get(indexOfDir);
-        } else {
-          return false;
-        }
-      } else {
-        return false;
-      }
-    }
-    filesys.assignCurrent(currNode);
-    return true;
-  }
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+		filesys.assignCurrent(currNode);
+		return true;
+	}
+
+	/**
+	 * Makes relative path from current directory
+	 * 
+	 * @param path the path that the user is requesting
+	 * @return true if path was made successfully, false otherwise
+	 */
+	public boolean makeRelativePath(String[] pathArr, FileSystemI filesys) {
+		Node currNode = filesys.getCurrent();
+		// Loop through pathArr which is array of all directories in the path and change
+		// directory to
+		// the last one (if its a valid path)
+		for (int i = 0; i < pathArr.length; i++) {
+			if (pathArr[i].equals("..")) {
+				if (currNode.getParent() != null) {
+					currNode = currNode.getParent();
+				}
+				continue;
+			}
+			int indexOfDir = checkDirExists(currNode.getList(), pathArr[i]);
+			if (indexOfDir != -1) {
+				if (currNode.getList().get(indexOfDir).getisDir()) {
+					currNode = currNode.getList().get(indexOfDir);
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+		filesys.assignCurrent(currNode);
+		return true;
+	}
 }
