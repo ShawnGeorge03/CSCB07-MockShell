@@ -39,9 +39,16 @@ import errors.InvalidArgsProvidedException;
  */
 public class Pop extends DirectoryManager implements CommandI {
 
+  /**
+   * Declare instance variable of RedirectionManager to handle the redirection operations
+   */
   RedirectionManager rManager;
 
+  /**
+   * Constructor for Save that initializes instance variables
+   */
   public Pop() {
+    //initialize the RedirectionManager
     rManager = new RedirectionManager();
   }
 
