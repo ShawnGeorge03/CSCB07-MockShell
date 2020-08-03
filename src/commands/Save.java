@@ -54,7 +54,7 @@ public class Save implements CommandI {
   private RedirectionManager redirect;
 
   /**
-   * Declare instance variable of String to holf the filepath
+   * Declare instance variable of String to hold the filepath
    */
   private String filePath;
 

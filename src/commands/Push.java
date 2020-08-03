@@ -40,9 +40,19 @@ import errors.InvalidArgsProvidedException;
  */
 public class Push extends DirectoryManager implements CommandI {
 
+  /**
+   * Declare instance variable of Cd
+   */
   private Cd goBack;
+
+  /**
+   * Declare instance variable of RedirectionManager to handle the redirection operations
+   */
   RedirectionManager rManager;
   
+  /**
+   * Constructor for Push that initializes instance variables
+   */
   public Push() {
     this.goBack = new Cd();
     rManager = new RedirectionManager();
