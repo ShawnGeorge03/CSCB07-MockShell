@@ -43,7 +43,13 @@ public class Echo implements CommandI {
    * Declare instance variable of String to hold the output that will be returned
    */
   String output = "";
+  /**
+   * Declare instance variable of String to hold the parsed version of the user arguments
+   */
   String properArgument = "";
+  /**
+   * Declare instance variable of RedirectionManager to handle the redirection operations
+   */
   private RedirectionManager redirect;
 
   /**
