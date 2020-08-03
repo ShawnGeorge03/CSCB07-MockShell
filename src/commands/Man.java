@@ -43,8 +43,14 @@ public class Man implements CommandI {
          */
         Hashtable<String, String> manMap;
 
+        /**
+        * Declare instance variable of RedirectionManager to handle the redirection operations
+        */
         private RedirectionManager redirect;
 
+        /**
+        * Declare instance variable of output to store any errors
+        */
         String output;
 
         /**
