@@ -37,6 +37,9 @@ import data.Node;
 import errors.DirectoryException;
 import errors.InvalidArgsProvidedException;
 
+/**
+ * Class Find used to locate files/directories in a given set of paths with a certain name
+ */
 public class Find extends DirectoryManager implements CommandI {
 	
 	/**
@@ -52,6 +55,7 @@ public class Find extends DirectoryManager implements CommandI {
 	 * Constructor for Find which initializes the RedirectionManager
 	 */
 	public Find() {
+    	//Initializes the RedirectionManager object
 		rManager = new RedirectionManager();
 	}
 

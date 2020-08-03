@@ -35,7 +35,7 @@ import data.FileSystemI;
 import errors.InvalidArgsProvidedException;
 
 /**
- * Class history keeps track of all inputs given to JShell
+ * Class History retrives the commands entered into the JShell by user
  */
 public class History implements CommandI {
 
@@ -95,7 +95,6 @@ public class History implements CommandI {
    * @param filesys  refrence of FileSystemI object (MockFileSystem or FileSystem)
    * @param arguments the list of arguments from user which may contain a redirection error
    * @param fullInput the user input
-   * @param val holds a boolean value
    * 
    * @throws InvalidArgsProvidedException if the user provided invalid input
    * 

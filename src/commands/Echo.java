@@ -72,6 +72,7 @@ public class Echo implements CommandI {
    *             whitespace)
    * @param fullInput  String containing full user input
 	 * @param val holds a boolean value 
+   * 
    * @return String will either be null if there were no errors or an appropriate
    *         error message
    */

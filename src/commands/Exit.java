@@ -44,6 +44,7 @@ public class Exit implements CommandI {
    * Constructor for class Exit which initalizes instance variables
    */
   public Exit() {
+    //Initializes the RedirectionManager object
     this.rManager = new RedirectionManager();
   }
 
