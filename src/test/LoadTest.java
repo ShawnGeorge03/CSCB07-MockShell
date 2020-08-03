@@ -67,7 +67,9 @@ public class LoadTest {
     */
     @Before
     public void setup(){
+        //initializes an empty filesystem
         fs = MockFileSystem.getMockFileSys("EMPTYSYS");
+        //instantiates the load object
         load = new Load();
     }
 
