@@ -163,17 +163,17 @@ public class Man implements CommandI {
                                 + "\n\tSets the current working directory to the /");
 
                 // Adds a key named ls and adds its manual
-                manMap.put("ls", "Command: ls" + "\nLists all the files and directories within the specified directory"
-                                + "\nParameters: No arguments or an absolute or relative pathname"
-                                + "\nIf not arguments, all files and directories within "
-                                + "current working directory will be listed"
-                                + "\nIf pathname provided, all files and directories in that path" + " will be listed"
+                manMap.put("ls", "Command: ls [-R] [PATH]" 
+                                + "\n\tLists all the files and directories within the specified directory"
+                                + "\n\n\tParameters: By default PATH is the current working directory or it can be a absolute or relative PATH"
+                                + "\n\tParameters: It can take a optional argument of -R which prints all directories and files in the PATH"
+                                + "\n\tParameters: PATH can be more one arguments"
                                 + "\n\n\tREDIRECTION : This command does allow the output"
                                 + "\n\tto be redirected to a file instead of the console "
                                 + "\n\tif there is any output for the command");
 
                 // Adds a key named pwd and adds its manual
-                manMap.put("pwd", "Command: pwd" + "\nPrints the current working directory"
+                manMap.put("pwd", "Command: pwd" + "\n\tPrints the current working directory"
                                 + "\n\n\tParameters : pwd takes no arguments"
                                 + "\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
                                 + "\n\n\tREDIRECTION : This command does allow the output"
@@ -181,8 +181,8 @@ public class Man implements CommandI {
                                 + "\n\tif there is any output for the command");
 
                 // Adds a key named pushd and adds its manual
-                manMap.put("pushd PATH", "Command: pushd" + "\nTakes a relative or absolute path as an argument and "
-                                + "pushes it onto\n" + "the current directory stack and traverses into that path"
+                manMap.put("pushd", "Command: pushd PATH" + "\n\tTakes a relative or absolute path as an argument and "
+                                + "pushes it onto\n\t" + "the current directory stack and traverses into that path"
                                 + "\n\n\tParameter : PATH must be a valid directory path and only path is needed"
                                 + "\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
                                 + "\n\n\tREDIRECTION : This command does not allow the output"
@@ -190,8 +190,9 @@ public class Man implements CommandI {
                                 + "\n\tif there is any output for the command");
 
                 // Adds a key named popd and adds its manual
-                manMap.put("popd", "Command: popd" + "\nPops the latest directory on the directory stack into the\n"
-                                + "current working directory and traverses into that path"
+                manMap.put("popd", "Command: popd" 
+                                + "\n\tPops the latest directory on the directory stack into the\n"
+                                + "\tcurrent working directory and traverses into that path"
                                 + "\n\n\tParameters : popd takes no arguments"
                                 + "\n\tIf any or multiple of these parameter are not meet an error will be outputed respectively"
                                 + "\n\n\tREDIRECTION : This command does not allow the output"
@@ -214,7 +215,7 @@ public class Man implements CommandI {
                                 + "\n\t 5. cat C/pics/picturefile.txt" + "\n\t 6. history" + "\n\t 7. history 4");
 
                 // Adds a key named cat and adds its manual
-                manMap.put("cat", "Command : cat" + "\n\tDisplays the content of File(s) in series"
+                manMap.put("cat", "Command : cat FILE(s)" + "\n\tDisplays the content of File(s) in series"
                                 + "\n\n\tParameter : FILE(s) can be absolute or relative path(s)"
                                 + "\n\tParameter : It requires a file or can take a list of "
                                 + "\n\tFILE(s) seperated by a space" + "\n\n\tSample Output : $ cat picturefile"
@@ -226,30 +227,21 @@ public class Man implements CommandI {
                                 + "\n\tif there is any output for the command");
 
                 // Adds a key named echo and adds its manual
-                manMap.put("echo", "Command: echo" + "\n\tParameters: String (in quotations), and arrow or"
-                                + "\n\tdouble arrow followed by filename"
-                                + "\n\n\tIf provided without arrow and fileaname, "
-                                + "\n\tit simply prints out string in the console"
-                                + "\n\n\tIf provided with a single arrow and filename,"
-                                + "\n\tit overwrites that file's content with the string"
-                                + "\n\n\tIf provided with double arrow and filename, "
-                                + "\n\tit appends that file's content with the string"
-                                + "\n\n\tFilename can be given in the form of an absolute" + "\n\tpath or relative path"
+                manMap.put("echo", "Command: echo" 
+                                + "\n\tPrints the text to the JShell" 
+                                + "\n\n\tParameters: String (in quotations)"
                                 + "\n\n\tREDIRECTION : This command does allow the output"
                                 + "\n\tto be redirected to a file instead of the console "
                                 + "\n\tif there is any output for the command");
 
                 // Adds a key named man and adds its manual
                 manMap.put("man", "Command: man CMD"
-                                + "\n\tProvides documentation on all commands within THIS Java Shell"
+                                + "\n\tProvides documentation on all commands within THIS JShell"
                                 + "\n\tProvides information such as arguments and function."
                                 + "\n\n\tREDIRECTION : This command allows the output to be redirected "
                                 + "\n\tto the a file instead of the console"
                                 + "\n\n\tParameter: Requires one supported CMD"
                                 + "\n\n\tIf any or multiple of these parameter are not meet an \n\terror will be outputed respectively"
-                                + "\n\n\tREDIRECTION : This command does allow the output"
-                                + "\n\tto be redirected to a file instead of the console "
-                                + "\n\tif there is any output for the command"
                                 + "\n\tif there is any output for the command" + "\n\n\tSample Use Case : man man "
                                 + "\n\tThis would output the the mannual for man"
                                 + "\n\n\tSample Use Case: man man > mannul"
@@ -266,7 +258,7 @@ public class Man implements CommandI {
                                                 + "\n\tif there is any output for the command");
 
                 // Adds a key named rm and adds its manual
-                manMap.put("rm", "Command: rm DIR" + "\n\tRemoves the give DIR from the file system"
+                manMap.put("rm", "Command: rm DIR" + "\n\tRemoves the given DIR from the file system"
                                 + "\n\n\tParameter : DIR can be either absolute or relative path"
                                 + "\n\tParameter : It has to be only on DIR"
                                 + "\n\tParameter : DIR must be a possible path the exist in the file System"
@@ -281,16 +273,18 @@ public class Man implements CommandI {
                                 + "\n\twhich is in user which is the root of file system");
 
                 // Adds a key named mv and adds its manual
-                manMap.put("mv", "Command: mv OLDPATH NEWPATH" + "Removes OLDPATH and moves it to new NEWPATH"
-                                + "\n\n\tarameter : OLDPATH and NEWPATH must not be the root"
+                manMap.put("mv", "Command: mv OLDPATH NEWPATH" 
+                                + "\n\tRemoves OLDPATH and moves it to new NEWPATH"
+                                + "\n\n\tParameter : OLDPATH and NEWPATH must not be the root"
                                 + "\n\tParameter : OLDPATH must be a valid directory"
                                 + "\n\n\tREDIRECTION : This command does not allow the output"
                                 + "\n\tto be redirected to a file instead of the console "
                                 + "\n\tif there is any output for the command");
 
                 // Adds a key named cp and adds its manual
-                manMap.put("cp", "Command: cp OLDPATH NEWPATH" + "Creates a copy of OLDPATH and moves it to new NEWPATH"
-                                + "\n\n\tarameter : OLDPATH and NEWPATH must not be the root"
+                manMap.put("cp", "Command: cp OLDPATH NEWPATH" 
+                                + "\n\tCreates a copy of OLDPATH and moves it to new NEWPATH"
+                                + "\n\n\tParameter : OLDPATH and NEWPATH must not be the root"
                                 + "\n\tParameter : OLDPATH must be a valid directory"
                                 + "\n\n\tREDIRECTION : This command does not allow the output"
                                 + "\n\tto be redirected to a file instead of the console "
