@@ -2,8 +2,8 @@
 
 Group number: 0096
 UTORID usernames of members: pate1101, patelt26, santhos7, shaiskan
-Total deductions: 7
-Grade: C
+Total deductions: 6
+Grade: C+
 
 Your team's Phase II grade is based on this scale:
 
@@ -100,7 +100,7 @@ Several steps can be lost for these kinds of issues:
 - [X]  Code crashes: -3
 - [ ]  Each missing/incomplete feature -1
 
-[Total deductions in this section: 5]
+[Total deductions in this section: 4]
 
 
 TA COMMENTS:
@@ -111,8 +111,8 @@ Note: Some test cases were tweaked for your benefit to not penalize you based on
 
 Note: 1 mark was deducted for 4 failing test cases. 
 
-Test case ID's not passed: [28, 31, 63, 82, 111, 114, 102, 106, 107]
-Number of failed test cases [9]:
+Test case ID's not passed: [28, 31, 63, 82, 111, 114, 102]
+Number of failed test cases [7]:
 
 
 1) 
@@ -177,15 +177,3 @@ Actual output:
 save /Users/sallymoon/Desktop/TA/save.ser
      [java] $Error: Invalid File : save /Users/sallymoon/Desktop/TA/save.ser
 save /Users/sallymoon/Desktop/TA/save
-
-
-8) 
-ID: 106
-Actual output:
-- couldn't be tested because save/ load didn't work
-
-
-9) 
-ID: 107
-Actual output:
-- couldn't be tested because save/ load didn't work
