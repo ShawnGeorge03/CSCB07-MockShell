@@ -3,15 +3,15 @@
         "lib/**/*.jar",
         "junit/org.junit_4.13.0.v20200204-1500.jar",
         "junit/org.hamcrest.core_1.3.0.v20180420-1519.jar",
-        "freetts-1.2.2-bin/freetts-1.2/lib/cmu_time_awb.jar",
-        "freetts-1.2.2-bin/freetts-1.2/lib/cmu_us_kal.jar",
-        "freetts-1.2.2-bin/freetts-1.2/lib/cmudict04.jar",
-        "freetts-1.2.2-bin/freetts-1.2/lib/cmulex.jar",
-        "freetts-1.2.2-bin/freetts-1.2/lib/cmutimelex.jar",
-        "freetts-1.2.2-bin/freetts-1.2/lib/en_us.jar",
-        "freetts-1.2.2-bin/freetts-1.2/lib/freetts.jar",
-        "freetts-1.2.2-bin/freetts-1.2/lib/freetts-jsapi10.jar",
-        "freetts-1.2.2-bin/freetts-1.2/lib/jsapi.jar",
-        "freetts-1.2.2-bin/freetts-1.2/lib/mbrola.jar"
+        "freetts-1.2.2-bin/cmu_time_awb.jar",
+        "freetts-1.2.2-bin/cmu_us_kal.jar",
+        "freetts-1.2.2-bin/cmudict04.jar",
+        "freetts-1.2.2-bin/cmulex.jar",
+        "freetts-1.2.2-bin/cmutimelex.jar",
+        "freetts-1.2.2-bin/en_us.jar",
+        "freetts-1.2.2-bin/freetts.jar",
+        "freetts-1.2.2-bin/freetts-jsapi10.jar",
+        "freetts-1.2.2-bin/jsapi.jar",
+        "freetts-1.2.2-bin/mbrola.jar"
     ]
 }
