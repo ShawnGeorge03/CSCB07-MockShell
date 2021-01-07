@@ -1,6 +1,6 @@
 # CSCB07-MockShell-V1
 
-This is a mock shell built in Java built by @ShawnGeorge03, [name], [name] and Keshavaa Shaiskandan. 
+This is a mock shell built in Java built by Shawn Santhoshgeorge, [name], [name] and Keshavaa Shaiskandan. 
 
 We utilized the Object orientated design principle along with the following design patterns.
 
